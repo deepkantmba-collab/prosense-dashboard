@@ -2391,6 +2391,23 @@ body.pf-focus #pf-focus-bar{display:flex;}
     </div>
   </div>
 
+  <!-- VISION + MODELS USED (matches the capstone presentation) -->
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="card" style="border-left:4px solid var(--purple)">
+      <div class="card-title">Vision</div>
+      <div style="font-size:0.95rem;font-style:italic;line-height:1.5;margin-top:6px">“Every team using AI should stay psychologically safe, and every manager should see silent risk early enough to help.”</div>
+      <div class="muted" style="font-size:0.78rem;margin-top:8px">ProSense senses hidden human risk as team patterns, predicts it with a trained model, explains every score, and suggests a human-led action. A manager always decides. Never used for performance reviews.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Models used and why</div>
+      <div style="font-size:0.8rem;line-height:1.55;margin-top:6px">
+        <div>✅ <strong>Random Forest</strong> (primary, trained): AUC <strong>0.9479</strong>. Best on tabular data, stable, explainable with SHAP.</div>
+        <div>✅ <strong>HistGradientBoosting</strong> (challenger, trained): AUC <strong>0.9376</strong>. Second opinion, catches slightly more real risks.</div>
+        <div>🧪 <strong>BERT Fear Index, Delivery (ARIMA + LSTM), Blind AI Trust</strong>: designed and simulated, not yet trained.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ROW 1: Why ML + Agent Components -->
   <div class="grid-2" style="margin-bottom:16px">
 
