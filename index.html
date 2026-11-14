@@ -447,6 +447,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
     </div>
     <div style="font-size:.68rem;letter-spacing:.14em;color:rgba(0,212,255,.4);margin-bottom:20px;font-family:monospace"><span class="hud-dot">▮</span> NEURAL INTERFACE READY · AWAITING AUTHENTICATION</div>
     <div id="google-signin-btn"></div>
+    <div style="margin-top:14px"><button type="button" id="guest-btn" onclick="enterGuest()" style="width:280px;padding:10px 0;background:transparent;border:1px solid rgba(0,212,255,.35);color:rgba(0,212,255,.85);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">CONTINUE AS GUEST · DEMO</button><div style="margin-top:8px;font-size:.58rem;letter-spacing:.1em;color:rgba(123,130,168,.5);font-family:monospace">Reviewer access · synthetic demo data</div></div>
     <div id="access-denied" style="display:none;color:#ff4757;font-size:.78rem;margin-top:16px;letter-spacing:.06em;font-family:monospace">⚠ ACCESS DENIED — Unauthorized account</div>
     <div style="margin-top:28px;font-size:.62rem;color:rgba(123,130,168,.35);letter-spacing:.1em;font-family:monospace">AUTHORIZED PERSONNEL ONLY</div>
   </div>
@@ -3404,6 +3405,12 @@ async function handleGoogleLogin(response) {
   } else {
     document.getElementById('access-denied').style.display = 'block';
   }
+}
+
+function enterGuest() {
+  const ol = document.getElementById('login-overlay');
+  ol.style.opacity = '0';
+  setTimeout(() => { ol.style.display = 'none'; }, 800);
 }
 
 if (window.location.protocol === 'file:') {
