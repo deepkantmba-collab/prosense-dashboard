@@ -154,6 +154,39 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
 .card-title{font-size:0.78rem;font-weight:700;color:var(--fg);margin-bottom:2px;}
 .card-sub{font-size:0.68rem;color:var(--muted);}
 
+/* ══ Chart helpers: info pop-up, enlarge, focus view ══ */
+span.pf-tools{display:inline-flex;align-items:center;gap:5px;margin-left:8px;vertical-align:middle;opacity:.5;transition:opacity .15s;text-transform:none;letter-spacing:0;font-weight:400;}
+.card:hover span.pf-tools,.gap-card:hover span.pf-tools,.stat-tile:hover span.pf-tools,span.pf-tools:focus-within{opacity:1;}
+span.pf-tools .pf-btn{width:18px;height:18px;min-width:18px;padding:0;margin:0;border-radius:50%;border:1px solid rgba(0,212,255,.38);background:rgba(0,212,255,.08);color:var(--teal,#00d4ff);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font:italic 700 11px/1 Georgia,'Times New Roman',serif;transition:background .15s;}
+span.pf-tools .pf-btn:hover,span.pf-tools .pf-btn:focus-visible{background:rgba(0,212,255,.28);outline:none;}
+.pf-btn svg,.pf-max-close svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+#pf-tip{position:fixed;z-index:10050;max-width:340px;background:#0b1020;border:1px solid rgba(0,212,255,.45);border-radius:10px;padding:11px 13px;box-shadow:0 10px 34px rgba(0,0,0,.6);color:#dfe5ff;font:400 12px/1.5 system-ui,'Segoe UI',sans-serif;display:none;pointer-events:none;text-transform:none;letter-spacing:0;}
+#pf-tip.on{display:block;}
+#pf-tip h5{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#00d4ff;margin:0 0 3px;font-weight:700;}
+#pf-tip p{margin:0 0 9px;}
+#pf-tip .pf-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;background:rgba(255,211,42,.12);border:1px solid rgba(255,211,42,.35);color:#ffd32a;}
+#pf-max{position:fixed;inset:0;z-index:9000;background:rgba(4,7,18,.9);backdrop-filter:blur(4px);display:none;flex-direction:column;padding:16px 3vw 20px;}
+#pf-max.on{display:flex;}
+.pf-max-bar{display:flex;align-items:center;justify-content:space-between;margin:0 auto 10px;width:100%;max-width:1500px;color:#cfd6ff;font:700 14px system-ui,'Segoe UI',sans-serif;}
+.pf-max-close{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:16px;border:1px solid rgba(0,212,255,.4);background:rgba(0,212,255,.08);color:#00d4ff;font:600 12px system-ui,sans-serif;cursor:pointer;}
+.pf-max-close:hover{background:rgba(0,212,255,.2);}
+kbd{font:600 10px system-ui,sans-serif;padding:1px 5px;border:1px solid rgba(255,255,255,.25);border-radius:4px;opacity:.75;}
+.pf-max-body{flex:1;min-height:0;overflow:auto;}
+.pf-wrap{max-width:1500px;margin:0 auto;}
+.pf-maxed{flex:none!important;grid-column:auto!important;margin:0!important;max-height:none!important;height:auto!important;width:100%!important;overflow:visible!important;padding:22px 26px!important;}
+.pf-maxed .drag-handle,.pf-maxed .pf-m{display:none!important;}
+body.pf-noscroll{overflow:hidden;}
+body.pf-focus #sidebar,body.pf-focus #topbar,body.pf-focus #data-banner{display:none!important;}
+body.pf-focus #dash-area{padding-top:14px;padding-bottom:38px;}
+.pf-maxed #radar-canvas{display:block;margin:0 auto;}
+#pf-focus-btn.on{background:rgba(0,212,255,.25);}
+#pf-focus-bar{position:fixed;right:14px;bottom:10px;z-index:8000;display:none;align-items:center;gap:6px;background:rgba(10,14,30,.9);border:1px solid rgba(0,212,255,.3);border-radius:20px;padding:4px 8px;opacity:.45;transition:opacity .2s;font:600 11px system-ui,'Segoe UI',sans-serif;color:#cfd6ff;}
+body.pf-focus #pf-focus-bar{display:flex;}
+#pf-focus-bar:hover,#pf-focus-bar:focus-within{opacity:1;}
+#pf-focus-bar button{background:transparent;border:1px solid rgba(0,212,255,.3);color:#00d4ff;border-radius:12px;padding:2px 9px;font:600 12px system-ui,sans-serif;cursor:pointer;}
+#pf-focus-bar button:hover{background:rgba(0,212,255,.18);}
+#pf-focus-bar .pf-pg{min-width:90px;text-align:center;}
+
 /* ── LEFT COLUMN ── */
 #col-left{display:flex;flex-direction:column;gap:10px;overflow:hidden;}
 .greeting-block{padding:2px 0 6px;}
@@ -432,7 +465,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
   <div class="login-hud-text" style="top:18px;left:22px">PROSENSE//NEURAL-OS v3.0</div>
   <div class="login-hud-text" style="top:18px;right:22px" id="login-time"></div>
   <div class="login-hud-text" style="bottom:18px;left:22px">BERT:v0.9.2 · RF:AUC-0.9479 · ENCRYPTED</div>
-  <div class="login-hud-text" style="bottom:18px;right:22px">IIT KANPUR · CAPSTONE 2026</div>
+  <div class="login-hud-text" style="bottom:18px;right:22px">CAPSTONE 2026</div>
   <div class="login-card">
     <div class="hud-corner hud-tl"></div><div class="hud-corner hud-tr"></div>
     <div class="hud-corner hud-bl"></div><div class="hud-corner hud-br"></div>
@@ -498,6 +531,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
       <div id="tb-clock">06 Oct 2026 · 00:00:00</div>
       <div class="tb-bell" onclick="toggleNotif()" title="Notifications">🔔</div>
       <div class="cz-btn" onclick="openCustomize()" title="Customise Home">✎ Customise</div>
+      <div class="cz-btn" id="pf-focus-btn" onclick="pfToggleFocus()" title="Focus view: hide the menu and header (press Esc to exit)">⛶ Focus</div>
       <div class="tb-user">
         <div class="tb-avatar">D</div>
         <div class="tb-userinfo">
@@ -1464,7 +1498,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
         <div style="padding:12px 14px;background:rgba(46,213,115,0.07);border:1px solid rgba(46,213,115,0.2);border-radius:8px;text-align:center;">
           <div style="font-size:1.8rem;font-weight:800;color:#2ed573;">↓31%</div>
-          <div style="font-size:0.65rem;color:var(--muted);margin-top:3px;">Burnout reduction</div>
+          <div style="font-size:0.65rem;color:var(--muted);margin-top:3px;">Delivery risk reduction</div>
           <div style="font-size:0.6rem;color:var(--muted);margin-top:2px;">After early-intervention protocol</div>
         </div>
         <div style="padding:12px 14px;background:rgba(0,212,255,0.07);border:1px solid rgba(0,212,255,0.2);border-radius:8px;text-align:center;">
@@ -1764,7 +1798,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
     </div>
   </div>
   <div style="margin-top:8px;padding:8px 14px;background:rgba(0,212,170,0.05);border-radius:8px;border:1px solid rgba(0,212,170,0.15);font-size:0.78rem;color:var(--muted)">
-    📚 <strong style="color:var(--teal)">IIT Kanpur Module 3 Framework</strong> — Dr. Kushal Shah · 6th Sept · <em>"Stats = test · ML = predict · Gen AI = create"</em>
+    📚 <strong style="color:var(--teal)">Module 3 Framework</strong> — Dr. Kushal Shah · 6th Sept · <em>"Stats = test · ML = predict · Gen AI = create"</em>
   </div>
 
   <!-- BEHAVIORAL RADAR CHART -->
@@ -2325,7 +2359,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
         <div>🏃 <strong>Attrition Risk ↓18%</strong> — Arjun is no longer a flight risk. One resignation averted (simulated).</div>
         <div>⭐ <strong>PsySafe ↑19pts</strong> — From 44 → 63. Back above the threshold. Team is psychologically safe again.</div>
         <div style="margin-top:12px;padding:10px;background:rgba(46,213,115,0.08);border-radius:8px;border:1px solid rgba(46,213,115,0.2)">
-          <strong style="color:var(--green)">For the IIT Kanpur panel:</strong> These are simulated 90-day results on synthetic data. No real organisation has used ProSense yet — a real pilot is the next step.
+          <strong style="color:var(--green)">For the review panel:</strong> These are simulated 90-day results on synthetic data. No real organisation has used ProSense yet — a real pilot is the next step.
         </div>
       </div>
     </div>
@@ -2348,7 +2382,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
     <div class="priya-avatar" style="background:linear-gradient(135deg,var(--purple),var(--teal))">M3</div>
     <div>
       <strong>ProSense AI — Architecture Deep Dive</strong>
-      &nbsp;<span class="badge bp">Module 3 · IIT Kanpur E&ICT Academy</span>
+      &nbsp;<span class="badge bp">Module 3 · Capstone 2026</span>
       &nbsp;<span class="badge bt">Dr. Kushal Shah</span>
       <div class="mt8 muted">
         How every concept from Module 3 maps directly into ProSense's architecture.
@@ -3815,8 +3849,11 @@ function lvRenderRadar() {
   const canvas = document.getElementById('radar-canvas');
   if(!canvas) return;
   const W=240, H=240, cx=120, cy=122, R=88;
-  canvas.width=W; canvas.height=H;
+  const S=+canvas.dataset.s||1;
+  canvas.width=W*S; canvas.height=H*S;
+  canvas.style.width=S>1?(W*S)+'px':''; canvas.style.height=S>1?(H*S)+'px':'';
   const ctx=canvas.getContext('2d');
+  ctx.setTransform(S,0,0,S,0,0);
   ctx.clearRect(0,0,W,H);
   const N=RADAR_LABELS.length;
   const angle=i => (i/N)*2*Math.PI - Math.PI/2;
@@ -3894,12 +3931,13 @@ const MODELS_PERF = [
 function renderModelPerf() {
   const canvas = document.getElementById('model-perf-canvas');
   if(!canvas) return;
+  const CH=+canvas.dataset.h||180;
   const W = canvas.parentElement.clientWidth - 40;
-  canvas.width=W; canvas.height=180;
+  canvas.width=W; canvas.height=CH;
   const ctx=canvas.getContext('2d');
-  ctx.clearRect(0,0,W,180);
+  ctx.clearRect(0,0,W,CH);
   const pad={l:8,r:8,t:12,b:36};
-  const gW=W-pad.l-pad.r, gH=180-pad.t-pad.b;
+  const gW=W-pad.l-pad.r, gH=CH-pad.t-pad.b;
   const N=MODELS_PERF.length, groupW=gW/N;
   const barW=14, barGap=4, groupInnerW=(barW+barGap)*3-barGap;
   const colors=['var(--purple)','var(--teal)','var(--yellow)'];
@@ -3945,15 +3983,16 @@ function renderModelPerf() {
 function renderDrift() {
   const canvas = document.getElementById('drift-canvas');
   if(!canvas) return;
+  const CH=+canvas.dataset.h||160;
   const W = canvas.parentElement.clientWidth - 40;
-  canvas.width=W; canvas.height=160;
+  canvas.width=W; canvas.height=CH;
   const ctx=canvas.getContext('2d');
-  ctx.clearRect(0,0,W,160);
+  ctx.clearRect(0,0,W,CH);
   const data=[0.91,0.89,0.86,0.82,0.76,0.70,0.65]; // no retrain
   const data2=[0.91,0.90,0.91,0.89,0.90,0.91,0.92]; // with retrain
   const labels=['M1','M2','M3','M4','M5','M6','M7'];
   const pad={l:34,r:12,t:10,b:24};
-  const gW=W-pad.l-pad.r, gH=160-pad.t-pad.b;
+  const gW=W-pad.l-pad.r, gH=CH-pad.t-pad.b;
   const minV=0.55,maxV=0.98;
   const x=i=>pad.l+(i/(data.length-1))*gW;
   const y=v=>pad.t+gH-((v-minV)/(maxV-minV))*gH;
@@ -4000,7 +4039,7 @@ function renderDrift() {
 
   // x labels
   ctx.fillStyle='rgba(123,130,168,0.8)'; ctx.font='9px sans-serif'; ctx.textAlign='center';
-  labels.forEach((l,i)=>ctx.fillText(l,x(i),160-4));
+  labels.forEach((l,i)=>ctx.fillText(l,x(i),CH-4));
 }
 
 // ══════════ BEFORE / AFTER CHART (Tab 4) ══════════
@@ -4014,12 +4053,13 @@ const BA_METRICS = [
 function renderBeforeAfter() {
   const canvas = document.getElementById('before-after-canvas');
   if(!canvas) return;
+  const CH=+canvas.dataset.h||200;
   const W = canvas.parentElement.clientWidth - 40;
-  canvas.width=W; canvas.height=200;
+  canvas.width=W; canvas.height=CH;
   const ctx=canvas.getContext('2d');
-  ctx.clearRect(0,0,W,200);
+  ctx.clearRect(0,0,W,CH);
   const N=BA_METRICS.length;
-  const rowH=200/N, barH=11, labelW=110, maxBarW=W-labelW-60;
+  const rowH=CH/N, barH=11, labelW=110, maxBarW=W-labelW-60;
 
   BA_METRICS.forEach((m,i)=>{
     const midY=i*rowH+rowH/2;
@@ -4064,19 +4104,20 @@ function renderBeforeAfter() {
 function renderTrend() {
   const canvas = document.getElementById('trend-canvas');
   if(!canvas) return;
+  const CH=+canvas.dataset.h||150;
   const W = canvas.parentElement.clientWidth - 40;
-  canvas.width = W; canvas.height = 150;
+  canvas.width = W; canvas.height=CH;
   const ctx = canvas.getContext('2d');
   // Priya's team: decline then recovery after intervention at week 9
   const data = [68,61,57,54,51,48,46,44,42,46,50,55];
   const labels = ['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'];
   const pad={l:28,r:8,t:10,b:24};
-  const gW=W-pad.l-pad.r, gH=150-pad.t-pad.b;
+  const gW=W-pad.l-pad.r, gH=CH-pad.t-pad.b;
   const minV=30, maxV=80;
   const x=(i)=>pad.l+(i/(data.length-1))*gW;
   const y=(v)=>pad.t+gH-((v-minV)/(maxV-minV))*gH;
 
-  ctx.clearRect(0,0,W,150);
+  ctx.clearRect(0,0,W,CH);
 
   // grid lines
   [40,50,60,70].forEach(v => {
@@ -4122,7 +4163,7 @@ function renderTrend() {
 
   // labels
   ctx.fillStyle='rgba(123,130,168,0.8)'; ctx.font='9px sans-serif'; ctx.textAlign='center';
-  labels.forEach((l,i)=>ctx.fillText(l,x(i),150-5));
+  labels.forEach((l,i)=>ctx.fillText(l,x(i),CH-5));
 
   // annotations
   ctx.fillStyle='rgba(255,211,42,0.8)'; ctx.font='9px sans-serif'; ctx.textAlign='left';
@@ -4450,6 +4491,280 @@ function lvNav(el, name) {
   if (name === 'mlops')        { renderPSI(); renderDrift(); }
   if (name === 'resolution')   { renderTrend(); renderBeforeAfter(); }
 }
+</script>
+<script>
+/* ══ ProSense chart helpers: info pop-up (ⓘ), maximise (⤢) and Focus view ══ */
+(function () {
+  'use strict';
+
+  // [title prefix, what it shows, how to read it, optional data-status tag]
+  var HELP = [
+    // ── Home ──
+    ["team velocity", "How much work the team delivers over time, plus a short forecast.", "The line going up means more output. Use 6W / 3M / 6M to change the time window. Velocity alone can look healthy while people are struggling, so read it next to the Safe Score.", "Synthetic data"],
+    ["the gap", "The distance between where the team is today and where it should be, across five areas: Collaboration, Engagement, Wellbeing, Productivity, Growth.", "Each area shows a Current value against a Target. The bigger the distance, the bigger the gap to close.", "Synthetic data"],
+    ["prosense safe score", "One overall team-health number from 0 to 100, with the main drivers underneath.", "Higher is healthier. 38 is labelled Critical. The arrows show whether velocity, collaboration, wellbeing and the risk index are moving up, flat or down.", "Synthetic data"],
+    ["ai insights", "Plain-language alerts the AI has raised about the team.", "Each line is one finding with the evidence behind it. The button beside it opens the matching detail.", "Synthetic data"],
+    ["team pulse", "A live burnout percentage for each of the six team members.", "A higher number means more burnout. Red marks people who need attention first.", "Synthetic data"],
+    ["key signals", "The raw workplace signals (Slack, Jira, Zoom, Confluence, GitHub) that feed the risk score.", "Each row is one signal and what changed. Use the tabs (All / Risk / Engagement / Performance) to filter.", "Synthetic data"],
+    ["recommended actions — this week", "The manager's action list for this week, ranked by priority.", "P1 is the most urgent. Each action names the person, the numbers that triggered it and why it matters.", "Synthetic data"],
+    ["recommended actions", "Suggested next steps for the manager, based on the signals above.", "Work from the top down. Each card is one action with a button to start it.", "Synthetic data"],
+
+    // ── Risk ──
+    ["risk overview", "The team-level risk index (0 to 1) and how many people sit in each risk band.", "Higher is worse. The change shown is against 6 weeks ago. The four counts are Critical, High, Medium and Low.", "Trained model (Random Forest)"],
+    ["arjun — risk deep dive", "Why the model gave Arjun a risk probability of 0.97. This is a SHAP chart, which breaks a prediction into its causes.", "Each bar is one factor. A longer bar means that factor pushed the risk up more. The numbers on the right are the contribution to the score.", "Trained model (Random Forest)"],
+    ["risk timeline", "Six weeks of risk scores for Arjun compared with the team average.", "A line rising means things are getting worse. The gap between the two lines shows how far Arjun is from the team.", "Synthetic data"],
+    ["team risk scorecard", "All six members ranked by risk, with the numbers behind each score.", "Risk Prob is the model's probability (0 to 1, higher is worse). Burnout is a percentage. PsySafe is psychological safety out of 100, so higher is better. Status is the resulting risk band.", "Trained model (Random Forest)"],
+    ["live risk signals", "A feed of the latest alerts, most severe first.", "Colour shows severity: red Critical, orange High, yellow Medium. Each alert says which signal fired and when. The BERT score in these alerts is a designed (simulated) model.", "Mixed: RF trained, BERT simulated"],
+
+    // ── Team Intelligence ──
+    ["behavioural radar", "A six-axis picture of one person's behaviour: communication, collaboration, engagement, wellbeing, productivity and more.", "Pick a member. The further a point sits from the centre, the stronger that area. A shape pulled inward means weak signals.", "Synthetic data"],
+    ["pillar scores", "The seven behavioural pillars scored from workplace language and signals for the selected member.", "Each bar is one pillar. The colour shows whether that pillar is healthy or concerning.", "Synthetic data"],
+    ["slack messages", "How many Slack messages the person sent each week.", "A falling line means the person is talking less, which is an early withdrawal signal.", "Synthetic data"],
+    ["stand-up contributions", "How often the person spoke up in stand-up meetings each week.", "A low or flat line means minimal participation.", "Synthetic data"],
+    ["pr review depth", "How thorough the person's code reviews are.", "A falling score means reviews are getting shallow, which can mean disengagement.", "Synthetic data"],
+    ["full team comparison", "Every member side by side across eight measures.", "Read across a row to see one person, down a column to compare people. Status at the end is the overall risk band.", "Synthetic data"],
+
+    // ── AI & Productivity ──
+    ["ai adoption by member", "How much each person has built AI tools into their daily work, as a percentage.", "Higher means more AI-integrated work. The symbol next to the name flags who is behind (warning), mid-way or on track.", "Synthetic data"],
+    ["ai tool usage signals", "Which AI tools each person actually uses: GitHub Copilot, Slack AI and Jira automation.", "A tick means regular use, a warning sign means partial use, a cross means none. Score is the overall adoption percentage.", "Synthetic data"],
+    ["commits by day", "How many code commits happened on each weekday in a public GitHub project.", "Taller bars mean more activity. A peak late in the week and a very low Sunday is a normal healthy rhythm.", "Public GitHub data"],
+    ["pr response time", "How many hours pull requests waited for a first review, across 200 pull requests.", "Lower is faster. The card shows the fastest, slowest and average.", "Public GitHub data"],
+    ["after-hours commits", "The share of commits made in the evening or at weekends.", "A high share (here 54%) points to overwork, which is a burnout signal.", "Public GitHub data"],
+    ["ai adoption recommendations", "What to do for each person to improve AI adoption, ordered by urgency.", "Read from the top: Immediate, then This Quarter, then Maintain.", "Synthetic data"],
+
+    // ── Reports ──
+    ["90-day simulation outcomes", "The projected results of the 90-day pilot: delivery risk, psychological safety and money at risk.", "These are simulated numbers on synthetic data. They show what the design aims for, not a measured result.", "Simulated pilot"],
+    ["risk register", "A formal list of all six members ranked by risk, for reporting.", "Higher risk probability and burnout, and lower PsySafe, put someone higher on the list.", "Trained model (Random Forest)"],
+    ["7-pillar heatmap", "A grid of the six members against the seven behavioural pillars.", "Colour tells the story: red is Critical, green is Thriving. Burnout is flipped (100 minus burnout) so green always means good. The line under the grid shows how well each pillar's text scoring matches its labels.", "Synthetic data"],
+    ["known limitations", "The seven honest constraints of this project and how each was handled.", "A tick means it is resolved, a warning means it is still open. Responsible AI means naming these.", ""],
+
+    // ── Priya's Situation ──
+    ["hide expertise from ai", "A headline statistic: the share of employees who hold back their expertise from AI, compared with Priya's team.", "Compare the large number (everyone) with the team figure underneath. A higher team figure means a bigger concern.", "Scenario figure"],
+    ["meeting contribution drop", "How much meeting contribution falls when the AI speaks first.", "Compare the general figure with Priya's stand-ups. A bigger drop means people are staying quiet.", "Scenario figure"],
+    ["ai output accepted unchanged", "How often AI-written output is accepted without any edit or challenge.", "A high number means little human scrutiny. Priya's risk reviews take about 6 seconds on average.", "Scenario figure"],
+    ["prosense psysafe score", "The team's psychological-safety score (0 to 100) against the alert threshold of 60, with a live team table.", "Below 60 is an alert. The score fell 17 points in 6 weeks. This is a wellbeing signal, not a performance metric.", "Synthetic data"],
+    ["the gap prosense closes", "What traditional tools see versus what ProSense sees.", "Traditional tools see velocity and tickets going up. ProSense sees safety falling and scrutiny disappearing, then Sense, Predict, Intervene.", ""],
+    ["signals feeding into priya", "The raw signals that go into the manager's risk score.", "Each line is one tool (Slack, Jira, Zoom, Confluence, GitHub) and what changed in it.", "Synthetic data"],
+    ["arjun vs team average", "A radar comparing Arjun with the team average on five healthy-team signals.", "Closer to the edge is healthier. Where Arjun's shape sits inside the team's shape, he is weaker than the team on that signal.", "Synthetic data"],
+    ["what this means in plain english", "A non-technical translation of Arjun's signals.", "Red lines are serious changes, yellow lines are early warnings.", "Synthetic data"],
+
+    // ── 4 Models Running ──
+    ["shap explainability", "Why the Random Forest model scored Arjun 0.97, broken into the factors that pushed it.", "Each bar is one factor. A longer bar pushed the score up more. It lets a manager see the reasons, not only the score.", "Trained model (Random Forest)"],
+    ["bert fear index — arjun", "A score for fear or withdrawal in anonymised feedback text. BERT is a language model that reads whole sentences in context.", "The score runs from 0 to 1. Above 0.65 raises a flag. This model is designed and simulated. It has not been trained yet.", "Designed / simulated"],
+    ["bert fear index — transformer", "How the BERT language model works, step by step.", "Read it top to bottom: architecture, how attention picks the words that matter, how it is pre-trained and how it would be tuned.", "Designed / simulated"],
+    ["model registry", "The list of the five models and their status in MLflow, the tool that tracks model versions.", "Trained means the model was really trained. Simulated or Designed means the plan and the numbers are illustrative.", "Mixed: 2 trained, 3 designed"],
+    ["how accurate are the 4 models", "Precision, Recall and F1 for each model.", "Taller bars are better. Precision is how often an alert is right. Recall is how many real risks are caught. F1 combines the two. Only the two At-Risk models are trained. Delivery and AI Trust are simulated.", "Mixed: 2 trained, 2 simulated"],
+    ["layman translation", "The accuracy numbers explained without jargon.", "For example, 94.5% precision means about 19 in 20 alerts are real problems.", "Trained model (Random Forest)"],
+
+    // ── MLOps Safety Net ──
+    ["live psi monitor", "PSI (Population Stability Index) measures how far today's data has drifted from the data the model learned from.", "Each meter is one feature. Low is stable. Above 0.2 is an alert and queues a retrain.", "Illustrative"],
+    ["retraining triggers", "The rules that make the model retrain or roll back by itself.", "Each row is one trigger, its type and the action that follows.", "Designed"],
+    ["what happens if we don't monitor", "A scenario showing a model's accuracy over seven months, with and without retraining.", "The falling line is a model left alone (91% down to 65%). The steady line is a model that is monitored and retrained.", "Illustrative scenario"],
+    ["the analogy that makes this real", "A plain-language story about why models go stale.", "A spam filter trained in 2020 misses 2026 scams. A burnout model trained before AI copilots can miss today's behaviour.", ""],
+
+    // ── Resolution ──
+    ["saarthi ai", "The AI's recommended intervention for the manager.", "Read the action, the expected PsySafe gain and the exercise to run tomorrow.", "Designed / simulated"],
+    ["psysafe score trend", "The team's psychological-safety score over 12 weeks.", "The score falls until the intervention at Week 9, then recovers. The alert threshold is 60.", "Simulated pilot"],
+    ["closed loop", "How the result of an intervention feeds back into the model.", "Intervention, outcome logged as ground truth, retraining, better precision next cycle.", "Designed"],
+    ["simulated pilot", "The headline results of the 90-day simulated pilot.", "Arrows show the change: delivery risk down 31%, meeting candor up 24%, silent dissent down 40%, attrition risk down 18%. All simulated on synthetic data.", "Simulated pilot"],
+    ["before vs after prosense", "Five key metrics before and after the simulated pilot.", "The grey bar is before and the coloured bar is after. A longer coloured bar is better, except for risk measures, where shorter is better.", "Simulated pilot"],
+    ["what this looks like on the ground", "The simulated results as short stories a manager would recognise.", "Each line is one metric and what it means in a real team.", "Simulated pilot"],
+
+    // ── AI Architecture ──
+    ["stats vs ml vs gen ai", "A decision guide for when to use statistics, machine learning or generative AI.", "ProSense's core is machine learning (predict and classify). Statistics is not the fit and generative AI is used only where text is involved.", ""],
+    ["prosense as an ai agent", "The four parts that make ProSense work like an agent: model, memory, planning and tools.", "Read left to right: what it thinks with, what it remembers, how it decides and what it can do.", "Designed"],
+    ["context engineering", "How seven layers of information are put together before the AI writes anything.", "More layers of relevant context mean more accurate, better-grounded explanations.", "Designed"],
+    ["why prosense exists", "The risk it is built to address: employees resisting AI at work.", "It measures the human side of AI rollouts with the AI Adoption pillar and the Blind AI Trust model.", ""],
+    ["agent topologies", "The ways the models are arranged to work together.", "Hierarchical: organisation to team to person. Parallel: four models side by side. Loop: drift, retrain, deploy, monitor.", "Designed"],
+    ["known challenges", "The honest limitations of the project.", "Each item says what the problem was and what was done about it.", ""]
+  ];
+  HELP.sort(function (a, b) { return b[0].length - a[0].length; });
+
+  var CANVAS_FN = {
+    'radar-canvas': 'lvRenderRadar', 'model-perf-canvas': 'renderModelPerf',
+    'drift-canvas': 'renderDrift', 'trend-canvas': 'renderTrend', 'before-after-canvas': 'renderBeforeAfter'
+  };
+  var ICON_MAX = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>';
+  var ICON_MIN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4l-6 6M14 4v6h6M4 20l6-6M10 20v-6H4"/></svg>';
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function find(key) {
+    for (var i = 0; i < HELP.length; i++) if (key.indexOf(HELP[i][0]) === 0) return HELP[i];
+    return null;
+  }
+
+  /* ── 1. add the ⓘ and ⤢ buttons to every card title ── */
+  function enhance() {
+    document.querySelectorAll('.card, .gap-card, .stat-tile').forEach(function (el) {
+      if (el.getAttribute('data-pf')) return;
+      var t = el.querySelector('.card-title');
+      if (!t || t.closest('.card, .gap-card, .stat-tile') !== el) return;
+      var raw = t.textContent.replace(/\s*●.*$/, '').replace(/\s+/g, ' ').trim();
+      var key = raw.replace(/^[^A-Za-z0-9]+/, '').toLowerCase();
+      var h = find(key);
+      var isTile = el.classList.contains('stat-tile');
+      var tools = document.createElement('span');
+      tools.className = 'pf-tools';
+      if (h) {
+        var i = document.createElement('button');
+        i.type = 'button'; i.className = 'pf-btn pf-i'; i.textContent = 'i';
+        i.setAttribute('aria-label', 'What is this? ' + raw);
+        i.pfHelp = h;
+        tools.appendChild(i);
+      }
+      if (!isTile) {
+        var m = document.createElement('button');
+        m.type = 'button'; m.className = 'pf-btn pf-m'; m.innerHTML = ICON_MAX;
+        m.setAttribute('aria-label', 'Enlarge ' + raw); m.title = 'Enlarge';
+        tools.appendChild(m);
+      }
+      if (tools.children.length) { t.appendChild(tools); el.setAttribute('data-pf', '1'); el.pfTitle = raw; }
+    });
+  }
+
+  /* ── 2. info pop-up ── */
+  var tip = document.createElement('div');
+  tip.id = 'pf-tip'; tip.setAttribute('role', 'tooltip');
+  var tipFor = null;
+  function showTip(btn) {
+    var h = btn.pfHelp; if (!h) return;
+    tip.innerHTML = '<h5>What it shows</h5><p>' + esc(h[1]) + '</p><h5>How to read it</h5><p>' + esc(h[2]) + '</p>' +
+      (h[3] ? '<span class="pf-tag">' + esc(h[3]) + '</span>' : '');
+    tip.classList.add('on'); tipFor = btn;
+    var r = btn.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+    var x = Math.min(Math.max(8, r.left + r.width / 2 - tw / 2), innerWidth - tw - 8);
+    var y = r.bottom + 8; if (y + th > innerHeight - 8) y = Math.max(8, r.top - th - 8);
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip() { tip.classList.remove('on'); tipFor = null; }
+  document.addEventListener('mouseover', function (e) { var b = e.target.closest && e.target.closest('.pf-i'); if (b) showTip(b); });
+  document.addEventListener('mouseout', function (e) { var b = e.target.closest && e.target.closest('.pf-i'); if (b) hideTip(); });
+  document.addEventListener('focusin', function (e) { var b = e.target.closest && e.target.closest('.pf-i'); if (b) showTip(b); });
+  document.addEventListener('focusout', function (e) { if (e.target.closest && e.target.closest('.pf-i')) hideTip(); });
+  document.addEventListener('scroll', hideTip, true);
+
+  /* ── 3. maximise ── */
+  var ov = document.createElement('div');
+  ov.id = 'pf-max'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true');
+  ov.innerHTML = '<div class="pf-max-bar"><span class="pf-max-title"></span>' +
+    '<button type="button" class="pf-max-close">' + ICON_MIN + ' Close <kbd>Esc</kbd></button></div>' +
+    '<div class="pf-max-body"><div class="pf-wrap"></div></div>';
+  var wrap = ov.querySelector('.pf-wrap'), cur = null;
+
+  function prep(card, on) {
+    // SVG charts were drawn to stretch; in the big view keep their proportions instead
+    card.querySelectorAll('svg[width="100%"]').forEach(function (s) {
+      if (on) {
+        s.pfSave = [s.getAttribute('preserveAspectRatio'), s.getAttribute('style')];
+        s.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        s.style.height = 'auto'; s.style.maxHeight = '62vh'; s.style.width = '100%';
+      } else if (s.pfSave) {
+        if (s.pfSave[0] === null) s.removeAttribute('preserveAspectRatio'); else s.setAttribute('preserveAspectRatio', s.pfSave[0]);
+        if (s.pfSave[1] === null) s.removeAttribute('style'); else s.setAttribute('style', s.pfSave[1]);
+        s.pfSave = null;
+      }
+    });
+    // canvas charts redraw themselves at the new size
+    card.querySelectorAll('canvas').forEach(function (c) {
+      if (!CANVAS_FN[c.id]) return;
+      if (on) { c.dataset.h = Math.round(Math.min(innerHeight * 0.5, 480)); c.dataset.s = '2'; }
+      else { delete c.dataset.h; delete c.dataset.s; }
+    });
+    redraw(card);
+  }
+  function redraw(card) {
+    requestAnimationFrame(function () {
+      card.querySelectorAll('canvas').forEach(function (c) {
+        var fn = window[CANVAS_FN[c.id]];
+        if (typeof fn === 'function') { try { fn(); } catch (err) { } }
+      });
+    });
+  }
+  function openMax(card) {
+    if (cur) closeMax();
+    hideTip();
+    var cs = getComputedStyle(card), r = card.getBoundingClientRect();
+    var ph = document.createElement('div');
+    ph.style.cssText = 'visibility:hidden;width:' + r.width + 'px;height:' + r.height + 'px;flex:' + cs.flex +
+      ';margin:' + cs.margin + ';grid-column:' + cs.gridColumnStart + ' / ' + cs.gridColumnEnd;
+    card.parentNode.insertBefore(ph, card);
+    wrap.className = 'pf-wrap' + (card.closest('.lv-root') ? ' lv-root' : '');
+    wrap.appendChild(card);
+    card.classList.add('pf-maxed');
+    ov.querySelector('.pf-max-title').textContent = card.pfTitle || '';
+    ov.classList.add('on'); document.body.classList.add('pf-noscroll');
+    cur = { card: card, ph: ph };
+    ov.querySelector('.pf-max-body').scrollTop = 0;
+    prep(card, true);
+    ov.querySelector('.pf-max-close').focus();
+  }
+  function closeMax() {
+    if (!cur) return;
+    var card = cur.card;
+    prep(card, false);
+    card.classList.remove('pf-maxed');
+    cur.ph.parentNode.insertBefore(card, cur.ph);
+    cur.ph.parentNode.removeChild(cur.ph);
+    ov.classList.remove('on'); document.body.classList.remove('pf-noscroll');
+    var btn = card.querySelector('.pf-m'); cur = null;
+    redraw(card);
+    if (btn) btn.focus({ preventScroll: true });
+  }
+  ov.querySelector('.pf-max-close').onclick = closeMax;
+  ov.addEventListener('click', function (e) { if (e.target === ov || e.target.classList.contains('pf-max-body')) closeMax(); });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.pf-btn');
+    if (!b) { hideTip(); return; }
+    e.stopPropagation();
+    if (b.classList.contains('pf-m')) { openMax(b.closest('[data-pf]')); }
+    else if (b.classList.contains('pf-i')) { tipFor === b ? hideTip() : showTip(b); }
+  }, true);
+  window.addEventListener('resize', function () { if (cur) redraw(cur.card); });
+
+  /* ── 4. focus view (hide menu + header) ── */
+  var bar = document.createElement('div');
+  bar.id = 'pf-focus-bar';
+  bar.innerHTML = '<button type="button" data-d="-1" aria-label="Previous page">‹</button><span class="pf-pg"></span>' +
+    '<button type="button" data-d="1" aria-label="Next page">›</button><button type="button" class="pf-exit">Exit focus <kbd>Esc</kbd></button>';
+  function pages() { return [].slice.call(document.querySelectorAll('#sidebar .sb-nav .nav-item')); }
+  function label() {
+    var p = pages(), a = p.filter(function (n) { return n.classList.contains('active'); })[0];
+    bar.querySelector('.pf-pg').textContent = a ? a.textContent.replace(/^[^A-Za-z0-9]+/, '').trim() : '';
+  }
+  window.pfToggleFocus = function (on) {
+    var b = document.body;
+    on = (typeof on === 'boolean') ? on : !b.classList.contains('pf-focus');
+    b.classList.toggle('pf-focus', on);
+    var fb = document.getElementById('pf-focus-btn'); if (fb) fb.classList.toggle('on', on);
+    label();
+  };
+  bar.addEventListener('click', function (e) {
+    var t = e.target.closest('button'); if (!t) return;
+    if (t.classList.contains('pf-exit')) { pfToggleFocus(false); return; }
+    var p = pages(), i = p.findIndex(function (n) { return n.classList.contains('active'); });
+    var n = p[i + (+t.getAttribute('data-d'))]; if (n) n.click();
+  });
+  document.addEventListener('click', function () { setTimeout(label, 30); });
+
+  /* ── keyboard ── */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (tip.classList.contains('on')) hideTip();
+      else if (cur) closeMax();
+      else if (document.body.classList.contains('pf-focus')) pfToggleFocus(false);
+      return;
+    }
+    var tg = e.target, typing = tg && (/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName) || tg.isContentEditable);
+    if ((e.key === 'f' || e.key === 'F') && !e.metaKey && !e.ctrlKey && !e.altKey && !typing && !cur) {
+      var lo = document.getElementById('login-overlay');
+      if (lo && getComputedStyle(lo).display !== 'none') return; // not while signing in
+      pfToggleFocus();
+    }
+  });
+
+  document.body.appendChild(tip); document.body.appendChild(ov); document.body.appendChild(bar);
+  enhance(); label();
+})();
 </script>
 </body>
 </html>
