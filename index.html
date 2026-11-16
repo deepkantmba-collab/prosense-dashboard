@@ -4935,7 +4935,7 @@ function PSA_ENGINE(getEnv){
     {tags:['Synthetic data','Trained'],src:'Deck slide 7 · metrics JSON'});
   K('synthetic','Is the data real?','synthetic,real data,is the data real,fictional,fake data,company data,employee data,real employees,real people,is it real,where does the data come from privacy,confidential',
     '<p><b>No real company or employee data is used anywhere in this project.</b> The training table blends 4 public datasets and synthetic team signals. Priya\'s team and every person on the dashboard are <b>fictional</b>.</p><p>The only external signal is public open-source GitHub activity, used as a proxy. Because the data is synthetic, results may not generalise to real teams. That is the biggest open risk, and a real consented pilot is the next step.</p>',
-    {tags:['Synthetic data'],src:'Deck slides 7, 26',follow:['What are the honest limitations?','What are the pending actions?']});
+    {tags:['Synthetic data'],src:'Deck slides 7, 27',follow:['What are the honest limitations?','What are the pending actions?']});
   K('pillars','The 7 pillars and 420 phrases','pillars,seven pillars,7 pillars,420 phrases,phrase engine,nlp engine,text scoring,turning words into numbers,language scoring,60 phrases,weights',
     '<p>Each person gets a score on <b>7 pillars</b>: psychological safety, burnout, collaboration, speak-up rate, work-life balance, job satisfaction and AI adoption.</p><p>Scores come from a custom phrase engine: <b>60 workplace phrases × 7 pillars = 420 phrases</b>, each with a weight from −0.30 to +0.35. Every score starts at a neutral 0.50 and moves with the evidence.</p>',
     {tags:['Trained'],src:'Deck slide 8',follow:['Which pillar is weakest?','Why not VADER?']});
@@ -4998,31 +4998,34 @@ function PSA_ENGINE(getEnv){
   K('mlops','MLOps safety net','mlops,safety net,monitoring,retrain,rollback,model monitoring,auto retrain,release pipeline,deployment,keep model honest,model decay,production',
     '<p>A model that is 91% accurate in month one can quietly drift to 65% by month six <i>(illustrative scenario)</i>. ProSense is designed to catch that:</p>'+tbl(['If…','Then…'],[['Data drifts (PSI &gt; 0.2)','Retrain on the latest 90 days, shadow-test first'],['Every Monday','Scheduled retrain → shadow → canary'],['Precision drops &gt; 5%','Roll back in 60 seconds'],['New client joins','Fine-tune on anonymised pilot data']],1)+
     '<p><b>Built</b>: experiment logging and dataset versioning (DVC). <b>Designed</b>: drift detection, auto-retrain and the staged rollout. The release-pipeline stages on the dashboard are simulated.</p>',
-    {tags:['Designed','Trained'],go:'mlops',src:'MLOps Safety Net page · deck slide 24',follow:['What is PSI drift?','What is a canary release?']});
+    {tags:['Designed','Trained'],go:'mlops',src:'MLOps Safety Net page · deck slide 26',follow:['What is PSI drift?','What is a canary release?']});
   K('psi','PSI and data drift','psi,drift,data drift,concept drift,model drift,population stability,0.2,drift alert,distribution shift',
     '<p><b>PSI</b> (population stability index) warns that today\'s data no longer looks like the data the model learned from. An <b>alert fires above 0.2</b>. The MLOps page shows PSI per signal; ask “which features are drifting?” for the current values.</p>',{tags:['Designed'],go:'mlops',src:'MLOps Safety Net page · glossary'});
   K('canary','Canary release','canary,canary release,staged rollout,shadow,rollout,25%,shadow test,gradual release',
-    '<p>A <b>canary release</b> tries a new model on a small share of users (25%) before everyone. The designed ladder is <b>shadow → 5% → 25% → full</b>, with a 60-second rollback if precision drops more than 5%. It is designed, not yet deployed.</p>',{tags:['Designed'],go:'mlops',src:'MLOps page · deck slide 24'});
+    '<p>A <b>canary release</b> tries a new model on a small share of users (25%) before everyone. The designed ladder is <b>shadow → 5% → 25% → full</b>, with a 60-second rollback if precision drops more than 5%. It is designed, not yet deployed.</p>',{tags:['Designed'],go:'mlops',src:'MLOps page · deck slide 26'});
   K('responsible','Responsible AI safeguards','responsible ai,safeguards,ethics,consent,misuse,hitl,privacy,watermark,surveillance,bias,fairness,trust,human oversight,manager decides,autonomous,write access,audit',
     '<ul><li><b>Consent</b> before any personal view: “I will not use this in performance reviews”</li><li><b>💛 Wellbeing badge</b> on every profile: “not a performance metric”</li><li><b>Human in the loop</b>: AI suggests, the manager decides; zero write access</li><li><b>Watermark</b> on printed or PDF copies: “Not for performance review”</li><li><b>No free AI text</b> in any decision: scores and reasons only</li><li><b>Audit</b>: every score is versioned with its model</li><li><b>Privacy</b>: synthetic data only; sign-in emails stored as hashes</li></ul>',
-    {tags:['Safeguard'],go:'architecture',src:'Deck slide 23',follow:['What is still missing for real use?']});
+    {tags:['Safeguard'],go:'architecture',src:'Deck slide 25',follow:['What is still missing for real use?']});
   K('gdpr','Consent and GDPR','gdpr,consent framework,legal,compliance,data protection,privacy law,audit logging,data residency,regulation',
-    '<p>The <b>consent and GDPR framework is not built yet</b>. It blocks any real users or real data. Real deployment needs consent, data residency and audit logging defined first. It is pending action #1 and a blocker.</p>',{tags:['Safeguard'],src:'Reports page · deck slides 26–27',follow:['What are the pending actions?']});
+    '<p>The <b>consent and GDPR framework is not built yet</b>. It blocks any real users or real data. Real deployment needs consent, data residency and audit logging defined first. It is pending action #1 and a blocker.</p>',{tags:['Safeguard'],src:'Reports page · deck slides 28–29',follow:['What are the pending actions?']});
   K('pilot','Simulated 90-day pilot','pilot,simulated pilot,90 day,results of pilot,impact,outcomes,before and after,loyal opposition,roi,business value,2-4m,exposure,savings,31%,what changes,improvement',
-    '@@PILOT@@',{tags:['Simulated','Synthetic data'],go:'resolution',src:'Resolution page · deck slide 25'});
+    '@@PILOT@@',{tags:['Simulated','Synthetic data'],go:'resolution',src:'Resolution page · deck slide 27'});
   K('limitations','Honest limitations','limitations,weaknesses,risks,challenges,problems,what is wrong,honest limits,drawbacks,caveats,shortcomings,what does not work,flaws,known issues',
     '<p><b>Open:</b></p><ul><li><b>Synthetic data only</b>: the biggest risk; it may not generalise to real teams</li><li><b>No GDPR / consent framework yet</b>: blocks any real users</li><li><b>3 weak pillars</b>: work-life r 0.305, job satisfaction 0.460, AI adoption 0.469</li><li><b>BERT, delivery and AI-trust models</b> are designed and simulated, not trained</li></ul><p><b>Resolved:</b> VADER misreading (custom 420-phrase engine), class imbalance (class_weight), multicollinearity (VIF 41 → 7), inconsistent numbers (one canonical set).</p><p>Stage: <b>proof of concept</b>, not yet an MVP.</p>',
-    {tags:['Info'],go:'architecture',src:'Deck slide 26',follow:['What are the pending actions?']});
+    {tags:['Info'],go:'architecture',src:'Deck slide 28',follow:['What are the pending actions?']});
   K('pending','Pending actions','pending,pending actions,to do,todo,what is left,remaining,not done,open items,backlog,missing,what still needs,incomplete,unfinished,what is still missing,next steps needed',
     tbl(['#','Action','Priority'],[['1','Consent and <b>GDPR framework</b>','<span style="color:#ff4757">Blocker</span>'],['2','Connect <b>one real, consented data source</b>','<span style="color:#ff4757">Blocker</span>'],['3','Redesign phrases for the <b>3 weak pillars</b>','High'],['4','<b>Train BERT</b>, then bias audit and 25% canary','High'],['5','Train the <b>delivery</b> and <b>AI-trust</b> models','High'],['6','Finish <b>MLOps</b>: registry, drift alerts, auto-retrain','High'],['7','<b>Code audit</b>, then a full Databricks end-to-end run','Med'],['8','Run a <b>real pilot</b> with a design partner','Med']],0)+'<p>Items 1 and 2 must be done before any real pilot.</p>',
-    {tags:['Info'],src:'Deck slide 27'});
+    {tags:['Info'],src:'Deck slide 29'});
   K('roadmap','Roadmap','roadmap,future,next,mvp,scale,what comes next,plans,future work,next phase,after poc',
     '<ul><li><b>NOW</b>: proof of concept ✅ (2 trained models, 10-page dashboard, safeguards, guest demo)</li><li><b>NEXT</b>: MVP (one real, consented data source, consent and GDPR framework, a real pilot, redesign the 3 weak pillars)</li><li><b>LATER</b>: scale (train BERT, delivery and AI-trust models, live drift monitoring, Databricks pipeline)</li></ul><p>The real pilot must prove that alerts arrive earlier than a manager would notice, that managers act on the reasons, and that people trust the tool.</p>',
-    {tags:['Info'],src:'Deck slide 28',follow:['What are the pending actions?']});
+    {tags:['Info'],src:'Deck slide 30',follow:['What are the pending actions?']});
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
+  K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
+    '<p>You are on <b>v1.9</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.9</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
-    '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 29'});
+    '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 31'});
   K('pages','The 10 dashboard pages','pages,tabs,navigation,menu,ten pages,10 pages,sections,whats on each page,tour,dashboard tour,list of pages',
     '<ol><li><b>Home</b>: Team Health, PsySafe, Team Pulse, recommended actions</li><li><b>Team Intelligence</b>: individual profiles (consent first)</li><li><b>Risk Signals</b>: scorecard and SHAP reasons</li><li><b>AI &amp; Productivity</b>: AI adoption and public GitHub patterns</li><li><b>Reports</b>: pillar heatmap, outcomes, limitations</li><li><b>Priya\'s Situation</b>: the story and live team table</li><li><b>4 Models Running</b>: trained vs designed models</li><li><b>MLOps Safety Net</b>: drift and rollback</li><li><b>Resolution</b>: intervention and simulated pilot</li><li><b>AI Architecture</b>: vision, models and why, challenges</li></ol><p>Say “open the models page” and I\'ll take you there.</p>',{tags:['Info'],src:'Deck slides 17–21'});
   K('about-agent','How this assistant works','how do you work,are you ai,are you chatgpt,are you an llm,who are you,what are you,how does this chatbot work,assistant,agent,how are you built,are you real ai,do you use gpt,model behind you,are you generative,do you use claude',
@@ -5036,7 +5039,7 @@ function PSA_ENGINE(getEnv){
   K('who','Who built this','who built,author,creator,developer,who made,deepkant,who is behind',
     '<p>ProSense AI was built by <b>Deepkant Verma</b> as a capstone project (November 2026).</p>',{tags:['Info'],src:'Deck title slide'});
   K('stack','Tools and techniques used','python,tech stack,technology,tools used,databricks,mlflow,dvc,stack,libraries,which tools,frameworks',
-    '<ul><li>Models: Random Forest and HistGradientBoosting (tree models), explained with SHAP</li><li>Data prep: VIF feature selection, class weighting, stratified split</li><li>Built: experiment logging and dataset versioning with DVC</li><li>Pending: MLflow registry, drift alerts, auto-retrain and a full Databricks end-to-end run</li></ul>',{tags:['Trained','Designed'],src:'Deck slides 9, 24, 27'});
+    '<ul><li>Models: Random Forest and HistGradientBoosting (tree models), explained with SHAP</li><li>Data prep: VIF feature selection, class weighting, stratified split</li><li>Built: experiment logging and dataset versioning with DVC</li><li>Pending: MLflow registry, drift alerts, auto-retrain and a full Databricks end-to-end run</li></ul>',{tags:['Trained','Designed'],src:'Deck slides 9, 25, 28'});
 
   var N = KB.length, DF = {};
   KB.forEach(function(e){
@@ -5233,6 +5236,7 @@ function PSA_ENGINE(getEnv){
     if (/\bsimulation\b/.test(n) && /\bpause\b/.test(n)) return res('<p>❚❚ Simulation paused.</p>',{act:{type:'sim',do:'pause'},tags:['Simulated'],src:'Admin settings › Simulation controls'});
     if (/\b(light|dark) (mode|theme|appearance|view)\b/.test(n) && !/\bwhat\b/.test(n)) { var lt=/\blight\b/.test(n); return res('<p>Appearance switched to <b>'+(lt?'Light':'Dark')+'</b>. You can change it any time in ⚙ Settings.</p>',{act:{type:'theme',v:lt?'light':'dark'},src:'Admin settings › Appearance'}); }
     if (/\b(anonymous|anonymi[sz]e|hide (the )?names|neutral (names|labels))\b/.test(n) && !/\bwhat|why\b/.test(n)) { var off=/\b(off|show (the )?real|disable|stop|turn off)\b/.test(n); return res(off?'<p>Real first names are shown again.</p>':'<p>Anonymous names are on: people now appear as <b>Engineer 1–5</b> and <b>Manager</b>, and the team is shown as “Simulation”. Display only; no data changes.</p>',{act:{type:'anon',on:!off},src:'Admin settings › Anonymous names'}); }
+    if (/\b(roll ?back|role back|previous version|older version|old version|version history|versions)\b/.test(n) && !/\b(models?|mlops|drift|canary|precision|retrain\w*)\b/.test(n)) return res(KB.filter(function(k){ return k.id==='versions'; })[0].html,{act:{type:'versions'},tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24',trace:['Recognised a question about versions or roll back','Opened ⚙ Settings at the Versions section']});
     if (/\b(open|show)\b.*\bsettings\b/.test(n)) return res('<p>Opening ⚙ <b>Settings</b>.</p>',{act:{type:'settings'},src:'Admin settings'});
     var pg = pageFrom(n);
     if (pg && wantsNav) return res('<p>Opening <b>'+esc(PAGE_LABEL[pg])+'</b>.</p>',{act:{type:'go',page:pg},src:'Navigation',trace:['Recognised a request to open a page: '+PAGE_LABEL[pg]]});
@@ -5344,6 +5348,7 @@ function PSA_ENGINE(getEnv){
         if (r.act.type==='theme') PA.theme(r.act.v);
         if (r.act.type==='anon') PA.anon(r.act.on);
         if (r.act.type==='settings') PA.open();
+        if (r.act.type==='versions' && PA.versions) PA.versions();
         if (r.act.type==='fs') PA.fullscreen();
       }
     }, 280);
@@ -5378,7 +5383,7 @@ function PSA_ENGINE(getEnv){
 })();
 </script>
 <!-- PS-AGENT:END -->
-<!-- PS-ADMIN:START — Admin Settings: appearance (dark/light), full screen, focus, anonymous names, simulation controls. Preferences are kept in this browser only. -->
+<!-- PS-ADMIN:START — Admin Settings: appearance (dark/light), full screen, focus, anonymous names, simulation controls, versions & roll back. Preferences are kept in this browser only. -->
 <style id="ps-admin-css">
 html.ps-light{filter:invert(1) hue-rotate(180deg)}
 html.ps-light{background:#fff}
@@ -5427,6 +5432,20 @@ body.ps-sim-on #ps-simbar{display:flex}
 #ps-sim-ev{flex:1 1 100%;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#d6c9ff;font-size:.72rem}
 body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
 #ps-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:9800;background:#111833;border:1px solid rgba(0,212,255,.4);color:#fff;border-radius:12px;padding:9px 16px;font:600 .78rem var(--font);display:none;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.ps-v{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:rgba(255,255,255,.03)}
+.ps-v.cur{border-color:rgba(46,213,115,.45);background:rgba(46,213,115,.06)}
+.ps-v-h{display:flex;align-items:center;gap:8px}
+.ps-v-h b{font-size:.92rem;color:#fff}.ps-v-h .d{font-size:.68rem;color:var(--muted);flex:1}
+.ps-v>p{margin:4px 0 0;font-size:.76rem;line-height:1.45;color:#dfe6ff}
+.ps-v details{margin-top:5px}.ps-v summary{cursor:pointer;font-size:.7rem;font-weight:700;color:#7fe3ff}
+.ps-v ul{list-style:none;margin:5px 0 0;padding-left:2px;font-size:.7rem;line-height:1.5;color:var(--muted)}
+.ps-v ul li.add{color:#9fe7bd}.ps-v ul li.miss{color:#ffb4a8}
+.ps-v-old{font-size:.7rem;color:var(--muted);line-height:1.5;margin:2px 0 10px}
+#ps-set details.ps-own{margin-top:6px;border:1px dashed rgba(255,255,255,.18);border-radius:12px;padding:9px 12px}
+#ps-set details.ps-own summary{cursor:pointer;font-size:.76rem;font-weight:700;color:#fff}
+#ps-set details.ps-own p{font-size:.7rem;color:var(--muted);line-height:1.5;margin:6px 0}
+#ps-set details.ps-own select{background:#0b1024;color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:4px 6px;font:600 .74rem var(--font)}
+#ps-set details.ps-own code{display:block;white-space:pre-wrap;word-break:break-all;background:#060914;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 9px;font:500 .66rem/1.5 ui-monospace,Menlo,monospace;color:#bfe9ff;margin:6px 0}
 @media print{#ps-set,#ps-set-bd,#ps-simbar,#ps-toast{display:none!important}}
 </style>
 
@@ -5464,7 +5483,13 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     '<div class="ps-s-sec">DEMO TOOLS</div>'+
     '<div class="ps-s-row"><div><b>Simulation controls <span class="ps-s-state" id="ps-st-sim">OFF</span></b><p>Show Run, Reset and 1× / 4× / 10× controls under the header. Plays the simulated 90-day pilot on synthetic data.</p></div>'+sw('ps-sw-sim','Simulation controls')+'</div>'+
     '<div class="ps-s-row"><div><b>Ask ProSense assistant <span class="ps-s-state" id="ps-st-as">ON</span></b><p>Show the chat button in the corner.</p></div>'+sw('ps-sw-as','Assistant')+'</div>'+
-    '<div class="ps-s-row" style="margin-top:6px"><div><p>Settings are saved in this browser only.</p></div><button type="button" class="ps-s-btn" id="ps-s-def">Restore defaults</button></div>';
+    '<div class="ps-s-sec" id="ps-s-versions">VERSIONS &amp; ROLL BACK</div>'+
+    '<div class="ps-s-note" style="background:rgba(0,212,255,.06);border-color:rgba(0,212,255,.22);color:#a9c7d6">Every release is saved. <b>Open</b> shows an older version in this tab (this browser only; the public link is not changed). A bar at the bottom brings you back to the latest. Each version lists what it added and what it does not have yet.</div>'+
+    '<div id="ps-vlist"></div>'+
+    '<div class="ps-v-old">v1.0 – v1.4: early builds (first upload, guest access, deck alignment, chart tools, vision card). Kept in the git history only.</div>'+
+    '<details class="ps-own"><summary>Roll back the live site for everyone (site owner)</summary><p>This needs the site owner’s GitHub access, so it cannot run from the browser. Pick a version, copy the command, and run it in the repository folder. GitHub Pages updates in about a minute. Nothing is lost: run the same command with the newer version to undo.</p>'+
+    '<label style="font-size:.72rem;color:var(--muted)">Version <select id="ps-v-sel"></select></label> <button type="button" class="ps-s-btn" id="ps-v-copy" style="margin-left:6px">Copy command</button><code id="ps-v-cmd"></code></details>'+
+    '<div class="ps-s-row" style="margin-top:16px"><div><p>Settings are saved in this browser only.</p></div><button type="button" class="ps-s-btn" id="ps-s-def">Restore defaults</button></div>';
   body.appendChild(panel);
 
   /* header button + simulation bar */
@@ -5629,12 +5654,56 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     setSw('ps-sw-anon','ps-st-anon',P.anon); setSw('ps-sw-sim','ps-st-sim',P.sim); setSw('ps-sw-as','ps-st-as',P.assistant);
   }
 
+  /* ───────── versions & roll back ───────── */
+  var CUR = 'v1.9';
+  var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
+  var VERS = [
+    {v:'v1.9', d:'16 Nov 2026', t:'Version history and roll back (this section)', add:['Versions & roll back section in Settings']},
+    {v:'v1.8', d:'16 Nov 2026', t:'Double-click to enlarge', add:['Double-click any graph, card or tile to enlarge it','Stat tiles can be enlarged']},
+    {v:'v1.7', d:'16 Nov 2026', t:'Admin Settings panel', add:['⚙ Settings panel','Dark / Light appearance','Full screen switch','Anonymous names (Engineer 1–5, Manager)','Simulation controls (Run, Reset, 1× / 4× / 10×)']},
+    {v:'v1.6', d:'16 Nov 2026', t:'Ask ProSense assistant', add:['Ask ProSense chat assistant (in the browser, no network)']},
+    {v:'v1.5', d:'15 Nov 2026', t:'Name clean-up (oldest version you can open)', add:['Course and instructor references removed','Screenshots refreshed']}
+  ];
+  var ESC = function(x){ return String(x).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  function verUrl(v){ return (location.protocol==='file:' ? PUB : '') + 'versions/' + v + '.html'; }
+  function buildVersions(){
+    var html = VERS.map(function(x,i){
+      var cur = x.v===CUR, later=[];
+      VERS.slice(0,i).forEach(function(y){ later = later.concat(y.add); });
+      var diff = '<details><summary>'+(cur?'What this version adds':'Difference from the latest')+'</summary><ul>'+
+        x.add.map(function(a){ return '<li class="add">＋ Added: '+ESC(a)+'</li>'; }).join('')+
+        (later.length ? later.map(function(a){ return '<li class="miss">－ Not in this version: '+ESC(a)+'</li>'; }).join('') : '')+'</ul></details>';
+      return '<div class="ps-v'+(cur?' cur':'')+'"><div class="ps-v-h"><b>'+x.v+'</b><span class="d">'+x.d+'</span>'+
+        (cur ? '<span class="ps-s-state on">CURRENT</span>' : '<button type="button" class="ps-s-btn" data-ver="'+x.v+'">Open</button>')+
+        '</div><p>'+ESC(x.t)+'</p>'+diff+'</div>';
+    }).join('');
+    $('ps-vlist').innerHTML = html;
+    $('ps-v-sel').innerHTML = VERS.filter(function(x){ return x.v!==CUR; }).map(function(x){ return '<option>'+x.v+'</option>'; }).join('');
+    cmd();
+  }
+  function cmd(){ var v=$('ps-v-sel').value; $('ps-v-cmd').textContent = 'git checkout '+v+' -- index.html\ngit commit -m "Roll back dashboard to '+v+'"\ngit push\n\n# undo (back to the latest):\ngit checkout '+CUR+' -- index.html && git commit -m "Restore '+CUR+'" && git push'; }
+  $('ps-vlist').addEventListener('click', function(e){
+    var b=e.target.closest('[data-ver]'); if(!b) return; var v=b.getAttribute('data-ver'), u=verUrl(v);
+    toast('Opening '+v+'…');
+    if (location.protocol==='file:') window.open(u,'_blank','noopener'); else location.href=u;
+  });
+  $('ps-v-sel').addEventListener('change', cmd);
+  $('ps-v-copy').addEventListener('click', function(){
+    var t=$('ps-v-cmd').textContent;
+    function done(){ toast('Roll-back command copied'); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, function(){ toast('Select the command and copy it'); });
+    else toast('Select the command and copy it');
+  });
+  buildVersions();
+  function openVersions(){ openSet(true); setTimeout(function(){ var el=$('ps-s-versions'); if(el) el.scrollIntoView({block:'start',behavior:'smooth'}); },320); }
+
   /* ───────── public hooks (used by the assistant) ───────── */
   window.PSAdmin = {
     sim:function(a){ if(!P.sim) showSim(true); sync(); if(a==='run'){ if(!S.run) simRun(); } else if(a==='reset') simReset(); else if(a==='pause'&&S.run) simRun(); },
     theme:function(t){ P.theme=t==='light'?'light':'dark'; save(); applyTheme(); sync(); },
     anon:function(on){ P.anon=!!on; save(); setAnon(P.anon); sync(); },
     open:function(){ openSet(true); },
+    versions:openVersions, version:CUR,
     fullscreen:function(){ $('ps-sw-fs').click(); }
   };
 
