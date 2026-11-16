@@ -12,6 +12,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v1.5 | 2026-11-15 | Course and instructor references removed; screenshots refreshed |
 | v1.6 | 2026-11-16 | Ask ProSense in-browser assistant |
 | v1.7 | 2026-11-16 | Admin Settings: dark/light appearance, full screen, focus view, anonymous names, simulation controls |
+| v1.8 | 2026-11-16 | Double-click any graph, card or stat tile to enlarge it (double-click title / Esc / click outside to close) |
 
 ## Rolling back
 

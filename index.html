@@ -175,6 +175,9 @@ kbd{font:600 10px system-ui,sans-serif;padding:1px 5px;border:1px solid rgba(255
 .pf-wrap{max-width:1500px;margin:0 auto;}
 .pf-maxed{flex:none!important;grid-column:auto!important;margin:0!important;max-height:none!important;height:auto!important;width:100%!important;overflow:visible!important;padding:22px 26px!important;}
 .pf-maxed .drag-handle,.pf-maxed .pf-m{display:none!important;}
+.pf-maxed.stat-tile{max-width:760px;margin:0 auto!important;text-align:center;}
+.pf-maxed.stat-tile .stat-val{font-size:4.5rem!important;}
+[data-pf]:not(.pf-maxed){cursor:default;}
 body.pf-noscroll{overflow:hidden;}
 body.pf-focus #sidebar,body.pf-focus #topbar,body.pf-focus #data-banner{display:none!important;}
 body.pf-focus #dash-area{padding-top:14px;padding-bottom:38px;}
@@ -4632,7 +4635,7 @@ function lvNav(el, name) {
       if (!isTile) {
         var m = document.createElement('button');
         m.type = 'button'; m.className = 'pf-btn pf-m'; m.innerHTML = ICON_MAX;
-        m.setAttribute('aria-label', 'Enlarge ' + raw); m.title = 'Enlarge';
+        m.setAttribute('aria-label', 'Enlarge ' + raw); m.title = 'Enlarge (or double-click the card)';
         tools.appendChild(m);
       }
       if (tools.children.length) { t.appendChild(tools); el.setAttribute('data-pf', '1'); el.pfTitle = raw; }
@@ -4736,6 +4739,15 @@ function lvNav(el, name) {
     if (b.classList.contains('pf-m')) { openMax(b.closest('[data-pf]')); }
     else if (b.classList.contains('pf-i')) { tipFor === b ? hideTip() : showTip(b); }
   }, true);
+  /* double-click any card or tile to enlarge it; double-click its title to close */
+  document.addEventListener('dblclick', function (e) {
+    var t = e.target; if (!t || !t.closest) return;
+    if (t.closest('button,a,input,textarea,select,label,summary,[onclick],[contenteditable="true"],.pf-btn,.drag-handle,#ps-panel,#ps-set,#login-overlay,#pf-focus-bar')) return;
+    var card = t.closest('[data-pf]'); if (!card) return;
+    if (cur) { if (card === cur.card && t.closest('.card-title')) closeMax(); return; }
+    var sel = window.getSelection && window.getSelection(); if (sel && sel.removeAllRanges) sel.removeAllRanges();
+    openMax(card);
+  });
   window.addEventListener('resize', function () { if (cur) redraw(cur.card); });
 
   /* ── 4. focus view (hide menu + header) ── */
@@ -5007,8 +5019,8 @@ function PSA_ENGINE(getEnv){
   K('roadmap','Roadmap','roadmap,future,next,mvp,scale,what comes next,plans,future work,next phase,after poc',
     '<ul><li><b>NOW</b>: proof of concept ✅ (2 trained models, 10-page dashboard, safeguards, guest demo)</li><li><b>NEXT</b>: MVP (one real, consented data source, consent and GDPR framework, a real pilot, redesign the 3 weak pillars)</li><li><b>LATER</b>: scale (train BERT, delivery and AI-trust models, live drift monitoring, Databricks pipeline)</li></ul><p>The real pilot must prove that alerts arrive earlier than a manager would notice, that managers act on the reasons, and that people trust the tool.</p>',
     {tags:['Info'],src:'Deck slide 28',follow:['What are the pending actions?']});
-  K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
-    '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
+  K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
+    '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
     '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 29'});
   K('pages','The 10 dashboard pages','pages,tabs,navigation,menu,ten pages,10 pages,sections,whats on each page,tour,dashboard tour,list of pages',
