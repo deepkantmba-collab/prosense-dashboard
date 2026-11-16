@@ -4595,6 +4595,7 @@ function lvNav(el, name) {
     ["known challenges", "The honest limitations of the project.", "Each item says what the problem was and what was done about it.", ""]
   ];
   HELP.sort(function (a, b) { return b[0].length - a[0].length; });
+  window.PF_HELP = HELP;
 
   var CANVAS_FN = {
     'radar-canvas': 'lvRenderRadar', 'model-perf-canvas': 'renderModelPerf',
@@ -4782,5 +4783,563 @@ function lvNav(el, name) {
   enhance(); label();
 })();
 </script>
+<!-- PS-AGENT:START — "Ask ProSense" chat agent. Runs fully in the browser: no API key, no network calls, no external AI service. -->
+<style id="ps-agent-css">
+#ps-fab{position:fixed;right:18px;bottom:18px;z-index:8500;display:none;align-items:center;gap:8px;padding:10px 16px 10px 13px;border-radius:26px;border:1px solid rgba(0,212,255,.55);background:linear-gradient(135deg,rgba(0,212,255,.22),rgba(123,47,247,.34));color:#fff;font:600 .82rem var(--font);cursor:pointer;box-shadow:0 6px 24px rgba(0,0,0,.45),0 0 18px rgba(0,212,255,.18);backdrop-filter:blur(6px)}
+#ps-fab:hover{border-color:#00d4ff;box-shadow:0 6px 28px rgba(0,0,0,.5),0 0 24px rgba(0,212,255,.35)}
+#ps-fab .ps-dot{width:8px;height:8px;border-radius:50%;background:#2ed573;box-shadow:0 0 8px #2ed573}
+body.ps-ready #ps-fab{display:flex}
+body.pf-focus #ps-fab{bottom:58px}
+body.ps-open #ps-fab{display:none}
+#ps-panel{position:fixed;right:18px;bottom:18px;z-index:8600;width:min(430px,94vw);height:min(640px,calc(100vh - 36px));display:none;flex-direction:column;background:#0b1020;border:1px solid rgba(0,212,255,.35);border-radius:14px;box-shadow:0 18px 60px rgba(0,0,0,.65);overflow:hidden;font-family:var(--font);color:var(--fg)}
+body.ps-open #ps-panel{display:flex}
+#ps-panel.wide{width:min(760px,94vw);height:calc(100vh - 36px)}
+body.pf-focus #ps-panel{bottom:18px}
+.ps-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(90deg,rgba(0,212,255,.12),rgba(123,47,247,.16));border-bottom:1px solid rgba(0,212,255,.2)}
+.ps-av{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--purple));display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.ps-ht{flex:1;min-width:0}.ps-ht b{display:block;font-size:.9rem;color:#fff}.ps-ht span{display:block;font-size:.66rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ps-hb{background:transparent;border:1px solid rgba(255,255,255,.14);color:var(--fg);border-radius:7px;width:28px;height:28px;cursor:pointer;font-size:.85rem;line-height:1}
+.ps-hb:hover{border-color:#00d4ff;color:#00d4ff}
+#ps-msgs{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:12px;position:relative}
+.ps-m{max-width:92%;font-size:.8rem;line-height:1.5;word-wrap:break-word}
+.ps-u{align-self:flex-end;background:rgba(123,47,247,.28);border:1px solid rgba(123,47,247,.5);border-radius:12px 12px 3px 12px;padding:8px 12px;color:#fff}
+.ps-a{align-self:flex-start;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:12px 12px 12px 3px;padding:10px 12px;width:92%}
+.ps-a p{margin:0 0 7px}.ps-a ul,.ps-a ol{margin:4px 0 7px 18px;padding:0}.ps-a li{margin:2px 0}
+.ps-a b{color:#fff}.ps-a i{color:var(--muted)}
+.ps-a table{width:100%;border-collapse:collapse;font-size:.72rem;margin:6px 0}
+.ps-a th{text-align:left;color:var(--muted);font-weight:700;padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.14)}
+.ps-a td{padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ps-a td.n,.ps-a th.n{text-align:right;font-variant-numeric:tabular-nums}
+.ps-card{border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:8px 10px;margin:6px 0;background:rgba(0,0,0,.2)}
+.ps-ch{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.ps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ps-st{background:rgba(255,255,255,.04);border-radius:7px;padding:5px 6px;text-align:center}
+.ps-st b{display:block;font-size:.95rem}.ps-st span{font-size:.6rem;color:var(--muted)}
+.ps-pill{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.04em;padding:2px 7px;border-radius:9px;border:1px solid}
+.ps-pill.r{color:#ff4757;border-color:#ff4757;background:rgba(255,71,87,.12)}.ps-pill.o{color:#ff6b35;border-color:#ff6b35;background:rgba(255,107,53,.12)}
+.ps-pill.y{color:#ffd32a;border-color:#ffd32a;background:rgba(255,211,42,.1)}.ps-pill.g{color:#2ed573;border-color:#2ed573;background:rgba(46,213,115,.1)}
+.ps-pill.c{color:#00d4ff;border-color:#00d4ff;background:rgba(0,212,255,.08)}.ps-pill.p{color:#a78bfa;border-color:#a78bfa;background:rgba(167,139,250,.1)}
+.ps-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:3px}.ps-bar i{display:block;height:100%}
+.ps-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.ps-src{font-size:.64rem;color:var(--muted);margin-top:5px}
+.ps-tr{margin-top:6px;font-size:.68rem;color:var(--muted)}.ps-tr summary{cursor:pointer;color:#7b88b0}.ps-tr summary:hover{color:#00d4ff}
+.ps-tr ol{margin:4px 0 0 16px;padding:0}
+.ps-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.ps-chip{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.3);color:#9fe9ff;border-radius:14px;padding:4px 10px;font:500 .7rem var(--font);cursor:pointer;text-align:left}
+.ps-chip:hover{background:rgba(0,212,255,.2);border-color:#00d4ff}
+.ps-chip.go{background:rgba(123,47,247,.14);border-color:rgba(167,139,250,.5);color:#d6c9ff}
+.ps-typing{align-self:flex-start;color:var(--muted);font-size:.74rem;padding:4px 2px}
+.ps-typing i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#00d4ff;margin-right:3px;animation:psb 1s infinite}
+.ps-typing i:nth-child(2){animation-delay:.15s}.ps-typing i:nth-child(3){animation-delay:.3s}
+@keyframes psb{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+.ps-foot{border-top:1px solid rgba(255,255,255,.1);padding:9px 12px 8px;background:rgba(0,0,0,.18)}
+#ps-form{display:flex;gap:8px}
+#ps-in{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:9px;color:#fff;padding:9px 11px;font:400 .8rem var(--font);outline:none;min-width:0}
+#ps-in:focus{border-color:#00d4ff}
+#ps-send{background:linear-gradient(135deg,rgba(0,212,255,.3),rgba(123,47,247,.4));border:1px solid rgba(0,212,255,.5);color:#fff;border-radius:9px;padding:0 14px;font:700 .78rem var(--font);cursor:pointer}
+#ps-send:hover{border-color:#00d4ff}
+.ps-note{font-size:.6rem;color:var(--muted);margin-top:6px;line-height:1.4}
+@media print{#ps-fab,#ps-panel{display:none!important}}
+</style>
+
+<button type="button" id="ps-fab" aria-label="Open the Ask ProSense assistant"><span class="ps-dot"></span>Ask ProSense <kbd style="font:600 .62rem var(--font);opacity:.7;border:1px solid rgba(255,255,255,.35);border-radius:4px;padding:0 5px">/</kbd></button>
+<section id="ps-panel" role="dialog" aria-label="Ask ProSense assistant" aria-modal="false">
+  <div class="ps-head">
+    <div class="ps-av">💬</div>
+    <div class="ps-ht"><b>Ask ProSense</b><span>Answers from this dashboard's own synthetic data · no external AI</span></div>
+    <button type="button" class="ps-hb" id="ps-wide" title="Make larger / smaller" aria-label="Toggle larger chat window">⤢</button>
+    <button type="button" class="ps-hb" id="ps-clear" title="Clear conversation" aria-label="Clear conversation">⟲</button>
+    <button type="button" class="ps-hb" id="ps-close" title="Close (Esc)" aria-label="Close chat">✕</button>
+  </div>
+  <div id="ps-msgs" role="log" aria-live="polite"></div>
+  <div class="ps-foot">
+    <form id="ps-form" autocomplete="off"><input id="ps-in" type="text" maxlength="300" placeholder="Ask anything about the project, models or team…" aria-label="Your question"><button id="ps-send" type="submit">Ask</button></form>
+    <div class="ps-note">Rule-based assistant, not a generative AI. It can only answer from the project's data and notes, and it labels what is <b>Trained</b>, <b>Designed</b> or <b>Simulated</b>. A manager always decides; never use these answers for performance reviews.</div>
+  </div>
+</section>
+
+<script id="ps-agent-js">
+/*ENGINE-START*/
+function PSA_ENGINE(getEnv){
+  'use strict';
+  /* ───────── text helpers ───────── */
+  var STOP = {a:1,an:1,the:1,is:1,are:1,was:1,were:1,of:1,to:1,in:1,on:1,for:1,and:1,or:1,do:1,does:1,did:1,it:1,this:1,that:1,what:1,how:1,why:1,who:1,which:1,me:1,you:1,can:1,i:1,my:1,about:1,tell:1,please:1,with:1,be:1,by:1,at:1,from:1,as:1,there:1,any:1,your:1,so:1,if:1,s:1,us:1,we:1,our:1,would:1,should:1,show:1,give:1,get:1,use:1,used:1,using:1,mean:1,means:1,much:1,many:1};
+  var SYN = [
+    [/\bburn(ed|t)?[ -]?out\b/g,'burnout'],[/\bpsychological(ly)? safe(ty)?\b/g,'psysafe'],[/\bpsy[ -]?safe\b/g,'psysafe'],
+    [/\brandom ?forest\b/g,'rf'],[/\bhist ?gradient ?boosting\b/g,'hgb'],[/\bgradient boosting\b/g,'hgb'],[/\bhgbc?\b/g,'hgb'],
+    [/\bgen ?ai\b/g,'genai'],[/\bgenerative ai\b/g,'genai'],[/\bchat ?gpt\b/g,'chatgpt'],[/\bun-?trained\b/g,'designed'],
+    [/\bfalse positives?\b/g,'falsealarm'],[/\bfalse alarms?\b/g,'falsealarm'],[/\bfalse negatives?\b/g,'missed'],
+    [/\bwork[ -]?life\b/g,'worklife'],[/\bdata ?set(s)?\b/g,'dataset'],[/\bmaximi[sz]e\b/g,'enlarge'],
+    [/\bpriya'?s\b/g,'priya s'],[/\bwell[ -]?being\b/g,'wellbeing'],[/\bhuman[ -]in[ -]the[ -]loop\b/g,'hitl'],[/\bhuman in loop\b/g,'hitl']
+  ];
+  function norm(s){
+    s = String(s||'').toLowerCase().replace(/[’‘`]/g,"'");
+    SYN.forEach(function(p){ s = s.replace(p[0],p[1]); });
+    return s.replace(/[^a-z0-9.%+ ']/g,' ').replace(/'/g,' ').replace(/\s+/g,' ').trim();
+  }
+  function stem(w){
+    if (w.length>4 && /ies$/.test(w)) return w.slice(0,-3)+'y';
+    if (w.length>5 && /ing$/.test(w)) return w.slice(0,-3);
+    if (w.length>4 && /ed$/.test(w)) return w.slice(0,-2);
+    if (w.length>3 && /s$/.test(w) && !/ss$/.test(w)) return w.slice(0,-1);
+    return w;
+  }
+  function toks(s){ return norm(s).split(' ').filter(function(w){ return w && !STOP[w]; }).map(stem); }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function pct(x){ return Math.round(x); }
+  function pill(t,c){ return '<span class="ps-pill '+c+'">'+t+'</span>'; }
+  function tbl(head,rows,numFrom){
+    numFrom = numFrom==null?1:numFrom;
+    return '<table><thead><tr>'+head.map(function(h,i){return '<th'+(i>=numFrom?' class="n"':'')+'>'+h+'</th>';}).join('')+'</tr></thead><tbody>'+
+      rows.map(function(r){return '<tr>'+r.map(function(c,i){return '<td'+(i>=numFrom?' class="n"':'')+'>'+c+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table>';
+  }
+  function bar(v,max,col){ return '<div class="ps-bar"><i style="width:'+Math.max(2,Math.min(100,v/max*100))+'%;background:'+col+'"></i></div>'; }
+
+  /* ───────── knowledge base (every fact matches the deck, Q&A and dashboard) ───────── */
+  var KB = [];
+  function K(id,title,kw,html,o){ o=o||{}; KB.push({id:id,title:title,kw:kw.split(',').map(function(x){return norm(x);}),html:html,tags:o.tags||['Info'],src:o.src||'Project notes',go:o.go||null,follow:o.follow||[]}); }
+
+  K('about','What is ProSense AI?','what is prosense,prosense ai,about the project,overview,summary,purpose,what does it do,elevator pitch,capstone,tell me about this project,explain the project,in short,explain like i m 5,eli5,simple words,in simple terms,layman,for a layman,plain english',
+    '<p><b>ProSense AI</b> is a <b>wellbeing early-warning system</b> for teams that use AI tools. It does four things:</p><ul><li><b>Senses</b> everyday work signals as team patterns (never private message content)</li><li><b>Predicts</b> each person\'s risk from 0 to 1 with a trained model</li><li><b>Explains</b> the reasons behind every score</li><li><b>Suggests</b> a research-based, human-led action</li></ul><p>A manager always decides. It is never used for performance reviews, and all data here is synthetic.</p>',
+    {tags:['Info'],src:'Deck slide 2 · Vision',follow:['What is the vision?','Which models are trained and which are only designed?','What are the honest limitations?']});
+  K('vision','Vision','vision,mission,why was it built,why build it,why does prosense exist,goal of the project,north star',
+    '<p>“Every team using AI should stay psychologically safe, and every manager should see silent risk early enough to help.”</p><p><b>Sense</b> the signals → <b>Predict</b> the risk → <b>Intervene</b> early. It is a wellbeing early-warning system, not surveillance: it is built to protect people, not to rate them.</p>',
+    {go:'architecture',src:'AI Architecture page · Vision card'});
+  K('problem','The problem: Priya\'s team story','problem,story,priya s team,why needed,what problem,silent risk,going quiet,velocity up,act 1,problem statement,motivation',
+    '<p><b>Priya</b> (a fictional engineering manager) gave her team an AI coding assistant. On paper, velocity rose <b>22%</b>. Underneath:</p><ul><li>Psychological safety <b>44/100</b> (threshold 60), down 17 points in 6 weeks</li><li>Team Health <b>38/100</b> (Critical)</li><li>AI risk reports approved in <b>6 seconds</b> (used to take 4.2 minutes), so nobody checks</li><li><b>Arjun</b>, her senior engineer: burnout 97%, risk 0.97, Slack messages ↓61%, stand-up contribution ↓48%. He hasn\'t quit; he has gone quiet.</li></ul><p>All people and numbers are fictional and synthetic.</p>',
+    {tags:['Synthetic data'],go:'situation',src:'Priya\'s Situation page',follow:['Why is Arjun at risk?','Why do today\'s tools miss this?']});
+  K('gap','Why today\'s tools miss it','gap,traditional dashboards,why tools miss,speed is not health,velocity misleading,blind spot,existing tools,competitors,what is new',
+    '<p>Traditional dashboards see velocity ↑, tickets closed ↑, commits ↑ and conclude “the AI rollout is a success”.</p><p>ProSense also sees psychological safety ↓17 points, checking of AI output near zero (6 seconds a report), and stand-up contribution ↓48%, so it concludes “silent risk is building: act now”.</p><p><b>Speed is not health.</b> ProSense adds the human signal that speed metrics leave out.</p>',{tags:['Synthetic data'],src:'Deck slide 5'});
+  K('approach','Approach: 7 steps from data to action','approach,steps,method,methodology,pipeline,how was it built,process,workflow,how did you build,how it works,end to end',
+    '<ol><li><b>Collect</b>: 5,000 rows from 4 public datasets</li><li><b>Score text</b>: 7 pillars, 420 workplace phrases</li><li><b>Clean</b>: VIF check, 41 → 7 features</li><li><b>Train</b>: Random Forest vs HistGradientBoosting</li><li><b>Explain</b>: SHAP shows why</li><li><b>Act</b>: dashboard plus a human-led intervention</li><li><b>Monitor</b>: drift check and retrain <i>(designed)</i></li></ol><p>Principles: use ML only where it helps, simple explainable models first, honest Trained/Designed labels, and a human in the loop.</p>',
+    {tags:['Trained','Designed'],src:'Deck slide 6',follow:['Why Random Forest?','What is trained vs designed?']});
+  K('data','The data','data,dataset,sources,rows,columns,where does data come from,training data,5000,public datasets,ibm hr,label,target,at risk 67,data versions,v4,53 columns',
+    '<p>4 public datasets were blended into one table of <b>5,000 rows × 53 columns</b> (v4, 0 missing values) and enriched with synthetic team signals.</p>'+
+    tbl(['Public dataset','Rows'],[['IBM HR Analytics','1,575'],['Burnout (work from home)','1,540'],['Employee Engagement Survey','1,018'],['Mental Health in Tech','867']])+
+    '<p>Versions: v1 (25 cols, raw) → v2 (29, + psychological safety) → v3 (41, + burnout, collaboration, speak-up) → <b>v4 (53, + work-life, job satisfaction, AI adoption)</b>.</p><p>Target label: <b>At Risk 67.1%</b> / Healthy 32.9%.</p>',
+    {tags:['Synthetic data','Trained'],src:'Deck slide 7 · metrics JSON'});
+  K('synthetic','Is the data real?','synthetic,real data,is the data real,fictional,fake data,company data,employee data,real employees,real people,is it real,where does the data come from privacy,confidential',
+    '<p><b>No real company or employee data is used anywhere in this project.</b> The training table blends 4 public datasets and synthetic team signals. Priya\'s team and every person on the dashboard are <b>fictional</b>.</p><p>The only external signal is public open-source GitHub activity, used as a proxy. Because the data is synthetic, results may not generalise to real teams. That is the biggest open risk, and a real consented pilot is the next step.</p>',
+    {tags:['Synthetic data'],src:'Deck slides 7, 26',follow:['What are the honest limitations?','What are the pending actions?']});
+  K('pillars','The 7 pillars and 420 phrases','pillars,seven pillars,7 pillars,420 phrases,phrase engine,nlp engine,text scoring,turning words into numbers,language scoring,60 phrases,weights',
+    '<p>Each person gets a score on <b>7 pillars</b>: psychological safety, burnout, collaboration, speak-up rate, work-life balance, job satisfaction and AI adoption.</p><p>Scores come from a custom phrase engine: <b>60 workplace phrases × 7 pillars = 420 phrases</b>, each with a weight from −0.30 to +0.35. Every score starts at a neutral 0.50 and moves with the evidence.</p>',
+    {tags:['Trained'],src:'Deck slide 8',follow:['Which pillar is weakest?','Why not VADER?']});
+  K('pillar-quality','How well each pillar works','pillar quality,correlation,r value,weak pillar,weakest,worklife,strongest pillar,nlp accuracy,which pillar is weak,pillar strength,phrase redesign',
+    '<p>Correlation (r) of each pillar score with the outcome (1.0 = perfect):</p>'+
+    tbl(['Pillar','r','Rating'],[['Collaboration','0.827','Strongest'],['Psychological safety','0.803','Strong'],['Burnout','0.771','Strong'],['Speak-up rate','0.699','Good'],['AI adoption','0.469','Moderate'],['Job satisfaction','0.460','Moderate'],['Work-life balance','0.305','<span style="color:#ff4757">Weak</span>']],1)+
+    '<p>The 3 weaker pillars need a phrase redesign. That is an open item, not hidden.</p>',
+    {tags:['Trained'],src:'Deck slide 8',follow:['What are the pending actions?']});
+  K('vader','Why not VADER?','vader,sentiment tool,why not vader,sentiment analysis,i go with the model,standard sentiment,off the shelf',
+    '<p>VADER is a standard sentiment tool. It read “I go with the model” as <b>positive</b>. At work, that phrase signals disengagement. So we wrote workplace-specific phrases and weights instead.</p>',{tags:['Trained'],src:'Deck slide 8 · Q&A'});
+  K('features','Feature preparation (VIF) and the 7 features','features,vif,multicollinearity,41 to 7,seven features,feature selection,which features,inputs of the model,what does the model use,columns used,34 dropped',
+    '<p><b>41 → 7 features.</b> VIF checks whether two columns say the same thing; 34 were dropped because they repeated each other (VIF &gt; 10). Example: psysafe_score and outcome_score were 91% alike (r = 0.914).</p>'+
+    tbl(['Feature','Meaning'],[['attrition_risk','Flight-risk flag'],['overtime_flag','Regular overtime'],['env_satisfaction','Happy with environment'],['remote_work','Remote or office'],['one_on_one_frequency','How often 1:1s happen'],['training_frequency','Learning time'],['manager_tenure_yrs','Years with manager']],1),
+    {tags:['Trained'],src:'Deck slide 9 · metrics JSON'});
+  K('imbalance','Class balance and the train/test split','imbalance,class weight,67 33,split,train test,stratified,test set,overfitting,80 20,seed,unseen,class balance,leakage',
+    '<p>Two-thirds of rows are “at risk”, so the models use <b>class_weight = "balanced"</b> to weigh both groups fairly.</p><p>Split: <b>80/20, stratified, seed 42</b>. The models were tested only on <b>1,000 people they had never seen</b>.</p>',{tags:['Trained'],src:'Deck slide 9'});
+  K('why-ml','Why machine learning, not statistics or generative AI?','why machine learning,why ml,statistics vs ml,genai,why not llm,why not chatgpt,decision framework,stats vs ml,generative,why not statistics',
+    '<ul><li><b>Statistics</b> tests a hypothesis (“is A better than B?”). Useful, but it doesn\'t predict a person\'s risk.</li><li><b>Machine learning</b> predicts an outcome (“who is at risk this quarter?”). That is exactly ProSense\'s question.</li><li><b>Generative AI</b> creates content. It is not used to predict risk; BERT is only <i>planned</i> to classify language.</li></ul><p>Rule: when the verb is <b>Predict</b>, use machine learning. Use the simplest tool that answers the question, and make the answer explainable.</p>',
+    {go:'architecture',src:'Deck slide 10 · AI Architecture page'});
+  K('models-overview','Models: trained vs designed','models,which models,models used,trained or designed,built vs designed,what is trained,model list,four models,model registry,status of models,designed vs trained,trained vs designed,what is built,simulated',
+    tbl(['Model','Status','Score'],[
+      ['<b>Random Forest</b> (primary)',pill('Trained','g'),'AUC 0.9479'],
+      ['<b>HistGradientBoosting</b> (challenger)',pill('Trained','g'),'AUC 0.9376'],
+      ['BERT Fear Index',pill('Designed','y'),'0.74 (scenario)'],
+      ['Delivery (ARIMA + LSTM)',pill('Designed','y'),'0.55 (scenario)'],
+      ['Blind AI Trust',pill('Designed','y'),'0.87 (scenario)']],1)+
+    '<p><b>Two models are trained</b> and answer the same question from the same 7 features, so they compare fairly. The other three are shown as the roadmap and are <b>not</b> presented as trained.</p>',
+    {tags:['Trained','Designed'],go:'models',src:'4 Models page · deck slide 11',follow:['Compare the two trained models','What is the BERT Fear Index?']});
+  K('why-rf','Why Random Forest?','why random forest,rf,primary model,why tree models,tree based,why not deep learning,why not neural network,why trees,why rf,deep learning',
+    '<p>The data is a <b>table</b>, and tree models are the proven choice for tables. They capture combinations (e.g. overtime together with few 1:1s) that simple linear models miss, work well on 5,000 rows (deep learning needs far more), are explainable with SHAP, train in seconds and need no GPU.</p><p><b>Random Forest</b>: hundreds of trees vote, so it is stable and hard to overfit. It had the best AUC and the fewest false alarms, so it is the <b>primary</b> model.</p>',
+    {tags:['Trained'],src:'Deck slide 12',follow:['Why a second model (HistGradientBoosting)?','Compare the two trained models']});
+  K('why-hgb','Why HistGradientBoosting as well?','why hgb,hgb,challenger,second model,two models,why two models,boosting,second opinion',
+    '<p>In <b>HistGradientBoosting</b> the trees learn one after another, each fixing the last one\'s mistakes. It catches slightly more real risks (recall 83.3%), so it is the <b>challenger</b>. If both models agree, we can be more confident.</p>',{tags:['Trained'],src:'Deck slide 12',follow:['Compare the two trained models']});
+  K('results','Results in plain English','results,accuracy,how good,performance,0.9479,evaluation results,model score,how accurate,metrics,is it good,how well does it work',
+    '<p>Random Forest on 1,000 unseen test people:</p><ul><li><b>AUC 0.9479</b>: pick one at-risk and one healthy person and the model ranks the at-risk one higher about 95% of the time</li><li><b>Precision 94.5%</b>: about 19 in 20 alerts are real</li><li><b>Recall 82%</b>: it catches about 4 in 5 real risks</li><li><b>F1 0.878</b>: the balance of the two</li></ul><p>These come from a <b>synthetic</b> test set. Real-world validation is the next step.</p>',
+    {tags:['Trained','Synthetic data'],go:'models',src:'metrics JSON · deck slide 13',follow:['What does the confusion matrix show?','Compare the two trained models']});
+  K('confusion','Confusion matrix and mistakes','confusion matrix,falsealarm,missed,112 missed,47,errors,mistakes,when is it wrong,wrong predictions,error rate,misses people',
+    '<p>HistGradientBoosting on 1,000 unseen test people:</p>'+tbl(['','Said AT RISK','Said HEALTHY'],[['Really at risk (671)','<span style="color:#2ed573">559 caught</span>','<span style="color:#ff4757">112 missed</span>'],['Really healthy (329)','<span style="color:#ff6b35">47 false alarms</span>','<span style="color:#2ed573">282 cleared</span>']])+'<p>It misses some real risks (recall 83%) and raises some false alarms. That is why a human reviews every alert and the model never acts alone.</p>',
+    {tags:['Trained','Synthetic data'],src:'metrics JSON',follow:['Compare the two trained models']});
+  K('shap','SHAP: why a score is what it is','shap,explainability,explain prediction,why 0.97,reasons,feature importance,drivers,interpretability,black box,explainable ai,explainable',
+    '<p><b>SHAP</b> splits a score into the push each factor gave it, so every score comes with reasons. Arjun\'s breakdown (an <i>illustrative profile</i>):</p>@@SHAP@@<p>Red pushes risk up; green is protective. The manager sees <i>why</i> (“few 1:1s, low satisfaction”) and knows <i>what to do</i>: a non-performance 1:1 with Arjun.</p>',
+    {tags:['Trained','Synthetic data'],go:'risk',src:'Risk Signals page · deck slide 14'});
+  K('auc','AUC','auc,area under the curve,roc,what is auc,ranking quality',
+    '<p><b>AUC</b> says how well the model ranks at-risk people above healthy ones: <b>1.0 = perfect, 0.5 = a coin flip</b>. Random Forest scores 0.9479 and HistGradientBoosting 0.9376.</p>',{tags:['Info'],src:'Deck glossary'});
+  K('prf','Precision, recall and F1','precision,recall,f1,what is precision,what is recall,sensitivity,balanced,false alarm rate',
+    '<p><b>Precision</b>: of the alerts raised, how many are real (RF: 94.5%, about 19 in 20).<br><b>Recall</b>: of the real risks, how many are caught (RF: 82%, HGB: 83.3%).<br><b>F1</b>: the balance between the two (RF 0.878, HGB 0.876).</p>',{tags:['Info'],src:'Deck glossary'});
+  K('psysafe','PsySafe: psychological safety','psysafe,safe to speak up,60 threshold,threshold 60,44,team psysafe,what is psysafe,speak up',
+    '<p><b>PsySafe</b> (psychological safety) is whether people feel safe to speak up. The threshold is <b>60</b>. Priya\'s team scores <b>44/100</b>, down 17 points in 6 weeks.</p><p>The team figure is a team-level survey score, so it is not the average of the six individual scores (22, 41, 58, 63, 74, 82).</p>',{tags:['Synthetic data'],go:'home',src:'Home page · deck slide 16'});
+  K('team-health','Team Health score (38/100)','team health,38,health score,prosense safe score,safe score,overall score,critical score,team score',
+    '<p>The <b>ProSense Safe Score</b> is one overall team-health number from 0 to 100. Higher is healthier. Priya\'s team is <b>38/100, labelled Critical</b>. The same value appears on every page.</p>',{tags:['Synthetic data'],go:'home',src:'Home page'});
+  K('ai-adoption','AI adoption and AI scrutiny','ai adoption,adoption,ai usage,ai scrutiny,hide expertise,hide expertise from ai,71%,using ai,ai usage per person',
+    '<p><b>AI adoption</b> is one of the 7 pillars. Per person it ranges from <b>Arjun 23%</b> up to <b>Kenji 85%</b>. The related warning signs are people <b>hiding expertise from AI</b> (71% of the team in the scenario) and approving AI output without checking it.</p>',{tags:['Synthetic data'],go:'ai',src:'AI & Productivity page'});
+  K('bert','BERT Fear Index (designed)','bert,fear index,language model,transformer,nlp model,withdrawal language,fear language,bert fear index,0.74,0.65,encoder,fine tune',
+    '<p><b>Designed, not yet trained.</b> The BERT Fear Index is planned to read anonymised feedback for withdrawal or fear language, context-aware rather than keyword-matching.</p><ul><li>Arjun\'s <b>0.74</b> is an <i>illustrative scenario score</i>, not a measured result</li><li>Planned flag threshold: &gt; 0.65</li><li>Planned rollout: 25% canary only, after a human bias audit</li></ul><p>Training BERT is a pending action.</p>',
+    {tags:['Designed'],go:'architecture',src:'AI Architecture page · deck slide 11',follow:['What are the pending actions?']});
+  K('delivery','Delivery model (designed)','delivery model,arima,lstm,forecasting,sprint delivery,delivery risk,0.55,forecast',
+    '<p><b>Designed / simulated.</b> The delivery model (ARIMA + LSTM) is planned to forecast sprint delivery risk over time. The <b>0.55</b> on the dashboard is a scenario value. In the simulated pilot it falls to 0.38 (↓31%).</p>',{tags:['Designed','Simulated'],go:'models',src:'4 Models page'});
+  K('ai-trust','Blind AI Trust model (designed)','ai trust,blind trust,blind ai trust,rubber stamp,rubber stamping,approving ai,6 seconds,0.87,ai risk model,approve ai output,4.2 minutes',
+    '<p><b>Designed / simulated.</b> This model is meant to spot “rubber-stamping”: people approving AI output without checking it. In the scenario an AI risk report is approved in <b>6 seconds</b> where it used to take 4.2 minutes. The <b>0.87</b> is a scenario value, not a trained result.</p>',{tags:['Designed','Simulated'],go:'models',src:'4 Models page'});
+  K('mlops','MLOps safety net','mlops,safety net,monitoring,retrain,rollback,model monitoring,auto retrain,release pipeline,deployment,keep model honest,model decay,production',
+    '<p>A model that is 91% accurate in month one can quietly drift to 65% by month six <i>(illustrative scenario)</i>. ProSense is designed to catch that:</p>'+tbl(['If…','Then…'],[['Data drifts (PSI &gt; 0.2)','Retrain on the latest 90 days, shadow-test first'],['Every Monday','Scheduled retrain → shadow → canary'],['Precision drops &gt; 5%','Roll back in 60 seconds'],['New client joins','Fine-tune on anonymised pilot data']],1)+
+    '<p><b>Built</b>: experiment logging and dataset versioning (DVC). <b>Designed</b>: drift detection, auto-retrain and the staged rollout. The release-pipeline stages on the dashboard are simulated.</p>',
+    {tags:['Designed','Trained'],go:'mlops',src:'MLOps Safety Net page · deck slide 24',follow:['What is PSI drift?','What is a canary release?']});
+  K('psi','PSI and data drift','psi,drift,data drift,concept drift,model drift,population stability,0.2,drift alert,distribution shift',
+    '<p><b>PSI</b> (population stability index) warns that today\'s data no longer looks like the data the model learned from. An <b>alert fires above 0.2</b>. The MLOps page shows PSI per signal; ask “which features are drifting?” for the current values.</p>',{tags:['Designed'],go:'mlops',src:'MLOps Safety Net page · glossary'});
+  K('canary','Canary release','canary,canary release,staged rollout,shadow,rollout,25%,shadow test,gradual release',
+    '<p>A <b>canary release</b> tries a new model on a small share of users (25%) before everyone. The designed ladder is <b>shadow → 5% → 25% → full</b>, with a 60-second rollback if precision drops more than 5%. It is designed, not yet deployed.</p>',{tags:['Designed'],go:'mlops',src:'MLOps page · deck slide 24'});
+  K('responsible','Responsible AI safeguards','responsible ai,safeguards,ethics,consent,misuse,hitl,privacy,watermark,surveillance,bias,fairness,trust,human oversight,manager decides,autonomous,write access,audit',
+    '<ul><li><b>Consent</b> before any personal view: “I will not use this in performance reviews”</li><li><b>💛 Wellbeing badge</b> on every profile: “not a performance metric”</li><li><b>Human in the loop</b>: AI suggests, the manager decides; zero write access</li><li><b>Watermark</b> on printed or PDF copies: “Not for performance review”</li><li><b>No free AI text</b> in any decision: scores and reasons only</li><li><b>Audit</b>: every score is versioned with its model</li><li><b>Privacy</b>: synthetic data only; sign-in emails stored as hashes</li></ul>',
+    {tags:['Safeguard'],go:'architecture',src:'Deck slide 23',follow:['What is still missing for real use?']});
+  K('gdpr','Consent and GDPR','gdpr,consent framework,legal,compliance,data protection,privacy law,audit logging,data residency,regulation',
+    '<p>The <b>consent and GDPR framework is not built yet</b>. It blocks any real users or real data. Real deployment needs consent, data residency and audit logging defined first. It is pending action #1 and a blocker.</p>',{tags:['Safeguard'],src:'Reports page · deck slides 26–27',follow:['What are the pending actions?']});
+  K('pilot','Simulated 90-day pilot','pilot,simulated pilot,90 day,results of pilot,impact,outcomes,before and after,loyal opposition,roi,business value,2-4m,exposure,savings,31%,what changes,improvement',
+    '@@PILOT@@',{tags:['Simulated','Synthetic data'],go:'resolution',src:'Resolution page · deck slide 25'});
+  K('limitations','Honest limitations','limitations,weaknesses,risks,challenges,problems,what is wrong,honest limits,drawbacks,caveats,shortcomings,what does not work,flaws,known issues',
+    '<p><b>Open:</b></p><ul><li><b>Synthetic data only</b>: the biggest risk; it may not generalise to real teams</li><li><b>No GDPR / consent framework yet</b>: blocks any real users</li><li><b>3 weak pillars</b>: work-life r 0.305, job satisfaction 0.460, AI adoption 0.469</li><li><b>BERT, delivery and AI-trust models</b> are designed and simulated, not trained</li></ul><p><b>Resolved:</b> VADER misreading (custom 420-phrase engine), class imbalance (class_weight), multicollinearity (VIF 41 → 7), inconsistent numbers (one canonical set).</p><p>Stage: <b>proof of concept</b>, not yet an MVP.</p>',
+    {tags:['Info'],go:'architecture',src:'Deck slide 26',follow:['What are the pending actions?']});
+  K('pending','Pending actions','pending,pending actions,to do,todo,what is left,remaining,not done,open items,backlog,missing,what still needs,incomplete,unfinished,what is still missing,next steps needed',
+    tbl(['#','Action','Priority'],[['1','Consent and <b>GDPR framework</b>','<span style="color:#ff4757">Blocker</span>'],['2','Connect <b>one real, consented data source</b>','<span style="color:#ff4757">Blocker</span>'],['3','Redesign phrases for the <b>3 weak pillars</b>','High'],['4','<b>Train BERT</b>, then bias audit and 25% canary','High'],['5','Train the <b>delivery</b> and <b>AI-trust</b> models','High'],['6','Finish <b>MLOps</b>: registry, drift alerts, auto-retrain','High'],['7','<b>Code audit</b>, then a full Databricks end-to-end run','Med'],['8','Run a <b>real pilot</b> with a design partner','Med']],0)+'<p>Items 1 and 2 must be done before any real pilot.</p>',
+    {tags:['Info'],src:'Deck slide 27'});
+  K('roadmap','Roadmap','roadmap,future,next,mvp,scale,what comes next,plans,future work,next phase,after poc',
+    '<ul><li><b>NOW</b>: proof of concept ✅ (2 trained models, 10-page dashboard, safeguards, guest demo)</li><li><b>NEXT</b>: MVP (one real, consented data source, consent and GDPR framework, a real pilot, redesign the 3 weak pillars)</li><li><b>LATER</b>: scale (train BERT, delivery and AI-trust models, live drift monitoring, Databricks pipeline)</li></ul><p>The real pilot must prove that alerts arrive earlier than a manager would notice, that managers act on the reasons, and that people trust the tool.</p>',
+    {tags:['Info'],src:'Deck slide 28',follow:['What are the pending actions?']});
+  K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
+    '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
+  K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
+    '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 29'});
+  K('pages','The 10 dashboard pages','pages,tabs,navigation,menu,ten pages,10 pages,sections,whats on each page,tour,dashboard tour,list of pages',
+    '<ol><li><b>Home</b>: Team Health, PsySafe, Team Pulse, recommended actions</li><li><b>Team Intelligence</b>: individual profiles (consent first)</li><li><b>Risk Signals</b>: scorecard and SHAP reasons</li><li><b>AI &amp; Productivity</b>: AI adoption and public GitHub patterns</li><li><b>Reports</b>: pillar heatmap, outcomes, limitations</li><li><b>Priya\'s Situation</b>: the story and live team table</li><li><b>4 Models Running</b>: trained vs designed models</li><li><b>MLOps Safety Net</b>: drift and rollback</li><li><b>Resolution</b>: intervention and simulated pilot</li><li><b>AI Architecture</b>: vision, models and why, challenges</li></ol><p>Say “open the models page” and I\'ll take you there.</p>',{tags:['Info'],src:'Deck slides 17–21'});
+  K('about-agent','How this assistant works','how do you work,are you ai,are you chatgpt,are you an llm,who are you,what are you,how does this chatbot work,assistant,agent,how are you built,are you real ai,do you use gpt,model behind you,are you generative,do you use claude',
+    '<p>I\'m a <b>rule-based assistant that runs entirely in your browser</b>. I am <b>not</b> a generative AI model, and nothing you type leaves this page.</p><ul><li>I read the dashboard\'s own synthetic data (team profiles, SHAP, drift, model scores) and a curated set of project notes</li><li>For each question I pick the closest topic or run a small calculation (rank, compare, average), and show <b>how I got the answer</b></li><li>I tag answers <b>Trained / Designed / Simulated / Synthetic data</b> and never present designed models as trained</li><li>If I don\'t know, I say so instead of guessing</li></ul>',{tags:['Info'],src:'This assistant'});
+  K('evaluation','How the model is evaluated','evaluation,evals,how do you test,testing,grader,deterministic,model graded,human evaluation,quality checks,validation,tiers,cross validation,eval',
+    '<p>Checks come in three tiers:</p><ul><li><b>Deterministic</b> (pass/fail): data quality, feature checks, metric gates, drift thresholds</li><li><b>Model-graded</b> (scalable): SHAP explains the trained models; BERT and an LLM judge are <i>designed</i>, not yet run</li><li><b>Human</b> (gold standard): the manager\'s decision on every intervention, a bias audit, phrase review, privacy and GDPR sign-off</li></ul><p>The trained models were tested on 1,000 unseen people (stratified 80/20 split).</p>',{tags:['Trained','Designed'],src:'Submission Q&A (evaluation tiers)'});
+  K('signals','Where the signals come from','github,commits,after hours,after-hours commits,54.2,jira,slack,zoom,signals,key signals,integrations,data sources signals,connect,real data source',
+    '<p>In this proof of concept the only external signal is <b>public open-source GitHub activity</b> (commit and review patterns), used as a proxy; after-hours commits of <b>54.2%</b> are shown as a burnout signal. Everything else is synthetic. Connecting <b>one real, consented data source</b> is pending action #2.</p>',{tags:['Synthetic data'],go:'ai',src:'AI & Productivity page · deck slide 19'});
+  K('manager-actions','What the manager should do','what should the manager do,recommended actions,intervention,1:1,what should priya do,next action,how to help,loyal opposition,non performance,priya do,manager action,what to do about',
+    '@@ACTIONS@@',{tags:['Synthetic data','Safeguard'],go:'home',src:'Home page · Resolution page'});
+  K('who','Who built this','who built,author,creator,developer,who made,deepkant,who is behind',
+    '<p>ProSense AI was built by <b>Deepkant Verma</b> as a capstone project (November 2026).</p>',{tags:['Info'],src:'Deck title slide'});
+  K('stack','Tools and techniques used','python,tech stack,technology,tools used,databricks,mlflow,dvc,stack,libraries,which tools,frameworks',
+    '<ul><li>Models: Random Forest and HistGradientBoosting (tree models), explained with SHAP</li><li>Data prep: VIF feature selection, class weighting, stratified split</li><li>Built: experiment logging and dataset versioning with DVC</li><li>Pending: MLflow registry, drift alerts, auto-retrain and a full Databricks end-to-end run</li></ul>',{tags:['Trained','Designed'],src:'Deck slides 9, 24, 27'});
+
+  var N = KB.length, DF = {};
+  KB.forEach(function(e){
+    e.tt = {}; e.kt = {}; e.bt = {};
+    toks(e.title).forEach(function(t){ e.tt[t]=1; });
+    e.kw.forEach(function(p){ toks(p).forEach(function(t){ e.kt[t]=1; }); });
+    toks(e.html.replace(/<[^>]+>/g,' ')).forEach(function(t){ e.bt[t]=1; });
+    var seen = {}; Object.keys(e.tt).concat(Object.keys(e.kt),Object.keys(e.bt)).forEach(function(t){ if(!seen[t]){ seen[t]=1; DF[t]=(DF[t]||0)+1; } });
+  });
+  function idf(t){ return Math.log(1 + N/(DF[t]||0.5)); }
+  function retrieve(q){
+    var nq = ' '+norm(q)+' ', qt = toks(q), out = [];
+    KB.forEach(function(e){
+      var s = 0;
+      e.kw.forEach(function(p){ if(p && nq.indexOf(' '+p+' ')>-1) s += 5 + p.split(' ').length*1.5; });
+      qt.forEach(function(t){ var w = idf(t); if(e.kt[t]) s += 2*w; if(e.tt[t]) s += 1.5*w; if(e.bt[t]) s += 0.35*w; });
+      if (s>0) out.push({e:e,s:s});
+    });
+    return out.sort(function(a,b){ return b.s-a.s; });
+  }
+
+  /* ───────── live data (the same arrays the dashboard draws from) ───────── */
+  var E = function(){ try { return getEnv()||{}; } catch(e){ return {}; } };
+  var NAMES = {arjun:0,meera:1,rajan:2,divya:3,kenji:4,priya:5};
+  function team(){ return E().TEAM_DATA || []; }
+  function bandPill(l){ var m={CRITICAL:'r',HIGH:'o',MEDIUM:'y',LOW:'g'}; return pill(l,m[l]||'c'); }
+  function colRisk(v){ return v>=.7?'#ff4757':v>=.5?'#ffd32a':'#2ed573'; }
+  function findMembers(n){
+    var out=[]; Object.keys(NAMES).forEach(function(k){ if(new RegExp('\\b'+k+'\\b').test(n)) out.push(NAMES[k]); }); return out;
+  }
+  function memberStats(m){
+    return '<div class="ps-grid"><div class="ps-st"><b style="color:'+colRisk(m.riskScore)+'">'+m.riskScore.toFixed(2)+'</b><span>Risk (RF)</span></div>'+
+      '<div class="ps-st"><b>'+m.burnout+'%</b><span>Burnout</span></div><div class="ps-st"><b>'+m.psysafe+'</b><span>PsySafe</span></div><div class="ps-st"><b>'+m.aiAdopt+'%</b><span>AI adoption</span></div></div>';
+  }
+  function shapHtml(){
+    var S = E().SHAP; if(!S||!S.length) return '';
+    var mx = Math.max.apply(null,S.map(function(d){return Math.abs(d.val);}));
+    return S.map(function(d){ var c=d.val>0?'#ff4757':'#2ed573';
+      return '<div style="font-size:.7rem;display:flex;justify-content:space-between"><span>'+esc(d.label)+'</span><b style="color:'+c+'">'+(d.val>0?'+':'−')+Math.abs(d.val).toFixed(2)+'</b></div>'+bar(Math.abs(d.val),mx,c); }).join('');
+  }
+  function pilotHtml(){
+    var B = E().BA_METRICS;
+    var rows = (B&&B.length?B:[]).map(function(b){
+      var chg = Math.round((b.after-b.before)/b.before*100);
+      var good = (b.better==='down'&&chg<0)||(b.better==='up'&&chg>0);
+      return [esc(b.label), b.before.toFixed(2), b.after.toFixed(2), '<b style="color:'+(good?'#2ed573':'#ff4757')+'">'+(chg>0?'↑ ':'↓ ')+Math.abs(chg)+'%</b>'];
+    });
+    return '<p><b>Simulated results on synthetic data.</b> In week 9 Priya runs a “loyal opposition” exercise (one person argues against the AI for 10 minutes) and has a non-performance 1:1 with Arjun. In week 12 the team catches a flawed AI report (<b>$2–4M exposure flagged, simulated</b>).</p>'+
+      (rows.length?tbl(['Metric','Before','After','Change'],rows,1):'<p>Delivery risk ↓31%, meeting candor ↑24%, silent dissent ↓40%, attrition risk ↓18%, PsySafe 44 → 63.</p>')+
+      '<p>No real organisation has used ProSense yet; a real pilot is the next step.</p>';
+  }
+  function actionsHtml(){
+    var a = team()[0], list = a&&a.interventions?a.interventions:[];
+    return '<p>The manager\'s <b>P1 action</b> is a <b>non-performance 1:1 with Arjun</b>. The dashboard suggests (all human-led):</p><ul>'+
+      list.map(function(x){ return '<li>'+x.icon+' <b>'+esc(x.title)+'</b>: '+esc(x.desc)+'</li>'; }).join('')+'</ul>'+
+      '<p>In the simulated pilot, a “loyal opposition” exercise plus that 1:1 moved PsySafe from 44 to 63. The tool suggests; <b>the manager decides</b>.</p>';
+  }
+  function expand(h){ return h.replace('@@SHAP@@',shapHtml()).replace('@@PILOT@@',pilotHtml()).replace('@@ACTIONS@@',actionsHtml()); }
+
+  function res(html,o){ o=o||{}; return {html:html,tags:o.tags||[],src:o.src||'',trace:o.trace||[],follow:o.follow||[],go:o.go||null,act:o.act||null,kind:o.kind||'ok'}; }
+  function fromKB(e,trace){ return res(expand(e.html),{tags:e.tags,src:e.src,go:e.go,follow:e.follow,trace:(trace||[]).concat(['Answered from the project notes: “'+e.title+'”'])}); }
+
+  /* ───────── tools (small calculations over the live data) ───────── */
+  function consentOK(){ var c=E().checkConsent; return typeof c==='function' ? !!c() : true; }
+  function needConsent(){
+    return res('<p>🔒 Individual profiles are covered by the wellbeing consent. Please confirm that you will use this data only to support wellbeing and <b>not</b> in performance reviews, then ask again.</p>',{tags:['Safeguard'],src:'Consent gate',kind:'consent',act:'consent',trace:['Question is about a named person','Consent not yet confirmed → showed the consent step']});
+  }
+  function profile(i,ctx){
+    var m = team()[i]; if(!m) return null;
+    if(!consentOK()) return needConsent();
+    var crit = m.pillars.filter(function(p){ return p.band==='Critical'||p.band==='Vulnerable'; });
+    var h = '<div class="ps-card"><div class="ps-ch"><b>'+esc(m.name)+'</b><span style="color:var(--muted)">'+esc(m.role)+'</span>'+bandPill(m.riskLabel)+'</div>'+memberStats(m)+'</div>';
+    h += crit.length ? '<p>Pillars needing attention: '+crit.map(function(p){return '<b>'+esc(p.label)+'</b> ('+esc(p.band)+')';}).join(', ')+'.</p>' : '<p>No pillar is in a Critical or Vulnerable band.</p>';
+    h += '<p>BERT fear score <b>'+m.bert.toFixed(2)+'</b> is an <i>illustrative scenario value</i>: BERT is designed, not trained. The risk score comes from the trained Random Forest (synthetic data).</p>';
+    h += '<p>💛 <i>Wellbeing signal, not a performance metric.</i></p>';
+    return res(h,{tags:['Trained','Synthetic data'],src:'Team Intelligence page · TEAM_DATA',go:'team',follow:['Why is '+m.name.split(' ')[0]+' at '+(m.riskLabel==='LOW'?'low':'this')+' risk?','What should the manager do for '+m.name.split(' ')[0]+'?'],
+      trace:['Recognised person: '+m.name,'Read their profile from the dashboard data (synthetic)','Listed pillars in a Critical/Vulnerable band']});
+  }
+  function why(i){
+    var m = team()[i]; if(!m) return null;
+    if(!consentOK()) return needConsent();
+    var h = '<p><b>'+esc(m.name)+'</b> has a risk probability of <b>'+m.riskScore.toFixed(2)+'</b> ('+m.riskLabel.toLowerCase()+') from the trained Random Forest, using 7 features (attrition flag, overtime, environment satisfaction, remote work, 1:1 frequency, training, manager tenure).</p>';
+    var trace = ['Recognised person: '+m.name,'Read risk score and pillars'];
+    if (i===0) {
+      h += '<p>The dashboard\'s SHAP breakdown for Arjun (illustrative profile):</p>'+shapHtml()+'<p>Burnout is <b>97%</b>, PsySafe <b>22</b>, and the signals behind it: Slack messages ↓61% and stand-up contribution ↓48% since the AI rollout. He hasn\'t quit; he has gone quiet.</p>';
+      trace.push('Read SHAP drivers (illustrative profile)');
+    } else {
+      var crit = m.pillars.filter(function(p){ return p.band==='Critical'||p.band==='Vulnerable'; });
+      h += '<p>The detailed per-factor SHAP chart on the dashboard is built for Arjun\'s profile. For '+esc(m.name.split(' ')[0])+', the visible drivers are burnout <b>'+m.burnout+'%</b>, PsySafe <b>'+m.psysafe+'</b> and AI adoption <b>'+m.aiAdopt+'%</b>'+(crit.length?'; flagged pillars: '+crit.map(function(p){return esc(p.label);}).join(', '):'')+'.</p>';
+      trace.push('SHAP chart exists only for Arjun → used pillar bands instead');
+    }
+    return res(h+'<p>💛 <i>Wellbeing signal, not a performance metric.</i></p>',{tags:['Trained','Synthetic data'],src:'Risk Signals page · SHAP',go:'risk',trace:trace,follow:['What should the manager do for '+m.name.split(' ')[0]+'?','What is SHAP?']});
+  }
+  function memberActions(i){
+    var m = team()[i]; if(!m) return null;
+    if(!consentOK()) return needConsent();
+    var h = '<p>Suggested, human-led actions for <b>'+esc(m.name)+'</b> ('+m.riskLabel.toLowerCase()+'):</p><ul>'+m.interventions.map(function(x){ return '<li>'+x.icon+' <b>'+esc(x.title)+'</b>: '+esc(x.desc)+'</li>'; }).join('')+'</ul><p>The manager decides; these are suggestions, never automatic actions.</p>';
+    return res(h,{tags:['Synthetic data','Safeguard'],src:'Team Intelligence page · interventions',go:'team',trace:['Recognised person: '+m.name,'Read their suggested interventions']});
+  }
+  function compare(ia,ib){
+    var a=team()[ia], b=team()[ib]; if(!a||!b) return null;
+    if(!consentOK()) return needConsent();
+    var rows=[['Risk (RF)',a.riskScore.toFixed(2),b.riskScore.toFixed(2)],['Band',a.riskLabel,b.riskLabel],['Burnout',a.burnout+'%',b.burnout+'%'],['PsySafe',a.psysafe,b.psysafe],['AI adoption',a.aiAdopt+'%',b.aiAdopt+'%'],['BERT (illustrative)',a.bert.toFixed(2),b.bert.toFixed(2)]];
+    var fa=a.name.split(' ')[0], fb=b.name.split(' ')[0], db=a.burnout-b.burnout, dp=a.psysafe-b.psysafe;
+    var h = tbl(['',esc(fa),esc(fb)],rows,1)+'<p>'+esc(fa)+'\'s burnout is <b>'+Math.abs(db)+' points '+(db>=0?'higher':'lower')+'</b> than '+esc(fb)+'\'s, and PsySafe is <b>'+Math.abs(dp)+' points '+(dp>=0?'higher':'lower')+'</b>.</p><p><i>BERT is designed, not trained; its values are illustrative.</i></p>';
+    return res(h,{tags:['Trained','Synthetic data'],src:'Team Intelligence page · TEAM_DATA',go:'team',trace:['Recognised two people: '+a.name+' and '+b.name,'Read both profiles','Computed the differences in burnout and PsySafe']});
+  }
+  function teamStats(){
+    var T=team(); if(!T.length) return null;
+    var sum=function(k){ return T.reduce(function(s,m){return s+m[k];},0)/T.length; };
+    return {burn:sum('burnout'),ai:sum('aiAdopt'),atRisk:T.filter(function(m){return m.riskLabel==='CRITICAL'||m.riskLabel==='HIGH';}),n:T.length};
+  }
+  function teamTable(){
+    var T=team(); if(!T.length) return null;
+    if(!consentOK()) return needConsent();
+    var s=teamStats();
+    var rows=T.slice().sort(function(a,b){return b.riskScore-a.riskScore;}).map(function(m){ return [esc(m.name.split(' ')[0]),m.riskScore.toFixed(2),m.burnout+'%',m.psysafe,m.aiAdopt+'%',bandPill(m.riskLabel)]; });
+    return res(tbl(['Member','Risk','Burnout','PsySafe','AI adopt.','Band'],rows,1)+'<p><b>'+s.atRisk.length+' of '+s.n+'</b> are at risk (Critical or High). Average burnout is <b>'+pct(s.burn)+'%</b>. All six people are fictional.</p>',{tags:['Trained','Synthetic data'],src:'Reports page · TEAM_DATA',go:'reports',trace:['Read all six profiles','Sorted by risk','Counted Critical + High and averaged burnout']});
+  }
+  function atRisk(){
+    var s=teamStats(); if(!s) return null;
+    if(!consentOK()) return needConsent();
+    var names=s.atRisk.map(function(m){return '<b>'+esc(m.name.split(' ')[0])+'</b> ('+m.riskLabel.toLowerCase()+', '+m.riskScore.toFixed(2)+')';}).join(' and ');
+    return res('<p><b>'+s.atRisk.length+' of '+s.n+'</b> team members are at risk: '+names+'. The other four are Medium (Rajan, Priya) or Low (Kenji, Divya).</p><p>Distribution: 1 Critical · 1 High · 2 Medium · 2 Low.</p>',{tags:['Trained','Synthetic data'],src:'Risk Signals page · TEAM_DATA',go:'risk',trace:['Read all six risk labels','Counted Critical and High'],follow:['What should the manager do about Arjun?','Show the whole team table']});
+  }
+  function ranking(metric,dir){
+    var T=team(); if(!T.length) return null;
+    if(!consentOK()) return needConsent();
+    var key={burnout:'burnout',psysafe:'psysafe',ai:'aiAdopt',risk:'riskScore'}[metric], lab={burnout:'burnout',psysafe:'PsySafe',ai:'AI adoption',risk:'risk score'}[metric];
+    var sorted=T.slice().sort(function(a,b){return dir==='high'?b[key]-a[key]:a[key]-b[key];});
+    var top=sorted[0], fmt=function(m){ return metric==='risk'?m[key].toFixed(2):(metric==='psysafe'?m[key]:m[key]+'%'); };
+    var h='<p>'+(dir==='high'?'Highest':'Lowest')+' <b>'+lab+'</b>: <b>'+esc(top.name.split(' ')[0])+'</b> ('+fmt(top)+').</p>'+tbl(['Member',lab],sorted.map(function(m){return [esc(m.name.split(' ')[0]),fmt(m)];}),1);
+    return res(h,{tags:['Synthetic data'],src:'TEAM_DATA',go:'team',trace:['Read '+lab+' for all six people','Sorted '+(dir==='high'?'high → low':'low → high')]});
+  }
+  function averages(){
+    var s=teamStats(); if(!s) return null;
+    return res('<ul><li>Average burnout: <b>'+pct(s.burn)+'%</b> across '+s.n+' members</li><li>Average AI adoption: <b>'+pct(s.ai)+'%</b></li><li>At risk: <b>'+s.atRisk.length+' of '+s.n+'</b></li></ul><p>Headline team scores are separate team-level values: <b>Team Health 38/100</b> and <b>PsySafe 44/100</b> (threshold 60).</p>',{tags:['Synthetic data'],src:'Reports page · TEAM_DATA',go:'reports',trace:['Read all six profiles','Averaged burnout and AI adoption']});
+  }
+  function modelCompare(){
+    var rows=[['Status',pill('Trained','g'),pill('Trained','g')],['AUC','<b>0.9479</b>','0.9376'],['Precision','<b>0.945</b>','0.922'],['Recall','0.820','<b>0.833</b>'],['F1','<b>0.878</b>','0.876'],['Role','Primary','Challenger']];
+    return res(tbl(['','Random Forest','HistGradientBoosting'],rows,1)+'<p><b>Random Forest is the primary model</b>: best AUC, highest precision (fewest false alarms) and best F1. <b>HistGradientBoosting</b> catches slightly more real risks (recall 83.3% vs 82.0%), so it serves as the second opinion. Both use the same 7 features on the same 1,000 unseen test people, so the comparison is fair. The delivery, AI-trust and BERT models are designed only, so they are not compared.</p>',
+      {tags:['Trained','Synthetic data'],src:'metrics JSON · 4 Models page',go:'models',trace:['Read the trained-model metrics','Compared AUC, precision, recall, F1','Excluded designed models (no trained scores)'],follow:['Why Random Forest?','What does the confusion matrix show?']});
+  }
+  function psiNow(){
+    var P=E().PSI_FEATURES; if(!P||!P.length) return null;
+    var alerts=P.filter(function(f){return f.psi>0.2;}), warns=P.filter(function(f){return f.psi>0.15&&f.psi<=0.2;});
+    var rows=P.slice().sort(function(a,b){return b.psi-a.psi;}).map(function(f){ var s=f.psi>0.2?pill('ALERT','r'):f.psi>0.15?pill('WARN','y'):pill('OK','g'); return [esc(f.label),f.psi.toFixed(2),s]; });
+    return res(tbl(['Signal','PSI','Status'],rows,1)+'<p><b>'+alerts.length+' signals</b> are above the 0.2 alert line ('+alerts.map(function(f){return esc(f.label);}).join(', ')+')'+(warns.length?' and '+warns.length+' on warning':'')+'. Per the safety-net design, a sustained alert triggers a retrain on the latest 90 days, shadow-tested first. <i>The drift monitor is designed; the values on screen wobble slightly to simulate live monitoring.</i></p>',
+      {tags:['Designed','Simulated'],src:'MLOps Safety Net page · PSI_FEATURES',go:'mlops',trace:['Read the PSI values','Compared each with the 0.2 alert line']});
+  }
+  function chartHelp(q){
+    var H=(typeof window!=='undefined'&&window.PF_HELP)||E().PF_HELP; if(!H||!H.length) return null;
+    var qt=toks(q), best=null, bs=0;
+    H.forEach(function(h){ var tt=toks(h[0]); if(!tt.length) return; var ov=tt.filter(function(t){return qt.indexOf(t)>-1;}).length; var sc=ov/tt.length + (ov>0?0.01*ov:0); if(ov>0 && sc>bs){ bs=sc; best=h; } });
+    if(!best||bs<0.6) return null;
+    return res('<p><b>'+esc(best[0].replace(/\b\w/g,function(c){return c.toUpperCase();}))+'</b></p><p><b>What it shows:</b> '+esc(best[1])+'</p><p><b>How to read it:</b> '+esc(best[2])+'</p>',{tags:best[3]?[best[3]]:['Info'],src:'ⓘ pop-up text on the dashboard',trace:['Matched the chart title “'+best[0]+'”','Read its ⓘ pop-up text']});
+  }
+
+  /* ───────── routing ───────── */
+  var PAGES = {home:['home','overview page','pulse'],team:['team intelligence'],risk:['risk signals','risk page','risk tab'],ai:['ai productivity','ai and productivity','productivity'],reports:['reports','report page','heatmap'],situation:['priya s situation','situation','story page'],models:['4 models','models page','model page','models running','models tab'],mlops:['mlops','safety net'],resolution:['resolution','pilot page'],architecture:['architecture','ai architecture','vision page']};
+  var PAGE_LABEL = {home:'Home',team:'Team Intelligence',risk:'Risk Signals',ai:'AI & Productivity',reports:'Reports',situation:'Priya\'s Situation',models:'4 Models Running',mlops:'MLOps Safety Net',resolution:'Resolution',architecture:'AI Architecture'};
+  function pageFrom(n){ var f=null; Object.keys(PAGES).forEach(function(k){ PAGES[k].forEach(function(p){ if(!f && (' '+n+' ').indexOf(' '+p+' ')>-1) f=k; }); }); return f; }
+  var ctx = {member:null,sub:null};
+  var CAPS = '<p>I can answer from this project\'s own data and notes. Try:</p><ul><li><b>The project</b>: what it is, the approach, the data, the vision</li><li><b>The models</b>: which are trained vs designed, why Random Forest, results, SHAP</li><li><b>The team</b>: “Why is Arjun at risk?”, “Compare Arjun and Meera”, “Who is at risk?”</li><li><b>Charts</b>: “What does the risk timeline show?”</li><li><b>Honesty</b>: limitations, pending actions, safeguards, roadmap</li><li><b>Actions</b>: “open the models page”, “turn on focus view”</li></ul>';
+  var SUGGEST = ['Why is Arjun at risk?','Which models are trained and which are only designed?','Compare the two trained models','Who is at risk and what should the manager do?','What are the honest limitations?','Is any of the data real?'];
+
+  function answer(q){
+    q = String(q||'').slice(0,300);
+    var n = norm(q), trace = [];
+    if(!n) return res('<p>Ask me something about the project, the models or the team.</p>',{kind:'empty'});
+    var ms = findMembers(n);
+
+    // 1. small talk and help
+    if (/^(hi|hello|hey|hii|namaste|good (morning|afternoon|evening))\b/.test(n) && n.split(' ').length<=4) return res('<p>Hello! I\'m the ProSense assistant. Ask me about the project, the models, or Priya\'s team.</p>'+CAPS,{src:'This assistant'});
+    if (/\b(thanks|thank you|thx|great|awesome|nice)\b/.test(n) && n.split(' ').length<=5) return res('<p>You\'re welcome! Ask me anything else about ProSense.</p>',{});
+    if (/\b(what can you (do|answer)|capabilities|how to use you|what can i ask|help me|^help$|examples?)\b/.test(n)) return res(CAPS,{src:'This assistant'});
+
+    // 2. safeguard: misuse of people data
+    if (/\b(performance review|appraisal|fire|fired|firing|terminate|layoff|lay off|let go|demote|punish|disciplin\w*|promotion|redundan\w*|pip|rate (him|her|them)|rank employees|rank people by)\b/.test(n)) {
+      return res('<p>🚫 <b>I can\'t help with that.</b> ProSense scores are <b>wellbeing signals, not performance metrics</b>. They must not be used in performance reviews, disciplinary actions, promotion decisions or redundancy processes. The manager must confirm this before opening any individual profile.</p><p>What I can help with is how to <b>support</b> someone: ask “What should the manager do for Arjun?”</p>',{tags:['Safeguard'],src:'Responsible-AI safeguards',kind:'refuse',trace:['Detected a request to use wellbeing data for a people decision','Declined, and pointed to the supportive actions instead'],follow:['What should the manager do about Arjun?','What safeguards are built in?']});
+    }
+
+    // 3. actions on the dashboard
+    var wantsNav = /\b(go to|open|take me|navigate|switch to|jump to|bring up|show me the)\b/.test(n);
+    if (/\b(focus (mode|view)|fullscreen|full screen)\b/.test(n) && /\b(on|enable|turn|start|enter|open|go|switch|use)\b/.test(n) && !/\b(off|exit|leave|disable|close)\b/.test(n) && wantsNav|| /^(turn on|enable|enter) focus/.test(n)) return res('<p>Focus view is on: the menu and header are hidden. Press <b>Esc</b> to bring them back.</p>',{act:{type:'focus',on:true},src:'Dashboard tools',trace:['Recognised a request to enter focus view','Switched it on']});
+    if (/\b(exit|leave|turn off|disable|close) focus/.test(n)) return res('<p>Focus view is off.</p>',{act:{type:'focus',on:false},src:'Dashboard tools'});
+    var pg = pageFrom(n);
+    if (pg && wantsNav) return res('<p>Opening <b>'+esc(PAGE_LABEL[pg])+'</b>.</p>',{act:{type:'go',page:pg},src:'Navigation',trace:['Recognised a request to open a page: '+PAGE_LABEL[pg]]});
+
+    // 4. people questions
+    var pron = ms.length===0 && ctx.member!=null && /\b(he|she|him|her|his|hers|they|them|their)\b/.test(n) && n.split(' ').length<=9;
+    if (pron) ms=[ctx.member];
+    var isStory = /\bpriya s (situation|team|story)\b/.test(n) || (/\bpriya\b/.test(n) && /\b(do|should|action|intervention|support)\b/.test(n));
+    if (ms.length && !isStory) {
+      ctx.member = ms[0];
+      var sub = /\b(compare|vs|versus|difference|between)\b/.test(n)||ms.length>1 ? 'compare'
+        : /\b(intervention|recommend\w*|action|should|plan|help|support|do for|do about)\b/.test(n) ? 'actions'
+        : /\b(why|reason|driver|cause|shap|explain|because)\b/.test(n) ? 'why' : 'profile';
+      if (sub==='profile' && /^(what about|how about|and)\b/.test(n) && ctx.sub) sub = ctx.sub;
+      ctx.sub = sub;
+      var r = sub==='compare'&&ms.length>1 ? compare(ms[0],ms[1]) : sub==='actions' ? memberActions(ms[0]) : sub==='why' ? why(ms[0]) : profile(ms[0]);
+      if (r) { if(pron) r.trace.unshift('Used “'+(team()[ms[0]]||{name:''}).name+'” from the previous question'); return r; }
+    }
+    if (/\b(who|which (member|person|people|engineer))\b.*\b(at risk|critical|high risk|danger|worst)\b/.test(n) || /\bhow many\b.*\b(at risk|critical)\b/.test(n) || /\bat risk (members|people|employees|team)\b/.test(n)) { var r1=atRisk(); if(r1) return r1; }
+    var rk = /\b(highest|most|worst|top|max)\b/.test(n)?'high':/\b(lowest|least|min|best)\b/.test(n)?'low':null;
+    if (rk && /\b(burnout)\b/.test(n)) { var r2=ranking('burnout',rk); if(r2) return r2; }
+    if (rk && /\bpsysafe\b/.test(n)) { var r3=ranking('psysafe',rk==='high'?'high':'low'); if(r3) return r3; }
+    if (rk && /\bai adoption\b/.test(n)) { var r4=ranking('ai',rk); if(r4) return r4; }
+    if (/\b(average|mean|on average)\b/.test(n) && /\b(burnout|adoption|team|score)\b/.test(n)) { var r5=averages(); if(r5) return r5; }
+    if (/\b(whole team|all (members|six|people)|team table|everyone|each member|every member|list (the )?(team|members))\b/.test(n)) { var r6=teamTable(); if(r6) return r6; }
+
+    // 5. models and monitoring tools
+    if (/\b(compare|vs|versus|difference|better|best|winner|which model|between)\b/.test(n) && /\b(rf|hgb|model|trained)\b/.test(n) && !/\b(bert|delivery|trust|designed)\b/.test(n) && !ms.length) return modelCompare();
+    if (/\b(rf)\b/.test(n) && /\b(hgb)\b/.test(n)) return modelCompare();
+    if (/\b(psi|drift\w*)\b/.test(n) && /\b(now|current|currently|which|alert|features?|signals?|status|right now|today)\b/.test(n)) { var r7=psiNow(); if(r7) return r7; }
+
+    // 6. knowledge retrieval, then chart help, then fallback
+    var hits = retrieve(q), top = hits[0];
+    var chartQ = /\b(chart|graph|panel|card|widget|plot|read|reading|show|shows|icon)\b/.test(n);
+    if (chartQ) { var ch = chartHelp(q); if (ch && (!top || top.s < 14)) return ch; }
+    if (top && top.s >= 6) {
+      var r8 = fromKB(top.e,['Matched your question to the topic “'+top.e.title+'”']);
+      var alt = hits.slice(1,4).filter(function(h){ return h.s >= top.s*0.62 && h.s>=6; }).map(function(h){ return h.e.title; });
+      if (alt.length) r8.follow = alt.concat(r8.follow).slice(0,3);
+      return r8;
+    }
+    var ch2 = chartHelp(q); if (ch2) return ch2;
+    var near = hits.slice(0,3).filter(function(h){return h.s>=2.5;}).map(function(h){return h.e.title;});
+    return res('<p>I couldn\'t find that in the project\'s data or notes, and I won\'t guess. I only know what is in this dashboard: the project, its models, data, safeguards and the six fictional team members.</p>'+(near.length?'<p>Did you mean one of these?</p>':'<p>Here are some things I can answer:</p>'),{kind:'miss',src:'',follow:near.length?near:SUGGEST.slice(0,4),trace:['No topic matched strongly enough','Chose not to guess']});
+  }
+  return {answer:answer,suggest:SUGGEST,caps:CAPS,KB:KB,PAGE_LABEL:PAGE_LABEL,norm:norm,retrieve:retrieve,reset:function(){ctx.member=null;ctx.sub=null;}};
+}
+/*ENGINE-END*/
+
+/* ───────── UI wiring (browser only) ───────── */
+(function(){
+  'use strict';
+  if (typeof document === 'undefined') return;
+  var getEnv = function(){
+    var e = {};
+    try { e.TEAM_DATA = TEAM_DATA; } catch(x){}
+    try { e.SHAP = SHAP; } catch(x){}
+    try { e.PSI_FEATURES = PSI_FEATURES; } catch(x){}
+    try { e.BA_METRICS = BA_METRICS; } catch(x){}
+    try { e.checkConsent = checkConsent; } catch(x){}
+    return e;
+  };
+  var A = PSA_ENGINE(getEnv);
+  var fab = document.getElementById('ps-fab'), panel = document.getElementById('ps-panel'), msgs = document.getElementById('ps-msgs'),
+      form = document.getElementById('ps-form'), inp = document.getElementById('ps-in');
+  var TAGCLS = {'Trained':'g','Designed':'y','Simulated':'y','Synthetic data':'c','Safeguard':'p','Info':'c'};
+  var navKeys = {home:'Home',team:'Team Intelligence',risk:'Risk Signals',ai:'Productivity',reports:'Reports',situation:'Situation',models:'Models',mlops:'MLOps',resolution:'Resolution',architecture:'Architecture'};
+
+  function goPage(key){
+    var want = navKeys[key]; if(!want) return false;
+    var el = [].slice.call(document.querySelectorAll('#sidebar .sb-nav .nav-item')).filter(function(n){ return n.textContent.indexOf(want)>-1; })[0];
+    if (el) { el.click(); return true; } return false;
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function scroll(){ msgs.scrollTop = msgs.scrollHeight; }
+  function addUser(t){ var d=document.createElement('div'); d.className='ps-m ps-u'; d.textContent=t; msgs.appendChild(d); scroll(); }
+  function chip(label,cls,fn){ var b=document.createElement('button'); b.type='button'; b.className='ps-chip'+(cls?' '+cls:''); b.textContent=label; b.addEventListener('click',fn); return b; }
+  function addBot(r, animate){
+    var d=document.createElement('div'); d.className='ps-m ps-a';
+    var h = r.html;
+    if (r.tags&&r.tags.length) h += '<div class="ps-tags">'+r.tags.map(function(t){return '<span class="ps-pill '+(TAGCLS[t]||'c')+'">'+esc(t)+'</span>';}).join('')+'</div>';
+    if (r.src) h += '<div class="ps-src">Source: '+esc(r.src)+'</div>';
+    if (r.trace&&r.trace.length) h += '<details class="ps-tr"><summary>How I got this</summary><ol>'+r.trace.map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ol></details>';
+    d.innerHTML = h;
+    var row = document.createElement('div'); row.className='ps-chips';
+    if (r.go && A.PAGE_LABEL[r.go]) row.appendChild(chip('Open '+A.PAGE_LABEL[r.go]+' ›','go',function(){ goPage(r.go); }));
+    if (r.act==='consent') row.appendChild(chip('Open the consent step ›','go',function(){ try{ showConsentModal(); }catch(e){} }));
+    (r.follow||[]).forEach(function(f){ row.appendChild(chip(f,'',function(){ ask(f); })); });
+    if (row.childNodes.length) d.appendChild(row);
+    msgs.appendChild(d);
+    msgs.scrollTop = Math.max(0, d.offsetTop - 8); // show the start of the new answer
+  }
+  function ask(q){
+    q = String(q||'').trim(); if(!q) return;
+    addUser(q); inp.value='';
+    var t=document.createElement('div'); t.className='ps-typing'; t.innerHTML='<i></i><i></i><i></i>'; msgs.appendChild(t); scroll();
+    setTimeout(function(){
+      var r; try { r = A.answer(q); } catch(e){ r = {html:'<p>Sorry, something went wrong while answering. Please try rephrasing.</p>',tags:[],trace:[],follow:[]}; }
+      if (t.parentNode) t.parentNode.removeChild(t);
+      addBot(r);
+      if (r.act && r.act.type==='go') goPage(r.act.page);
+      if (r.act && r.act.type==='focus' && typeof pfToggleFocus==='function') pfToggleFocus(r.act.on);
+    }, 280);
+  }
+  function welcome(){
+    msgs.innerHTML='';
+    var r = {html:'<p>👋 I\'m the <b>ProSense assistant</b>. I can answer deep questions about the project, its models and Priya\'s fictional team, using only this dashboard\'s synthetic data. I\'ll tell you what is <b>Trained</b>, <b>Designed</b> or <b>Simulated</b>.</p><p>Try one of these:</p>',tags:[],trace:[],follow:A.suggest};
+    addBot(r);
+  }
+  function open(on){
+    document.body.classList.toggle('ps-open',on);
+    if (on) { if(!msgs.childNodes.length) welcome(); setTimeout(function(){ inp.focus(); },30); }
+  }
+  fab.addEventListener('click',function(){ open(true); });
+  document.getElementById('ps-close').addEventListener('click',function(){ open(false); });
+  document.getElementById('ps-wide').addEventListener('click',function(){ panel.classList.toggle('wide'); setTimeout(scroll,50); });
+  document.getElementById('ps-clear').addEventListener('click',function(){ A.reset(); welcome(); });
+  form.addEventListener('submit',function(e){ e.preventDefault(); ask(inp.value); });
+  panel.addEventListener('keydown',function(e){ if(e.key==='Escape'){ e.stopPropagation(); open(false); fab.focus(); } e.stopPropagation(); }, false);
+  document.addEventListener('keydown',function(e){
+    var tg=e.target, typing = tg && (/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName)||tg.isContentEditable);
+    if (e.key==='/' && !typing && !e.metaKey && !e.ctrlKey && !e.altKey && document.body.classList.contains('ps-ready')) { e.preventDefault(); open(true); }
+  });
+  // show the launcher only once the sign-in screen is gone
+  function ready(){
+    var lo = document.getElementById('login-overlay');
+    var shown = lo && getComputedStyle(lo).display!=='none' && getComputedStyle(lo).visibility!=='hidden' && parseFloat(getComputedStyle(lo).opacity||'1')>0.05;
+    document.body.classList.toggle('ps-ready', !shown);
+  }
+  ready(); setInterval(ready, 400);
+  window.PSA = A; // exposed for testing
+})();
+</script>
+<!-- PS-AGENT:END -->
 </body>
 </html>
