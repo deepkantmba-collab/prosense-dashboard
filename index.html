@@ -4908,6 +4908,9 @@ function PSA_ENGINE(getEnv){
   K('problem','The problem: Priya\'s team story','problem,story,priya s team,why needed,what problem,silent risk,going quiet,velocity up,act 1,problem statement,motivation',
     '<p><b>Priya</b> (a fictional engineering manager) gave her team an AI coding assistant. On paper, velocity rose <b>22%</b>. Underneath:</p><ul><li>Psychological safety <b>44/100</b> (threshold 60), down 17 points in 6 weeks</li><li>Team Health <b>38/100</b> (Critical)</li><li>AI risk reports approved in <b>6 seconds</b> (used to take 4.2 minutes), so nobody checks</li><li><b>Arjun</b>, her senior engineer: burnout 97%, risk 0.97, Slack messages ↓61%, stand-up contribution ↓48%. He hasn\'t quit; he has gone quiet.</li></ul><p>All people and numbers are fictional and synthetic.</p>',
     {tags:['Synthetic data'],go:'situation',src:'Priya\'s Situation page',follow:['Why is Arjun at risk?','Why do today\'s tools miss this?']});
+  K('simulation','The simulation (admin demo tool)','what is the simulation,simulation controls,simulated pilot,how does the simulation work,run simulation,simulation mode,90 day simulation,admin settings,settings panel,anonymous names,engineer 1,light mode',
+    '<p>The <b>simulation</b> replays the <b>90-day pilot</b> week by week on synthetic data. Turn it on in <b>⚙ Settings › Demo tools › Simulation controls</b>, then press <b>Run</b> (1×, 4× or 10× speed):</p><ul><li><b>Weeks 0–8:</b> PsySafe falls from about 67 to <b>44</b> (down 17 points in 6 weeks); an alert fires when it drops below 60</li><li><b>Week 9:</b> intervention: a loyal-opposition exercise and a non-performance 1:1 with Arjun</li><li><b>Weeks 9–12:</b> PsySafe recovers to <b>63</b>; delivery risk falls 31%, silent dissent 40%, attrition risk 18%</li><li><b>Week 12:</b> the team catches a flawed AI report ($2–4M exposure)</li></ul><p>The team table, Team Pulse and the PsySafe tile move with it. Reset puts everything back. Other admin options: <b>Appearance</b> (dark/light), <b>Full screen</b>, <b>Focus view</b> and <b>Anonymous names</b> (Engineer 1–5, Manager, team shown as “Simulation”).</p>',
+    {tags:['Simulated','Synthetic data'],src:'Admin settings · Resolution page (pilot numbers)',follow:['Run the simulation','What happened in the pilot?']});
   K('gap','Why today\'s tools miss it','gap,traditional dashboards,why tools miss,speed is not health,velocity misleading,blind spot,existing tools,competitors,what is new',
     '<p>Traditional dashboards see velocity ↑, tickets closed ↑, commits ↑ and conclude “the AI rollout is a success”.</p><p>ProSense also sees psychological safety ↓17 points, checking of AI output near zero (6 seconds a report), and stand-up contribution ↓48%, so it concludes “silent risk is building: act now”.</p><p><b>Speed is not health.</b> ProSense adds the human signal that speed metrics leave out.</p>',{tags:['Synthetic data'],src:'Deck slide 5'});
   K('approach','Approach: 7 steps from data to action','approach,steps,method,methodology,pipeline,how was it built,process,workflow,how did you build,how it works,end to end',
@@ -5050,7 +5053,11 @@ function PSA_ENGINE(getEnv){
   function bandPill(l){ var m={CRITICAL:'r',HIGH:'o',MEDIUM:'y',LOW:'g'}; return pill(l,m[l]||'c'); }
   function colRisk(v){ return v>=.7?'#ff4757':v>=.5?'#ffd32a':'#2ed573'; }
   function findMembers(n){
-    var out=[]; Object.keys(NAMES).forEach(function(k){ if(new RegExp('\\b'+k+'\\b').test(n)) out.push(NAMES[k]); }); return out;
+    var out=[]; Object.keys(NAMES).forEach(function(k){ if(new RegExp('\\b'+k+'\\b').test(n)) out.push(NAMES[k]); });
+    // anonymous labels: "Engineer 1" … "Engineer 5" and "the Manager (Mgr)"
+    var re=/\b(?:engineer|eng|e)\s?([1-5])\b/g, mm; while((mm=re.exec(n))){ var ix=+mm[1]-1; if(out.indexOf(ix)<0) out.push(ix); }
+    if (/\bmanager (?:mgr|profile|s profile|s risk|s burnout|s score)\b/.test(n) && out.indexOf(5)<0) out.push(5);
+    return out;
   }
   function memberStats(m){
     return '<div class="ps-grid"><div class="ps-st"><b style="color:'+colRisk(m.riskScore)+'">'+m.riskScore.toFixed(2)+'</b><span>Risk (RF)</span></div>'+
@@ -5181,7 +5188,7 @@ function PSA_ENGINE(getEnv){
   }
 
   /* ───────── routing ───────── */
-  var PAGES = {home:['home','overview page','pulse'],team:['team intelligence'],risk:['risk signals','risk page','risk tab'],ai:['ai productivity','ai and productivity','productivity'],reports:['reports','report page','heatmap'],situation:['priya s situation','situation','story page'],models:['4 models','models page','model page','models running','models tab'],mlops:['mlops','safety net'],resolution:['resolution','pilot page'],architecture:['architecture','ai architecture','vision page']};
+  var PAGES = {home:['home','overview page','pulse'],team:['team intelligence'],risk:['risk signals','risk page','risk tab'],ai:['ai productivity','ai and productivity','productivity'],reports:['reports','report page','heatmap'],situation:['priya s situation','situation','story page','simulation page','simulation team','simulation tab'],models:['4 models','models page','model page','models running','models tab'],mlops:['mlops','safety net'],resolution:['resolution','pilot page'],architecture:['architecture','ai architecture','vision page']};
   var PAGE_LABEL = {home:'Home',team:'Team Intelligence',risk:'Risk Signals',ai:'AI & Productivity',reports:'Reports',situation:'Priya\'s Situation',models:'4 Models Running',mlops:'MLOps Safety Net',resolution:'Resolution',architecture:'AI Architecture'};
   function pageFrom(n){ var f=null; Object.keys(PAGES).forEach(function(k){ PAGES[k].forEach(function(p){ if(!f && (' '+n+' ').indexOf(' '+p+' ')>-1) f=k; }); }); return f; }
   var ctx = {member:null,sub:null};
@@ -5206,8 +5213,15 @@ function PSA_ENGINE(getEnv){
 
     // 3. actions on the dashboard
     var wantsNav = /\b(go to|open|take me|navigate|switch to|jump to|bring up|show me the)\b/.test(n);
-    if (/\b(focus (mode|view)|fullscreen|full screen)\b/.test(n) && /\b(on|enable|turn|start|enter|open|go|switch|use)\b/.test(n) && !/\b(off|exit|leave|disable|close)\b/.test(n) && wantsNav|| /^(turn on|enable|enter) focus/.test(n)) return res('<p>Focus view is on: the menu and header are hidden. Press <b>Esc</b> to bring them back.</p>',{act:{type:'focus',on:true},src:'Dashboard tools',trace:['Recognised a request to enter focus view','Switched it on']});
+    if (/\b(fullscreen|full screen)\b/.test(n) && !/\bwhat\b/.test(n)) return res('<p>Toggling <b>full screen</b>. Press <b>Esc</b> to leave it. If nothing happens, use ⚙ Settings › Full screen (some browsers only allow it from a direct click).</p>',{act:{type:'fs'},src:'Admin settings › Full screen'});
+    if (/\b(focus (mode|view))\b/.test(n) && /\b(on|enable|turn|start|enter|open|go|switch|use)\b/.test(n) && !/\b(off|exit|leave|disable|close)\b/.test(n) && wantsNav|| /^(turn on|enable|enter) focus/.test(n)) return res('<p>Focus view is on: the menu and header are hidden. Press <b>Esc</b> to bring them back.</p>',{act:{type:'focus',on:true},src:'Dashboard tools',trace:['Recognised a request to enter focus view','Switched it on']});
     if (/\b(exit|leave|turn off|disable|close) focus/.test(n)) return res('<p>Focus view is off.</p>',{act:{type:'focus',on:false},src:'Dashboard tools'});
+    if (/\bsimulation\b/.test(n) && /\b(run|start|play|begin|launch|resume)\b/.test(n)) return res('<p>▶ Running the <b>simulated 90-day pilot</b>. Watch the strip under the header: PsySafe falls from about 67 to 44 by week 8, the intervention happens in week 9, and it recovers to 63 by week 12. Use <b>4×</b> or <b>10×</b> to speed it up.</p>',{act:{type:'sim',do:'run'},tags:['Simulated','Synthetic data'],src:'Admin settings › Simulation controls',trace:['Recognised a request to run the simulation','Turned on the simulation controls and pressed Run']});
+    if (/\bsimulation\b/.test(n) && /\b(reset|restart|stop|clear)\b/.test(n)) return res('<p>↺ The simulation is reset to week 0.</p>',{act:{type:'sim',do:'reset'},tags:['Simulated'],src:'Admin settings › Simulation controls'});
+    if (/\bsimulation\b/.test(n) && /\bpause\b/.test(n)) return res('<p>❚❚ Simulation paused.</p>',{act:{type:'sim',do:'pause'},tags:['Simulated'],src:'Admin settings › Simulation controls'});
+    if (/\b(light|dark) (mode|theme|appearance|view)\b/.test(n) && !/\bwhat\b/.test(n)) { var lt=/\blight\b/.test(n); return res('<p>Appearance switched to <b>'+(lt?'Light':'Dark')+'</b>. You can change it any time in ⚙ Settings.</p>',{act:{type:'theme',v:lt?'light':'dark'},src:'Admin settings › Appearance'}); }
+    if (/\b(anonymous|anonymi[sz]e|hide (the )?names|neutral (names|labels))\b/.test(n) && !/\bwhat|why\b/.test(n)) { var off=/\b(off|show (the )?real|disable|stop|turn off)\b/.test(n); return res(off?'<p>Real first names are shown again.</p>':'<p>Anonymous names are on: people now appear as <b>Engineer 1–5</b> and <b>Manager</b>, and the team is shown as “Simulation”. Display only; no data changes.</p>',{act:{type:'anon',on:!off},src:'Admin settings › Anonymous names'}); }
+    if (/\b(open|show)\b.*\bsettings\b/.test(n)) return res('<p>Opening ⚙ <b>Settings</b>.</p>',{act:{type:'settings'},src:'Admin settings'});
     var pg = pageFrom(n);
     if (pg && wantsNav) return res('<p>Opening <b>'+esc(PAGE_LABEL[pg])+'</b>.</p>',{act:{type:'go',page:pg},src:'Navigation',trace:['Recognised a request to open a page: '+PAGE_LABEL[pg]]});
 
@@ -5275,9 +5289,12 @@ function PSA_ENGINE(getEnv){
   var TAGCLS = {'Trained':'g','Designed':'y','Simulated':'y','Synthetic data':'c','Safeguard':'p','Info':'c'};
   var navKeys = {home:'Home',team:'Team Intelligence',risk:'Risk Signals',ai:'Productivity',reports:'Reports',situation:'Situation',models:'Models',mlops:'MLOps',resolution:'Resolution',architecture:'Architecture'};
 
+  var NAV_ORDER = ['home','team','risk','ai','reports','situation','models','mlops','resolution','architecture'];
   function goPage(key){
     var want = navKeys[key]; if(!want) return false;
-    var el = [].slice.call(document.querySelectorAll('#sidebar .sb-nav .nav-item')).filter(function(n){ return n.textContent.indexOf(want)>-1; })[0];
+    var items = [].slice.call(document.querySelectorAll('#sidebar .sb-nav .nav-item'));
+    var el = items.filter(function(n){ return n.textContent.indexOf(want)>-1 || (key==='situation' && /Simulation/.test(n.textContent)); })[0];
+    if (!el && items.length===NAV_ORDER.length) el = items[NAV_ORDER.indexOf(key)];
     if (el) { el.click(); return true; } return false;
   }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
@@ -5309,6 +5326,14 @@ function PSA_ENGINE(getEnv){
       addBot(r);
       if (r.act && r.act.type==='go') goPage(r.act.page);
       if (r.act && r.act.type==='focus' && typeof pfToggleFocus==='function') pfToggleFocus(r.act.on);
+      var PA = window.PSAdmin;
+      if (r.act && PA) {
+        if (r.act.type==='sim') PA.sim(r.act.do);
+        if (r.act.type==='theme') PA.theme(r.act.v);
+        if (r.act.type==='anon') PA.anon(r.act.on);
+        if (r.act.type==='settings') PA.open();
+        if (r.act.type==='fs') PA.fullscreen();
+      }
     }, 280);
   }
   function welcome(){
@@ -5341,5 +5366,272 @@ function PSA_ENGINE(getEnv){
 })();
 </script>
 <!-- PS-AGENT:END -->
+<!-- PS-ADMIN:START — Admin Settings: appearance (dark/light), full screen, focus, anonymous names, simulation controls. Preferences are kept in this browser only. -->
+<style id="ps-admin-css">
+html.ps-light{filter:invert(1) hue-rotate(180deg)}
+html.ps-light{background:#fff}
+#ps-set-bd{position:fixed;inset:0;z-index:9690;background:rgba(2,4,12,.55);backdrop-filter:blur(5px);display:none}
+body.ps-set-open #ps-set-bd{display:block}
+#ps-set{position:fixed;top:10px;right:10px;bottom:10px;width:min(410px,94vw);z-index:9700;background:linear-gradient(180deg,rgba(18,24,48,.98),rgba(10,14,30,.98));border:1px solid rgba(0,212,255,.28);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.7);transform:translateX(calc(100% + 30px));transition:transform .28s ease;overflow-y:auto;padding:22px 22px 26px;font-family:var(--font);color:var(--fg)}
+body.ps-set-open #ps-set{transform:none}
+#ps-set .ps-s-kick{font:800 .62rem var(--font);letter-spacing:.16em;color:var(--muted)}
+#ps-set h2{margin:2px 0 0;font:800 1.45rem var(--font);color:#fff}
+#ps-set .ps-s-x{position:absolute;top:18px;right:18px;width:32px;height:32px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;font-size:.9rem;cursor:pointer}
+#ps-set .ps-s-x:hover{background:rgba(255,255,255,.2)}
+.ps-s-sec{font:800 .62rem var(--font);letter-spacing:.16em;color:var(--muted);margin:22px 0 10px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
+.ps-s-sec:first-of-type{border-top:0;padding-top:0}
+.ps-s-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px}
+.ps-s-row b{display:block;font-size:.92rem;color:#fff;margin-bottom:3px}
+.ps-s-row p{margin:0;font-size:.74rem;line-height:1.45;color:var(--muted)}
+.ps-s-acct{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:13px 14px;margin-bottom:6px}
+.ps-s-acct .av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--teal));display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff}
+.ps-s-acct .nm{flex:1;min-width:0}.ps-s-acct .nm b{display:block;font-size:.92rem;color:#fff}.ps-s-acct .nm span{font-size:.72rem;color:var(--muted)}
+.ps-s-btn{border:1px solid rgba(0,212,255,.35);background:rgba(0,212,255,.08);color:#7fe3ff;border-radius:18px;padding:6px 14px;font:700 .74rem var(--font);cursor:pointer;white-space:nowrap}
+.ps-s-btn:hover{background:rgba(0,212,255,.2)}
+.ps-seg{display:inline-flex;border:1px solid rgba(255,255,255,.18);border-radius:18px;overflow:hidden;flex-shrink:0}
+.ps-seg button{background:transparent;border:0;color:var(--muted);padding:6px 13px;font:700 .74rem var(--font);cursor:pointer}
+.ps-seg button.on{background:rgba(0,212,255,.2);color:#7fe3ff}
+.ps-sw{position:relative;width:48px;height:28px;border-radius:14px;border:0;background:rgba(255,255,255,.18);cursor:pointer;flex-shrink:0;transition:background .2s}
+.ps-sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s}
+.ps-sw[aria-checked="true"]{background:#2ed573}.ps-sw[aria-checked="true"]::after{transform:translateX(20px)}
+.ps-s-state{display:inline-block;font:800 .6rem var(--font);letter-spacing:.05em;padding:1px 7px;border-radius:9px;margin-left:6px;background:rgba(255,255,255,.1);color:var(--muted);vertical-align:middle}
+.ps-s-state.on{background:rgba(46,213,115,.15);color:#2ed573}
+.ps-s-note{background:rgba(46,213,115,.07);border:1px solid rgba(46,213,115,.2);border-radius:12px;padding:11px 13px;font-size:.72rem;line-height:1.5;color:#9fb3a8;margin:2px 0 14px}
+.ps-s-foot{font-size:.66rem;color:var(--muted);line-height:1.5;margin-top:6px}
+#ps-simbar{display:none;align-items:center;gap:10px;min-height:44px;padding:6px 20px;background:linear-gradient(90deg,rgba(123,47,247,.16),rgba(0,212,255,.08));border-bottom:1px solid rgba(123,47,247,.35);font-family:var(--font);font-size:.74rem;color:var(--fg);flex-wrap:wrap;row-gap:6px}
+body.ps-sim-on #ps-simbar{display:flex}
+#ps-simbar .tag{font:800 .6rem var(--font);letter-spacing:.12em;color:#c4a6ff;border:1px solid rgba(167,139,250,.5);border-radius:8px;padding:2px 7px;white-space:nowrap}
+#ps-simbar button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;border-radius:14px;padding:4px 11px;font:700 .72rem var(--font);cursor:pointer;white-space:nowrap}
+#ps-simbar button:hover{border-color:#00d4ff}
+#ps-simbar #ps-sim-run{background:rgba(46,213,115,.2);border-color:rgba(46,213,115,.6)}
+#ps-simbar .spd{display:inline-flex;gap:3px}
+#ps-simbar .spd button{padding:4px 8px}#ps-simbar .spd button.on{background:rgba(0,212,255,.25);border-color:#00d4ff;color:#7fe3ff}
+#ps-sim-wk{font:700 .74rem var(--font);white-space:nowrap;min-width:78px}
+.ps-sim-prog{width:110px;height:6px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden;flex-shrink:0}
+.ps-sim-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7b2ff7,#00d4ff)}
+#ps-sim-chips{display:flex;gap:6px;flex-wrap:wrap}
+#ps-sim-chips span{white-space:nowrap;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:2px 8px;background:rgba(0,0,0,.2);font-size:.68rem;color:var(--muted)}
+#ps-sim-chips span b{color:#fff;margin-left:4px;font-variant-numeric:tabular-nums}
+#ps-sim-ev{flex:1 1 100%;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#d6c9ff;font-size:.72rem}
+body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
+#ps-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:9800;background:#111833;border:1px solid rgba(0,212,255,.4);color:#fff;border-radius:12px;padding:9px 16px;font:600 .78rem var(--font);display:none;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+@media print{#ps-set,#ps-set-bd,#ps-simbar,#ps-toast{display:none!important}}
+</style>
+
+<script id="ps-admin-js">
+(function(){
+  'use strict';
+  var KEY = 'prosense_prefs_v1';
+  var P = {theme:'dark', anon:false, sim:false, assistant:true};
+  try { var s = JSON.parse(localStorage.getItem(KEY)||'{}'); Object.keys(P).forEach(function(k){ if (k in s && typeof s[k]===typeof P[k]) P[k]=s[k]; }); } catch(e){}
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(P)); } catch(e){} }
+  function $(id){ return document.getElementById(id); }
+  var body = document.body, root = document.documentElement;
+  function toast(t){ var e=$('ps-toast'); e.textContent=t; e.style.display='block'; clearTimeout(toast.h); toast.h=setTimeout(function(){ e.style.display='none'; },2600); }
+
+  /* ───────── markup ───────── */
+  var tt = document.createElement('div'); tt.id='ps-toast'; body.appendChild(tt);
+  var bd = document.createElement('div'); bd.id='ps-set-bd'; body.appendChild(bd);
+  var panel = document.createElement('aside'); panel.id='ps-set'; panel.setAttribute('role','dialog'); panel.setAttribute('aria-label','Admin settings'); panel.setAttribute('aria-modal','true');
+  var uname = (document.querySelector('.tb-username')||{}).textContent || 'Admin user';
+  function sw(id,label){ return '<button type="button" class="ps-sw" id="'+id+'" role="switch" aria-checked="false" aria-label="'+label+'"></button>'; }
+  panel.innerHTML =
+    '<button type="button" class="ps-s-x" id="ps-s-x" aria-label="Close settings">✕</button>'+
+    '<div class="ps-s-kick">PROSENSE AI · ADMIN</div><h2>Settings</h2>'+
+    '<div class="ps-s-sec">ACCOUNT</div>'+
+    '<div class="ps-s-acct"><div class="av">'+uname.trim().charAt(0).toUpperCase()+'</div><div class="nm"><b>'+uname.replace(/[<>&]/g,'')+'</b><span>Admin · controls apply to this browser</span></div><button type="button" class="ps-s-btn" id="ps-s-out">Sign out</button></div>'+
+    '<div class="ps-s-sec">PAGE</div>'+
+    '<div class="ps-s-row"><div><b>Customise current page</b><p>Choose which panels appear on the Home page.</p></div><button type="button" class="ps-s-btn" id="ps-s-cust">Customise</button></div>'+
+    '<div class="ps-s-sec">DISPLAY</div>'+
+    '<div class="ps-s-row"><div><b>Appearance</b><p>Switch between the dark and light look.</p></div><div class="ps-seg" id="ps-s-theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div></div>'+
+    '<div class="ps-s-row"><div><b>Full screen <span class="ps-s-state" id="ps-st-fs">OFF</span></b><p>Fill the whole screen with the dashboard. Press Esc to leave.</p></div>'+sw('ps-sw-fs','Full screen')+'</div>'+
+    '<div class="ps-s-row"><div><b>Focus view <span class="ps-s-state" id="ps-st-focus">OFF</span></b><p>Hide the menu and header so only the content shows. Keyboard: F.</p></div>'+sw('ps-sw-focus','Focus view')+'</div>'+
+    '<div class="ps-s-sec">PRIVACY</div>'+
+    '<div class="ps-s-row"><div><b>Anonymous names <span class="ps-s-state" id="ps-st-anon">OFF</span></b><p>Show neutral labels (Engineer 1, Engineer 2 … and Manager) instead of first names, and rename the team to “Simulation”. Display only; no data changes.</p></div>'+sw('ps-sw-anon','Anonymous names')+'</div>'+
+    '<div class="ps-s-note">Why this exists: neutral labels reduce identity bias and protect psychological safety. In a real deployment, named views would be limited to a few authorised roles. All people shown here are fictional.</div>'+
+    '<div class="ps-s-sec">DEMO TOOLS</div>'+
+    '<div class="ps-s-row"><div><b>Simulation controls <span class="ps-s-state" id="ps-st-sim">OFF</span></b><p>Show Run, Reset and 1× / 4× / 10× controls under the header. Plays the simulated 90-day pilot on synthetic data.</p></div>'+sw('ps-sw-sim','Simulation controls')+'</div>'+
+    '<div class="ps-s-row"><div><b>Ask ProSense assistant <span class="ps-s-state" id="ps-st-as">ON</span></b><p>Show the chat button in the corner.</p></div>'+sw('ps-sw-as','Assistant')+'</div>'+
+    '<div class="ps-s-row" style="margin-top:6px"><div><p>Settings are saved in this browser only.</p></div><button type="button" class="ps-s-btn" id="ps-s-def">Restore defaults</button></div>';
+  body.appendChild(panel);
+
+  /* header button + simulation bar */
+  var hb = document.createElement('div'); hb.className='cz-btn'; hb.id='ps-settings-btn'; hb.title='Admin settings'; hb.textContent='⚙ Settings'; hb.setAttribute('role','button'); hb.tabIndex=0;
+  var anchor = $('pf-focus-btn'); if (anchor) anchor.insertAdjacentElement('afterend', hb); else { var tr=document.querySelector('.tb-right'); if(tr) tr.insertBefore(hb, tr.firstChild); }
+  var bar = document.createElement('div'); bar.id='ps-simbar';
+  bar.innerHTML = '<span class="tag">SIMULATION</span><button type="button" id="ps-sim-run">▶ Run</button><button type="button" id="ps-sim-reset">↺ Reset</button>'+
+    '<span class="spd" id="ps-sim-spd"><button type="button" data-s="1" class="on">1×</button><button type="button" data-s="4">4×</button><button type="button" data-s="10">10×</button></span>'+
+    '<span id="ps-sim-wk">Week 0 / 12</span><div class="ps-sim-prog"><i id="ps-sim-pb"></i></div><div id="ps-sim-chips"></div><span id="ps-sim-ev">Ready: press Run to play the simulated 90-day pilot (synthetic data).</span>';
+  var tb = $('topbar'); if (tb) tb.insertAdjacentElement('afterend', bar); else body.insertBefore(bar, body.firstChild);
+
+  /* ───────── open / close ───────── */
+  function openSet(on){ body.classList.toggle('ps-set-open', on); if(on){ sync(); setTimeout(function(){ $('ps-s-x').focus(); },60); } else hb.focus && hb.focus(); }
+  hb.addEventListener('click', function(){ openSet(true); });
+  hb.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSet(true); } });
+  $('ps-s-x').addEventListener('click', function(){ openSet(false); });
+  bd.addEventListener('click', function(){ openSet(false); });
+  document.addEventListener('keydown', function(e){ if (e.key==='Escape' && body.classList.contains('ps-set-open')) { e.stopPropagation(); e.preventDefault(); openSet(false); } }, true);
+
+  /* ───────── appearance ───────── */
+  function applyTheme(){ root.classList.toggle('ps-light', P.theme==='light'); }
+  $('ps-s-theme').addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; P.theme=b.getAttribute('data-t'); save(); applyTheme(); sync(); });
+
+  /* ───────── full screen / focus ───────── */
+  function fsOn(){ return !!(document.fullscreenElement||document.webkitFullscreenElement); }
+  $('ps-sw-fs').addEventListener('click', function(){
+    try {
+      if (fsOn()) { (document.exitFullscreen||document.webkitExitFullscreen).call(document); }
+      else { var r=(root.requestFullscreen||root.webkitRequestFullscreen).call(root); if (r && r.catch) r.catch(function(){ toast('Your browser did not allow full screen'); }); }
+    } catch(e){ toast('Full screen is not available in this browser'); }
+  });
+  document.addEventListener('fullscreenchange', sync); document.addEventListener('webkitfullscreenchange', sync);
+  $('ps-sw-focus').addEventListener('click', function(){ if (typeof pfToggleFocus==='function') pfToggleFocus(!body.classList.contains('pf-focus')); sync(); });
+  new MutationObserver(sync).observe(body,{attributes:true,attributeFilter:['class']});
+
+  /* ───────── anonymous names ───────── */
+  var ENG = {arjun:1,meera:2,rajan:3,divya:4,kenji:5};
+  var RULES = [
+    [/Priya[’']s (?:Situation|Team|team)\b/g, 'Simulation'],
+    [/\bPriya Sharma\b/g, 'Manager'],
+    [/\bPriya \(Mgr\)/g, 'Manager'],
+    [/\bPriya[’']s\b/g, "Manager's"],
+    [/\bPriya\b/g, 'Manager'],
+    [/\b(Arjun|Meera|Rajan|Divya|Kenji)(?: (?:Kumar|Singh|Mehta|Nair|Tanaka))?\b/g, function(m,f){ return 'Engineer '+ENG[f.toLowerCase()]; }]
+  ];
+  var INIT = {A:'E1',M:'E2',R:'E3',D:'E4',K:'E5',P:'Mg'};
+  var AVSEL = '.member-avatar,#tm-avatar,.priya-avatar';
+  var touched = new Map();
+  function xform(v, el){
+    if (el && el.closest && el.closest(AVSEL)) { var t=v.trim(); if (INIT[t]) return v.replace(t, INIT[t]); }
+    var o=v; RULES.forEach(function(r){ o=o.replace(r[0], r[1]); }); return o;
+  }
+  function skip(n){ var p=n.parentNode; if(!p) return true; var t=p.nodeName; if(t==='SCRIPT'||t==='STYLE'||t==='TEXTAREA'||t==='NOSCRIPT') return true; return !!(p.closest && p.closest('#ps-set')); }
+  function doText(n){
+    if (skip(n)) return; var v=n.nodeValue; if(!v||!v.trim()) return;
+    var nv=xform(v,n.parentNode); if (nv!==v){ touched.set(n,v); n.nodeValue=nv; }
+  }
+  function walk(node){
+    if (node.nodeType===3) { doText(node); return; }
+    if (node.nodeType!==1) return;
+    var w=document.createTreeWalker(node,NodeFilter.SHOW_TEXT,null), n; while((n=w.nextNode())) doText(n);
+  }
+  var obs = new MutationObserver(function(ms){ if(!P.anon) return; ms.forEach(function(m){ if(m.type==='characterData') doText(m.target); else m.addedNodes.forEach(walk); }); });
+  function setAnon(on){
+    if (on) { walk(body); obs.observe(body,{childList:true,subtree:true,characterData:true}); }
+    else { obs.disconnect(); touched.forEach(function(orig,n){ if (n.isConnected && n.nodeValue===xform(orig,n.parentNode)) n.nodeValue=orig; }); touched.clear(); }
+    body.classList.toggle('ps-anon', on);
+  }
+  $('ps-sw-anon').addEventListener('click', function(){ P.anon=!P.anon; save(); setAnon(P.anon); sync(); toast(P.anon?'Anonymous names on: Engineer 1, Engineer 2 …':'Names restored'); });
+
+  /* ───────── assistant toggle ───────── */
+  $('ps-sw-as').addEventListener('click', function(){ P.assistant=!P.assistant; save(); body.classList.toggle('ps-noassist',!P.assistant); sync(); });
+
+  /* ───────── page / account ───────── */
+  $('ps-s-cust').addEventListener('click', function(){ openSet(false); try{ openCustomize(); }catch(e){ toast('Customise is available on the Home page'); } });
+  $('ps-s-out').addEventListener('click', function(){ location.reload(); });
+  $('ps-s-def').addEventListener('click', function(){ P={theme:'dark',anon:false,sim:false,assistant:true}; save(); applyTheme(); setAnon(false); showSim(false); body.classList.remove('ps-noassist'); sync(); toast('Defaults restored'); });
+
+  /* ───────── simulation (simulated 90-day pilot, synthetic data) ───────── */
+  var S = {t:0, run:false, speed:1, active:false, last:0, raf:0, fired:{}, psTxt:null};
+  var EVENTS = [
+    [2.35,'⚠ PsySafe drops below the 60 threshold: a silent-risk alert is raised'],
+    [8,'⚠ PsySafe bottoms out at 44; the manager reviews the alert'],
+    [9,'✅ Intervention: loyal-opposition exercise and a non-performance 1:1 with Arjun'],
+    [12,'✅ Team catches a flawed AI report: $2–4M exposure flagged (simulated)']
+  ];
+  function ba(){ try { return BA_METRICS||[]; } catch(e){ return []; } }
+  function rec(w){ if (w<=9) return 0; var x=Math.min(1,(w-9)/3); return 1-Math.pow(1-x,2); }
+  function psAt(w){ return w<=8 ? 44+(8-w)*17/6 : 44+19*rec(w); }
+  function simVals(w){
+    var r=rec(w), ps=psAt(w);
+    return {ps:ps, d:ps-44, m:ba().map(function(b){ var isPs=/PsySafe/i.test(b.label); return {label:b.label, v:isPs?ps:(b.before+(b.after-b.before)*r)*1, isPs:isPs}; })};
+  }
+  function chipsHtml(vs){
+    return vs.m.map(function(m){ var short={ 'Delivery Risk':'Delivery risk','Meeting Candor':'Candor','Silent Dissent':'Silent dissent','Attrition Risk':'Attrition risk','PsySafe Score':'PsySafe'}[m.label]||m.label;
+      return '<span>'+short+'<b>'+(m.isPs?Math.round(m.v):m.v.toFixed(2))+'</b></span>'; }).join('');
+  }
+  var MEM_W = [1,1,1,1,1,1];
+  var origRender = null;
+  function adj(v,o){ return Math.max(0,Math.min(100,Math.round(v+o))); }
+  function hookTable(){
+    if (origRender || typeof renderTeamTable!=='function') return;
+    origRender = renderTeamTable;
+    window.renderTeamTable = function(){
+      if (!S.active) return origRender();
+      var real = liveMembers, d = simVals(S.t).d;
+      try {
+        liveMembers = real.map(function(m,i){ var c=Object.assign({},m), w=MEM_W[i]||1;
+          c.psysafe=adj(m.psysafe,d*w*1.25*(100-m.psysafe)/100); c.burnout=adj(m.burnout,-d*w*1.1*m.burnout/100); c.aiRisk=adj(m.aiRisk,-d*w*0.9*m.aiRisk/100); return c; });
+        origRender();
+      } finally { liveMembers = real; }
+    };
+  }
+  function pulseApply(d){
+    var rows=document.querySelectorAll('#pulse-list .member-row'); var M; try{ M=MEMBERS; }catch(e){ return; }
+    rows.forEach(function(r,i){ if(!M[i]) return; var v=d==null?M[i].score:adj(M[i].score,-d*1.1*M[i].score/100);
+      var bar=r.querySelector('.member-bar'); if(bar) bar.style.width=v+'%';
+      var pc=r.children[3]; if(pc) pc.textContent=v+'%'; });
+  }
+  function render(){
+    var vs=simVals(S.t), wk=Math.min(12,Math.floor(S.t+1e-9));
+    $('ps-sim-wk').textContent = S.active ? (S.t>=12?'Week 12 / 12 ✓':'Week '+wk+' / 12') : 'Week 0 / 12';
+    $('ps-sim-pb').style.width = (S.t/12*100)+'%';
+    $('ps-sim-chips').innerHTML = S.active ? chipsHtml(vs) : '';
+    var pt=$('priya-psysafe'), dl=pt&&pt.parentNode.querySelector('.stat-delta');
+    if(pt){ if(S.psTxt==null){ S.psTxt=pt.textContent; S.dlTxt=dl?dl.textContent:null; }
+      if(S.active){ pt.textContent=Math.round(vs.ps);
+        if(dl) dl.textContent = S.t<=8 ? '↓ '+Math.round(psAt(0)-vs.ps)+' pts since week 0 (simulated)' : S.t<=9 ? 'Lowest point: intervention due in week 9' : '↑ '+Math.round(vs.ps-44)+' pts since the week 9 intervention (simulated)'; } }
+    EVENTS.forEach(function(e,i){ if(S.t>=e[0] && !S.fired[i]){ S.fired[i]=1; $('ps-sim-ev').textContent='Week '+Math.min(12,Math.floor(e[0]))+': '+e[1]; } });
+    if (S.t>=12) $('ps-sim-ev').textContent='Simulation complete: PsySafe 44 → 63, delivery risk ↓31% (simulated, synthetic data). Week 12: team catches a flawed AI report, $2–4M exposure flagged.';
+    hookTable(); if (typeof renderTeamTable==='function') renderTeamTable(); pulseApply(S.active?vs.d:null);
+    $('ps-sim-run').textContent = S.run ? '❚❚ Pause' : (S.t>=12 ? '▶ Run again' : (S.active?'▶ Resume':'▶ Run'));
+  }
+  function frame(){
+    if(!S.run) return; var now=performance.now(), dt=Math.min(1,(now-S.last)/1000); S.last=now;
+    S.t=Math.min(12,S.t+dt*0.5*S.speed);
+    if (S.t>=12){ S.run=false; clearInterval(S.raf); }
+    render();
+  }
+  function simRun(){
+    if (S.run) { S.run=false; clearInterval(S.raf); render(); return; }
+    if (S.t>=12) simReset();
+    S.active=true; S.run=true; S.last=performance.now(); clearInterval(S.raf); S.raf=setInterval(frame,60); render();
+  }
+  function simReset(){
+    S.run=false; clearInterval(S.raf); S.t=0; S.fired={}; S.active=false;
+    var pt=$('priya-psysafe'); if(pt&&S.psTxt!=null){ pt.textContent=S.psTxt; var dl=pt.parentNode.querySelector('.stat-delta'); if(dl&&S.dlTxt!=null) dl.textContent=S.dlTxt; }
+    $('ps-sim-ev').textContent='Ready: press Run to play the simulated 90-day pilot (synthetic data).';
+    render();
+  }
+  $('ps-sim-run').addEventListener('click', simRun);
+  $('ps-sim-reset').addEventListener('click', function(){ simReset(); });
+  $('ps-sim-spd').addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; S.speed=+b.getAttribute('data-s'); [].forEach.call($('ps-sim-spd').children,function(x){ x.classList.toggle('on',x===b); }); });
+  function showSim(on){ P.sim=on; save(); body.classList.toggle('ps-sim-on',on); if(!on) simReset(); }
+  $('ps-sw-sim').addEventListener('click', function(){ showSim(!P.sim); sync(); });
+
+  /* ───────── keep switches in step ───────── */
+  function setSw(id,stId,on){ var b=$(id); b.setAttribute('aria-checked',on?'true':'false'); var s=$(stId); if(s){ s.textContent=on?'ON':'OFF'; s.classList.toggle('on',on); } }
+  function sync(){
+    [].forEach.call($('ps-s-theme').children,function(b){ b.classList.toggle('on', b.getAttribute('data-t')===P.theme); });
+    setSw('ps-sw-fs','ps-st-fs',fsOn()); setSw('ps-sw-focus','ps-st-focus',body.classList.contains('pf-focus'));
+    setSw('ps-sw-anon','ps-st-anon',P.anon); setSw('ps-sw-sim','ps-st-sim',P.sim); setSw('ps-sw-as','ps-st-as',P.assistant);
+  }
+
+  /* ───────── public hooks (used by the assistant) ───────── */
+  window.PSAdmin = {
+    sim:function(a){ if(!P.sim) showSim(true); sync(); if(a==='run'){ if(!S.run) simRun(); } else if(a==='reset') simReset(); else if(a==='pause'&&S.run) simRun(); },
+    theme:function(t){ P.theme=t==='light'?'light':'dark'; save(); applyTheme(); sync(); },
+    anon:function(on){ P.anon=!!on; save(); setAnon(P.anon); sync(); },
+    open:function(){ openSet(true); },
+    fullscreen:function(){ $('ps-sw-fs').click(); }
+  };
+
+  /* ───────── start-up ───────── */
+  applyTheme(); body.classList.toggle('ps-noassist',!P.assistant); body.classList.toggle('ps-sim-on',P.sim);
+  if (P.anon) setAnon(true);
+  sync(); render();
+})();
+</script>
+<!-- PS-ADMIN:END -->
 </body>
 </html>
