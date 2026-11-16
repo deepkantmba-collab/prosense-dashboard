@@ -5095,7 +5095,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v1.13</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.13</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v1.14</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.14</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.14 Versions button in the top bar · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
     '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 31'});
@@ -5569,6 +5569,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   /* header button + simulation bar */
   var hb = document.createElement('div'); hb.className='cz-btn'; hb.id='ps-settings-btn'; hb.title='Admin settings'; hb.textContent='⚙ Settings'; hb.setAttribute('role','button'); hb.tabIndex=0;
   var anchor = $('pf-focus-btn'); if (anchor) anchor.insertAdjacentElement('afterend', hb); else { var tr=document.querySelector('.tb-right'); if(tr) tr.insertBefore(hb, tr.firstChild); }
+  var vb = document.createElement('div'); vb.className='cz-btn'; vb.id='ps-versions-btn'; vb.title='Versions & roll back'; vb.textContent='🕘 Versions'; vb.setAttribute('role','button'); vb.tabIndex=0;
+  hb.insertAdjacentElement('afterend', vb);
+  vb.addEventListener('click', function(){ openVersions(); });
+  vb.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openVersions(); } });
   var bar = document.createElement('div'); bar.id='ps-simbar';
   bar.innerHTML = '<span class="tag">SIMULATION</span><button type="button" id="ps-sim-run">▶ Run</button><button type="button" id="ps-sim-reset">↺ Reset</button>'+
     '<span class="spd" id="ps-sim-spd"><button type="button" data-s="1" class="on">1×</button><button type="button" data-s="4">4×</button><button type="button" data-s="10">10×</button></span>'+
@@ -5729,9 +5733,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v1.13';
+  var CUR = 'v1.14';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v1.14', d:'16 Nov 2026', t:'Versions button in header', add:['"🕘 Versions" button in the top bar, next to Settings']},
     {v:'v1.13', d:'16 Nov 2026', t:'Versions shortcut', add:['Sidebar link "Versions & roll back" opens Settings at the versions list','Shortcut button at the top of Settings']},
     {v:'v1.12', d:'16 Nov 2026', t:'Privacy Guard', add:['Privacy Guard (designed) listed on the 4 Models page: how text becomes numbers only','Chat explains the metadata-only safety chain']},
     {v:'v1.11', d:'16 Nov 2026', t:'Guest password', add:['Guest access asks for one shared password (the guest button no longer opens the dashboard without it)']},
