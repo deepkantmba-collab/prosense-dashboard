@@ -14,6 +14,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v1.7 | 2026-11-16 | Admin Settings: dark/light appearance, full screen, focus view, anonymous names, simulation controls |
 | v1.8 | 2026-11-16 | Double-click any graph, card or stat tile to enlarge it (double-click title / Esc / click outside to close) |
 | v1.9 | 2026-11-16 | Versions & roll back section in Settings; older versions viewable under `versions/`; presentation 31 slides, walkthrough screenshots refreshed |
+| v1.10 | 2026-11-16 | Test user sign-in on the sign-in screen (one shared test username and password; only a salted hash is stored in the page) |
 
 ## Rolling back
 
