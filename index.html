@@ -5095,7 +5095,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v1.12</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.12</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v1.13</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.13</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
     '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 31'});
@@ -5542,6 +5542,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   panel.innerHTML =
     '<button type="button" class="ps-s-x" id="ps-s-x" aria-label="Close settings">✕</button>'+
     '<div class="ps-s-kick">PROSENSE AI · ADMIN</div><h2>Settings</h2>'+
+    '<button type="button" class="ps-s-btn" id="ps-s-vjump" style="margin:2px 0 4px;width:100%">🕘 Versions &amp; roll back ↓ (scroll down to find it)</button>'+
     '<div class="ps-s-sec">ACCOUNT</div>'+
     '<div class="ps-s-acct"><div class="av">'+uname.trim().charAt(0).toUpperCase()+'</div><div class="nm"><b>'+uname.replace(/[<>&]/g,'')+'</b><span>Admin · controls apply to this browser</span></div><button type="button" class="ps-s-btn" id="ps-s-out">Sign out</button></div>'+
     '<div class="ps-s-sec">PAGE</div>'+
@@ -5728,9 +5729,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v1.12';
+  var CUR = 'v1.13';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v1.13', d:'16 Nov 2026', t:'Versions shortcut', add:['Sidebar link "Versions & roll back" opens Settings at the versions list','Shortcut button at the top of Settings']},
     {v:'v1.12', d:'16 Nov 2026', t:'Privacy Guard', add:['Privacy Guard (designed) listed on the 4 Models page: how text becomes numbers only','Chat explains the metadata-only safety chain']},
     {v:'v1.11', d:'16 Nov 2026', t:'Guest password', add:['Guest access asks for one shared password (the guest button no longer opens the dashboard without it)']},
     {v:'v1.10', d:'16 Nov 2026', t:'Test user sign-in', add:['Test user sign-in on the sign-in screen (username and one shared password)']},
@@ -5772,6 +5774,9 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   });
   buildVersions();
   function openVersions(){ openSet(true); setTimeout(function(){ var el=$('ps-s-versions'); if(el) el.scrollIntoView({block:'start',behavior:'smooth'}); },320); }
+  (function(){ var vj=$('ps-s-vjump'); if(vj) vj.addEventListener('click',function(){ var el=$('ps-s-versions'); if(el) el.scrollIntoView({block:'start',behavior:'smooth'}); });
+    var pl=document.querySelector('a[href="presentation.html"],a[href="../presentation.html"]');
+    if(pl && pl.parentNode && !document.getElementById('ps-side-ver')){ var d=document.createElement('div'); d.style.marginTop='6px'; d.innerHTML='<a href="#" id="ps-side-ver" style="color:var(--cyan,#22d3ee);text-decoration:none;font-weight:600">🕘 Versions &amp; roll back →</a>'; pl.parentNode.parentNode.insertBefore(d,pl.parentNode.nextSibling); d.firstChild.addEventListener('click',function(e){ e.preventDefault(); openVersions(); }); } })();
 
   /* ───────── public hooks (used by the assistant) ───────── */
   window.PSAdmin = {

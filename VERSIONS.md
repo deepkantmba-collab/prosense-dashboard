@@ -17,6 +17,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v1.10 | 2026-11-16 | Test user sign-in on the sign-in screen (one shared test username and password; only a salted hash is stored in the page) |
 | v1.11 | 2026-11-16 | Guest access now needs one shared guest password (only a salted hash is stored in the page); older versions in `versions/` are gated the same way |
 | v1.12 | 2026-11-16 | Privacy Guard (designed) listed on the 4 Models page: how text becomes numbers only, with the safety chain; chat explains it |
+| v1.13 | 2026-11-16 | Easier to find: sidebar link and a Settings shortcut button open the Versions & roll back list |
 
 ## Rolling back
 
