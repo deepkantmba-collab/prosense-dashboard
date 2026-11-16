@@ -480,7 +480,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     </div>
     <div style="font-size:.68rem;letter-spacing:.14em;color:rgba(0,212,255,.4);margin-bottom:20px;font-family:monospace"><span class="hud-dot">▮</span> NEURAL INTERFACE READY · AWAITING AUTHENTICATION</div>
     <div id="google-signin-btn"></div>
-    <div style="margin-top:14px"><button type="button" id="guest-btn" onclick="enterGuest()" style="width:280px;padding:10px 0;background:transparent;border:1px solid rgba(0,212,255,.35);color:rgba(0,212,255,.85);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">CONTINUE AS GUEST · DEMO</button><div style="margin-top:8px;font-size:.58rem;letter-spacing:.1em;color:rgba(123,130,168,.5);font-family:monospace">Reviewer access · synthetic demo data</div></div>
+    <div style="margin-top:14px"><button type="button" id="guest-btn" onclick="showGuestForm()" style="width:280px;padding:10px 0;background:transparent;border:1px solid rgba(0,212,255,.35);color:rgba(0,212,255,.85);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">GUEST ACCESS · PASSWORD</button><form id="guest-form" onsubmit="return guestLogin(event)" autocomplete="off" style="display:none;margin-top:8px;width:280px;text-align:left"><input id="gp" type="password" placeholder="Shared guest password" autocomplete="current-password" style="box-sizing:border-box;width:100%;padding:9px 10px;margin-bottom:6px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.25);color:#e8ecff;font-family:monospace;font-size:.74rem;border-radius:3px;outline:none"><button type="submit" style="width:100%;padding:9px 0;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.45);color:rgba(0,212,255,.95);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">ENTER</button><div id="gp-err" style="display:none;color:#ff4757;font-size:.7rem;margin-top:8px;font-family:monospace">&#9888; Wrong guest password</div></form><div style="margin-top:8px;font-size:.58rem;letter-spacing:.1em;color:rgba(123,130,168,.5);font-family:monospace">Shared guest password · synthetic demo data</div></div>
     <div id="access-denied" style="display:none;color:#ff4757;font-size:.78rem;margin-top:16px;letter-spacing:.06em;font-family:monospace">⚠ ACCESS DENIED — Unauthorized account</div>
     <div style="margin-top:28px;font-size:.62rem;color:rgba(123,130,168,.35);letter-spacing:.1em;font-family:monospace">AUTHORIZED PERSONNEL ONLY</div>
   </div>
@@ -3458,6 +3458,24 @@ async function handleGoogleLogin(response) {
   }
 }
 
+// Shared guest password. Only a salted PBKDF2 hash is stored here, never the password itself.
+const GUEST_SALT = '8156e728bc00ccea926bd0c5b75e18ff', GUEST_ITER = 150000, GUEST_HASH = '8b0fdca01d6f1f322171026fea44e984aab055d345668e73871f135c4324dccb';
+function showGuestForm() { const f = document.getElementById('guest-form'); f.style.display = 'block'; document.getElementById('gp').focus(); }
+async function guestLogin(ev) {
+  ev.preventDefault();
+  const p = document.getElementById('gp').value || '';
+  const err = document.getElementById('gp-err');
+  err.style.display = 'none';
+  try {
+    const salt = new Uint8Array(GUEST_SALT.match(/../g).map(h => parseInt(h, 16)));
+    const key  = await crypto.subtle.importKey('raw', new TextEncoder().encode(p), 'PBKDF2', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: salt, iterations: GUEST_ITER, hash: 'SHA-256' }, key, 256);
+    const hex  = Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, '0')).join('');
+    if (hex === GUEST_HASH) { document.getElementById('gp').value = ''; enterGuest(); return false; }
+  } catch (e) {}
+  err.style.display = 'block';
+  return false;
+}
 function enterGuest() {
   const ol = document.getElementById('login-overlay');
   ol.style.opacity = '0';
@@ -5343,6 +5361,6 @@ function PSA_ENGINE(getEnv){
 <!-- PS-AGENT:END -->
 <!-- PS-OLDVER: banner added to archived copies only -->
 <div id="ps-oldver" role="status" style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:2147483000;display:flex;align-items:center;gap:12px;background:#24124a;border:1px solid #a78bfa;color:#fff;border-radius:22px;padding:7px 8px 7px 16px;font:600 13px/1.3 system-ui,-apple-system,Segoe UI,sans-serif;box-shadow:0 10px 34px rgba(0,0,0,.55);white-space:nowrap"><span>🕘 Older version <b>v1.6</b> · 16 Nov 2026 · view only</span><a href="../" style="background:#00d4ff;color:#001018;padding:5px 13px;border-radius:16px;text-decoration:none;font-weight:800">Back to latest →</a></div>
-<script>window.addEventListener("load",function(){try{enterGuest();}catch(e){}});</script>
+
 </body>
 </html>

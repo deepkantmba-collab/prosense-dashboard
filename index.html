@@ -490,7 +490,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <button type="submit" style="width:100%;padding:9px 0;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.45);color:rgba(0,212,255,.95);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">SIGN IN</button>
       <div id="tl-err" style="display:none;color:#ff4757;font-size:.7rem;margin-top:8px;font-family:monospace">&#9888; Wrong username or password</div>
     </form>
-    <div style="margin-top:14px"><button type="button" id="guest-btn" onclick="enterGuest()" style="width:280px;padding:10px 0;background:transparent;border:1px solid rgba(0,212,255,.35);color:rgba(0,212,255,.85);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">CONTINUE AS GUEST · DEMO</button><div style="margin-top:8px;font-size:.58rem;letter-spacing:.1em;color:rgba(123,130,168,.5);font-family:monospace">Reviewer access · synthetic demo data</div></div>
+    <div style="margin-top:14px"><button type="button" id="guest-btn" onclick="showGuestForm()" style="width:280px;padding:10px 0;background:transparent;border:1px solid rgba(0,212,255,.35);color:rgba(0,212,255,.85);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">GUEST ACCESS · PASSWORD</button><form id="guest-form" onsubmit="return guestLogin(event)" autocomplete="off" style="display:none;margin-top:8px;width:280px;text-align:left"><input id="gp" type="password" placeholder="Shared guest password" autocomplete="current-password" style="box-sizing:border-box;width:100%;padding:9px 10px;margin-bottom:6px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.25);color:#e8ecff;font-family:monospace;font-size:.74rem;border-radius:3px;outline:none"><button type="submit" style="width:100%;padding:9px 0;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.45);color:rgba(0,212,255,.95);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">ENTER</button><div id="gp-err" style="display:none;color:#ff4757;font-size:.7rem;margin-top:8px;font-family:monospace">&#9888; Wrong guest password</div></form><div style="margin-top:8px;font-size:.58rem;letter-spacing:.1em;color:rgba(123,130,168,.5);font-family:monospace">Shared guest password · synthetic demo data</div></div>
     <div id="access-denied" style="display:none;color:#ff4757;font-size:.78rem;margin-top:16px;letter-spacing:.06em;font-family:monospace">⚠ ACCESS DENIED — Unauthorized account</div>
     <div style="margin-top:28px;font-size:.62rem;color:rgba(123,130,168,.35);letter-spacing:.1em;font-family:monospace">AUTHORIZED PERSONNEL ONLY</div>
   </div>
@@ -3487,6 +3487,24 @@ async function testLogin(ev) {
   return false;
 }
 
+// Shared guest password. Only a salted PBKDF2 hash is stored here, never the password itself.
+const GUEST_SALT = '8156e728bc00ccea926bd0c5b75e18ff', GUEST_ITER = 150000, GUEST_HASH = '8b0fdca01d6f1f322171026fea44e984aab055d345668e73871f135c4324dccb';
+function showGuestForm() { const f = document.getElementById('guest-form'); f.style.display = 'block'; document.getElementById('gp').focus(); }
+async function guestLogin(ev) {
+  ev.preventDefault();
+  const p = document.getElementById('gp').value || '';
+  const err = document.getElementById('gp-err');
+  err.style.display = 'none';
+  try {
+    const salt = new Uint8Array(GUEST_SALT.match(/../g).map(h => parseInt(h, 16)));
+    const key  = await crypto.subtle.importKey('raw', new TextEncoder().encode(p), 'PBKDF2', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: salt, iterations: GUEST_ITER, hash: 'SHA-256' }, key, 256);
+    const hex  = Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, '0')).join('');
+    if (hex === GUEST_HASH) { document.getElementById('gp').value = ''; enterGuest(); return false; }
+  } catch (e) {}
+  err.style.display = 'block';
+  return false;
+}
 function enterGuest() {
   const ol = document.getElementById('login-overlay');
   ol.style.opacity = '0';
@@ -5048,7 +5066,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v1.10</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.10</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v1.11</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.11</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
     '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 31'});
@@ -5681,9 +5699,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v1.10';
+  var CUR = 'v1.11';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v1.11', d:'16 Nov 2026', t:'Guest password', add:['Guest access asks for one shared password (the guest button no longer opens the dashboard without it)']},
     {v:'v1.10', d:'16 Nov 2026', t:'Test user sign-in', add:['Test user sign-in on the sign-in screen (username and one shared password)']},
     {v:'v1.9', d:'16 Nov 2026', t:'Version history and roll back', add:['Versions & roll back section in Settings','Older versions can be opened and compared']},
     {v:'v1.8', d:'16 Nov 2026', t:'Double-click to enlarge', add:['Double-click any graph, card or tile to enlarge it','Stat tiles can be enlarged']},
