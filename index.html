@@ -94,6 +94,12 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
 .tb-pill.active{background:rgba(0,212,255,0.1);border-color:rgba(0,212,255,0.25);color:var(--teal);}
 .tb-right{display:flex;align-items:center;gap:14px;}
 #tb-clock{font-size:0.78rem;color:var(--muted);font-family:monospace;white-space:nowrap;}
+.nav-group-h{display:flex;align-items:center;gap:8px;padding:11px 18px;margin-top:6px;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);border-top:1px solid rgba(255,255,255,.07);user-select:none;}
+.nav-group-h:hover,.nav-group-h:focus-visible{color:var(--fg);outline:none;}
+.nav-group-h .nav-caret{margin-left:auto;transition:transform .2s;}
+.nav-group-h[aria-expanded="true"] .nav-caret{transform:rotate(180deg);}
+.nav-group-body{display:none;}
+.nav-group-body.open{display:block;}
 .tb-bell{font-size:1rem;color:var(--muted);cursor:pointer;position:relative;}
 .tb-bell::after{content:'3';position:absolute;top:-4px;right:-6px;background:var(--red);border-radius:50%;width:14px;height:14px;font-size:0.6rem;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;}
 #notif-panel{position:fixed;top:52px;right:16px;width:340px;background:#0e1225;border:1px solid rgba(0,212,255,0.2);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.8);z-index:9999;display:none;overflow:hidden;max-height:calc(100vh - 70px);overflow-y:auto;}
@@ -508,11 +514,14 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div class="nav-item" onclick="setNav(this)"><span class="nav-icon">⚠</span> Risk Signals</div>
     <div class="nav-item" onclick="setNav(this)"><span class="nav-icon">🤖</span> AI &amp; Productivity</div>
     <div class="nav-item" onclick="setNav(this)"><span class="nav-icon">📋</span> Reports</div>
+    <div class="nav-group-h" id="nav-grp-h" role="button" tabindex="0" aria-expanded="false" aria-controls="nav-grp-body"><span class="nav-icon">📖</span> Story &amp; Platform <span class="nav-caret">▾</span></div>
+    <div id="nav-grp-body" class="nav-group-body">
     <div class="nav-item" onclick="lvNav(this,'situation')"><span class="nav-icon">📊</span> Priya's Situation</div>
     <div class="nav-item" onclick="lvNav(this,'models')"><span class="nav-icon">🧠</span> 4 Models Running</div>
     <div class="nav-item" onclick="lvNav(this,'mlops')"><span class="nav-icon">🔄</span> MLOps Safety Net</div>
     <div class="nav-item" onclick="lvNav(this,'resolution')"><span class="nav-icon">✅</span> Resolution</div>
     <div class="nav-item" onclick="lvNav(this,'architecture')"><span class="nav-icon">🤖</span> AI Architecture</div>
+    </div>
   </div>
   <div class="sb-footer">
     <div>🟢 Live · 6 members tracked</div>
@@ -520,6 +529,16 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="margin-top:6px"><a href="presentation.html" target="_blank" rel="noopener" style="color:var(--cyan,#22d3ee);text-decoration:none;font-weight:600">View Presentation →</a></div>
   </div>
 </nav>
+<script>
+/* Sidebar group: Story & Platform (collapsed by default, opens when one of its pages is active) */
+(function(){
+  var h=document.getElementById('nav-grp-h'), b=document.getElementById('nav-grp-body'); if(!h||!b) return;
+  function set(o){ b.classList.toggle('open',o); h.setAttribute('aria-expanded',o?'true':'false'); }
+  h.addEventListener('click',function(){ set(!b.classList.contains('open')); });
+  h.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); set(!b.classList.contains('open')); } });
+  new MutationObserver(function(){ if(b.querySelector('.nav-item.active')) set(true); }).observe(b,{attributes:true,subtree:true,attributeFilter:['class']});
+})();
+</script>
 
 <!-- ══ MAIN WRAP ══ -->
 <div id="main-wrap">
@@ -539,9 +558,9 @@ body.pf-focus #pf-focus-bar{display:flex;}
     </div>
     <div class="tb-right">
       <div id="tb-clock">06 Oct 2026 · 00:00:00</div>
-      <div class="tb-bell" onclick="toggleNotif()" title="Notifications">🔔</div>
       <div class="cz-btn" onclick="openCustomize()" title="Customise Home">✎ Customise</div>
       <div class="cz-btn" id="pf-focus-btn" onclick="pfToggleFocus()" title="Focus view: hide the menu and header (press Esc to exit)">⛶ Focus</div>
+      <div class="tb-bell" onclick="toggleNotif()" title="Notifications">🔔</div>
       <div class="tb-user">
         <div class="tb-avatar">D</div>
         <div class="tb-userinfo">
@@ -562,68 +581,17 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <!-- LEFT COLUMN -->
       <div id="col-left">
         <div class="greeting-block">
-          <div class="greeting-hi">GOOD AFTERNOON, DEEPKANT</div>
-          <div class="greeting-h1">Team Velocity<br>is Up</div>
+          <div class="greeting-hi" style="text-transform:uppercase"><span id="greeting-part">Good afternoon</span>, <span class="ps-owner">Deepkant</span></div>
+          <div class="greeting-h1">Team Health<br>is Critical</div>
           <div class="greeting-sub">But a few signals need your attention.</div>
           <div class="greeting-body">Momentum is strong. Let's keep the good going and remove the friction.</div>
         </div>
 
-        <!-- Velocity Chart Card -->
-        <div class="card velocity-card cw-draggable" id="cw-velocity"><span class="drag-handle">⠿</span>
-          <div class="vc-header">
-            <div>
-              <div class="card-title">Team Velocity</div>
-              <div class="card-sub">Velocity trend &amp; forecast</div>
-            </div>
-            <div class="vc-toggles">
-              <div class="vc-toggle active" onclick="setVCToggle(this,'6W')">6W</div>
-              <div class="vc-toggle" onclick="setVCToggle(this,'3M')">3M</div>
-              <div class="vc-toggle" onclick="setVCToggle(this,'6M')">6M</div>
-            </div>
-          </div>
-          <div class="chart-area">
-            <svg id="velocity-svg" width="100%" height="110" viewBox="0 0 320 110" preserveAspectRatio="none">
-              <!-- grid lines -->
-              <line x1="36" y1="10" x2="36" y2="92" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-              <line x1="36" y1="92" x2="310" y2="92" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-              <line x1="36" y1="69" x2="310" y2="69" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
-              <line x1="36" y1="46" x2="310" y2="46" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
-              <line x1="36" y1="23" x2="310" y2="23" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
-              <!-- Y labels -->
-              <text x="30" y="95" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="end">0</text>
-              <text x="30" y="72" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="end">25</text>
-              <text x="30" y="49" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="end">50</text>
-              <text x="30" y="26" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="end">75</text>
-              <!-- X labels -->
-              <text x="55" y="103" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="middle">Apr</text>
-              <text x="96" y="103" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="middle">May</text>
-              <text x="137" y="103" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="middle">Jun</text>
-              <text x="178" y="103" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="middle">Jul</text>
-              <text x="219" y="103" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="middle">Aug</text>
-              <text x="260" y="103" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="middle">Sep</text>
-              <text x="300" y="103" fill="rgba(123,136,176,0.6)" font-size="7" text-anchor="middle">Oct</text>
-              <!-- Target line (purple dashed) -->
-              <polyline points="55,55 96,52 137,50 178,48 219,46 260,44 300,42"
-                fill="none" stroke="#7b2ff7" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.6"/>
-              <!-- Actual Velocity (teal solid) -->
-              <polyline id="vel-actual" points="55,72 96,68 137,62 178,58 219,48 260,38 300,32"
-                fill="none" stroke="#00d4ff" stroke-width="2" stroke-linejoin="round"/>
-              <!-- Forecast (teal dashed) -->
-              <polyline points="260,38 300,30"
-                fill="none" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.7"/>
-              <!-- +22% annotation -->
-              <rect x="258" y="18" width="44" height="14" rx="3" fill="rgba(0,212,255,0.15)" stroke="rgba(0,212,255,0.3)" stroke-width="0.8"/>
-              <text x="280" y="28" fill="#00d4ff" font-size="7" text-anchor="middle" font-weight="700">+22%</text>
-              <!-- dot at current -->
-              <circle cx="300" cy="32" r="3.5" fill="#00d4ff" filter="url(#glow-teal)"/>
-              <defs><filter id="glow-teal" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-            </svg>
-          </div>
-          <div class="chart-legend">
-            <div class="legend-item"><div class="legend-line" style="background:#00d4ff;"></div> Actual</div>
-            <div class="legend-item"><div class="legend-line" style="background:#00d4ff;opacity:.6;border-top:2px dashed #00d4ff;height:0;"></div> Forecast</div>
-            <div class="legend-item"><div class="legend-line" style="border-top:2px dashed #7b2ff7;height:0;width:18px;opacity:.6;"></div> Target</div>
-          </div>
+        <!-- 7-Pillar team average -->
+        <div class="card cw-draggable" id="cw-pillars"><span class="drag-handle">⠿</span>
+          <div class="card-title">7 Pillars · team average</div>
+          <div class="card-sub">Average of the six members · higher is healthier · burnout inverted</div>
+          <div id="home-pillars" style="display:flex;flex-direction:column;gap:7px;margin-top:10px;"></div>
         </div>
 
         <!-- GAP Card -->
@@ -674,10 +642,6 @@ body.pf-focus #pf-focus-bar{display:flex;}
             <div class="bubble-delta" style="color:#ff4757;">↓ Critical</div>
             <div class="bubble-note">below 60 threshold</div>
           </div>
-          <div class="bubble" id="bub-prod">
-            <div class="bubble-label">PRODUCTIVITY</div>
-            <div class="bubble-val" style="color:#2ed573;">↑ 22%</div>
-          </div>
           <div class="bubble" id="bub-collab">
             <div class="bubble-label">COLLABORATION</div>
             <div class="bubble-val" style="color:var(--muted);">→ Flat</div>
@@ -715,7 +679,6 @@ body.pf-focus #pf-focus-bar{display:flex;}
               </div>
             </div>
             <div class="safe-metrics">
-              <div class="safe-row"><span class="safe-row-label">⚡ Velocity</span><span class="safe-row-val" style="color:#2ed573;">↑ 22%</span></div>
               <div class="safe-row"><span class="safe-row-label">🤝 Collaboration</span><span class="safe-row-val" style="color:var(--muted);">→ Flat</span></div>
               <div class="safe-row"><span class="safe-row-label">💙 Wellbeing</span><span class="safe-row-val" style="color:#ff4757;">↓ 6%</span></div>
               <div class="safe-row"><span class="safe-row-label">⚠ Risk Index</span><span class="safe-row-val" style="color:#ff6b35;">↑ 0.74</span></div>
@@ -732,7 +695,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <div class="insight-item">
             <div class="insight-icon" style="background:rgba(123,47,247,0.2);">👤</div>
             <div class="insight-body">
-              <div class="insight-title">Priya's Team – Engagement Decline</div>
+              <div class="insight-title"><span class="ps-owner">Deepkant</span>'s Team – Engagement Decline</div>
               <div class="insight-desc">Stand-up contribution ↓48% in 6 weeks. PsySafe 44/100.</div>
               <button class="insight-btn" style="background:rgba(123,47,247,0.2);color:#a78bfa;">Take Action →</button>
             </div>
@@ -839,7 +802,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="margin-bottom:16px;">
       <div style="font-size:0.62rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:3px;">ProSense AI · Risk Intelligence</div>
       <div style="font-size:1.25rem;font-weight:700;color:var(--fg);letter-spacing:0.03em;">⚠ Risk Signals</div>
-      <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Real-time burnout, engagement &amp; flight risk · 6 members · Priya's team</div>
+      <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Real-time burnout, engagement &amp; flight risk · 6 members · <span class="ps-owner">Deepkant</span>'s team</div>
     </div>
 
     <!-- TOP ROW: Risk Overview | SHAP Deep Dive | Risk Timeline -->
@@ -977,7 +940,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="card" style="padding:14px 16px;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
           <div class="card-title">Team Risk Scorecard</div>
-          <div class="card-sub">6 members · Priya's team · ranked by risk · Random Forest (trained)</div>
+          <div class="card-sub">6 members · <span class="ps-owner">Deepkant</span>'s team · ranked by risk · Random Forest (trained)</div>
         </div>
         <table style="width:100%;border-collapse:collapse;">
           <thead>
@@ -1030,7 +993,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
               <td style="padding:7px 8px 7px 0;">
                 <div style="display:flex;align-items:center;gap:7px;font-size:0.7rem;color:var(--fg);">
-                  <div style="width:22px;height:22px;border-radius:50%;background:#ff4757;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:700;flex-shrink:0;">P</div>Priya (Mgr)
+                  <div style="width:22px;height:22px;border-radius:50%;background:#ff4757;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:700;flex-shrink:0;"><span class="ps-owner-init">D</span></div><span class="ps-owner">Deepkant</span> (Mgr)
                 </div>
               </td>
               <td style="text-align:center;padding:7px 6px;font-size:0.72rem;font-weight:800;color:#ffd32a;">0.48</td>
@@ -1134,7 +1097,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="margin-bottom:14px;">
       <div style="font-size:0.62rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:3px;">ProSense AI · Team Intelligence</div>
       <div style="font-size:1.25rem;font-weight:700;color:var(--fg);letter-spacing:0.03em;">👥 Team Intelligence</div>
-      <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Deep-dive per-member profiles · 6 members · Priya's team</div>
+      <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Deep-dive per-member profiles · 6 members · <span class="ps-owner">Deepkant</span>'s team</div>
       <div style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:4px 10px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.12);border-radius:6px;font-size:0.62rem;color:rgba(0,212,255,0.55);font-family:monospace;letter-spacing:.03em;">
         ⚡ Synthetic demo profiles &nbsp;·&nbsp; Model trained on ProSense_Training_Data_5000_v4.csv (5,000 rows) &nbsp;·&nbsp; RF AUC 0.9479 · F1 0.878 · Prec 0.945 · Rec 0.820 &nbsp;·&nbsp; Step 12 Complete
       </div>
@@ -1163,8 +1126,8 @@ body.pf-focus #pf-focus-bar{display:flex;}
         <div><div style="font-size:0.75rem;font-weight:700;color:var(--fg);">Kenji</div><div style="font-size:0.6rem;color:#2ed573;font-weight:600;">LOW</div></div>
       </div>
       <div class="tm-pill" onclick="selectMember(5)" id="pill-5" style="display:flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:30px;cursor:pointer;transition:all .18s;">
-        <div style="width:30px;height:30px;border-radius:50%;background:#ff4757;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;color:#fff;flex-shrink:0;">P</div>
-        <div><div style="font-size:0.75rem;font-weight:700;color:var(--fg);">Priya</div><div style="font-size:0.6rem;color:#ffd32a;font-weight:600;">MANAGER</div></div>
+        <div style="width:30px;height:30px;border-radius:50%;background:#ff4757;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;color:#fff;flex-shrink:0;"><span class="ps-owner-init">D</span></div>
+        <div><div style="font-size:0.75rem;font-weight:700;color:var(--fg);"><span class="ps-owner">Deepkant</span></div><div style="font-size:0.6rem;color:#ffd32a;font-weight:600;">MANAGER</div></div>
       </div>
     </div>
 
@@ -1359,7 +1322,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             <div style="height:7px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden;"><div style="width:45%;height:100%;background:linear-gradient(90deg,#ff6b35,#ffd32a);border-radius:4px;"></div></div>
           </div>
           <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:0.68rem;color:#ffd32a;font-weight:600;">~ Priya Sharma</span><span style="font-size:0.68rem;font-weight:700;color:#ffd32a;">52%</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:0.68rem;color:#ffd32a;font-weight:600;">~ <span class="ps-owner-full">Deepkant Verma</span></span><span style="font-size:0.68rem;font-weight:700;color:#ffd32a;">52%</span></div>
             <div style="height:7px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden;"><div style="width:52%;height:100%;background:linear-gradient(90deg,#ffd32a,#00d4ff);border-radius:4px;"></div></div>
           </div>
           <div>
@@ -1392,7 +1355,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <tbody>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ff4757;font-weight:600;">Arjun</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;color:#ff4757;font-weight:700;">23%</td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ff6b35;font-weight:600;">Meera</td><td style="text-align:center;padding:6px;color:#ffd32a;">⚠️</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;color:#ff6b35;font-weight:700;">45%</td></tr>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ffd32a;font-weight:600;">Priya</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;color:#ffd32a;font-weight:700;">52%</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ffd32a;font-weight:600;"><span class="ps-owner">Deepkant</span></td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;color:#ffd32a;font-weight:700;">52%</td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ffd32a;font-weight:600;">Rajan</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#ffd32a;">⚠️</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#ffd32a;font-weight:700;">61%</td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#2ed573;font-weight:600;">Divya</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;font-weight:700;">78%</td></tr>
             <tr><td style="padding:6px;color:#00d4ff;font-weight:600;">Kenji</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#00d4ff;font-weight:700;">85%</td></tr>
@@ -1465,7 +1428,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div>
         <div style="font-size:0.62rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:3px;">ProSense AI · Reports</div>
         <div style="font-size:1.25rem;font-weight:700;color:var(--fg);letter-spacing:0.03em;">📋 Team Health Report</div>
-        <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Priya's Team · Period: Oct 2026 (Q4)</div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;"><span class="ps-owner">Deepkant</span>'s Team · Period: Oct 2026 (Q4)</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
         <div style="padding:6px 14px;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:6px;font-size:0.7rem;color:var(--teal);cursor:pointer;font-weight:600;">↓ Export PDF</div>
@@ -1543,7 +1506,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <tbody>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(255,71,87,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Arjun Kumar</span><br><span style="color:var(--muted);font-size:0.6rem;">Sr. Software Engineer</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ff4757;">0.97</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff4757;">97%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff4757;">22/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,71,87,0.15);border:1px solid rgba(255,71,87,0.35);color:#ff4757;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">⚠ Critical</span></td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Meera Singh</span><br><span style="color:var(--muted);font-size:0.6rem;">Product Manager</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ff6b35;">0.72</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b35;">68%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b35;">41/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.3);color:#ff6b35;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">↑ High</span></td></tr>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Priya Sharma</span><br><span style="color:var(--muted);font-size:0.6rem;">Engineering Manager</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ffd32a;">0.48</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">44%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">63/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,211,42,0.1);border:1px solid rgba(255,211,42,0.25);color:#ffd32a;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">~ Medium</span></td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);"><span class="ps-owner-full">Deepkant Verma</span></span><br><span style="color:var(--muted);font-size:0.6rem;">Engineering Manager</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ffd32a;">0.48</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">44%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">63/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,211,42,0.1);border:1px solid rgba(255,211,42,0.25);color:#ffd32a;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">~ Medium</span></td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Rajan Mehta</span><br><span style="color:var(--muted);font-size:0.6rem;">DevOps Engineer</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ffd32a;">0.55</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">52%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">58/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,211,42,0.1);border:1px solid rgba(255,211,42,0.25);color:#ffd32a;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">~ Medium</span></td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Kenji Tanaka</span><br><span style="color:var(--muted);font-size:0.6rem;">Data Analyst</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#2ed573;">0.28</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">24%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">74/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(46,213,115,0.1);border:1px solid rgba(46,213,115,0.25);color:#2ed573;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">✓ Low</span></td></tr>
             <tr><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Divya Nair</span><br><span style="color:var(--muted);font-size:0.6rem;">UX Designer</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#2ed573;">0.21</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">18%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">82/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(46,213,115,0.1);border:1px solid rgba(46,213,115,0.25);color:#2ed573;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">✓ Low</span></td></tr>
@@ -2788,12 +2751,12 @@ const MEMBERS = [
   {name:'Rajan',          score:52,risk:'MED', color:'#e67e22'},
   {name:'Divya',          score:18,risk:'LOW', color:'#27ae60'},
   {name:'Kenji',          score:24,risk:'LOW', color:'#27ae60'},
-  {name:'Priya (Mgr)',    score:44,risk:'MED', color:'#e67e22'},
+  {name:'Deepkant (Mgr)',    score:44,risk:'MED', color:'#e67e22', mgr:true},
 ];
 const RISK_COLORS = {CRIT:'rgba(255,71,87,0.2)',HIGH:'rgba(255,107,53,0.18)',MED:'rgba(255,211,42,0.15)',LOW:'rgba(46,213,115,0.18)'};
 const RISK_TEXT   = {CRIT:'#ff4757',HIGH:'#ff6b35',MED:'#ffd32a',LOW:'#2ed573'};
 const BAR_COLORS  = {CRIT:'#ff4757',HIGH:'#ff6b35',MED:'#ffd32a',LOW:'#2ed573'};
-const INITIALS    = ['A','M','R','D','K','P'];
+const INITIALS    = ['A','M','R','D','K','D'];
 const AV_BG       = ['#7b2ff7','#0070d2','#e67e22','#2ed573','#00d4ff','#ff4757'];
 
 (function renderPulse() {
@@ -2801,8 +2764,8 @@ const AV_BG       = ['#7b2ff7','#0070d2','#e67e22','#2ed573','#00d4ff','#ff4757'
   if (!list) return;
   list.innerHTML = MEMBERS.map((m,i) => `
     <div class="member-row">
-      <div class="member-avatar" style="background:${AV_BG[i]}">${INITIALS[i]}</div>
-      <div class="member-name">${m.name}</div>
+      <div class="member-avatar" style="background:${AV_BG[i]}">${m.mgr?'<span class="ps-owner-init">'+INITIALS[i]+'</span>':INITIALS[i]}</div>
+      <div class="member-name">${m.mgr?'<span class="ps-owner">'+m.name.replace(' (Mgr)','')+'</span> (Mgr)':m.name}</div>
       <div class="member-bar-wrap"><div class="member-bar" style="width:${m.score}%;background:${BAR_COLORS[m.risk]}"></div></div>
       <div style="font-size:0.65rem;color:var(--muted);width:24px;text-align:right;">${m.score}%</div>
       <div class="risk-badge" style="background:${RISK_COLORS[m.risk]};color:${RISK_TEXT[m.risk]}">${m.risk}</div>
@@ -3069,7 +3032,7 @@ const TEAM_DATA = [
       {icon:'💡',title:'Innovation Time',desc:'10% time allocation for data-driven innovation projects',color:'rgba(255,211,42,0.1)',border:'rgba(255,211,42,0.3)'},
     ]
   },
-  { name:'Priya Sharma',  role:'Engineering Manager', init:'P', bg:'#ff4757',
+  { name:'Deepkant Verma',  role:'Engineering Manager', init:'D', bg:'#ff4757',
     riskScore:0.48, burnout:44, psysafe:63, bert:0.38, aiAdopt:52,
     riskLabel:'MEDIUM', riskColor:'#ffd32a', riskBg:'rgba(255,211,42,0.12)', riskBorder:'rgba(255,211,42,0.4)',
     radar:[65,70,62,60,58,52],
@@ -3095,7 +3058,7 @@ const TEAM_DATA = [
 
 // ── Customize Home ──────────────────────────────────────────────
 const CZ_WIDGETS = [
-  {id:'cw-velocity', label:'Team Velocity',        icon:'📈'},
+  {id:'cw-pillars',  label:'7-Pillar Team Average', icon:'🧩'},
   {id:'cw-gap',      label:'The GAP Card',          icon:'🎯'},
   {id:'cw-safe',     label:'ProSense Safe Score',   icon:'🛡'},
   {id:'cw-insights', label:'AI Insights',           icon:'✨'},
@@ -3250,7 +3213,7 @@ function buildHeatmap() {
   const rows = [
     {name:'Arjun',scores:[0.22,0.03,0.18,0.21,0.19,0.24,0.23]},
     {name:'Meera',scores:[0.41,0.32,0.48,0.40,0.38,0.42,0.45]},
-    {name:'Priya',scores:[0.63,0.56,0.70,0.61,0.65,0.60,0.52]},
+    {name:'Deepkant',mgr:true,scores:[0.63,0.56,0.70,0.61,0.65,0.60,0.52]},
     {name:'Rajan',scores:[0.58,0.48,0.62,0.55,0.52,0.57,0.61]},
     {name:'Kenji',scores:[0.74,0.76,0.70,0.72,0.75,0.71,0.85]},
     {name:'Divya',scores:[0.82,0.82,0.85,0.80,0.83,0.81,0.78]},
@@ -3262,7 +3225,7 @@ function buildHeatmap() {
     tr.style.borderBottom = '1px solid rgba(255,255,255,0.04)';
     const nameTd = document.createElement('td');
     nameTd.style.cssText = 'padding:5px;font-weight:600;color:var(--fg);white-space:nowrap;';
-    nameTd.textContent = r.name;
+    nameTd.textContent = r.name; if (r.mgr) nameTd.className = 'ps-owner';
     tr.appendChild(nameTd);
     r.scores.forEach(s => {
       const td = document.createElement('td');
@@ -3307,6 +3270,27 @@ function renderSparkline(idx, data, color) {
   const el = document.getElementById('tm-spark-line-'+idx);
   if (el) { el.setAttribute('points',pts); el.setAttribute('stroke',color); }
 }
+
+// ── Home: 7-pillar team average (TEAM_DATA; burnout inverted so higher = healthier) ──
+function renderHomePillars() {
+  const box = document.getElementById('home-pillars');
+  if (!box || !TEAM_DATA.length) return;
+  const labels = TEAM_DATA[0].pillars.map(p => p.label);
+  box.innerHTML = labels.map((lab, i) => {
+    const vals = TEAM_DATA.map(m => m.pillars[i] ? m.pillars[i].score : null).filter(v => v !== null);
+    let avg = vals.reduce((x, y) => x + y, 0) / vals.length;
+    const burn = /burnout/i.test(lab);
+    if (burn) avg = 1 - avg;
+    const pct = Math.round(avg * 100);
+    const col = avg < 0.25 ? '#ff4757' : avg < 0.45 ? '#ff6b35' : avg < 0.65 ? '#ffd32a' : '#2ed573';
+    const name = burn ? 'Burnout (inverted)' : lab;
+    return '<div style="display:flex;align-items:center;gap:8px;font-size:0.72rem;">' +
+      '<span style="width:124px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + name + '</span>' +
+      '<div style="flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;"><div style="width:' + pct + '%;height:100%;background:' + col + ';"></div></div>' +
+      '<span style="width:36px;text-align:right;font-weight:700;color:' + col + ';">' + pct + '%</span></div>';
+  }).join('');
+}
+renderHomePillars();
 
 function renderPillars(pillars) {
   const container = document.getElementById('tm-pillars');
@@ -3470,11 +3454,32 @@ async function sha256Hex(text) {
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
+
+// Signed-in user -> top bar name, avatar initial and every "<first name>'s team" label.
+function psGreet() { var g = document.getElementById('greeting-part'); if (!g) return; var h = new Date().getHours(); g.textContent = h < 12 ? 'Good morning' : (h < 18 ? 'Good afternoon' : 'Good evening'); }
+window.addEventListener('load', psGreet);
+function psSetUser(full) {
+  full = (full || '').trim(); if (!full) return;
+  var first = full.split(/\s+/)[0];
+  var u = document.querySelector('.tb-username'); if (u) u.textContent = full;
+  var a = document.querySelector('.tb-avatar'); if (a) a.textContent = first.charAt(0).toUpperCase();
+  document.querySelectorAll('.ps-owner').forEach(function(e){ e.textContent = first; });
+  document.querySelectorAll('.ps-owner-full').forEach(function(e){ e.textContent = full; });
+  document.querySelectorAll('.ps-owner-init').forEach(function(e){ e.textContent = first.charAt(0).toUpperCase(); });
+  try { TEAM_DATA.forEach(function(m){ if (m.role === 'Engineering Manager') { m.name = full; m.init = first.charAt(0).toUpperCase(); } }); } catch (e) {}
+  try { MEMBERS.forEach(function(m){ if (m.mgr) m.name = first + ' (Mgr)'; }); } catch (e) {}
+  try { renderTable(); selectMember(currentMember); } catch (e) {}
+  var tn = first + "'s Engineering Team";
+  try { EMAIL_CONFIG.teamName = tn; } catch (e) {}
+  var c = document.getElementById('cfg-team'); if (c) { c.value = tn; c.placeholder = tn; }
+}
+
 async function handleGoogleLogin(response) {
   const payload = JSON.parse(atob(response.credential.split('.')[1]));
   const email   = (payload.email || '').toLowerCase();
   const hash    = await sha256Hex(email);
   if (ALLOWED_EMAIL_HASHES.includes(hash)) {
+    psSetUser(payload.name || payload.given_name);
     const ol = document.getElementById('login-overlay');
     ol.style.opacity = '0';
     setTimeout(() => { ol.style.display = 'none'; }, 800);
@@ -3496,7 +3501,7 @@ async function testLogin(ev) {
     const key  = await crypto.subtle.importKey('raw', new TextEncoder().encode(p), 'PBKDF2', false, ['deriveBits']);
     const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: salt, iterations: TEST_ITER, hash: 'SHA-256' }, key, 256);
     const hex  = Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, '0')).join('');
-    if (u === TEST_USER && hex === TEST_HASH) { document.getElementById('tl-pass').value = ''; enterGuest(); return false; }
+    if (u === TEST_USER && hex === TEST_HASH) { document.getElementById('tl-pass').value = ''; psSetUser('Test User'); enterGuest(); return false; }
   } catch (e) {}
   err.style.display = 'block';
   return false;
@@ -3515,7 +3520,7 @@ async function guestLogin(ev) {
     const key  = await crypto.subtle.importKey('raw', new TextEncoder().encode(p), 'PBKDF2', false, ['deriveBits']);
     const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: salt, iterations: GUEST_ITER, hash: 'SHA-256' }, key, 256);
     const hex  = Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, '0')).join('');
-    if (hex === GUEST_HASH) { document.getElementById('gp').value = ''; enterGuest(); return false; }
+    if (hex === GUEST_HASH) { document.getElementById('gp').value = ''; psSetUser('Guest'); enterGuest(); return false; }
   } catch (e) {}
   err.style.display = 'block';
   return false;
@@ -3685,7 +3690,7 @@ setNav = function(el) {
     <input class="cfg-input" id="cfg-name" placeholder="Team" value="Team">
 
     <label class="cfg-label">Team Name</label>
-    <input class="cfg-input" id="cfg-team" placeholder="Priya's Engineering Team" value="Priya's Engineering Team">
+    <input class="cfg-input" id="cfg-team" placeholder="Deepkant's Engineering Team" value="Deepkant's Engineering Team">
 
     <label class="cfg-label" style="margin-top:16px">Trigger Conditions &amp; Frequency</label>
     <div style="font-size:0.75rem;color:var(--muted);margin-bottom:8px">Enable a condition and set how often it can fire.</div>
@@ -4260,7 +4265,7 @@ const EMAIL_CONFIG = {
   publicKey:      '',
   recipients:     [],
   managerName:    'Team',
-  teamName:       "Priya's Engineering Team",
+  teamName:       "Deepkant's Engineering Team",
   cooldownMs:     5 * 60 * 1000,
   frequencyLabel: 'Every 5 minutes (demo mode)',
   triggers: {
@@ -4578,9 +4583,8 @@ function lvNav(el, name) {
   // [title prefix, what it shows, how to read it, optional data-status tag]
   var HELP = [
     // ── Home ──
-    ["team velocity", "How much work the team delivers over time, plus a short forecast.", "The line going up means more output. Use 6W / 3M / 6M to change the time window. Velocity alone can look healthy while people are struggling, so read it next to the Safe Score.", "Synthetic data"],
     ["the gap", "The distance between where the team is today and where it should be, across five areas: Collaboration, Engagement, Wellbeing, Productivity, Growth.", "Each area shows a Current value against a Target. The bigger the distance, the bigger the gap to close.", "Synthetic data"],
-    ["prosense safe score", "One overall team-health number from 0 to 100, with the main drivers underneath.", "Higher is healthier. 38 is labelled Critical. The arrows show whether velocity, collaboration, wellbeing and the risk index are moving up, flat or down.", "Synthetic data"],
+    ["prosense safe score", "One overall team-health number from 0 to 100, with the main drivers underneath.", "Higher is healthier. 38 is labelled Critical. The arrows show whether collaboration, wellbeing and the risk index are moving up, flat or down.", "Synthetic data"],
     ["ai insights", "Plain-language alerts the AI has raised about the team.", "Each line is one finding with the evidence behind it. The button beside it opens the matching detail.", "Synthetic data"],
     ["team pulse", "A live burnout percentage for each of the six team members.", "A higher number means more burnout. Red marks people who need attention first.", "Synthetic data"],
     ["key signals", "The raw workplace signals (Slack, Jira, Zoom, Confluence, GitHub) that feed the risk score.", "Each row is one signal and what changed. Use the tabs (All / Risk / Engagement / Performance) to filter.", "Synthetic data"],
@@ -4994,7 +4998,7 @@ function PSA_ENGINE(getEnv){
     '<p>Versions: v1 (25 cols, raw) → v2 (29, + psychological safety) → v3 (41, + burnout, collaboration, speak-up) → <b>v4 (53, + work-life, job satisfaction, AI adoption)</b>.</p><p>Target label: <b>At Risk 67.1%</b> / Healthy 32.9%.</p>',
     {tags:['Synthetic data','Trained'],src:'Deck slide 7 · metrics JSON'});
   K('synthetic','Is the data real?','synthetic,real data,is the data real,fictional,fake data,company data,employee data,real employees,real people,is it real,where does the data come from privacy,confidential',
-    '<p><b>No real company or employee data is used anywhere in this project.</b> The training table blends 4 public datasets and synthetic team signals. Priya\'s team and every person on the dashboard are <b>fictional</b>.</p><p>The only external signal is public open-source GitHub activity, used as a proxy. Because the data is synthetic, results may not generalise to real teams. That is the biggest open risk, and a real consented pilot is the next step.</p>',
+    '<p><b>No real company or employee data is used anywhere in this project.</b> The training table blends 4 public datasets and synthetic team signals. {{OWNER}}\'s team and every person on the dashboard are <b>fictional</b>.</p><p>The only external signal is public open-source GitHub activity, used as a proxy. Because the data is synthetic, results may not generalise to real teams. That is the biggest open risk, and a real consented pilot is the next step.</p>',
     {tags:['Synthetic data'],src:'Deck slides 7, 27',follow:['What are the honest limitations?','What are the pending actions?']});
   K('pillars','The 7 pillars and 420 phrases','pillars,seven pillars,7 pillars,420 phrases,phrase engine,nlp engine,text scoring,turning words into numbers,language scoring,60 phrases,weights',
     '<p>Each person gets a score on <b>7 pillars</b>: psychological safety, burnout, collaboration, speak-up rate, work-life balance, job satisfaction and AI adoption.</p><p>Scores come from a custom phrase engine: <b>60 workplace phrases × 7 pillars = 420 phrases</b>, each with a weight from −0.30 to +0.35. Every score starts at a neutral 0.50 and moves with the evidence.</p>',
@@ -5038,7 +5042,7 @@ function PSA_ENGINE(getEnv){
     '<p><b>Honest limit:</b> scores about a person are still personal data, so consent and GDPR still apply.</p>',
     {tags:['Designed'],go:'models',src:'4 Models page · Privacy Guard card',follow:['Which models are trained?','What data do you capture?']});
   K('slideshow','Slide show','slide show,slideshow,slides,play slides,auto play,autoplay pages,full screen slides,present the dashboard,play the dashboard,cycle pages',
-    '<p>Click <b>▶ Slides</b> in the top bar. The dashboard goes full screen, hides the menu, and moves to the next page every <b>20 seconds</b>.</p><ul><li><b>❚❚ Pause / ▶ Play</b> or <b>Space</b> to pause</li><li><b>‹ ›</b> or the <b>Arrow keys</b> to move by hand</li><li><b>Esc</b> or <b>Stop slides</b> to finish</li></ul><p>Team Intelligence and Priya\'s Situation are skipped until the wellbeing consent is given, because they show individual scores. Open one of them once and confirm, and the show includes them for 24 hours.</p>',
+    '<p>Click <b>▶ Slides</b> in the top bar. The dashboard goes full screen, hides the menu, and moves to the next page automatically. Pick the pace with the <b>Speed</b> box in the bar at the bottom (5, 10, 15, 20, 30 or 60 seconds per page; the default is 20).</p><ul><li><b>❚❚ Auto-run on / ▶ Auto-run off</b> or <b>Space</b> turns auto-run on or off</li><li><b>‹ ›</b> or the <b>Arrow keys</b> to move by hand</li><li><b>Esc</b> or <b>Stop slides</b> to finish</li></ul><p>Team Intelligence and Priya\'s Situation are skipped until the wellbeing consent is given, because they show individual scores. Open one of them once and confirm, and the show includes them for 24 hours.</p>',
     {tags:['Info'],src:'Top bar · ▶ Slides',follow:['How do I go full screen?','What is Focus view?']});
   K('why-rf','Why Random Forest?','why random forest,rf,primary model,why tree models,tree based,why not deep learning,why not neural network,why trees,why rf,deep learning',
     '<p>The data is a <b>table</b>, and tree models are the proven choice for tables. They capture combinations (e.g. overtime together with few 1:1s) that simple linear models miss, work well on 5,000 rows (deep learning needs far more), are explainable with SHAP, train in seconds and need no GPU.</p><p><b>Random Forest</b>: hundreds of trees vote, so it is stable and hard to overfit. It had the best AUC and the fewest false alarms, so it is the <b>primary</b> model.</p>',
@@ -5059,9 +5063,9 @@ function PSA_ENGINE(getEnv){
   K('prf','Precision, recall and F1','precision,recall,f1,what is precision,what is recall,sensitivity,balanced,false alarm rate',
     '<p><b>Precision</b>: of the alerts raised, how many are real (RF: 94.5%, about 19 in 20).<br><b>Recall</b>: of the real risks, how many are caught (RF: 82%, HGB: 83.3%).<br><b>F1</b>: the balance between the two (RF 0.878, HGB 0.876).</p>',{tags:['Info'],src:'Deck glossary'});
   K('psysafe','PsySafe: psychological safety','psysafe,safe to speak up,60 threshold,threshold 60,44,team psysafe,what is psysafe,speak up',
-    '<p><b>PsySafe</b> (psychological safety) is whether people feel safe to speak up. The threshold is <b>60</b>. Priya\'s team scores <b>44/100</b>, down 17 points in 6 weeks.</p><p>The team figure is a team-level survey score, so it is not the average of the six individual scores (22, 41, 58, 63, 74, 82).</p>',{tags:['Synthetic data'],go:'home',src:'Home page · deck slide 16'});
+    '<p><b>PsySafe</b> (psychological safety) is whether people feel safe to speak up. The threshold is <b>60</b>. {{OWNER}}\'s team scores <b>44/100</b>, down 17 points in 6 weeks.</p><p>The team figure is a team-level survey score, so it is not the average of the six individual scores (22, 41, 58, 63, 74, 82).</p>',{tags:['Synthetic data'],go:'home',src:'Home page · deck slide 16'});
   K('team-health','Team Health score (38/100)','team health,38,health score,prosense safe score,safe score,overall score,critical score,team score',
-    '<p>The <b>ProSense Safe Score</b> is one overall team-health number from 0 to 100. Higher is healthier. Priya\'s team is <b>38/100, labelled Critical</b>. The same value appears on every page.</p>',{tags:['Synthetic data'],go:'home',src:'Home page'});
+    '<p>The <b>ProSense Safe Score</b> is one overall team-health number from 0 to 100. Higher is healthier. {{OWNER}}\'s team is <b>38/100, labelled Critical</b>. The same value appears on every page.</p>',{tags:['Synthetic data'],go:'home',src:'Home page'});
   K('ai-adoption','AI adoption and AI scrutiny','ai adoption,adoption,ai usage,ai scrutiny,hide expertise,hide expertise from ai,71%,using ai,ai usage per person',
     '<p><b>AI adoption</b> is one of the 7 pillars. Per person it ranges from <b>Arjun 23%</b> up to <b>Kenji 85%</b>. The related warning signs are people <b>hiding expertise from AI</b> (71% of the team in the scenario) and approving AI output without checking it.</p>',{tags:['Synthetic data'],go:'ai',src:'AI & Productivity page'});
   K('bert','BERT Fear Index (designed)','bert,fear index,language model,transformer,nlp model,withdrawal language,fear language,bert fear index,0.74,0.65,encoder,fine tune',
@@ -5098,7 +5102,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v1.15</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.15</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.15 slide show · v1.14 Versions button in the top bar · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v1.16</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.16</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
     '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 31'});
@@ -5243,7 +5247,7 @@ function PSA_ENGINE(getEnv){
     var s=teamStats(); if(!s) return null;
     if(!consentOK()) return needConsent();
     var names=s.atRisk.map(function(m){return '<b>'+esc(m.name.split(' ')[0])+'</b> ('+m.riskLabel.toLowerCase()+', '+m.riskScore.toFixed(2)+')';}).join(' and ');
-    return res('<p><b>'+s.atRisk.length+' of '+s.n+'</b> team members are at risk: '+names+'. The other four are Medium (Rajan, Priya) or Low (Kenji, Divya).</p><p>Distribution: 1 Critical · 1 High · 2 Medium · 2 Low.</p>',{tags:['Trained','Synthetic data'],src:'Risk Signals page · TEAM_DATA',go:'risk',trace:['Read all six risk labels','Counted Critical and High'],follow:['What should the manager do about Arjun?','Show the whole team table']});
+    return res('<p><b>'+s.atRisk.length+' of '+s.n+'</b> team members are at risk: '+names+'. The other four are Medium (Rajan, {{OWNER}}) or Low (Kenji, Divya).</p><p>Distribution: 1 Critical · 1 High · 2 Medium · 2 Low.</p>',{tags:['Trained','Synthetic data'],src:'Risk Signals page · TEAM_DATA',go:'risk',trace:['Read all six risk labels','Counted Critical and High'],follow:['What should the manager do about Arjun?','Show the whole team table']});
   }
   function ranking(metric,dir){
     var T=team(); if(!T.length) return null;
@@ -5395,7 +5399,7 @@ function PSA_ENGINE(getEnv){
   function chip(label,cls,fn){ var b=document.createElement('button'); b.type='button'; b.className='ps-chip'+(cls?' '+cls:''); b.textContent=label; b.addEventListener('click',fn); return b; }
   function addBot(r, animate){
     var d=document.createElement('div'); d.className='ps-m ps-a';
-    var h = r.html;
+    var h = String(r.html).replace(/\{\{OWNER\}\}/g, (document.querySelector('.ps-owner')||{}).textContent||'Deepkant');
     if (r.tags&&r.tags.length) h += '<div class="ps-tags">'+r.tags.map(function(t){return '<span class="ps-pill '+(TAGCLS[t]||'c')+'">'+esc(t)+'</span>';}).join('')+'</div>';
     if (r.src) h += '<div class="ps-src">Source: '+esc(r.src)+'</div>';
     if (r.trace&&r.trace.length) h += '<details class="ps-tr"><summary>How I got this</summary><ol>'+r.trace.map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ol></details>';
@@ -5431,7 +5435,7 @@ function PSA_ENGINE(getEnv){
   }
   function welcome(){
     msgs.innerHTML='';
-    var r = {html:'<p>👋 I\'m the <b>ProSense assistant</b>. I can answer deep questions about the project, its models and Priya\'s fictional team, using only this dashboard\'s synthetic data. I\'ll tell you what is <b>Trained</b>, <b>Designed</b> or <b>Simulated</b>.</p><p>Try one of these:</p>',tags:[],trace:[],follow:A.suggest};
+    var r = {html:'<p>👋 I\'m the <b>ProSense assistant</b>. I can answer deep questions about the project, its models and {{OWNER}}\'s fictional team, using only this dashboard\'s synthetic data. I\'ll tell you what is <b>Trained</b>, <b>Designed</b> or <b>Simulated</b>.</p><p>Try one of these:</p>',tags:[],trace:[],follow:A.suggest};
     addBot(r);
   }
   function open(on){
@@ -5572,10 +5576,6 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   /* header button + simulation bar */
   var hb = document.createElement('div'); hb.className='cz-btn'; hb.id='ps-settings-btn'; hb.title='Admin settings'; hb.textContent='⚙ Settings'; hb.setAttribute('role','button'); hb.tabIndex=0;
   var anchor = $('pf-focus-btn'); if (anchor) anchor.insertAdjacentElement('afterend', hb); else { var tr=document.querySelector('.tb-right'); if(tr) tr.insertBefore(hb, tr.firstChild); }
-  var vb = document.createElement('div'); vb.className='cz-btn'; vb.id='ps-versions-btn'; vb.title='Versions & roll back'; vb.textContent='🕘 Versions'; vb.setAttribute('role','button'); vb.tabIndex=0;
-  hb.insertAdjacentElement('afterend', vb);
-  vb.addEventListener('click', function(){ openVersions(); });
-  vb.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openVersions(); } });
   var bar = document.createElement('div'); bar.id='ps-simbar';
   bar.innerHTML = '<span class="tag">SIMULATION</span><button type="button" id="ps-sim-run">▶ Run</button><button type="button" id="ps-sim-reset">↺ Reset</button>'+
     '<span class="spd" id="ps-sim-spd"><button type="button" data-s="1" class="on">1×</button><button type="button" data-s="4">4×</button><button type="button" data-s="10">10×</button></span>'+
@@ -5736,9 +5736,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v1.15';
+  var CUR = 'v1.16';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v1.16', d:'17 Nov 2026', t:'Home clean-up, your team name, slide speed', add:['Home: Team Velocity card, Velocity row and Productivity tile removed; new 7 Pillars team-average card','Team labels follow the signed-in user: "Deepkant\'s team" instead of "Priya\'s team" on Home, Risk Signals, Team Intelligence and Reports (Priya stays in the story pages)','Notification bell moved to the far right, next to the user avatar','Slide show: speed picker (5 to 60 seconds per page) and auto-run on/off','Sidebar: Priya\'s Situation and the pages below it now sit in a collapsed "Story & Platform" dropdown','Versions & roll back now lives only under ⚙ Settings (header button and sidebar link removed)']},
     {v:'v1.15', d:'17 Nov 2026', t:'Slide show', add:['"▶ Slides" button in the top bar: full screen, Focus view, pages change every 20 seconds','Pause, previous/next, Arrow keys, Space; Esc stops; skips Team Intelligence and Priya\'s Situation (individual scores) until consent is given']},
     {v:'v1.14', d:'16 Nov 2026', t:'Versions button in header', add:['"🕘 Versions" button in the top bar, next to Settings']},
     {v:'v1.13', d:'16 Nov 2026', t:'Versions shortcut', add:['Sidebar link "Versions & roll back" opens Settings at the versions list','Shortcut button at the top of Settings']},
@@ -5784,8 +5785,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   buildVersions();
   function openVersions(){ openSet(true); setTimeout(function(){ var el=$('ps-s-versions'); if(el) el.scrollIntoView({block:'start',behavior:'smooth'}); },320); }
   (function(){ var vj=$('ps-s-vjump'); if(vj) vj.addEventListener('click',function(){ var el=$('ps-s-versions'); if(el) el.scrollIntoView({block:'start',behavior:'smooth'}); });
-    var pl=document.querySelector('a[href="presentation.html"],a[href="../presentation.html"]');
-    if(pl && pl.parentNode && !document.getElementById('ps-side-ver')){ var d=document.createElement('div'); d.style.marginTop='6px'; d.innerHTML='<a href="#" id="ps-side-ver" style="color:var(--cyan,#22d3ee);text-decoration:none;font-weight:600">🕘 Versions &amp; roll back →</a>'; pl.parentNode.parentNode.insertBefore(d,pl.parentNode.nextSibling); d.firstChild.addEventListener('click',function(e){ e.preventDefault(); openVersions(); }); } })();
+  })();
 
   /* ───────── public hooks (used by the assistant) ───────── */
   window.PSAdmin = {
@@ -5804,17 +5804,18 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
 })();
 </script>
 <script>
-/* ───────── Slide show: full screen, Focus view, pages change every 20 s (display only) ───────── */
+/* ───────── Slide show: full screen, Focus view, auto-run with a picked speed (display only) ───────── */
 (function(){
   var body=document.body, root=document.documentElement;
-  var DWELL=20000, on=false, playing=true, timer=null, enteredFs=false, wasFocus=false, bar=null;
+  var SPEEDS=[5,10,15,20,30,60], dwell=(function(){ var v=20; try{ v=parseInt(localStorage.getItem('ps_slide_secs'),10); }catch(e){} return SPEEDS.indexOf(v)>-1?v:20; })(), on=false, playing=true, timer=null, enteredFs=false, wasFocus=false, bar=null;
   function fsOn(){ return !!(document.fullscreenElement||document.webkitFullscreenElement); }
   function navs(){ return [].slice.call(document.querySelectorAll('#sidebar .sb-nav .nav-item')).filter(function(n){
     return !(/Situation|Team Intelligence/.test(n.textContent) && !checkConsent()); }); }   // skip consent-gated pages until consent is given
   function curIdx(l){ return l.findIndex(function(n){ return n.classList.contains('active'); }); }
-  function go(d){ var l=navs(); if(!l.length) return; var i=curIdx(l); var j=((i<0?0:i)+d+l.length)%l.length; l[j].click(); render(); }
+  function go(d){ var l=navs(); if(!l.length) return; var i=curIdx(l); var j=((i<0?0:i)+d+l.length)%l.length; l[j].click(); if(on) arm(); render(); }
+  function arm(){ clearInterval(timer); timer=setInterval(function(){ if(on && playing) go(1); }, dwell*1000); }
   function render(){ if(!bar) return; var l=navs(), i=curIdx(l);
-    bar.querySelector('#pss-pp').textContent = playing ? '❚❚ Pause' : '▶ Play';
+    bar.querySelector('#pss-pp').textContent = playing ? '❚❚ Auto-run on' : '▶ Auto-run off';
     bar.querySelector('#pss-pg').textContent = (i+1)+' / '+l.length+'  ·  '+(l[i]?l[i].textContent.replace(/^[^A-Za-z0-9]+/,'').trim():''); }
   var css=document.createElement('style'); css.textContent='body.ps-slides #pf-focus-bar{display:none!important}'; document.head.appendChild(css);
   function build(){
@@ -5822,7 +5823,8 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     bar.setAttribute('style','position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:9800;display:none;align-items:center;gap:8px;background:rgba(10,14,30,.94);border:1px solid rgba(0,212,255,.35);border-radius:22px;padding:6px 10px;font:600 12px system-ui,sans-serif;color:#e6f7ff;box-shadow:0 10px 30px rgba(0,0,0,.5);white-space:nowrap');
     var b='background:transparent;border:1px solid rgba(0,212,255,.35);color:#00d4ff;border-radius:12px;padding:3px 10px;font:600 12px system-ui,sans-serif;cursor:pointer';
     bar.innerHTML='<button type="button" id="pss-prev" style="'+b+'" aria-label="Previous page">‹</button>'+
-      '<button type="button" id="pss-pp" style="'+b+'" aria-label="Pause or play">❚❚ Pause</button>'+
+      '<button type="button" id="pss-pp" style="'+b+'" aria-label="Turn auto-run on or off">❚❚ Auto-run on</button>'+
+      '<label style="display:inline-flex;align-items:center;gap:5px;color:#9fb3c8">Speed <select id="pss-spd" aria-label="Seconds per page" style="background:#0a0e1e;color:#00d4ff;border:1px solid rgba(0,212,255,.35);border-radius:10px;padding:2px 6px;font:600 12px system-ui,sans-serif;cursor:pointer">'+SPEEDS.map(function(n){ return '<option value="'+n+'">'+n+' s / page</option>'; }).join('')+'</select></label>'+
       '<button type="button" id="pss-next" style="'+b+'" aria-label="Next page">›</button>'+
       '<span id="pss-pg" style="min-width:200px;text-align:center"></span>'+
       '<button type="button" id="pss-stop" style="'+b+'">Stop slides <kbd style="font:600 10px system-ui">Esc</kbd></button>';
@@ -5831,6 +5833,8 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     bar.querySelector('#pss-next').addEventListener('click',function(){ go(1); });
     bar.querySelector('#pss-pp').addEventListener('click',function(){ playing=!playing; render(); });
     bar.querySelector('#pss-stop').addEventListener('click',function(){ stop(); });
+    var sp=bar.querySelector('#pss-spd'); sp.value=String(dwell);
+    sp.addEventListener('change',function(){ dwell=parseInt(sp.value,10)||20; try{ localStorage.setItem('ps_slide_secs',String(dwell)); }catch(e){} if(on) arm(); sp.blur(); render(); });
   }
   function start(){
     if(on) return;
@@ -5839,7 +5843,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     if(!wasFocus && window.pfToggleFocus) window.pfToggleFocus(true);
     try{ var rq=(root.requestFullscreen||root.webkitRequestFullscreen); if(rq){ enteredFs=true; var r=rq.call(root); if(r&&r.catch) r.catch(function(){ enteredFs=false; }); } }catch(e){ enteredFs=false; }
     bar.style.display='flex'; body.classList.add('ps-slides');
-    timer=setInterval(function(){ if(on && playing) go(1); }, DWELL);
+    arm();
     render();
   }
   function stop(){
@@ -5851,8 +5855,8 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
   window.psSlideStart=start; window.psSlideStop=stop;
   /* header button, next to Versions */
-  var sb=document.createElement('div'); sb.className='cz-btn'; sb.id='ps-slides-btn'; sb.title='Slide show: full screen, pages change every 20 seconds'; sb.textContent='▶ Slides'; sb.setAttribute('role','button'); sb.tabIndex=0;
-  var anchor=document.getElementById('ps-versions-btn')||document.getElementById('ps-settings-btn');
+  var sb=document.createElement('div'); sb.className='cz-btn'; sb.id='ps-slides-btn'; sb.title='Slide show: full screen, auto-run with a speed you pick'; sb.textContent='▶ Slides'; sb.setAttribute('role','button'); sb.tabIndex=0;
+  var anchor=document.getElementById('ps-settings-btn');
   if(anchor) anchor.insertAdjacentElement('afterend', sb);
   sb.addEventListener('click', start);
   sb.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); start(); } });
