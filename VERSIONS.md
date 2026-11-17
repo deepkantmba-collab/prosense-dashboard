@@ -19,6 +19,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v1.12 | 2026-11-16 | Privacy Guard (designed) listed on the 4 Models page: how text becomes numbers only, with the safety chain; chat explains it |
 | v1.13 | 2026-11-16 | Easier to find: sidebar link and a Settings shortcut button open the Versions & roll back list |
 | v1.14 | 2026-11-16 | Versions & roll back button in the top bar, next to Settings |
+| v1.15 | 2026-11-17 | Slide show: "▶ Slides" in the top bar goes full screen and moves through the pages every 20 seconds (pause, arrow keys, Esc to stop) |
 
 ## Rolling back
 
