@@ -98,6 +98,8 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
 .nav-group-h:hover,.nav-group-h:focus-visible{color:var(--fg);outline:none;}
 .nav-group-h .nav-caret{margin-left:auto;transition:transform .2s;}
 .nav-group-h[aria-expanded="true"] .nav-caret{transform:rotate(180deg);}
+.ps-desig{}
+body:not(.ps-show-desig) .ps-desig{display:none!important;}
 .nav-group-body{display:none;}
 .nav-group-body.open{display:block;}
 .tb-bell{font-size:1rem;color:var(--muted);cursor:pointer;position:relative;}
@@ -589,8 +591,11 @@ body.pf-focus #pf-focus-bar{display:flex;}
 
         <!-- 7-Pillar team average -->
         <div class="card cw-draggable" id="cw-pillars"><span class="drag-handle">⠿</span>
-          <div class="card-title">7 Pillars · team average</div>
-          <div class="card-sub">Average of the six members · higher is healthier · burnout inverted</div>
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding-right:22px;">
+            <div class="card-title" id="hp-title" style="margin:0;">7 Pillars · team average</div>
+            <select id="home-pillars-sel" onchange="psPillarsPick(this.value)" title="Switch between the team average and one member" style="background:rgba(255,255,255,0.06);color:inherit;border:1px solid rgba(255,255,255,0.15);border-radius:6px;font-size:0.68rem;padding:2px 4px;max-width:130px;"></select>
+          </div>
+          <div class="card-sub" id="hp-sub">Average of the six members · higher is healthier · burnout inverted</div>
           <div id="home-pillars" style="display:flex;flex-direction:column;gap:7px;margin-top:10px;"></div>
         </div>
 
@@ -957,7 +962,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
               <td style="padding:7px 8px 7px 0;">
                 <div style="display:flex;align-items:center;gap:7px;font-size:0.7rem;color:var(--fg);">
-                  <div style="width:22px;height:22px;border-radius:50%;background:#7b2ff7;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:700;flex-shrink:0;">A</div>Arjun (Sr. Eng.)
+                  <div style="width:22px;height:22px;border-radius:50%;background:#7b2ff7;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:700;flex-shrink:0;">A</div>Arjun<span class="ps-desig"> (Sr. Eng.)</span>
                 </div>
               </td>
               <td style="text-align:center;padding:7px 6px;font-size:0.72rem;font-weight:800;color:#ff4757;">0.97</td>
@@ -993,7 +998,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
               <td style="padding:7px 8px 7px 0;">
                 <div style="display:flex;align-items:center;gap:7px;font-size:0.7rem;color:var(--fg);">
-                  <div style="width:22px;height:22px;border-radius:50%;background:#ff4757;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:700;flex-shrink:0;"><span class="ps-owner-init">D</span></div><span class="ps-owner">Deepkant</span> (Mgr)
+                  <div style="width:22px;height:22px;border-radius:50%;background:#ff4757;display:flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:700;flex-shrink:0;"><span class="ps-owner-init">D</span></div><span class="ps-owner">Deepkant</span><span class="ps-desig"> (Mgr)</span>
                 </div>
               </td>
               <td style="text-align:center;padding:7px 6px;font-size:0.72rem;font-weight:800;color:#ffd32a;">0.48</td>
@@ -1127,7 +1132,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       </div>
       <div class="tm-pill" onclick="selectMember(5)" id="pill-5" style="display:flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:30px;cursor:pointer;transition:all .18s;">
         <div style="width:30px;height:30px;border-radius:50%;background:#ff4757;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;color:#fff;flex-shrink:0;"><span class="ps-owner-init">D</span></div>
-        <div><div style="font-size:0.75rem;font-weight:700;color:var(--fg);"><span class="ps-owner">Deepkant</span></div><div style="font-size:0.6rem;color:#ffd32a;font-weight:600;">MANAGER</div></div>
+        <div><div style="font-size:0.75rem;font-weight:700;color:var(--fg);"><span class="ps-owner">Deepkant</span></div><div class="ps-desig" style="font-size:0.6rem;color:#ffd32a;font-weight:600;">MANAGER</div></div>
       </div>
     </div>
 
@@ -1139,7 +1144,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
         <div style="text-align:center;margin-bottom:14px;">
           <div id="tm-avatar" style="width:56px;height:56px;border-radius:50%;background:#7b2ff7;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:#fff;margin:0 auto 8px;border:2px solid rgba(255,71,87,0.6);">A</div>
           <div id="tm-name" style="font-size:1rem;font-weight:800;color:#fff;">Arjun Kumar</div>
-          <div id="tm-role" style="font-size:0.68rem;color:var(--muted);margin-top:1px;">Sr. Software Engineer</div>
+          <div id="tm-role" class="ps-desig" style="font-size:0.68rem;color:var(--muted);margin-top:1px;">Sr. Software Engineer</div>
           <div id="tm-risk-badge" style="display:inline-block;margin-top:6px;background:rgba(255,71,87,0.18);border:1px solid rgba(255,71,87,0.45);border-radius:10px;padding:3px 12px;font-size:0.65rem;font-weight:700;color:#ff4757;">⚠ CRITICAL RISK</div>
           <div class="wb-badge">💛 WELLBEING SIGNAL · NOT A PERFORMANCE METRIC</div>
         </div>
@@ -1504,12 +1509,12 @@ body.pf-focus #pf-focus-bar{display:flex;}
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(255,71,87,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Arjun Kumar</span><br><span style="color:var(--muted);font-size:0.6rem;">Sr. Software Engineer</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ff4757;">0.97</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff4757;">97%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff4757;">22/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,71,87,0.15);border:1px solid rgba(255,71,87,0.35);color:#ff4757;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">⚠ Critical</span></td></tr>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Meera Singh</span><br><span style="color:var(--muted);font-size:0.6rem;">Product Manager</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ff6b35;">0.72</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b35;">68%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b35;">41/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.3);color:#ff6b35;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">↑ High</span></td></tr>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);"><span class="ps-owner-full">Deepkant Verma</span></span><br><span style="color:var(--muted);font-size:0.6rem;">Engineering Manager</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ffd32a;">0.48</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">44%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">63/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,211,42,0.1);border:1px solid rgba(255,211,42,0.25);color:#ffd32a;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">~ Medium</span></td></tr>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Rajan Mehta</span><br><span style="color:var(--muted);font-size:0.6rem;">DevOps Engineer</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ffd32a;">0.55</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">52%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">58/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,211,42,0.1);border:1px solid rgba(255,211,42,0.25);color:#ffd32a;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">~ Medium</span></td></tr>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Kenji Tanaka</span><br><span style="color:var(--muted);font-size:0.6rem;">Data Analyst</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#2ed573;">0.28</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">24%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">74/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(46,213,115,0.1);border:1px solid rgba(46,213,115,0.25);color:#2ed573;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">✓ Low</span></td></tr>
-            <tr><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Divya Nair</span><br><span style="color:var(--muted);font-size:0.6rem;">UX Designer</span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#2ed573;">0.21</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">18%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">82/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(46,213,115,0.1);border:1px solid rgba(46,213,115,0.25);color:#2ed573;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">✓ Low</span></td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(255,71,87,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Arjun Kumar</span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.6rem;">Sr. Software Engineer</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ff4757;">0.97</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff4757;">97%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff4757;">22/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,71,87,0.15);border:1px solid rgba(255,71,87,0.35);color:#ff4757;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">⚠ Critical</span></td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Meera Singh</span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.6rem;">Product Manager</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ff6b35;">0.72</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b35;">68%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b35;">41/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.3);color:#ff6b35;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">↑ High</span></td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);"><span class="ps-owner-full">Deepkant Verma</span></span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.6rem;">Engineering Manager</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ffd32a;">0.48</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">44%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">63/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,211,42,0.1);border:1px solid rgba(255,211,42,0.25);color:#ffd32a;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">~ Medium</span></td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Rajan Mehta</span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.6rem;">DevOps Engineer</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ffd32a;">0.55</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">52%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">58/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,211,42,0.1);border:1px solid rgba(255,211,42,0.25);color:#ffd32a;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">~ Medium</span></td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Kenji Tanaka</span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.6rem;">Data Analyst</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#2ed573;">0.28</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">24%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">74/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(46,213,115,0.1);border:1px solid rgba(46,213,115,0.25);color:#2ed573;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">✓ Low</span></td></tr>
+            <tr><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Divya Nair</span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.6rem;">UX Designer</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#2ed573;">0.21</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">18%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#2ed573;">82/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(46,213,115,0.1);border:1px solid rgba(46,213,115,0.25);color:#2ed573;padding:2px 8px;border-radius:10px;font-size:0.62rem;font-weight:700;">✓ Low</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -2746,12 +2751,12 @@ function setVCToggle(el) {
 
 // ── Team Pulse render ────────────────────────────────
 const MEMBERS = [
-  {name:'Arjun (Sr. Eng.)',score:97,risk:'CRIT',color:'#c0392b'},
+  {name:'Arjun',desig:'Sr. Eng.',score:97,risk:'CRIT',color:'#c0392b'},
   {name:'Meera',          score:68,risk:'HIGH',color:'#e67e22'},
   {name:'Rajan',          score:52,risk:'MED', color:'#e67e22'},
   {name:'Divya',          score:18,risk:'LOW', color:'#27ae60'},
   {name:'Kenji',          score:24,risk:'LOW', color:'#27ae60'},
-  {name:'Deepkant (Mgr)',    score:44,risk:'MED', color:'#e67e22', mgr:true},
+  {name:'Deepkant',desig:'Mgr',    score:44,risk:'MED', color:'#e67e22', mgr:true},
 ];
 const RISK_COLORS = {CRIT:'rgba(255,71,87,0.2)',HIGH:'rgba(255,107,53,0.18)',MED:'rgba(255,211,42,0.15)',LOW:'rgba(46,213,115,0.18)'};
 const RISK_TEXT   = {CRIT:'#ff4757',HIGH:'#ff6b35',MED:'#ffd32a',LOW:'#2ed573'};
@@ -2765,7 +2770,7 @@ const AV_BG       = ['#7b2ff7','#0070d2','#e67e22','#2ed573','#00d4ff','#ff4757'
   list.innerHTML = MEMBERS.map((m,i) => `
     <div class="member-row">
       <div class="member-avatar" style="background:${AV_BG[i]}">${m.mgr?'<span class="ps-owner-init">'+INITIALS[i]+'</span>':INITIALS[i]}</div>
-      <div class="member-name">${m.mgr?'<span class="ps-owner">'+m.name.replace(' (Mgr)','')+'</span> (Mgr)':m.name}</div>
+      <div class="member-name">${m.mgr?'<span class="ps-owner">'+m.name+'</span>':m.name}${m.desig?'<span class="ps-desig"> ('+m.desig+')</span>':''}</div>
       <div class="member-bar-wrap"><div class="member-bar" style="width:${m.score}%;background:${BAR_COLORS[m.risk]}"></div></div>
       <div style="font-size:0.65rem;color:var(--muted);width:24px;text-align:right;">${m.score}%</div>
       <div class="risk-badge" style="background:${RISK_COLORS[m.risk]};color:${RISK_TEXT[m.risk]}">${m.risk}</div>
@@ -3272,13 +3277,53 @@ function renderSparkline(idx, data, color) {
 }
 
 // ── Home: 7-pillar team average (TEAM_DATA; burnout inverted so higher = healthier) ──
+var HP_SEL = 'team', HP_PENDING = null;
+function psPillarsPick(v) {
+  if (v !== 'team' && !hpConsent()) {
+    // individual scores sit behind the same consent gate as Team Intelligence
+    HP_PENDING = v; HP_SEL = 'team';
+    renderHomePillars();
+    showConsentModal();
+    return;
+  }
+  HP_PENDING = null; HP_SEL = v;
+  renderHomePillars();
+}
+function hpConsent() { return typeof checkConsent === 'function' && checkConsent(); }
+window.addEventListener('load', function () {
+  if (typeof acceptConsent !== 'function') return;
+  const _acc = acceptConsent;
+  acceptConsent = function () {
+    _acc.apply(this, arguments);
+    if (HP_PENDING !== null) { HP_SEL = HP_PENDING; HP_PENDING = null; }
+    renderHomePillars();
+  };
+});
 function renderHomePillars() {
   const box = document.getElementById('home-pillars');
   if (!box || !TEAM_DATA.length) return;
+  const ok = hpConsent();
+  if (HP_SEL !== 'team' && (!ok || !TEAM_DATA[+HP_SEL])) HP_SEL = 'team';
+  const sel = document.getElementById('home-pillars-sel');
+  if (sel) {
+    sel.innerHTML = '<option value="team">Team average</option>' +
+      TEAM_DATA.map((m, i) => '<option value="' + i + '">' + (ok ? '' : '🔒 ') + m.name + '</option>').join('');
+    sel.value = HP_SEL;
+  }
+  const indiv = HP_SEL !== 'team' ? TEAM_DATA[+HP_SEL] : null;
+  const ti = document.getElementById('hp-title'), su = document.getElementById('hp-sub');
+  if (ti) ti.textContent = indiv ? '7 Pillars · ' + indiv.name : '7 Pillars · team average';
+  if (su) su.textContent = indiv ? 'One member’s scores · higher is healthier · burnout inverted'
+                                 : 'Average of the six members · higher is healthier · burnout inverted';
   const labels = TEAM_DATA[0].pillars.map(p => p.label);
   box.innerHTML = labels.map((lab, i) => {
-    const vals = TEAM_DATA.map(m => m.pillars[i] ? m.pillars[i].score : null).filter(v => v !== null);
-    let avg = vals.reduce((x, y) => x + y, 0) / vals.length;
+    let avg;
+    if (indiv) {
+      avg = indiv.pillars[i] ? indiv.pillars[i].score : 0;
+    } else {
+      const vals = TEAM_DATA.map(m => m.pillars[i] ? m.pillars[i].score : null).filter(v => v !== null);
+      avg = vals.reduce((x, y) => x + y, 0) / vals.length;
+    }
     const burn = /burnout/i.test(lab);
     if (burn) avg = 1 - avg;
     const pct = Math.round(avg * 100);
@@ -3372,7 +3417,7 @@ function renderTable() {
     n1.textContent = m.name.split(' ')[0];
     const n2 = document.createElement('div');
     n2.style.cssText = 'font-size:0.6rem;color:var(--muted);';
-    n2.textContent = m.role;
+    n2.textContent = m.role; n2.className = 'ps-desig';
     nameDiv.appendChild(n1); nameDiv.appendChild(n2);
     nameWrap.appendChild(av); nameWrap.appendChild(nameDiv);
     td0.appendChild(nameWrap);
@@ -3458,17 +3503,19 @@ async function sha256Hex(text) {
 // Signed-in user -> top bar name, avatar initial and every "<first name>'s team" label.
 function psGreet() { var g = document.getElementById('greeting-part'); if (!g) return; var h = new Date().getHours(); g.textContent = h < 12 ? 'Good morning' : (h < 18 ? 'Good afternoon' : 'Good evening'); }
 window.addEventListener('load', psGreet);
+var PS_OWN = {first:'Deepkant', full:'Deepkant Verma'};
 function psSetUser(full) {
   full = (full || '').trim(); if (!full) return;
-  var first = full.split(/\s+/)[0];
+  var first = full.split(/\s+/)[0]; PS_OWN = {first:first, full:full};
   var u = document.querySelector('.tb-username'); if (u) u.textContent = full;
   var a = document.querySelector('.tb-avatar'); if (a) a.textContent = first.charAt(0).toUpperCase();
   document.querySelectorAll('.ps-owner').forEach(function(e){ e.textContent = first; });
   document.querySelectorAll('.ps-owner-full').forEach(function(e){ e.textContent = full; });
   document.querySelectorAll('.ps-owner-init').forEach(function(e){ e.textContent = first.charAt(0).toUpperCase(); });
   try { TEAM_DATA.forEach(function(m){ if (m.role === 'Engineering Manager') { m.name = full; m.init = first.charAt(0).toUpperCase(); } }); } catch (e) {}
-  try { MEMBERS.forEach(function(m){ if (m.mgr) m.name = first + ' (Mgr)'; }); } catch (e) {}
+  try { MEMBERS.forEach(function(m){ if (m.mgr) m.name = first; }); } catch (e) {}
   try { renderTable(); selectMember(currentMember); } catch (e) {}
+  try { renderHomePillars(); } catch (e) {}
   var tn = first + "'s Engineering Team";
   try { EMAIL_CONFIG.teamName = tn; } catch (e) {}
   var c = document.getElementById('cfg-team'); if (c) { c.value = tn; c.placeholder = tn; }
@@ -4985,7 +5032,7 @@ function PSA_ENGINE(getEnv){
     '<p><b>Priya</b> (a fictional engineering manager) gave her team an AI coding assistant. On paper, velocity rose <b>22%</b>. Underneath:</p><ul><li>Psychological safety <b>44/100</b> (threshold 60), down 17 points in 6 weeks</li><li>Team Health <b>38/100</b> (Critical)</li><li>AI risk reports approved in <b>6 seconds</b> (used to take 4.2 minutes), so nobody checks</li><li><b>Arjun</b>, her senior engineer: burnout 97%, risk 0.97, Slack messages ↓61%, stand-up contribution ↓48%. He hasn\'t quit; he has gone quiet.</li></ul><p>All people and numbers are fictional and synthetic.</p>',
     {tags:['Synthetic data'],go:'situation',src:'Priya\'s Situation page',follow:['Why is Arjun at risk?','Why do today\'s tools miss this?']});
   K('simulation','The simulation (admin demo tool)','what is the simulation,simulation controls,simulated pilot,how does the simulation work,run simulation,simulation mode,90 day simulation,admin settings,settings panel,anonymous names,engineer 1,light mode',
-    '<p>The <b>simulation</b> replays the <b>90-day pilot</b> week by week on synthetic data. Turn it on in <b>⚙ Settings › Demo tools › Simulation controls</b>, then press <b>Run</b> (1×, 4× or 10× speed):</p><ul><li><b>Weeks 0–8:</b> PsySafe falls from about 67 to <b>44</b> (down 17 points in 6 weeks); an alert fires when it drops below 60</li><li><b>Week 9:</b> intervention: a loyal-opposition exercise and a non-performance 1:1 with Arjun</li><li><b>Weeks 9–12:</b> PsySafe recovers to <b>63</b>; delivery risk falls 31%, silent dissent 40%, attrition risk 18%</li><li><b>Week 12:</b> the team catches a flawed AI report ($2–4M exposure)</li></ul><p>The team table, Team Pulse and the PsySafe tile move with it. Reset puts everything back. Other admin options: <b>Appearance</b> (dark/light), <b>Full screen</b>, <b>Focus view</b> and <b>Anonymous names</b> (Engineer 1–5, Manager, team shown as “Simulation”).</p>',
+    '<p>The <b>simulation</b> replays the <b>90-day pilot</b> week by week on synthetic data. Turn it on in <b>⚙ Settings › Demo tools › Simulation controls</b>, then press <b>Run</b> (1×, 4× or 10× speed):</p><ul><li><b>Weeks 0–8:</b> PsySafe falls from about 67 to <b>44</b> (down 17 points in 6 weeks); an alert fires when it drops below 60</li><li><b>Week 9:</b> intervention: a loyal-opposition exercise and a non-performance 1:1 with Arjun</li><li><b>Weeks 9–12:</b> PsySafe recovers to <b>63</b>; delivery risk falls 31%, silent dissent 40%, attrition risk 18%</li><li><b>Week 12:</b> the team catches a flawed AI report ($2–4M exposure)</li></ul><p>The team table, Team Pulse and the PsySafe tile move with it. Reset puts everything back. Other admin options: <b>Appearance</b> (dark/light), <b>Full screen</b>, <b>Focus view</b> and <b>Anonymous names</b> (Team member 1–6, team shown as “Simulation”). Job titles are hidden by default; <b>⚙ Settings › Show designations</b> turns them on. On Home, the <b>7 Pillars</b> card has a dropdown: team average, or one member (individual scores need the same consent as Team Intelligence).</p>',
     {tags:['Simulated','Synthetic data'],src:'Admin settings · Resolution page (pilot numbers)',follow:['Run the simulation','What happened in the pilot?']});
   K('gap','Why today\'s tools miss it','gap,traditional dashboards,why tools miss,speed is not health,velocity misleading,blind spot,existing tools,competitors,what is new',
     '<p>Traditional dashboards see velocity ↑, tickets closed ↑, commits ↑ and conclude “the AI rollout is a success”.</p><p>ProSense also sees psychological safety ↓17 points, checking of AI output near zero (6 seconds a report), and stand-up contribution ↓48%, so it concludes “silent risk is building: act now”.</p><p><b>Speed is not health.</b> ProSense adds the human signal that speed metrics leave out.</p>',{tags:['Synthetic data'],src:'Deck slide 5'});
@@ -5102,7 +5149,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v1.16</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.16</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v1.17</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.17</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
     '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 31'});
@@ -5149,7 +5196,7 @@ function PSA_ENGINE(getEnv){
   function colRisk(v){ return v>=.7?'#ff4757':v>=.5?'#ffd32a':'#2ed573'; }
   function findMembers(n){
     var out=[]; Object.keys(NAMES).forEach(function(k){ if(new RegExp('\\b'+k+'\\b').test(n)) out.push(NAMES[k]); });
-    // anonymous labels: "Engineer 1" … "Engineer 5" and "the Manager (Mgr)"
+    // anonymous labels: "Team member 1" … "Team member 6"
     var re=/\b(?:engineer|eng|e)\s?([1-5])\b/g, mm; while((mm=re.exec(n))){ var ix=+mm[1]-1; if(out.indexOf(ix)<0) out.push(ix); }
     if (/\bmanager (?:mgr|profile|s profile|s risk|s burnout|s score)\b/.test(n) && out.indexOf(5)<0) out.push(5);
     return out;
@@ -5315,7 +5362,7 @@ function PSA_ENGINE(getEnv){
     if (/\bsimulation\b/.test(n) && /\b(reset|restart|stop|clear)\b/.test(n)) return res('<p>↺ The simulation is reset to week 0.</p>',{act:{type:'sim',do:'reset'},tags:['Simulated'],src:'Admin settings › Simulation controls'});
     if (/\bsimulation\b/.test(n) && /\bpause\b/.test(n)) return res('<p>❚❚ Simulation paused.</p>',{act:{type:'sim',do:'pause'},tags:['Simulated'],src:'Admin settings › Simulation controls'});
     if (/\b(light|dark) (mode|theme|appearance|view)\b/.test(n) && !/\bwhat\b/.test(n)) { var lt=/\blight\b/.test(n); return res('<p>Appearance switched to <b>'+(lt?'Light':'Dark')+'</b>. You can change it any time in ⚙ Settings.</p>',{act:{type:'theme',v:lt?'light':'dark'},src:'Admin settings › Appearance'}); }
-    if (/\b(anonymous|anonymi[sz]e|hide (the )?names|neutral (names|labels))\b/.test(n) && !/\bwhat|why\b/.test(n)) { var off=/\b(off|show (the )?real|disable|stop|turn off)\b/.test(n); return res(off?'<p>Real first names are shown again.</p>':'<p>Anonymous names are on: people now appear as <b>Engineer 1–5</b> and <b>Manager</b>, and the team is shown as “Simulation”. Display only; no data changes.</p>',{act:{type:'anon',on:!off},src:'Admin settings › Anonymous names'}); }
+    if (/\b(anonymous|anonymi[sz]e|hide (the )?names|neutral (names|labels))\b/.test(n) && !/\bwhat|why\b/.test(n)) { var off=/\b(off|show (the )?real|disable|stop|turn off)\b/.test(n); return res(off?'<p>Real first names are shown again.</p>':'<p>Anonymous names are on: people now appear as <b>Team member 1–6</b>, and the team is shown as “Simulation”. Display only; no data changes.</p>',{act:{type:'anon',on:!off},src:'Admin settings › Anonymous names'}); }
     if (/\b(roll ?back|role back|previous version|older version|old version|version history|versions)\b/.test(n) && !/\b(models?|mlops|drift|canary|precision|retrain\w*)\b/.test(n)) return res(KB.filter(function(k){ return k.id==='versions'; })[0].html,{act:{type:'versions'},tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24',trace:['Recognised a question about versions or roll back','Opened ⚙ Settings at the Versions section']});
     if (/\b(open|show)\b.*\bsettings\b/.test(n)) return res('<p>Opening ⚙ <b>Settings</b>.</p>',{act:{type:'settings'},src:'Admin settings'});
     var pg = pageFrom(n);
@@ -5533,7 +5580,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
 (function(){
   'use strict';
   var KEY = 'prosense_prefs_v1';
-  var P = {theme:'dark', anon:false, sim:false, assistant:true};
+  var P = {theme:'dark', anon:false, sim:false, assistant:true, desig:false};
   try { var s = JSON.parse(localStorage.getItem(KEY)||'{}'); Object.keys(P).forEach(function(k){ if (k in s && typeof s[k]===typeof P[k]) P[k]=s[k]; }); } catch(e){}
   function save(){ try { localStorage.setItem(KEY, JSON.stringify(P)); } catch(e){} }
   function $(id){ return document.getElementById(id); }
@@ -5559,7 +5606,8 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     '<div class="ps-s-row"><div><b>Full screen <span class="ps-s-state" id="ps-st-fs">OFF</span></b><p>Fill the whole screen with the dashboard. Press Esc to leave.</p></div>'+sw('ps-sw-fs','Full screen')+'</div>'+
     '<div class="ps-s-row"><div><b>Focus view <span class="ps-s-state" id="ps-st-focus">OFF</span></b><p>Hide the menu and header so only the content shows. Keyboard: F.</p></div>'+sw('ps-sw-focus','Focus view')+'</div>'+
     '<div class="ps-s-sec">PRIVACY</div>'+
-    '<div class="ps-s-row"><div><b>Anonymous names <span class="ps-s-state" id="ps-st-anon">OFF</span></b><p>Show neutral labels (Engineer 1, Engineer 2 … and Manager) instead of first names, and rename the team to “Simulation”. Display only; no data changes.</p></div>'+sw('ps-sw-anon','Anonymous names')+'</div>'+
+    '<div class="ps-s-row"><div><b>Anonymous names <span class="ps-s-state" id="ps-st-anon">OFF</span></b><p>Show neutral labels (Team member 1, Team member 2 …) instead of names, and rename the team to “Simulation”. Display only; no data changes.</p></div>'+sw('ps-sw-anon','Anonymous names')+'</div>'+
+    '<div class="ps-s-row"><div><b>Show designations <span class="ps-s-state" id="ps-st-desig">OFF</span></b><p>Show job titles (Sr. Engineer, Manager and so on) next to names. Off by default; switch on only when titles are needed.</p></div>'+sw('ps-sw-desig','Show designations')+'</div>'+
     '<div class="ps-s-note">Why this exists: neutral labels reduce identity bias and protect psychological safety. In a real deployment, named views would be limited to a few authorised roles. All people shown here are fictional.</div>'+
     '<div class="ps-s-sec">DEMO TOOLS</div>'+
     '<div class="ps-s-row"><div><b>Simulation controls <span class="ps-s-state" id="ps-st-sim">OFF</span></b><p>Show Run, Reset and 1× / 4× / 10× controls under the header. Plays the simulated 90-day pilot on synthetic data.</p></div>'+sw('ps-sw-sim','Simulation controls')+'</div>'+
@@ -5608,25 +5656,33 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
 
   /* ───────── anonymous names ───────── */
   var ENG = {arjun:1,meera:2,rajan:3,divya:4,kenji:5};
-  var RULES = [
-    [/Priya[’']s (?:Situation|Team|team)\b/g, 'Simulation'],
-    [/\bPriya Sharma\b/g, 'Manager'],
-    [/\bPriya \(Mgr\)/g, 'Manager'],
-    [/\bPriya[’']s\b/g, "Manager's"],
-    [/\bPriya\b/g, 'Manager'],
-    [/\b(Arjun|Meera|Rajan|Divya|Kenji)(?: (?:Kumar|Singh|Mehta|Nair|Tanaka))?\b/g, function(m,f){ return 'Engineer '+ENG[f.toLowerCase()]; }]
-  ];
-  var INIT = {A:'E1',M:'E2',R:'E3',D:'E4',K:'E5',P:'Mg'};
+  function esc(x){ return String(x).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+  function rules(){
+    var o=window.PS_OWN||{first:'Deepkant',full:'Deepkant Verma'}, f=esc(o.first), fu=esc(o.full), T='Team member 6';
+    return [
+      [new RegExp("(?:Priya|"+f+")[’']s (?:Engineering Team|Situation|Team|team)\\b",'g'), 'Simulation'],
+      [/\bPriya Sharma\b/g, T], [/\bPriya \(Mgr\)/g, T], [/\bPriya[’']s\b/g, T+"'s"], [/\bPriya\b/g, T],
+      [new RegExp("\\b"+fu+"\\b",'g'), T], [new RegExp("\\b"+f+"[’']s\\b",'g'), T+"'s"], [new RegExp("\\b"+f+"\\b",'g'), T],
+      [/\b(Arjun|Meera|Rajan|Divya|Kenji)(?: (?:Kumar|Singh|Mehta|Nair|Tanaka))?\b/g, function(m,f2){ return 'Team member '+ENG[f2.toLowerCase()]; }]
+    ];
+  }
+  var INIT = {A:'T1',M:'T2',R:'T3',K:'T5'};
   var AVSEL = '.member-avatar,#tm-avatar,.priya-avatar';
   var touched = new Map();
-  function xform(v, el){
-    if (el && el.closest && el.closest(AVSEL)) { var t=v.trim(); if (INIT[t]) return v.replace(t, INIT[t]); }
-    var o=v; RULES.forEach(function(r){ o=o.replace(r[0], r[1]); }); return o;
+  function xform(v, el, node){
+    if (el && el.classList && el.classList.contains('ps-owner') && el.nextSibling && el.nextSibling.nodeType===3 && /^(['’]s)? ?(Engineering Team|Team|team|Situation)/.test(el.nextSibling.nodeValue)) return v.replace(v.trim(),'Simulation');
+    if (node && node.previousSibling && node.previousSibling.nodeType===1 && node.previousSibling.classList.contains('ps-owner') && /^['’]s (?=Engineering Team|Team|team|Situation)/.test(v)) return v.replace(/^['’]s /,' ');
+    if (el && el.closest && el.closest(AVSEL+',.ps-owner-init')) { var t=v.trim();
+      if (el.closest('.ps-owner-init,.priya-avatar')) return v.replace(t,'T6');
+      if (el.id==='tm-avatar' && typeof currentMember==='number') return v.replace(t,'T'+(currentMember+1));
+      if (t==='D') return v.replace(t,'T4');
+      if (INIT[t]) return v.replace(t, INIT[t]); }
+    var o=v; rules().forEach(function(r){ o=o.replace(r[0], r[1]); }); return o;
   }
-  function skip(n){ var p=n.parentNode; if(!p) return true; var t=p.nodeName; if(t==='SCRIPT'||t==='STYLE'||t==='TEXTAREA'||t==='NOSCRIPT') return true; return !!(p.closest && p.closest('#ps-set')); }
+  function skip(n){ var p=n.parentNode; if(!p) return true; var t=p.nodeName; if(t==='SCRIPT'||t==='STYLE'||t==='TEXTAREA'||t==='NOSCRIPT') return true; return !!(p.closest && p.closest('#ps-set,.tb-user,.greeting-hi')); }
   function doText(n){
     if (skip(n)) return; var v=n.nodeValue; if(!v||!v.trim()) return;
-    var nv=xform(v,n.parentNode); if (nv!==v){ touched.set(n,v); n.nodeValue=nv; }
+    var nv=xform(v,n.parentNode,n); if (nv!==v){ touched.set(n,v); n.nodeValue=nv; }
   }
   function walk(node){
     if (node.nodeType===3) { doText(node); return; }
@@ -5636,10 +5692,13 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   var obs = new MutationObserver(function(ms){ if(!P.anon) return; ms.forEach(function(m){ if(m.type==='characterData') doText(m.target); else m.addedNodes.forEach(walk); }); });
   function setAnon(on){
     if (on) { walk(body); obs.observe(body,{childList:true,subtree:true,characterData:true}); }
-    else { obs.disconnect(); touched.forEach(function(orig,n){ if (n.isConnected && n.nodeValue===xform(orig,n.parentNode)) n.nodeValue=orig; }); touched.clear(); }
+    else { obs.disconnect(); touched.forEach(function(orig,n){ if (n.isConnected && n.nodeValue===xform(orig,n.parentNode,n)) n.nodeValue=orig; }); touched.clear(); }
     body.classList.toggle('ps-anon', on);
   }
-  $('ps-sw-anon').addEventListener('click', function(){ P.anon=!P.anon; save(); setAnon(P.anon); sync(); toast(P.anon?'Anonymous names on: Engineer 1, Engineer 2 …':'Names restored'); });
+  $('ps-sw-anon').addEventListener('click', function(){ P.anon=!P.anon; save(); setAnon(P.anon); sync(); toast(P.anon?'Anonymous names on: Team member 1, Team member 2 …':'Names restored'); });
+
+  /* ───────── designations (job titles) ───────── */
+  $('ps-sw-desig').addEventListener('click', function(){ P.desig=!P.desig; save(); body.classList.toggle('ps-show-desig',P.desig); sync(); toast(P.desig?'Designations shown':'Designations hidden'); });
 
   /* ───────── assistant toggle ───────── */
   $('ps-sw-as').addEventListener('click', function(){ P.assistant=!P.assistant; save(); body.classList.toggle('ps-noassist',!P.assistant); sync(); });
@@ -5647,7 +5706,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   /* ───────── page / account ───────── */
   $('ps-s-cust').addEventListener('click', function(){ openSet(false); try{ openCustomize(); }catch(e){ toast('Customise is available on the Home page'); } });
   $('ps-s-out').addEventListener('click', function(){ location.reload(); });
-  $('ps-s-def').addEventListener('click', function(){ P={theme:'dark',anon:false,sim:false,assistant:true}; save(); applyTheme(); setAnon(false); showSim(false); body.classList.remove('ps-noassist'); sync(); toast('Defaults restored'); });
+  $('ps-s-def').addEventListener('click', function(){ P={theme:'dark',anon:false,sim:false,assistant:true,desig:false}; save(); applyTheme(); body.classList.remove('ps-show-desig'); setAnon(false); showSim(false); body.classList.remove('ps-noassist'); sync(); toast('Defaults restored'); });
 
   /* ───────── simulation (simulated 90-day pilot, synthetic data) ───────── */
   var S = {t:0, run:false, speed:1, active:false, last:0, raf:0, fired:{}, psTxt:null};
@@ -5732,13 +5791,14 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   function sync(){
     [].forEach.call($('ps-s-theme').children,function(b){ b.classList.toggle('on', b.getAttribute('data-t')===P.theme); });
     setSw('ps-sw-fs','ps-st-fs',fsOn()); setSw('ps-sw-focus','ps-st-focus',body.classList.contains('pf-focus'));
-    setSw('ps-sw-anon','ps-st-anon',P.anon); setSw('ps-sw-sim','ps-st-sim',P.sim); setSw('ps-sw-as','ps-st-as',P.assistant);
+    setSw('ps-sw-anon','ps-st-anon',P.anon); setSw('ps-sw-desig','ps-st-desig',P.desig); setSw('ps-sw-sim','ps-st-sim',P.sim); setSw('ps-sw-as','ps-st-as',P.assistant);
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v1.16';
+  var CUR = 'v1.17';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v1.17', d:'17 Nov 2026', t:'Optional designations, Team member labels', add:['New switch ⚙ Settings › Show designations: job titles (Sr. Engineer, Manager …) are hidden by default and shown only when you pick','Anonymous names now read Team member 1, Team member 2 … (they were Engineer 1, Engineer 2 …) and the manager is Team member 6','Home › 7 Pillars card: a dropdown switches between the team average and any one member (individual scores need the same consent as Team Intelligence)']},
     {v:'v1.16', d:'17 Nov 2026', t:'Home clean-up, your team name, slide speed', add:['Home: Team Velocity card, Velocity row and Productivity tile removed; new 7 Pillars team-average card','Team labels follow the signed-in user: "Deepkant\'s team" instead of "Priya\'s team" on Home, Risk Signals, Team Intelligence and Reports (Priya stays in the story pages)','Notification bell moved to the far right, next to the user avatar','Slide show: speed picker (5 to 60 seconds per page) and auto-run on/off','Sidebar: Priya\'s Situation and the pages below it now sit in a collapsed "Story & Platform" dropdown','Versions & roll back now lives only under ⚙ Settings (header button and sidebar link removed)']},
     {v:'v1.15', d:'17 Nov 2026', t:'Slide show', add:['"▶ Slides" button in the top bar: full screen, Focus view, pages change every 20 seconds','Pause, previous/next, Arrow keys, Space; Esc stops; skips Team Intelligence and Priya\'s Situation (individual scores) until consent is given']},
     {v:'v1.14', d:'16 Nov 2026', t:'Versions button in header', add:['"🕘 Versions" button in the top bar, next to Settings']},
@@ -5792,6 +5852,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     sim:function(a){ if(!P.sim) showSim(true); sync(); if(a==='run'){ if(!S.run) simRun(); } else if(a==='reset') simReset(); else if(a==='pause'&&S.run) simRun(); },
     theme:function(t){ P.theme=t==='light'?'light':'dark'; save(); applyTheme(); sync(); },
     anon:function(on){ P.anon=!!on; save(); setAnon(P.anon); sync(); },
+    desig:function(on){ P.desig=!!on; save(); body.classList.toggle('ps-show-desig',P.desig); sync(); },
     open:function(){ openSet(true); },
     versions:openVersions, version:CUR,
     fullscreen:function(){ $('ps-sw-fs').click(); }
@@ -5799,6 +5860,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
 
   /* ───────── start-up ───────── */
   applyTheme(); body.classList.toggle('ps-noassist',!P.assistant); body.classList.toggle('ps-sim-on',P.sim);
+  body.classList.toggle('ps-show-desig',P.desig);
   if (P.anon) setAnon(true);
   sync(); render();
 })();
