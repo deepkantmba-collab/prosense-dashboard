@@ -30,6 +30,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v2.5 | 2026-11-18 | Narrow-screen layout: left menu becomes a slide-over below 1100 px, Home and cards stack, wide tables scroll, no more 1100 px minimum width |
 | v2.6 | 2026-11-18 | Ask ProSense button moves to the header (floating only in Focus view); Live Risk Signals feed scrolls in its card; cards no longer show empty space |
 | v2.7 | 2026-11-18 | Full review: muted, purple and red text lightened to pass the 4.5:1 contrast check on every page; Home bottom row taller so Team Pulse shows all six members |
+| v2.8 | 2026-11-18 | Design polish: Inter font and a fixed type scale, 8px spacing grid, three background layers with 1px borders, sharp charts on Retina screens, calmer globe, 150ms transitions and clear focus outlines; Team Intelligence radar and pillars fill their cards; Home scrolls on short screens |
 
 ## Rolling back
 
