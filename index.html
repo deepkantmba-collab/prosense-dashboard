@@ -86,6 +86,9 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
 #topbar{height:56px;min-height:56px;background:rgba(10,14,30,0.95);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;gap:12px;backdrop-filter:blur(8px);}
 .tb-left{display:flex;align-items:center;gap:8px;}
 .tb-brand{font-size:1rem;font-weight:700;color:#fff;}
+.tb-left{flex-shrink:0;}.tb-brand,.tb-username,.tb-role,#tb-clock,.tb-pill,.cz-btn{white-space:nowrap;}
+#topbar .tb-right{min-width:0;gap:6px;}
+@media (max-width:1360px){#tb-clock{display:none;}}
 .tb-brand span{color:var(--teal);}
 .tb-sep{color:var(--border);font-size:1.2rem;margin:0 4px;}
 .tb-pills{display:flex;gap:4px;}
@@ -230,7 +233,6 @@ body.pf-focus #pf-focus-bar{display:flex;}
 .bubble-val{font-size:1.1rem;font-weight:800;}
 .bubble-delta{font-size:0.65rem;font-weight:600;margin-top:1px;}
 .bubble-note{font-size:0.58rem;color:var(--muted);}
-#bub-health{top:6%;left:50%;transform:translateX(-50%);border:1px solid rgba(0,212,255,0.3);min-width:110px;}
 #bub-checkin{top:28%;left:2%;border:1px solid rgba(255,107,53,0.35);}
 #bub-collab{bottom:28%;left:2%;border:1px solid rgba(123,136,176,0.25);}
 #bub-well{top:28%;right:2%;border:1px solid rgba(255,71,87,0.3);}
@@ -550,6 +552,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
   <!-- HEADER -->
   <div id="topbar">
     <div class="tb-left">
+      <div class="cz-btn" id="ps-nav-btn" onclick="psToggleNav()" title="Hide or show the left menu">☰ Menu</div>
       <div class="tb-brand">ProSense <span>AI</span></div>
       <div class="tb-sep">|</div>
       <div class="tb-pills">
@@ -572,7 +575,6 @@ body.pf-focus #pf-focus-bar{display:flex;}
         </div>
       </div>
       <div id="tb-clock">06 Oct 2026 · 00:00:00</div>
-      <div class="cz-btn" id="ps-nav-btn" onclick="psToggleNav()" title="Hide or show the left menu">☰ Menu</div>
     </div>
   </div>
 
@@ -644,12 +646,6 @@ body.pf-focus #pf-focus-bar{display:flex;}
         <div id="globe-container">
           <canvas id="globe-canvas"></canvas>
           <!-- Bubbles -->
-          <div class="bubble" id="bub-health">
-            <div class="bubble-label">TEAM HEALTH</div>
-            <div class="bubble-val" style="color:#ff4757;">38%</div>
-            <div class="bubble-delta" style="color:#ff4757;">↓ Critical</div>
-            <div class="bubble-note">below 60 threshold</div>
-          </div>
           <div class="bubble" id="bub-checkin">
             <div class="bubble-label">NEEDS A CHECK-IN</div>
             <div class="bubble-val" id="bub-checkin-val" style="color:#ff6b35;">–</div>
@@ -679,7 +675,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <div class="card-sub">Overall team health</div>
           <div class="safe-body">
             <div class="donut-wrap">
-              <svg width="80" height="80" viewBox="0 0 80 80">
+              <svg width="92" height="92" viewBox="0 0 80 80">
                 <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"/>
                 <circle cx="40" cy="40" r="30" fill="none" stroke="#ff4757" stroke-width="8"
                   stroke-dasharray="71.6 188.5" stroke-dashoffset="0"
@@ -692,9 +688,8 @@ body.pf-focus #pf-focus-bar{display:flex;}
               </div>
             </div>
             <div class="safe-metrics">
-              <div class="safe-row"><span class="safe-row-label">🤝 Collaboration</span><span class="safe-row-val" style="color:var(--muted);">→ Flat</span></div>
-              <div class="safe-row"><span class="safe-row-label">💙 Wellbeing</span><span class="safe-row-val" style="color:#ff4757;">↓ 6%</span></div>
-              <div class="safe-row"><span class="safe-row-label">⚠ Risk Index</span><span class="safe-row-val" style="color:#ff6b35;">↑ 0.74</span></div>
+              <div id="safe-thr" style="font-size:0.8rem;font-weight:700;color:#ff4757;">Below the 60 threshold</div>
+              <div style="font-size:0.66rem;color:var(--muted);margin-top:4px;line-height:1.4;">Healthy starts at 60. Collaboration, Wellbeing and Risk Index are shown around the sphere.</div>
             </div>
           </div>
         </div>
@@ -5213,7 +5208,7 @@ function PSA_ENGINE(getEnv){
   K('psysafe','PsySafe: psychological safety','psysafe,safe to speak up,60 threshold,threshold 60,44,team psysafe,what is psysafe,speak up',
     '<p><b>PsySafe</b> (psychological safety) is whether people feel safe to speak up. The threshold is <b>60</b>. {{OWNER}}\'s team scores <b>44/100</b>, down 17 points in 6 weeks.</p><p>The team figure is a team-level survey score, so it is not the average of the six individual scores (22, 41, 58, 63, 74, 82).</p>',{tags:['Synthetic data'],go:'home',src:'Home page · deck slide 16'});
   K('team-health','Team Health score (38/100)','team health,38,health score,prosense safe score,safe score,overall score,critical score,team score',
-    '<p>The <b>ProSense Safe Score</b> is one overall team-health number from 0 to 100. Higher is healthier. {{OWNER}}\'s team is <b>38/100, labelled Critical</b>. The same value appears on every page.</p>',{tags:['Synthetic data'],go:'home',src:'Home page'});
+    '<p>The <b>ProSense Safe Score</b> is one overall team-health number from 0 to 100. Higher is healthier. {{OWNER}}\'s team is <b>38/100, labelled Critical</b>. On Home it is the donut in the Safe Score card (the headline repeats it in words); Collaboration, Wellbeing and Risk Index are the bubbles around the sphere.</p>',{tags:['Synthetic data'],go:'home',src:'Home page'});
   K('ai-adoption','AI adoption and AI scrutiny','ai adoption,adoption,ai usage,ai scrutiny,hide expertise,hide expertise from ai,71%,using ai,ai usage per person',
     '<p><b>AI adoption</b> is one of the 7 pillars. Per person it ranges from <b>Arjun 23%</b> up to <b>Kenji 85%</b>. The related warning signs are people <b>hiding expertise from AI</b> (71% of the team in the scenario) and approving AI output without checking it.</p>',{tags:['Synthetic data'],go:'ai',src:'AI & Productivity page'});
   K('bert','BERT Fear Index (designed)','bert,fear index,language model,transformer,nlp model,withdrawal language,fear language,bert fear index,0.74,0.65,encoder,fine tune',
@@ -5250,10 +5245,10 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v2.0</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.0</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v2.1</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.1</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('v2features','What is new in v2.0','v2.0,v2,what is new,new features,latest release,hide menu,hide navigation,menu button,customise page,customize page,check-in,needs a check-in,simulation charts,sphere speed',
-    '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top right) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
+    '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top left, from v2.1; it was top right in v2.0) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
     {tags:['Info'],src:'Settings › Versions & roll back',follow:['How do I see older versions?','How do I run the simulation?']});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
     '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 31'});
@@ -5891,10 +5886,8 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
       var w=Math.round(-6+d*0.55), wt=w<0?'↓ '+(-w)+'%':w>0?'↑ '+w+'%':'→ 0%', wc=w<0?'#ff4757':w>0?'#2ed573':'var(--muted)';
       var r=clamp(0.74-d*0.021,0.12,0.95), rt=(r>=0.6?'↑ ':'↓ ')+r.toFixed(2), rc=r>=0.6?'#ff6b35':r>=0.4?'#ffd32a':'#2ed573';
       var ct=d>=12?'↑ Rising':d>=6?'↗ Improving':'→ Flat', cc=d>=12?'#2ed573':d>=6?'#9be564':'var(--muted)';
-      put(qs('#bub-health .bubble-val'),h+'%',hc); put(qs('#bub-health .bubble-delta'),ha+hl,hc); put(qs('#bub-health .bubble-note'),(h<60?'below':'above')+' 60 threshold');
+      put(qs('#safe-thr'),(h<60?'Below':'Above')+' the 60 threshold',hc);
       put(qs('#bub-well .bubble-val'),wt,wc); put(qs('#bub-collab .bubble-val'),ct,cc); put(qs('#bub-risk .bubble-val'),rt,rc);
-      var rows=document.querySelectorAll('.safe-card .safe-row-val');
-      put(rows[0],ct,cc); put(rows[1],wt,wc); put(rows[2],rt,rc);
       put(qs('.safe-card .donut-pct'),h+'%'); put(qs('.safe-card .donut-delta'),ha+hl,hc);
       var ring=qs('.safe-card svg circle[stroke-dasharray]'); if(ring){ putA(ring,'stroke-dasharray',(h/100*188.5).toFixed(1)+' 188.5'); putA(ring,'stroke',hc); }
       try { var M=MEMBERS, n=0; M.forEach(function(m){ if(adj(m.score,-d*1.1*m.score/100)>=60) n++; }); put(qs('#bub-checkin-val'),n+' of '+M.length,n?'#ff6b35':'#2ed573'); } catch(e){}
@@ -5958,9 +5951,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v2.0';
+  var CUR = 'v2.1';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v2.1', d:'18 Nov 2026', t:'Home de-duplicated, Menu button on the left', add:['Home: the Team Health bubble on the sphere is gone (the Safe Score donut and the headline already say it)','Safe Score card: the Collaboration, Wellbeing and Risk Index rows are gone (the sphere bubbles show them); the card now shows the donut and a "below / above the 60 threshold" note','The ☰ Menu button moved to the left of the top bar, so it stays in place when the left menu is hidden']},
     {v:'v2.0', d:'18 Nov 2026', t:'Simulation drives the whole Home page, per-page Customise, Showcase', add:['Simulation now updates the Home bubbles, Safe Score, 7 Pillars, Gap radar, Reports heatmap and the Team Intelligence profile (before, only Team Pulse moved). Reset puts every value back. The Risk Signals page and the story-page visuals are fixed illustrations and do not move','The sphere spins faster as the simulation speed goes up and eases back when it stops','New Home bubble "Needs a check-in" (members at critical or high risk) in the spot where Productivity used to be','Customise (top bar and Settings) opens the panel list for the page you are on, not always Home. Reset affects that page only','New ☰ Menu button at the top right hides or shows the left navigation bar','The date and time sit after the user name at the top right','Settings › Account shows the signed-in user (it always said Deepkant Verma)','"▶ Slides" is now "▶ Showcase"']},
     {v:'v1.17', d:'17 Nov 2026', t:'Optional designations, Team member labels', add:['New switch ⚙ Settings › Show designations: job titles (Sr. Engineer, Manager …) are hidden by default and shown only when you pick','Anonymous names now read Team member 1, Team member 2 … (they were Engineer 1, Engineer 2 …) and the manager is Team member 6','Home › 7 Pillars card: a dropdown switches between the team average and any one member (individual scores need the same consent as Team Intelligence)']},
     {v:'v1.16', d:'17 Nov 2026', t:'Home clean-up, your team name, slide speed', add:['Home: Team Velocity card, Velocity row and Productivity tile removed; new 7 Pillars team-average card','Team labels follow the signed-in user: "Deepkant\'s team" instead of "Priya\'s team" on Home, Risk Signals, Team Intelligence and Reports (Priya stays in the story pages)','Notification bell moved to the far right, next to the user avatar','Slide show: speed picker (5 to 60 seconds per page) and auto-run on/off','Sidebar: Priya\'s Situation and the pages below it now sit in a collapsed "Story & Platform" dropdown','Versions & roll back now lives only under ⚙ Settings (header button and sidebar link removed)']},
