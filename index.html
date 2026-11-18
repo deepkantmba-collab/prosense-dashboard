@@ -487,7 +487,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
   <canvas id="neural-canvas"></canvas>
   <div class="login-hud-text" style="top:18px;left:22px">PROSENSE//NEURAL-OS v3.0</div>
   <div class="login-hud-text" style="top:18px;right:22px" id="login-time"></div>
-  <div class="login-hud-text" style="bottom:18px;left:22px">BERT:v0.9.2 · RF:AUC-0.9479 · ENCRYPTED</div>
+  <div class="login-hud-text" style="bottom:18px;left:22px">BERT:v0.9.2 · RF:AUC-0.9021 · ENCRYPTED</div>
   <div class="login-hud-text" style="bottom:18px;right:22px">CAPSTONE 2026</div>
   <div class="login-card">
     <div class="hud-corner hud-tl"></div><div class="hud-corner hud-tr"></div>
@@ -498,7 +498,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="font-size:11px;letter-spacing:.18em;color:rgba(0,212,170,.6);margin-top:6px;margin-bottom:36px;font-family:monospace">CULTURE OS · SECURE ACCESS</div>
     <div style="display:flex;justify-content:center;gap:28px;margin-bottom:32px;padding:12px 0;border-top:1px solid rgba(0,212,255,.1);border-bottom:1px solid rgba(0,212,255,.1)">
       <div style="text-align:center"><div style="font-size:16px;font-weight:700;color:#ff6b78">0.97</div><div style="font-size:11px;letter-spacing:.1em;color:rgba(123,130,168,.6);margin-top:2px">BURNOUT IDX</div></div>
-      <div style="text-align:center"><div style="font-size:16px;font-weight:700;color:#00d4aa">0.95</div><div style="font-size:11px;letter-spacing:.1em;color:rgba(123,130,168,.6);margin-top:2px">MODEL AUC</div></div>
+      <div style="text-align:center"><div style="font-size:16px;font-weight:700;color:#00d4aa">0.90</div><div style="font-size:11px;letter-spacing:.1em;color:rgba(123,130,168,.6);margin-top:2px">MODEL AUC</div></div>
       <div style="text-align:center"><div style="font-size:16px;font-weight:700;color:#ff6b35">0.74</div><div style="font-size:11px;letter-spacing:.1em;color:rgba(123,130,168,.6);margin-top:2px">BERT FEAR</div></div>
     </div>
     <div style="font-size:11px;letter-spacing:.14em;color:rgba(0,212,255,.4);margin-bottom:20px;font-family:monospace"><span class="hud-dot">▮</span> NEURAL INTERFACE READY · AWAITING AUTHENTICATION</div>
@@ -859,47 +859,54 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <div class="card-title">Arjun — Risk Deep Dive</div>
           <div style="background:rgba(255,71,87,0.15);color:#ff6b78;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.05em;white-space:nowrap;">CRITICAL · 0.97</div>
         </div>
-        <div class="card-sub" style="margin-bottom:12px;">SHAP feature contributions to risk probability</div>
+        <div class="card-sub" style="margin-bottom:12px;">SHAP contributions to the Random Forest risk probability (0.92 for this profile; base rate 0.50)</div>
         <div style="display:flex;flex-direction:column;gap:7px;">
           <div style="display:flex;align-items:center;gap:8px;">
-            <div style="font-size:11px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">Attrition Risk Flag</div>
+            <div style="font-size:11px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">Remote work · yes</div>
             <div style="flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
-              <div style="height:100%;width:74%;background:linear-gradient(90deg,#ff4757,#ff6b35);border-radius:3px;"></div>
+              <div style="height:100%;width:90%;background:linear-gradient(90deg,#ff4757,#ff6b35);border-radius:3px;"></div>
             </div>
-            <div style="font-size:11px;color:#ff6b78;width:34px;text-align:right;font-weight:700;">+0.42</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div style="font-size:11px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">Env Satisfaction 0.43</div>
-            <div style="flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
-              <div style="height:100%;width:55%;background:linear-gradient(90deg,#ff6b35,#ffd32a);border-radius:3px;"></div>
-            </div>
-            <div style="font-size:11px;color:#ff6b35;width:34px;text-align:right;font-weight:700;">+0.31</div>
+            <div style="font-size:11px;color:#ff6b78;width:34px;text-align:right;font-weight:700;">+0.19</div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;">
             <div style="font-size:11px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">1:1 Frequency 0.44</div>
             <div style="flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
-              <div style="height:100%;width:43%;background:linear-gradient(90deg,#ff6b35,#ffd32a);border-radius:3px;"></div>
+              <div style="height:100%;width:51%;background:linear-gradient(90deg,#ff4757,#ff6b35);border-radius:3px;"></div>
             </div>
-            <div style="font-size:11px;color:#ff6b35;width:34px;text-align:right;font-weight:700;">+0.24</div>
+            <div style="font-size:11px;color:#ff6b78;width:34px;text-align:right;font-weight:700;">+0.11</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="font-size:11px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">Overtime · yes</div>
+            <div style="flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:39%;background:linear-gradient(90deg,#ff6b35,#ffd32a);border-radius:3px;"></div>
+            </div>
+            <div style="font-size:11px;color:#ff6b35;width:34px;text-align:right;font-weight:700;">+0.08</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="font-size:11px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">Env Satisfaction 0.43</div>
+            <div style="flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:15%;background:linear-gradient(90deg,#ff6b35,#ffd32a);border-radius:3px;"></div>
+            </div>
+            <div style="font-size:11px;color:#ff6b35;width:34px;text-align:right;font-weight:700;">+0.03</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="font-size:11px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">Manager Tenure 4.2yr</div>
+            <div style="flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:7%;background:linear-gradient(90deg,#ff6b35,#ffd32a);border-radius:3px;"></div>
+            </div>
+            <div style="font-size:11px;color:#ff6b35;width:34px;text-align:right;font-weight:700;">+0.01</div>
           </div>
           <div style="height:1px;background:rgba(255,255,255,0.06);margin:4px 0;"></div>
           <div style="font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1px;">Protective Factors</div>
           <div style="display:flex;align-items:center;gap:8px;">
-            <div style="font-size:11px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">Manager Tenure 4.2yr</div>
-            <div style="flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
-              <div style="height:100%;width:32%;background:linear-gradient(90deg,#2ed573,#00d4ff);border-radius:3px;"></div>
-            </div>
-            <div style="font-size:11px;color:#2ed573;width:34px;text-align:right;font-weight:700;">−0.18</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;">
             <div style="font-size:11px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">Training Frequency 0.66</div>
             <div style="flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
-              <div style="height:100%;width:21%;background:linear-gradient(90deg,#2ed573,#00d4ff);border-radius:3px;"></div>
+              <div style="height:100%;width:2%;background:linear-gradient(90deg,#2ed573,#00d4ff);border-radius:3px;"></div>
             </div>
-            <div style="font-size:11px;color:#2ed573;width:34px;text-align:right;font-weight:700;">−0.12</div>
+            <div style="font-size:11px;color:#2ed573;width:34px;text-align:right;font-weight:700;">≈0</div>
           </div>
         </div>
-        <div style="margin-top:10px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:7px;">SHAP breakdown for Arjun's profile (illustrative) · global ranking from trained RF: attrition_risk, overtime, env_satisfaction · RF AUC <strong style="color:var(--teal);">0.9479</strong> · F1 0.878 · Precision 0.945 · Recall 0.820 · 7 VIF-clean features · Synthetic dataset</div>
+        <div style="margin-top:10px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:7px;">SHAP breakdown for an Arjun-like profile (illustrative) · global ranking from trained RF: remote work, 1:1 frequency, env satisfaction · The 0.97 score is the dashboard's composite signal; the RF alone gives 0.92 · RF AUC <strong style="color:var(--teal);">0.9021</strong> · F1 0.859 · Precision 0.903 · Recall 0.818 · 6 VIF-clean features (outcome columns excluded) · Synthetic dataset</div>
       </div>
 
       <!-- Risk Timeline -->
@@ -956,13 +963,13 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="card" style="padding:20px;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;">
           <div class="card-title">Team Risk Scorecard</div>
-          <div class="card-sub">6 members · <span class="ps-owner">Deepkant</span>'s team · ranked by risk · Random Forest (trained)</div>
+          <div class="card-sub">6 members · <span class="ps-owner">Deepkant</span>'s team · ranked by risk · composite risk score</div>
         </div>
         <table style="width:100%;border-collapse:collapse;">
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
               <th style="text-align:left;font-size:11px;color:var(--muted);font-weight:600;padding:0 8px 7px 0;letter-spacing:0.06em;text-transform:uppercase;">Member</th>
-              <th style="text-align:center;font-size:11px;color:var(--muted);font-weight:600;padding:0 6px 7px;letter-spacing:0.06em;text-transform:uppercase;">Risk Prob</th>
+              <th style="text-align:center;font-size:11px;color:var(--muted);font-weight:600;padding:0 6px 7px;letter-spacing:0.06em;text-transform:uppercase;">Risk Score</th>
               <th style="text-align:center;font-size:11px;color:var(--muted);font-weight:600;padding:0 6px 7px;letter-spacing:0.06em;text-transform:uppercase;">Burnout</th>
               <th style="text-align:center;font-size:11px;color:var(--muted);font-weight:600;padding:0 6px 7px;letter-spacing:0.06em;text-transform:uppercase;">PsySafe</th>
               <th style="text-align:center;font-size:11px;color:var(--muted);font-weight:600;padding:0 6px 7px;letter-spacing:0.06em;text-transform:uppercase;">1:1 Freq</th>
@@ -1044,7 +1051,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             </tr>
           </tbody>
         </table>
-        <div style="margin-top:8px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:6px;">Risk probability from RF model · AUC <strong style="color:var(--teal);">0.9479</strong> · F1 0.878 · Precision 0.945 · Recall 0.820 · 7 VIF-clean behavioral features · Synthetic dataset</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:6px;">Risk score is a composite of the signals (demo values); the trained RF model rates the Arjun-like profile 0.92 · AUC <strong style="color:var(--teal);">0.9021</strong> · F1 0.859 · Precision 0.903 · Recall 0.818 · 6 VIF-clean behavioral features · Synthetic dataset</div>
       </div>
 
       <!-- Live Risk Signals Feed -->
@@ -1062,7 +1069,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
               <div style="font-size:11px;font-weight:700;color:#ff6b78;">🔴 CRITICAL — Arjun</div>
               <div style="font-size:11px;color:var(--muted);">2h ago</div>
             </div>
-            <div style="font-size:11px;color:rgba(221,228,245,0.72);line-height:1.4;">Slack message rate ↓61% since AI copilot rollout. Withdrawal language detected (BERT 0.74, designed). Risk probability 0.97 (RF).</div>
+            <div style="font-size:11px;color:rgba(221,228,245,0.72);line-height:1.4;">Slack message rate ↓61% since AI copilot rollout. Withdrawal language detected (BERT 0.74, designed). Risk score 0.97.</div>
           </div>
 
           <div style="background:rgba(255,107,53,0.06);border:1px solid rgba(255,107,53,0.18);border-radius:8px;padding:9px 11px;">
@@ -1115,7 +1122,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div style="font-size:1.25rem;font-weight:700;color:var(--fg);letter-spacing:0.03em;">👥 Team Intelligence</div>
       <div style="font-size:11px;color:var(--muted);margin-top:2px;">Deep-dive per-member profiles · 6 members · <span class="ps-owner">Deepkant</span>'s team</div>
       <div style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:4px 10px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.12);border-radius:6px;font-size:11px;color:rgba(0,212,255,0.85);font-family:monospace;letter-spacing:.03em;">
-        ⚡ Synthetic demo profiles &nbsp;·&nbsp; Model trained on ProSense_Training_Data_5000_v4.csv (5,000 rows) &nbsp;·&nbsp; RF AUC 0.9479 · F1 0.878 · Prec 0.945 · Rec 0.820 &nbsp;·&nbsp; Step 12 Complete
+        ⚡ Synthetic demo profiles &nbsp;·&nbsp; Model trained on ProSense_Training_Data_5000_v4.csv (5,000 rows) &nbsp;·&nbsp; RF AUC 0.9021 · F1 0.859 · Prec 0.903 · Rec 0.818 &nbsp;·&nbsp; Step 12 Complete
       </div>
     </div>
 
@@ -1597,7 +1604,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <span style="color:#2ed573;font-weight:700;flex-shrink:0;">✓</span><span style="color:var(--muted);">Class imbalance 67/33 → class_weight="balanced" applied (no SMOTE required)</span>
         </div>
         <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 10px;background:rgba(255,255,255,0.02);border-radius:5px;border:1px solid rgba(255,255,255,0.06);">
-          <span style="color:#2ed573;font-weight:700;flex-shrink:0;">✓</span><span style="color:var(--muted);">Multicollinearity: 34/41 features dropped by VIF — 7 behavioral signals trained on</span>
+          <span style="color:#2ed573;font-weight:700;flex-shrink:0;">✓</span><span style="color:var(--muted);">Multicollinearity: 32/38 features dropped by VIF — 6 behavioral signals trained on (outcome columns excluded first)</span>
         </div>
         <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 10px;background:rgba(255,71,87,0.04);border-radius:5px;border:1px solid rgba(255,71,87,0.12);">
           <span style="color:#ff6b78;font-weight:700;flex-shrink:0;">⚠</span><span style="color:var(--muted);">Fully synthetic training data — biggest production risk, no real org signals</span>
@@ -1704,7 +1711,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <div style="margin-top:10px;padding:10px;background:rgba(0,212,170,0.07);
             border-radius:8px;border:1px solid rgba(0,212,170,0.2)">
             <strong style="color:var(--teal)">Sense → Predict → Intervene</strong><br>
-            <span class="muted">Behavioral signals scored in &lt;45 seconds · RF precision 94.5% on test data</span>
+            <span class="muted">Behavioral signals scored in &lt;45 seconds · RF precision 90.3% on test data</span>
           </div>
         </div>
       </div>
@@ -1725,7 +1732,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 
   <!-- REAL DATA SUMMARY BANNER -->
   <div style="margin-top:20px;padding:14px 20px;background:rgba(0,212,170,0.06);border:1px solid rgba(0,212,170,0.2);border-radius:12px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;font-size:13px">
-    <div style="color:var(--teal);font-weight:700;font-size:14px">📊 Powered by a Trained Model — ProSense_Training_Data_5000_v4.csv · Step 12 Complete · RF AUC 0.9479 · Trained on synthetic data</div>
+    <div style="color:var(--teal);font-weight:700;font-size:14px">📊 Powered by a Trained Model — ProSense_Training_Data_5000_v4.csv · Step 12 Complete · RF AUC 0.9021 · Trained on synthetic data</div>
     <div><span style="color:var(--muted)">Dataset:</span> <strong>5,000 rows · 53 columns · 0 nulls</strong></div>
     <div><span style="color:var(--muted)">Sources:</span> IBM HR · Burnout WFH · Engagement Survey · Mental Health Tech</div>
     <div><span style="color:var(--muted)">At-Risk (label=1):</span> <strong style="color:var(--red)">67.1%</strong></div>
@@ -1852,11 +1859,11 @@ body.pf-focus #pf-focus-bar{display:flex;}
         </div>
         <span class="badge by">ELEVATED</span>
       </div>
-      <div class="model-score" style="color:var(--orange)" id="attrition-score">0.97</div>
-      <div class="rbar-bg"><div class="rbar-fill" id="attrition-bar" style="width:97%;background:var(--orange)"></div></div>
+      <div class="model-score" style="color:var(--orange)" id="attrition-score">0.92</div>
+      <div class="rbar-bg"><div class="rbar-fill" id="attrition-bar" style="width:92%;background:var(--orange)"></div></div>
       <div class="model-story">
         Tracking <strong><span class="ps-owner">Deepkant</span>'s full team</strong> — manager tenure, remote work, training frequency.
-        Risk probability for Arjun: <strong style="color:var(--orange)">0.97</strong> · Model AUC 0.95 · F1 0.88 · <em>Step 12 trained on v4</em>.
+        Risk probability for Arjun: <strong style="color:var(--orange)">0.92</strong> · Model AUC 0.90 · F1 0.86 · <em>Step 12 trained on v4</em>.
       </div>
     </div>
 
@@ -1868,11 +1875,11 @@ body.pf-focus #pf-focus-bar{display:flex;}
         </div>
         <span class="badge br">HIGH RISK</span>
       </div>
-      <div class="model-score" style="color:var(--red)" id="burnout-score">0.96</div>
-      <div class="rbar-bg"><div class="rbar-fill" id="burnout-bar" style="width:96%;background:var(--red)"></div></div>
+      <div class="model-score" style="color:var(--red)" id="burnout-score">0.98</div>
+      <div class="rbar-bg"><div class="rbar-fill" id="burnout-bar" style="width:98%;background:var(--red)"></div></div>
       <div class="model-story">
-        Watching <strong>Arjun</strong> — attrition_risk flagged, env_satisfaction 0.43, 1:1 frequency 0.44.
-        Risk probability: <strong style="color:var(--red)">0.96</strong> · Model AUC 0.94 · F1 0.88 · <em>Step 12 trained on v4</em>. Both trained models predict the same "at-risk" label from the same 7 features.
+        Watching <strong>Arjun</strong> — remote work, env_satisfaction 0.43, 1:1 frequency 0.44.
+        Risk probability: <strong style="color:var(--red)">0.98</strong> · Model AUC 0.89 · F1 0.86 · <em>Step 12 trained on v4</em>. Both trained models predict the same "at-risk" label from the same 6 features.
       </div>
     </div>
 
@@ -1917,8 +1924,8 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <!-- SHAP -->
     <div class="card">
       <div class="card-title">SHAP Explainability — Random Forest (primary model) · Arjun</div>
-      <div class="muted" style="margin-bottom:12px">Why did the model score Arjun at 0.97?
-        Top SHAP drivers: attrition_risk flagged (+0.42), low env_satisfaction 0.43 (+0.31), low 1:1 frequency 0.44 (+0.24).
+      <div class="muted" style="margin-bottom:12px">Why did the model rate an Arjun-like profile at 0.92?
+        Top SHAP drivers: remote work (+0.19), low 1:1 frequency 0.44 (+0.11), overtime (+0.08), low env_satisfaction 0.43 (+0.03).
         <span class="ps-owner">Deepkant</span>'s compliance team sees this — not just the score. <em style="color:var(--purple)">(Step 12 · Random Forest · v4 trained)</em></div>
       <div id="shap-bars"></div>
       <div class="muted mt" style="font-size:12px">
@@ -2001,11 +2008,11 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div class="card">
       <div class="card-title">Layman Translation: What Do These Numbers Mean?</div>
       <div style="font-size:14px;line-height:2.0">
-        <div><strong style="color:var(--purple)">Precision</strong> — When we raise an alert, how often is it a real problem? (94.5% = about 19 in 20 alerts are real)</div>
-        <div><strong style="color:var(--teal)">Recall</strong> — Of all actual risks, how many do we catch? (82% = we catch about 4 in 5 real risks)</div>
+        <div><strong style="color:var(--purple)">Precision</strong> — When we raise an alert, how often is it a real problem? (90.3% = about 9 in 10 alerts are real)</div>
+        <div><strong style="color:var(--teal)">Recall</strong> — Of all actual risks, how many do we catch? (82% = we catch about 4 in 5 real risks; the other 1 in 5 are missed)</div>
         <div><strong style="color:var(--yellow)">F1 Score</strong> — The combined score. Balanced view of both above.</div>
         <div style="margin-top:12px;padding:10px;background:rgba(46,213,115,0.07);border-radius:8px;border:1px solid rgba(46,213,115,0.2)">
-          <strong style="color:var(--green)">Bottom line:</strong> Random Forest is our best trained model — 94.5% precision, AUC 0.9479.
+          <strong style="color:var(--green)">Bottom line:</strong> Random Forest is our best trained model — 90.3% precision, AUC 0.9021 (outcome columns excluded, so no answer-key leakage).
           Delivery and AI Trust bars are simulated scenario values, shown for the design only.
         </div>
       </div>
@@ -2051,7 +2058,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="drift-example"><span class="ps-owner">Deepkant</span>'s team shifts Zoom → Teams;
         meeting-cadence signals change; PsySafe response rates drop post-rollout</div>
       <div class="drift-method"><span class="badge bp">PSI</span>
-        Population Stability Index on the 7 model features + 7 pillar scores; alert if PSI &gt; 0.2</div>
+        Population Stability Index on the 6 model features + 7 pillar scores; alert if PSI &gt; 0.2</div>
     </div>
     <div class="drift-row">
       <div class="drift-type" style="color:var(--orange)">Concept Drift</div>
@@ -2259,7 +2266,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
         </div>
         <div class="int-title">1:1 Focus — "How are you actually doing?"</div>
         <div class="int-desc">
-          BERT Fear Index (0.74, designed) + Random Forest risk model (AUC 0.95, probability 0.97) together signal Arjun is disengaging,
+          BERT Fear Index (0.74, designed) + Random Forest risk model (AUC 0.90, probability 0.92) together signal Arjun is disengaging,
           not just overworked. A direct, low-stakes 1:1 focused on AI collaboration experience —
           not performance — is the recommended first step.
         </div>
@@ -2404,8 +2411,8 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div class="card">
       <div class="card-title">Models used and why</div>
       <div style="font-size:13px;line-height:1.55;margin-top:6px">
-        <div>✅ <strong>Random Forest</strong> (primary, trained): AUC <strong>0.9479</strong>. Best on tabular data, stable, explainable with SHAP.</div>
-        <div>✅ <strong>HistGradientBoosting</strong> (challenger, trained): AUC <strong>0.9376</strong>. Second opinion, catches slightly more real risks.</div>
+        <div>✅ <strong>Random Forest</strong> (primary, trained): AUC <strong>0.9021</strong>. Best on tabular data, stable, explainable with SHAP.</div>
+        <div>✅ <strong>HistGradientBoosting</strong> (challenger, trained): AUC <strong>0.8934</strong>. Second opinion, scores within 0.01 AUC of the Random Forest.</div>
         <div>🧪 <strong>BERT Fear Index, Delivery (ARIMA + LSTM), Blind AI Trust</strong>: designed and simulated, not yet trained.</div>
       </div>
     </div>
@@ -2640,7 +2647,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 
       <div style="padding:10px 14px;background:rgba(255,211,42,0.05);border-radius:8px;border-left:3px solid var(--yellow)">
         <div style="color:var(--green);font-weight:700;font-size:13px;margin-bottom:3px">RESOLVED — Multicollinearity</div>
-        <div style="font-size:13px"><code>psysafe_score ↔ outcome_score</code> r=0.914. VIF analysis run: 34 of 41 features dropped (VIF &gt; 10); 7 clean features used for training.</div>
+        <div style="font-size:13px"><code>psysafe_score ↔ outcome_score</code> r=0.914. VIF analysis run: 32 of 38 features dropped (VIF &gt; 10); 6 clean features used for training. Outcome columns (attrition_risk, outcome_score, intervention_triggered) are removed before selection, because a model must not see the answer.</div>
       </div>
 
       <div style="padding:10px 14px;background:rgba(255,71,87,0.06);border-radius:8px;border-left:3px solid var(--red)">
@@ -2678,7 +2685,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
   </div><!-- end dash-area -->
 
   <!-- DATA BANNER -->
-  <div id="data-banner">⚡ Powered by a Trained Model &nbsp;·&nbsp; ProSense_Training_Data_5000_v4.csv &nbsp;·&nbsp; Step 12 Complete &nbsp;·&nbsp; RF AUC 0.9479 · F1 0.878 · Precision 0.945 · Recall 0.820 &nbsp;·&nbsp; Trained on synthetic data &nbsp;&nbsp;|&nbsp;&nbsp; Dataset: 5,000 rows &nbsp;·&nbsp; 53 columns &nbsp;·&nbsp; 0 nulls &nbsp;&nbsp;|&nbsp;&nbsp; Training set avg burnout: 64.7% &nbsp;·&nbsp; Training-set avg PsySafe: 45/100 &nbsp;·&nbsp; Overtime flagged: 42.7% &nbsp;·&nbsp; Pillars enriched: 7, 4 cols each &nbsp;&nbsp;|&nbsp;&nbsp; Smarter People. Stronger Teams. Better Outcomes.</div>
+  <div id="data-banner">⚡ Powered by a Trained Model &nbsp;·&nbsp; ProSense_Training_Data_5000_v4.csv &nbsp;·&nbsp; Step 12 Complete &nbsp;·&nbsp; RF AUC 0.9021 · F1 0.859 · Precision 0.903 · Recall 0.818 &nbsp;·&nbsp; Trained on synthetic data &nbsp;&nbsp;|&nbsp;&nbsp; Dataset: 5,000 rows &nbsp;·&nbsp; 53 columns &nbsp;·&nbsp; 0 nulls &nbsp;&nbsp;|&nbsp;&nbsp; Training set avg burnout: 64.7% &nbsp;·&nbsp; Training-set avg PsySafe: 45/100 &nbsp;·&nbsp; Overtime flagged: 42.7% &nbsp;·&nbsp; Pillars enriched: 7, 4 cols each &nbsp;&nbsp;|&nbsp;&nbsp; Smarter People. Stronger Teams. Better Outcomes.</div>
 
 </div><!-- end main-wrap -->
 
@@ -4032,11 +4039,11 @@ setInterval(liveUpdateTable, 5000);
 setTimeout(lvRenderRadar, 100);
 
 // ══════════ MODEL SCORES LIVE ══════════
-// HGB (0.96) + RF (0.97): Arjun-like profile probability from trained v4 models
+// HGB (0.98) + RF (0.92): Arjun-like profile probability from trained v4 models
 // Delivery (0.55) + AI Risk (0.87): scenario scores, models not in Step 12 scope
 function liveModels() {
   const jitter = v => Math.round(Math.max(0.40,Math.min(0.99, v+(Math.random()-.5)*0.008))*100)/100;
-  const bs = jitter(0.96), as=jitter(0.97), ds=jitter(0.55), rs=jitter(0.87);
+  const bs = jitter(0.98), as=jitter(0.92), ds=jitter(0.55), rs=jitter(0.87);
   const el = (id,v,barId) => {
     const e=document.getElementById(id); if(e) e.textContent=v.toFixed(2);
     const b=document.getElementById(barId); if(b) b.style.width=(v*100)+'%';
@@ -4049,26 +4056,25 @@ function liveModels() {
 setInterval(liveModels, 4000);
 
 // ══════════ SHAP ══════════
-// Real features from Step 12 VIF-clean training on v4 (7 surviving features)
-// SHAP magnitudes estimated from Arjun-like row: env_sat=0.43, 1:1_freq=0.44, attrition_risk=1
+// Real features from Step 12 leak-free retrain on v4 (6 surviving features, outcome columns excluded)
+// SHAP values from PY__train_clean.py (Arjun-like row: env_sat=0.43, 1:1_freq=0.44, training=0.66, tenure=4.2, overtime=1, remote=1)
 const SHAP = [
-  { label:'Attrition risk flag',         val:.42, dir:'pos' },
-  { label:'Env satisfaction (0.43)',     val:.31, dir:'pos' },
-  { label:'1:1 frequency (0.44)',        val:.24, dir:'pos' },
-  { label:'Remote work',                 val:.09, dir:'pos' },
-  { label:'Overtime flag',               val:.06, dir:'pos' },
-  { label:'Training frequency (0.66)',   val:-.12,dir:'neg' },
-  { label:'Manager tenure 4.2 yrs',     val:-.18,dir:'neg' },
+  { label:'Remote work (yes)',           val:.187, dir:'pos' },
+  { label:'1:1 frequency (0.44)',        val:.105, dir:'pos' },
+  { label:'Overtime flag (yes)',         val:.081, dir:'pos' },
+  { label:'Env satisfaction (0.43)',     val:.031, dir:'pos' },
+  { label:'Manager tenure 4.2 yrs',      val:.014, dir:'pos' },
+  { label:'Training frequency (0.66)',   val:-.0025,dir:'neg' },
 ];
 function renderSHAP() {
   const max = Math.max(...SHAP.map(d=>Math.abs(d.val)));
   document.getElementById('shap-bars').innerHTML = SHAP.map(d => {
-    const pct = Math.round((Math.abs(d.val)/max)*90);
+    const pct = Math.max(16,Math.round((Math.abs(d.val)/max)*90));
     return `<div class="shap-row">
       <div class="shap-label">${d.label}</div>
       <div class="shap-bar-wrap">
         <div class="shap-bar ${d.dir==='pos'?'shap-pos':'shap-neg'}" style="width:${pct}%">
-          ${d.dir==='pos'?'+':''}${d.val.toFixed(2)}
+          ${d.dir==='pos'?'+':''}${Math.abs(d.val)<0.01?d.val.toFixed(3):d.val.toFixed(2)}
         </div>
       </div>
     </div>`;
@@ -4190,8 +4196,8 @@ function lvRenderRadar() {
 // Burnout + Attrition: real Step 12 metrics from v4 training (prosense_metrics.json)
 // Delivery + AI Risk: illustrative scenario scores (not in Step 12 scope)
 const MODELS_PERF = [
-  { name:'At-Risk B\n(HGB)',       p:0.922, r:0.833, f:0.876, col:'var(--red)' },
-  { name:'At-Risk A\n(RF)',       p:0.945, r:0.820, f:0.878, col:'var(--orange)' },
+  { name:'At-Risk B\n(HGB)',       p:0.900, r:0.817, f:0.856, col:'var(--red)' },
+  { name:'At-Risk A\n(RF)',       p:0.903, r:0.818, f:0.859, col:'var(--orange)' },
   { name:'Delivery\n(simulated)', p:0.83,  r:0.86,  f:0.845, col:'var(--yellow)' },
   { name:'AI Trust\n(simulated)',p:0.84,  r:0.79,  f:0.815, col:'var(--purple)' },
 ];
@@ -4773,9 +4779,9 @@ function lvNav(el, name) {
 
     // ── Risk ──
     ["risk overview", "The team-level risk index (0 to 1) and how many people sit in each risk band.", "Higher is worse. The change shown is against 6 weeks ago. The four counts are Critical, High, Medium and Low.", "Trained model (Random Forest)"],
-    ["arjun — risk deep dive", "Why the model gave Arjun a risk probability of 0.97. This is a SHAP chart, which breaks a prediction into its causes.", "Each bar is one factor. A longer bar means that factor pushed the risk up more. The numbers on the right are the contribution to the score.", "Trained model (Random Forest)"],
+    ["arjun — risk deep dive", "Why the Random Forest rated an Arjun-like profile at 0.92. This is a SHAP chart, which breaks a prediction into its causes.", "Each bar is one factor. A longer bar means that factor pushed the risk up more. The numbers on the right are the contribution to the score.", "Trained model (Random Forest)"],
     ["risk timeline", "Six weeks of risk scores for Arjun compared with the team average.", "A line rising means things are getting worse. The gap between the two lines shows how far Arjun is from the team.", "Synthetic data"],
-    ["team risk scorecard", "All six members ranked by risk, with the numbers behind each score.", "Risk Prob is the model's probability (0 to 1, higher is worse). Burnout is a percentage. PsySafe is psychological safety out of 100, so higher is better. Status is the resulting risk band.", "Trained model (Random Forest)"],
+    ["team risk scorecard", "All six members ranked by risk, with the numbers behind each score.", "Risk Score is the composite score (0 to 1, higher is worse), informed by the trained model's inputs. Burnout is a percentage. PsySafe is psychological safety out of 100, so higher is better. Status is the resulting risk band.", "Trained model (Random Forest)"],
     ["live risk signals", "A feed of the latest alerts, most severe first.", "Colour shows severity: red Critical, orange High, yellow Medium. Each alert says which signal fired and when. The BERT score in these alerts is a designed (simulated) model.", "Mixed: RF trained, BERT simulated"],
 
     // ── Team Intelligence ──
@@ -4811,13 +4817,13 @@ function lvNav(el, name) {
     ["what this means in plain english", "A non-technical translation of Arjun's signals.", "Red lines are serious changes, yellow lines are early warnings.", "Synthetic data"],
 
     // ── 4 Models Running ──
-    ["shap explainability", "Why the Random Forest model scored Arjun 0.97, broken into the factors that pushed it.", "Each bar is one factor. A longer bar pushed the score up more. It lets a manager see the reasons, not only the score.", "Trained model (Random Forest)"],
+    ["shap explainability", "Why the Random Forest model rated an Arjun-like profile 0.92, broken into the factors that pushed it.", "Each bar is one factor. A longer bar pushed the score up more. It lets a manager see the reasons, not only the score.", "Trained model (Random Forest)"],
     ["bert fear index — arjun", "A score for fear or withdrawal in anonymised feedback text. BERT is a language model that reads whole sentences in context.", "The score runs from 0 to 1. Above 0.65 raises a flag. This model is designed and simulated. It has not been trained yet.", "Designed / simulated"],
     ["bert fear index — transformer", "How the BERT language model works, step by step.", "Read it top to bottom: architecture, how attention picks the words that matter, how it is pre-trained and how it would be tuned.", "Designed / simulated"],
     ["model registry", "The list of the models and the safety layer, with their status in MLflow, the tool that tracks model versions.", "Trained means the model was really trained. Simulated or Designed means the plan and the numbers are illustrative.", "Mixed: 2 trained, 4 designed"],
     ["privacy guard", "A designed safety layer that turns text into numbers and throws the text away.", "Read it as a chain: hold in memory, mask, score, discard, allow only numbers, group, audit. If a step is missing, wording could leak. It is not built yet.", "Designed, not built"],
     ["how accurate are the 4 models", "Precision, Recall and F1 for each model.", "Taller bars are better. Precision is how often an alert is right. Recall is how many real risks are caught. F1 combines the two. Only the two At-Risk models are trained. Delivery and AI Trust are simulated.", "Mixed: 2 trained, 2 simulated"],
-    ["layman translation", "The accuracy numbers explained without jargon.", "For example, 94.5% precision means about 19 in 20 alerts are real problems.", "Trained model (Random Forest)"],
+    ["layman translation", "The accuracy numbers explained without jargon.", "For example, 90.3% precision means about 9 in 10 alerts are real problems.", "Trained model (Random Forest)"],
 
     // ── MLOps Safety Net ──
     ["live psi monitor", "PSI (Population Stability Index) measures how far today's data has drifted from the data the model learned from.", "Each meter is one feature. Low is stable. Above 0.2 is an alert and queues a retrain.", "Illustrative"],
@@ -5171,7 +5177,7 @@ function PSA_ENGINE(getEnv){
   K('gap','Why today\'s tools miss it','gap,traditional dashboards,why tools miss,speed is not health,velocity misleading,blind spot,existing tools,competitors,what is new',
     '<p>Traditional dashboards see velocity ↑, tickets closed ↑, commits ↑ and conclude “the AI rollout is a success”.</p><p>ProSense also sees psychological safety ↓17 points, checking of AI output near zero (6 seconds a report), and stand-up contribution ↓48%, so it concludes “silent risk is building: act now”.</p><p><b>Speed is not health.</b> ProSense adds the human signal that speed metrics leave out.</p>',{tags:['Synthetic data'],src:'Deck slide 5'});
   K('approach','Approach: 7 steps from data to action','approach,steps,method,methodology,pipeline,how was it built,process,workflow,how did you build,how it works,end to end',
-    '<ol><li><b>Collect</b>: 5,000 rows from 4 public datasets</li><li><b>Score text</b>: 7 pillars, 420 workplace phrases</li><li><b>Clean</b>: VIF check, 41 → 7 features</li><li><b>Train</b>: Random Forest vs HistGradientBoosting</li><li><b>Explain</b>: SHAP shows why</li><li><b>Act</b>: dashboard plus a human-led intervention</li><li><b>Monitor</b>: drift check and retrain <i>(designed)</i></li></ol><p>Principles: use ML only where it helps, simple explainable models first, honest Trained/Designed labels, and a human in the loop.</p>',
+    '<ol><li><b>Collect</b>: 5,000 rows from 4 public datasets</li><li><b>Score text</b>: 7 pillars, 420 workplace phrases</li><li><b>Clean</b>: drop outcome columns, then VIF check, 38 → 6 features</li><li><b>Train</b>: Random Forest vs HistGradientBoosting</li><li><b>Explain</b>: SHAP shows why</li><li><b>Act</b>: dashboard plus a human-led intervention</li><li><b>Monitor</b>: drift check and retrain <i>(designed)</i></li></ol><p>Principles: use ML only where it helps, simple explainable models first, honest Trained/Designed labels, and a human in the loop.</p>',
     {tags:['Trained','Designed'],src:'Deck slide 6',follow:['Why Random Forest?','What is trained vs designed?']});
   K('data','The data','data,dataset,sources,rows,columns,where does data come from,training data,5000,public datasets,ibm hr,label,target,at risk 67,data versions,v4,53 columns',
     '<p>4 public datasets were blended into one table of <b>5,000 rows × 53 columns</b> (v4, 0 missing values) and enriched with synthetic team signals.</p>'+
@@ -5191,9 +5197,9 @@ function PSA_ENGINE(getEnv){
     {tags:['Trained'],src:'Deck slide 8',follow:['What are the pending actions?']});
   K('vader','Why not VADER?','vader,sentiment tool,why not vader,sentiment analysis,i go with the model,standard sentiment,off the shelf',
     '<p>VADER is a standard sentiment tool. It read “I go with the model” as <b>positive</b>. At work, that phrase signals disengagement. So we wrote workplace-specific phrases and weights instead.</p>',{tags:['Trained'],src:'Deck slide 8 · Q&A'});
-  K('features','Feature preparation (VIF) and the 7 features','features,vif,multicollinearity,41 to 7,seven features,feature selection,which features,inputs of the model,what does the model use,columns used,34 dropped',
-    '<p><b>41 → 7 features.</b> VIF checks whether two columns say the same thing; 34 were dropped because they repeated each other (VIF &gt; 10). Example: psysafe_score and outcome_score were 91% alike (r = 0.914).</p>'+
-    tbl(['Feature','Meaning'],[['attrition_risk','Flight-risk flag'],['overtime_flag','Regular overtime'],['env_satisfaction','Happy with environment'],['remote_work','Remote or office'],['one_on_one_frequency','How often 1:1s happen'],['training_frequency','Learning time'],['manager_tenure_yrs','Years with manager']],1),
+  K('features','Feature preparation (VIF) and the 6 features','features,vif,multicollinearity,38 to 6,six features,feature selection,which features,inputs of the model,what does the model use,columns used,32 dropped,leakage,leak,attrition_risk,outcome column',
+    '<p><b>38 → 6 features.</b> First, the three <b>outcome columns</b> (attrition_risk, outcome_score, intervention_triggered) are removed, because a model must never see the answer it is predicting. Then VIF checks whether two columns say the same thing; 32 were dropped because they repeated each other (VIF &gt; 10).</p><p><b>Correction made in v2.9:</b> an earlier run left attrition_risk in as a 7th feature. That inflated the Random Forest AUC to 0.9479. With it removed, the honest figure is <b>0.9021</b>.</p>'+
+    tbl(['Feature','Meaning'],[['overtime_flag','Regular overtime'],['env_satisfaction','Happy with environment'],['remote_work','Remote or office'],['one_on_one_frequency','How often 1:1s happen'],['training_frequency','Learning time'],['manager_tenure_yrs','Years with manager']],1),
     {tags:['Trained'],src:'Deck slide 9 · metrics JSON'});
   K('imbalance','Class balance and the train/test split','imbalance,class weight,67 33,split,train test,stratified,test set,overfitting,80 20,seed,unseen,class balance,leakage',
     '<p>Two-thirds of rows are “at risk”, so the models use <b>class_weight = "balanced"</b> to weigh both groups fairly.</p><p>Split: <b>80/20, stratified, seed 42</b>. The models were tested only on <b>1,000 people they had never seen</b>.</p>',{tags:['Trained'],src:'Deck slide 9'});
@@ -5202,12 +5208,12 @@ function PSA_ENGINE(getEnv){
     {go:'architecture',src:'Deck slide 10 · AI Architecture page'});
   K('models-overview','Models: trained vs designed','models,which models,models used,trained or designed,built vs designed,what is trained,model list,four models,model registry,status of models,designed vs trained,trained vs designed,what is built,simulated',
     tbl(['Model','Status','Score'],[
-      ['<b>Random Forest</b> (primary)',pill('Trained','g'),'AUC 0.9479'],
-      ['<b>HistGradientBoosting</b> (challenger)',pill('Trained','g'),'AUC 0.9376'],
+      ['<b>Random Forest</b> (primary)',pill('Trained','g'),'AUC 0.9021'],
+      ['<b>HistGradientBoosting</b> (challenger)',pill('Trained','g'),'AUC 0.8934'],
       ['BERT Fear Index',pill('Designed','y'),'0.74 (scenario)'],
       ['Delivery (ARIMA + LSTM)',pill('Designed','y'),'0.55 (scenario)'],
       ['Blind AI Trust',pill('Designed','y'),'0.87 (scenario)']],1)+
-    '<p><b>Two models are trained</b> and answer the same question from the same 7 features, so they compare fairly. The other three are shown as the roadmap and are <b>not</b> presented as trained.</p>',
+    '<p><b>Two models are trained</b> and answer the same question from the same 6 features, so they compare fairly. The other three are shown as the roadmap and are <b>not</b> presented as trained.</p>',
     {tags:['Trained','Designed'],go:'models',src:'4 Models page · deck slide 11',follow:['Compare the two trained models','What is the BERT Fear Index?']});
   K('privacy-guard','Privacy Guard: metadata only','metadata only,privacy guard,raw text,wording,actual wording,store text,stored text,redact,pii,personal data,trust net,safety net,text to numbers,do you keep messages,what is stored,what is kept,justification',
     '<p>The goal is to <b>read the words and keep only the numbers</b>. It is a designed safety layer, not one new model, and it is <b>not built yet</b>.</p>'+
@@ -5229,20 +5235,20 @@ function PSA_ENGINE(getEnv){
     '<p>The data is a <b>table</b>, and tree models are the proven choice for tables. They capture combinations (e.g. overtime together with few 1:1s) that simple linear models miss, work well on 5,000 rows (deep learning needs far more), are explainable with SHAP, train in seconds and need no GPU.</p><p><b>Random Forest</b>: hundreds of trees vote, so it is stable and hard to overfit. It had the best AUC and the fewest false alarms, so it is the <b>primary</b> model.</p>',
     {tags:['Trained'],src:'Deck slide 12',follow:['Why a second model (HistGradientBoosting)?','Compare the two trained models']});
   K('why-hgb','Why HistGradientBoosting as well?','why hgb,hgb,challenger,second model,two models,why two models,boosting,second opinion',
-    '<p>In <b>HistGradientBoosting</b> the trees learn one after another, each fixing the last one\'s mistakes. It catches slightly more real risks (recall 83.3%), so it is the <b>challenger</b>. If both models agree, we can be more confident.</p>',{tags:['Trained'],src:'Deck slide 12',follow:['Compare the two trained models']});
-  K('results','Results in plain English','results,accuracy,how good,performance,0.9479,evaluation results,model score,how accurate,metrics,is it good,how well does it work',
-    '<p>Random Forest on 1,000 unseen test people:</p><ul><li><b>AUC 0.9479</b>: pick one at-risk and one healthy person and the model ranks the at-risk one higher about 95% of the time</li><li><b>Precision 94.5%</b>: about 19 in 20 alerts are real</li><li><b>Recall 82%</b>: it catches about 4 in 5 real risks</li><li><b>F1 0.878</b>: the balance of the two</li></ul><p>These come from a <b>synthetic</b> test set. Real-world validation is the next step.</p>',
+    '<p>In <b>HistGradientBoosting</b> the trees learn one after another, each fixing the last one\'s mistakes. It scores within 0.01 AUC of the Random Forest (0.8934 vs 0.9021) and catches almost the same share of real risks (recall 81.7%), so it is the <b>challenger</b>. If both models agree, we can be more confident.</p>',{tags:['Trained'],src:'Deck slide 12',follow:['Compare the two trained models']});
+  K('results','Results in plain English','results,accuracy,how good,performance,0.9021,evaluation results,model score,how accurate,metrics,is it good,how well does it work',
+    '<p>Random Forest on 1,000 unseen test people:</p><ul><li><b>AUC 0.9021</b>: pick one at-risk and one healthy person and the model ranks the at-risk one higher about 90% of the time</li><li><b>Precision 90.3%</b>: about 9 in 10 alerts are real</li><li><b>Recall 81.8%</b>: it catches about 4 in 5 real risks</li><li><b>F1 0.859</b>: the balance of the two</li></ul><p>These come from a <b>synthetic</b> test set, with outcome columns excluded so the model cannot see the answer. Real-world validation is the next step.</p>',
     {tags:['Trained','Synthetic data'],go:'models',src:'metrics JSON · deck slide 13',follow:['What does the confusion matrix show?','Compare the two trained models']});
-  K('confusion','Confusion matrix and mistakes','confusion matrix,falsealarm,missed,112 missed,47,errors,mistakes,when is it wrong,wrong predictions,error rate,misses people',
-    '<p>HistGradientBoosting on 1,000 unseen test people:</p>'+tbl(['','Said AT RISK','Said HEALTHY'],[['Really at risk (671)','<span style="color:#2ed573">559 caught</span>','<span style="color:#ff4757">112 missed</span>'],['Really healthy (329)','<span style="color:#ff6b35">47 false alarms</span>','<span style="color:#2ed573">282 cleared</span>']])+'<p>It misses some real risks (recall 83%) and raises some false alarms. That is why a human reviews every alert and the model never acts alone.</p>',
+  K('confusion','Confusion matrix and mistakes','confusion matrix,falsealarm,missed,122 missed,59,errors,mistakes,when is it wrong,wrong predictions,error rate,misses people',
+    '<p>Random Forest on 1,000 unseen test people:</p>'+tbl(['','Said AT RISK','Said HEALTHY'],[['Really at risk (671)','<span style="color:#2ed573">549 caught</span>','<span style="color:#ff4757">122 missed</span>'],['Really healthy (329)','<span style="color:#ff6b35">59 false alarms</span>','<span style="color:#2ed573">270 cleared</span>']])+'<p>It misses some real risks (recall 82%) and raises some false alarms. That is why a human reviews every alert and the model never acts alone.</p>',
     {tags:['Trained','Synthetic data'],src:'metrics JSON',follow:['Compare the two trained models']});
-  K('shap','SHAP: why a score is what it is','shap,explainability,explain prediction,why 0.97,reasons,feature importance,drivers,interpretability,black box,explainable ai,explainable',
-    '<p><b>SHAP</b> splits a score into the push each factor gave it, so every score comes with reasons. Arjun\'s breakdown (an <i>illustrative profile</i>):</p>@@SHAP@@<p>Red pushes risk up; green is protective. The manager sees <i>why</i> (“few 1:1s, low satisfaction”) and knows <i>what to do</i>: a non-performance 1:1 with Arjun.</p>',
+  K('shap','SHAP: why a score is what it is','shap,explainability,explain prediction,why 0.92,why 0.97,reasons,feature importance,drivers,interpretability,black box,explainable ai,explainable',
+    '<p><b>SHAP</b> splits a score into the push each factor gave it, so every score comes with reasons. An Arjun-like breakdown (an <i>illustrative profile</i>; the Random Forest gives it a probability of 0.92):</p>@@SHAP@@<p>Red pushes risk up; green is protective. The manager sees <i>why</i> (“few 1:1s, overtime, remote work”) and knows <i>what to do</i>: a non-performance 1:1 with Arjun.</p>',
     {tags:['Trained','Synthetic data'],go:'risk',src:'Risk Signals page · deck slide 14'});
   K('auc','AUC','auc,area under the curve,roc,what is auc,ranking quality',
-    '<p><b>AUC</b> says how well the model ranks at-risk people above healthy ones: <b>1.0 = perfect, 0.5 = a coin flip</b>. Random Forest scores 0.9479 and HistGradientBoosting 0.9376.</p>',{tags:['Info'],src:'Deck glossary'});
+    '<p><b>AUC</b> says how well the model ranks at-risk people above healthy ones: <b>1.0 = perfect, 0.5 = a coin flip</b>. Random Forest scores 0.9021 and HistGradientBoosting 0.8934.</p>',{tags:['Info'],src:'Deck glossary'});
   K('prf','Precision, recall and F1','precision,recall,f1,what is precision,what is recall,sensitivity,balanced,false alarm rate',
-    '<p><b>Precision</b>: of the alerts raised, how many are real (RF: 94.5%, about 19 in 20).<br><b>Recall</b>: of the real risks, how many are caught (RF: 82%, HGB: 83.3%).<br><b>F1</b>: the balance between the two (RF 0.878, HGB 0.876).</p>',{tags:['Info'],src:'Deck glossary'});
+    '<p><b>Precision</b>: of the alerts raised, how many are real (RF: 90.3%, about 9 in 10).<br><b>Recall</b>: of the real risks, how many are caught (RF: 81.8%, HGB: 81.7%).<br><b>F1</b>: the balance between the two (RF 0.859, HGB 0.856).</p>',{tags:['Info'],src:'Deck glossary'});
   K('psysafe','PsySafe: psychological safety','psysafe,safe to speak up,60 threshold,threshold 60,44,team psysafe,what is psysafe,speak up',
     '<p><b>PsySafe</b> (psychological safety) is whether people feel safe to speak up. The threshold is <b>60</b>. {{OWNER}}\'s team scores <b>44/100</b>, down 17 points in 6 weeks.</p><p>The team figure is a team-level survey score, so it is not the average of the six individual scores (22, 41, 58, 63, 74, 82).</p>',{tags:['Synthetic data'],go:'home',src:'Home page · deck slide 16'});
   K('team-health','Team Health score (38/100)','team health,38,health score,prosense safe score,safe score,overall score,critical score,team score',
@@ -5272,7 +5278,7 @@ function PSA_ENGINE(getEnv){
   K('pilot','Simulated 90-day pilot','pilot,simulated pilot,90 day,results of pilot,impact,outcomes,before and after,loyal opposition,roi,business value,2-4m,exposure,savings,31%,what changes,improvement',
     '@@PILOT@@',{tags:['Simulated','Synthetic data'],go:'resolution',src:'Resolution page · deck slide 27'});
   K('limitations','Honest limitations','limitations,weaknesses,risks,challenges,problems,what is wrong,honest limits,drawbacks,caveats,shortcomings,what does not work,flaws,known issues',
-    '<p><b>Open:</b></p><ul><li><b>Synthetic data only</b>: the biggest risk; it may not generalise to real teams</li><li><b>No GDPR / consent framework yet</b>: blocks any real users</li><li><b>3 weak pillars</b>: work-life r 0.305, job satisfaction 0.460, AI adoption 0.469</li><li><b>BERT, delivery and AI-trust models</b> are designed and simulated, not trained</li></ul><p><b>Resolved:</b> VADER misreading (custom 420-phrase engine), class imbalance (class_weight), multicollinearity (VIF 41 → 7), inconsistent numbers (one canonical set).</p><p>Stage: <b>proof of concept</b>, not yet an MVP.</p>',
+    '<p><b>Open:</b></p><ul><li><b>Synthetic data only</b>: the biggest risk; it may not generalise to real teams</li><li><b>No GDPR / consent framework yet</b>: blocks any real users</li><li><b>3 weak pillars</b>: work-life r 0.305, job satisfaction 0.460, AI adoption 0.469</li><li><b>BERT, delivery and AI-trust models</b> are designed and simulated, not trained</li></ul><p><b>Resolved:</b> VADER misreading (custom 420-phrase engine), class imbalance (class_weight), multicollinearity (VIF 38 → 6) and a target-leakage fix (outcome columns removed, v2.9), inconsistent numbers (one canonical set).</p><p>Stage: <b>proof of concept</b>, not yet an MVP.</p>',
     {tags:['Info'],go:'architecture',src:'Deck slide 28',follow:['What are the pending actions?']});
   K('pending','Pending actions','pending,pending actions,to do,todo,what is left,remaining,not done,open items,backlog,missing,what still needs,incomplete,unfinished,what is still missing,next steps needed',
     tbl(['#','Action','Priority'],[['1','Consent and <b>GDPR framework</b>','<span style="color:#ff4757">Blocker</span>'],['2','Connect <b>one real, consented data source</b>','<span style="color:#ff4757">Blocker</span>'],['3','Redesign phrases for the <b>3 weak pillars</b>','High'],['4','<b>Train BERT</b>, then bias audit and 25% canary','High'],['5','Train the <b>delivery</b> and <b>AI-trust</b> models','High'],['6','Finish <b>MLOps</b>: registry, drift alerts, auto-retrain','High'],['7','<b>Code audit</b>, then a full Databricks end-to-end run','Med'],['8','Run a <b>real pilot</b> with a design partner','Med']],0)+'<p>Items 1 and 2 must be done before any real pilot.</p>',
@@ -5283,7 +5289,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v2.8</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.8</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.8 design polish: Inter font, steady text sizes, sharper charts, calmer globe · v2.7 full review: easier-to-read text, Home Team Pulse shows all six people · v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v2.9</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.9</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.9 honest model figures: a data-leak fix, AUC 0.9479 becomes 0.9021 · v2.8 design polish: Inter font, steady text sizes, sharper charts, calmer globe · v2.7 full review: easier-to-read text, Home Team Pulse shows all six people · v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('v2features','What is new in v2.0','v2.0,v2,what is new,new features,latest release,hide menu,hide navigation,menu button,customise page,customize page,check-in,needs a check-in,simulation charts,sphere speed',
     '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top left, from v2.1; it was top right in v2.0) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
@@ -5349,7 +5355,7 @@ function PSA_ENGINE(getEnv){
     var S = E().SHAP; if(!S||!S.length) return '';
     var mx = Math.max.apply(null,S.map(function(d){return Math.abs(d.val);}));
     return S.map(function(d){ var c=d.val>0?'#ff4757':'#2ed573';
-      return '<div style="font-size:.7rem;display:flex;justify-content:space-between"><span>'+esc(d.label)+'</span><b style="color:'+c+'">'+(d.val>0?'+':'−')+Math.abs(d.val).toFixed(2)+'</b></div>'+bar(Math.abs(d.val),mx,c); }).join('');
+      return '<div style="font-size:.7rem;display:flex;justify-content:space-between"><span>'+esc(d.label)+'</span><b style="color:'+c+'">'+(d.val>0?'+':'−')+(Math.abs(d.val)<0.01?Math.abs(d.val).toFixed(3):Math.abs(d.val).toFixed(2))+'</b></div>'+bar(Math.abs(d.val),mx,c); }).join('');
   }
   function pilotHtml(){
     var B = E().BA_METRICS;
@@ -5392,7 +5398,7 @@ function PSA_ENGINE(getEnv){
   function why(i){
     var m = team()[i]; if(!m) return null;
     if(!consentOK()) return needConsent();
-    var h = '<p><b>'+esc(m.name)+'</b> has a risk probability of <b>'+m.riskScore.toFixed(2)+'</b> ('+m.riskLabel.toLowerCase()+') from the trained Random Forest, using 7 features (attrition flag, overtime, environment satisfaction, remote work, 1:1 frequency, training, manager tenure).</p>';
+    var h = '<p><b>'+esc(m.name)+'</b> has a dashboard risk score of <b>'+m.riskScore.toFixed(2)+'</b> ('+m.riskLabel.toLowerCase()+'). The trained Random Forest behind it uses 6 features (overtime, environment satisfaction, remote work, 1:1 frequency, training, manager tenure).</p>';
     var trace = ['Recognised person: '+m.name,'Read risk score and pillars'];
     if (i===0) {
       h += '<p>The dashboard\'s SHAP breakdown for Arjun (illustrative profile):</p>'+shapHtml()+'<p>Burnout is <b>97%</b>, PsySafe <b>22</b>, and the signals behind it: Slack messages ↓61% and stand-up contribution ↓48% since the AI rollout. He hasn\'t quit; he has gone quiet.</p>';
@@ -5450,8 +5456,8 @@ function PSA_ENGINE(getEnv){
     return res('<ul><li>Average burnout: <b>'+pct(s.burn)+'%</b> across '+s.n+' members</li><li>Average AI adoption: <b>'+pct(s.ai)+'%</b></li><li>At risk: <b>'+s.atRisk.length+' of '+s.n+'</b></li></ul><p>Headline team scores are separate team-level values: <b>Team Health 38/100</b> and <b>PsySafe 44/100</b> (threshold 60).</p>',{tags:['Synthetic data'],src:'Reports page · TEAM_DATA',go:'reports',trace:['Read all six profiles','Averaged burnout and AI adoption']});
   }
   function modelCompare(){
-    var rows=[['Status',pill('Trained','g'),pill('Trained','g')],['AUC','<b>0.9479</b>','0.9376'],['Precision','<b>0.945</b>','0.922'],['Recall','0.820','<b>0.833</b>'],['F1','<b>0.878</b>','0.876'],['Role','Primary','Challenger']];
-    return res(tbl(['','Random Forest','HistGradientBoosting'],rows,1)+'<p><b>Random Forest is the primary model</b>: best AUC, highest precision (fewest false alarms) and best F1. <b>HistGradientBoosting</b> catches slightly more real risks (recall 83.3% vs 82.0%), so it serves as the second opinion. Both use the same 7 features on the same 1,000 unseen test people, so the comparison is fair. The delivery, AI-trust and BERT models are designed only, so they are not compared.</p>',
+    var rows=[['Status',pill('Trained','g'),pill('Trained','g')],['AUC','<b>0.9021</b>','0.8934'],['Precision','<b>0.903</b>','0.900'],['Recall','<b>0.818</b>','0.817'],['F1','<b>0.859</b>','0.856'],['Role','Primary','Challenger']];
+    return res(tbl(['','Random Forest','HistGradientBoosting'],rows,1)+'<p><b>Random Forest is the primary model</b>: best AUC, highest precision (fewest false alarms) and best F1. <b>HistGradientBoosting</b> is very close (AUC 0.8934 vs 0.9021, recall 81.7% vs 81.8%), so it serves as the second opinion. Both use the same 6 features on the same 1,000 unseen test people, so the comparison is fair. The delivery, AI-trust and BERT models are designed only, so they are not compared.</p>',
       {tags:['Trained','Synthetic data'],src:'metrics JSON · 4 Models page',go:'models',trace:['Read the trained-model metrics','Compared AUC, precision, recall, F1','Excluded designed models (no trained scores)'],follow:['Why Random Forest?','What does the confusion matrix show?']});
   }
   function psiNow(){
@@ -6000,9 +6006,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v2.8';
+  var CUR = 'v2.9';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v2.9', d:'18 Nov 2026', t:'Honest model figures: a data-leak fix, AUC 0.9479 becomes 0.9021', add:['Fix: the old Random Forest run used an outcome column (attrition_risk) as an input, which let the model see part of the answer. It is now removed before training','New figures on every page and in Ask ProSense: Random Forest AUC 0.9021, precision 90.3%, recall 81.8%, F1 0.859; HistGradientBoosting AUC 0.8934. The old values were 0.9479 and 0.9376','The model now uses 6 features instead of 7 (38 candidates, 32 dropped by VIF)','Risk page and Models page: the SHAP chart is recomputed. Remote work, 1:1 frequency and overtime are now the top drivers for the Arjun-like profile','Plain-English lines updated: 90.3% precision is about 9 in 10 alerts being real; recall is about 4 in 5 real risks caught','Confusion matrix in Ask ProSense now shows the Random Forest: 549 caught, 122 missed, 59 false alarms, 270 cleared']},
     {v:'v2.8', d:'18 Nov 2026', t:'Design polish: Inter font, steady type sizes, sharper charts, calmer globe', add:['Typography: the Inter font now loads on every computer, with one set of text sizes (24px page titles, 16px section headings, 13 to 14px body text, 11 to 12px small print). Numbers line up in columns (tabular figures)','Colours and depth: three background layers (page, card, pop-up), thin 1px borders, no heavy shadows or blur. Bright colours are kept for actions and alerts','Spacing: an 8px grid with 16px between cards and 20px inside them','Charts: every canvas is drawn at the screen\'s pixel density, so lines and text are sharp on Retina screens. Gridlines are softer, chart text is larger, and chart colours that were not showing before now display correctly','Globe: softer lines and dimmer low-risk points so it sits behind the numbers and alerts','Interaction: 150ms fades on cards, buttons, tabs and inputs, plus a clear focus outline for keyboard users','Team Intelligence: Behavioural Radar is larger and Pillar Scores fill their card','Home scrolls on short screens instead of squeezing the cards']},
     {v:'v2.7', d:'18 Nov 2026', t:'Full review: easier-to-read text, Home Team Pulse shows all six people', add:['Readability: muted grey, purple and red text lightened so small text passes the 4.5:1 contrast check on every page (Home greeting and quote, 3 New badge, risk badges, Models, MLOps, Architecture)','Home: the bottom row is taller so Team Pulse shows all six members (Deepkant was cut off); the Team Pulse header no longer wraps','Home: Team Pulse and Key Signals scroll inside their card if a screen is short','Checked on all 10 pages at desktop and phone width: no script errors, no sideways scroll, no stray names or company terms']},
     {v:'v2.6', d:'18 Nov 2026', t:'Ask ProSense moves to the header; no more empty space inside cards', add:['Ask ProSense: the button now sits in the header next to ⚙, so it no longer covers the bottom of Home or any other page (in Focus view it still floats at the bottom right)','Risk Signals: the Live Risk Signals feed now scrolls inside the card instead of stretching the Team Risk Scorecard into a tall empty box','Cards in a row: when one card is much shorter than its neighbour it keeps its own height, so there is no empty space inside it (4 Models, Architecture, AI & Productivity)','Phone: on small screens the header button shortens to Ask and the ProSense name makes room']},

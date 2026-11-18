@@ -31,6 +31,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v2.6 | 2026-11-18 | Ask ProSense button moves to the header (floating only in Focus view); Live Risk Signals feed scrolls in its card; cards no longer show empty space |
 | v2.7 | 2026-11-18 | Full review: muted, purple and red text lightened to pass the 4.5:1 contrast check on every page; Home bottom row taller so Team Pulse shows all six members |
 | v2.8 | 2026-11-18 | Design polish: Inter font and a fixed type scale, 8px spacing grid, three background layers with 1px borders, sharp charts on Retina screens, calmer globe, 150ms transitions and clear focus outlines; Team Intelligence radar and pillars fill their cards; Home scrolls on short screens |
+| v2.9 | 2026-11-18 | Honest model figures: a data leak was fixed (the outcome column `attrition_risk` had been used as a feature). Random Forest AUC 0.9479 becomes 0.9021 (HGB 0.8934), trained on 6 clean features; SHAP drivers, model cards, Ask ProSense and the presentation updated; Arjun's 0.97 is labelled a composite risk score (the trained model alone rates an Arjun-like profile 0.92) |
 
 ## Rolling back
 
