@@ -26,6 +26,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v2.1 | 2026-11-18 | Home de-duplicated: Team Health bubble removed, Safe Score card shows the donut and a threshold note (rows removed); ☰ Menu button moved to the left of the top bar; clock hidden under 1360 px width |
 | v2.2 | 2026-11-18 | Team name follows the signed-in user on the story pages, menu item, team table, avatar and Ask ProSense (no more "Priya"); Settings › Email alerts (set up + send test); Customise / Focus / Settings / Showcase moved under one ⚙ menu |
 | v2.3 | 2026-11-18 | Fix: Customise / Focus / Settings / Showcase in the ⚙ menu respond to clicks; user avatar and bell on the far right |
+| v2.4 | 2026-11-18 | Quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, Model A before Model B, menu name gap fixed |
 
 ## Rolling back
 
