@@ -61,7 +61,7 @@
   --border:rgba(0,210,255,0.13);--border2:rgba(124,111,247,0.18);
   --teal:#00d4ff;--purple:#7b2ff7;--orange:#ff6b35;
   --red:#ff4757;--green:#2ed573;--yellow:#ffd32a;
-  --fg:#dde4f5;--muted:#7b88b0;
+  --fg:#dde4f5;--muted:#98a1c8;
   --font:'Inter',system-ui,sans-serif;
 }
 body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;height:100vh;min-width:1100px;display:flex;}
@@ -157,7 +157,7 @@ body:not(.ps-show-desig) .ps-desig{display:none!important;}
 #top-row{display:grid;grid-template-columns:27% 1fr 32%;gap:10px;flex:1;min-height:0;}
 
 /* ── BOTTOM ROW ── */
-#bottom-row{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px;height:210px;min-height:210px;}
+#bottom-row{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px;height:250px;min-height:250px;}
 
 /* ── FOOTER BANNER ── */
 #data-banner{background:rgba(0,5,15,0.9);border-top:1px solid rgba(0,212,255,0.1);padding:5px 16px;font-size:0.625rem;color:rgba(0,212,255,0.45);font-family:monospace;letter-spacing:.04em;white-space:nowrap;overflow:hidden;flex-shrink:0;}
@@ -209,7 +209,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 .greeting-hi{font-size:0.72rem;color:var(--teal);letter-spacing:.08em;font-family:monospace;margin-bottom:4px;}
 .greeting-h1{font-size:1.45rem;font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px;}
 .greeting-sub{font-size:0.8rem;color:var(--muted);margin-bottom:3px;}
-.greeting-body{font-size:0.72rem;color:rgba(123,136,176,0.7);}
+.greeting-body{font-size:0.72rem;color:var(--muted);}
 
 .velocity-card{flex:1;min-height:0;display:flex;flex-direction:column;}
 .vc-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;}
@@ -222,7 +222,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 .legend-line{width:18px;height:2px;}
 
 .gap-card{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:12px 14px;}
-.gap-quote{font-size:0.7rem;color:rgba(123,136,176,0.6);font-style:italic;margin-top:8px;line-height:1.4;border-left:2px solid var(--purple);padding-left:8px;}
+.gap-quote{font-size:0.7rem;color:var(--muted);font-style:italic;margin-top:8px;line-height:1.4;border-left:2px solid var(--purple);padding-left:8px;}
 
 /* ── CENTER COLUMN ── */
 #col-center{position:relative;display:flex;align-items:center;justify-content:center;}
@@ -254,7 +254,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 
 .insights-card{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;}
 .insights-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.badge-new{background:rgba(123,47,247,0.25);border:1px solid rgba(123,47,247,0.4);border-radius:10px;padding:2px 8px;font-size:0.65rem;color:var(--purple);font-weight:700;}
+.badge-new{background:rgba(123,47,247,0.25);border:1px solid rgba(123,47,247,0.4);border-radius:10px;padding:2px 8px;font-size:0.65rem;color:#b9a9ff;font-weight:700;}
 .insight-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
 .insight-item:last-child{border-bottom:none;}
 .insight-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;margin-top:1px;}
@@ -265,9 +265,9 @@ body.pf-focus #pf-focus-bar{display:flex;}
 .insight-btn:hover{opacity:0.8;}
 
 /* ── BOTTOM ROW CARDS ── */
-.pulse-card{overflow:hidden;display:flex;flex-direction:column;}
+.pulse-card{overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;}
 .pulse-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.pulse-live{display:flex;align-items:center;gap:5px;font-size:0.65rem;color:var(--muted);}
+.pulse-live{white-space:nowrap;display:flex;align-items:center;gap:5px;font-size:0.65rem;color:var(--muted);}
 .pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-anim 1.4s infinite;}
 @keyframes pulse-anim{0%,100%{opacity:1}50%{opacity:.3}}
 .member-row{display:flex;align-items:center;gap:8px;padding:3px 0;}
@@ -277,7 +277,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 .member-bar{height:100%;border-radius:2px;}
 .risk-badge{font-size:0.625rem;font-weight:700;padding:1px 5px;border-radius:3px;flex-shrink:0;}
 
-.signals-card{overflow:hidden;display:flex;flex-direction:column;}
+.signals-card{overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;}
 .sig-tabs{display:flex;gap:3px;margin-bottom:8px;}
 .sig-tab{padding:2px 8px;border-radius:4px;font-size:0.65rem;cursor:pointer;color:var(--muted);border:1px solid transparent;transition:all .15s;}
 .sig-tab.active{background:rgba(0,212,255,0.12);border-color:rgba(0,212,255,0.25);color:var(--teal);}
@@ -298,9 +298,9 @@ body.pf-focus #pf-focus-bar{display:flex;}
 /* ══ Carried forward from prosense-deploy.vercel.app (scoped under .lv-root; no effect on existing v3 pages) ══ */
 .lv-root{
     --bg:#0d0f1a; --surface:#161929; --card:#1e2235; --border:#2a2f4a;
-    --purple:#7c6ff7; --teal:#00d4aa; --orange:#ff6b35;
-    --red:#ff4757; --yellow:#ffd32a; --green:#2ed573;
-    --text:#e8eaf6; --muted:#7b82a8;
+    --purple:#a89fff; --teal:#00d4aa; --orange:#ff6b35;
+    --red:#ff7a86; --yellow:#ffd32a; --green:#2ed573;
+    --text:#e8eaf6; --muted:#98a0c8;
     --font:'Segoe UI',system-ui,sans-serif;
   }
 .lv-root *{box-sizing:border-box;margin:0;padding:0;}
@@ -489,7 +489,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div class="login-title">ProSense <span>AI</span></div>
     <div style="font-size:.7rem;letter-spacing:.18em;color:rgba(0,212,170,.6);margin-top:6px;margin-bottom:36px;font-family:monospace">CULTURE OS · SECURE ACCESS</div>
     <div style="display:flex;justify-content:center;gap:28px;margin-bottom:32px;padding:12px 0;border-top:1px solid rgba(0,212,255,.1);border-bottom:1px solid rgba(0,212,255,.1)">
-      <div style="text-align:center"><div style="font-size:1.1rem;font-weight:700;color:#ff4757">0.97</div><div style="font-size:0.625rem;letter-spacing:.1em;color:rgba(123,130,168,.6);margin-top:2px">BURNOUT IDX</div></div>
+      <div style="text-align:center"><div style="font-size:1.1rem;font-weight:700;color:#ff6b78">0.97</div><div style="font-size:0.625rem;letter-spacing:.1em;color:rgba(123,130,168,.6);margin-top:2px">BURNOUT IDX</div></div>
       <div style="text-align:center"><div style="font-size:1.1rem;font-weight:700;color:#00d4aa">0.95</div><div style="font-size:0.625rem;letter-spacing:.1em;color:rgba(123,130,168,.6);margin-top:2px">MODEL AUC</div></div>
       <div style="text-align:center"><div style="font-size:1.1rem;font-weight:700;color:#ff6b35">0.74</div><div style="font-size:0.625rem;letter-spacing:.1em;color:rgba(123,130,168,.6);margin-top:2px">BERT FEAR</div></div>
     </div>
@@ -500,10 +500,10 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <input id="tl-user" type="text" placeholder="Username" autocomplete="username" spellcheck="false" style="box-sizing:border-box;width:100%;padding:9px 10px;margin-bottom:6px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.25);color:#e8ecff;font-family:monospace;font-size:.74rem;border-radius:3px;outline:none">
       <input id="tl-pass" type="password" placeholder="Password" autocomplete="current-password" style="box-sizing:border-box;width:100%;padding:9px 10px;margin-bottom:8px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.25);color:#e8ecff;font-family:monospace;font-size:.74rem;border-radius:3px;outline:none">
       <button type="submit" style="width:100%;padding:9px 0;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.45);color:rgba(0,212,255,.95);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">SIGN IN</button>
-      <div id="tl-err" style="display:none;color:#ff4757;font-size:.7rem;margin-top:8px;font-family:monospace">&#9888; Wrong username or password</div>
+      <div id="tl-err" style="display:none;color:#ff6b78;font-size:.7rem;margin-top:8px;font-family:monospace">&#9888; Wrong username or password</div>
     </form>
-    <div style="margin-top:14px"><button type="button" id="guest-btn" onclick="showGuestForm()" style="width:280px;padding:10px 0;background:transparent;border:1px solid rgba(0,212,255,.35);color:rgba(0,212,255,.85);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">GUEST ACCESS · PASSWORD</button><form id="guest-form" onsubmit="return guestLogin(event)" autocomplete="off" style="display:none;margin-top:8px;width:280px;text-align:left"><input id="gp" type="password" placeholder="Shared guest password" autocomplete="current-password" style="box-sizing:border-box;width:100%;padding:9px 10px;margin-bottom:6px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.25);color:#e8ecff;font-family:monospace;font-size:.74rem;border-radius:3px;outline:none"><button type="submit" style="width:100%;padding:9px 0;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.45);color:rgba(0,212,255,.95);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">ENTER</button><div id="gp-err" style="display:none;color:#ff4757;font-size:.7rem;margin-top:8px;font-family:monospace">&#9888; Wrong guest password</div></form><div style="margin-top:8px;font-size:0.625rem;letter-spacing:.1em;color:rgba(123,130,168,.5);font-family:monospace">Shared guest password · synthetic demo data</div></div>
-    <div id="access-denied" style="display:none;color:#ff4757;font-size:.78rem;margin-top:16px;letter-spacing:.06em;font-family:monospace">⚠ ACCESS DENIED — Unauthorized account</div>
+    <div style="margin-top:14px"><button type="button" id="guest-btn" onclick="showGuestForm()" style="width:280px;padding:10px 0;background:transparent;border:1px solid rgba(0,212,255,.35);color:rgba(0,212,255,.85);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">GUEST ACCESS · PASSWORD</button><form id="guest-form" onsubmit="return guestLogin(event)" autocomplete="off" style="display:none;margin-top:8px;width:280px;text-align:left"><input id="gp" type="password" placeholder="Shared guest password" autocomplete="current-password" style="box-sizing:border-box;width:100%;padding:9px 10px;margin-bottom:6px;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.25);color:#e8ecff;font-family:monospace;font-size:.74rem;border-radius:3px;outline:none"><button type="submit" style="width:100%;padding:9px 0;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.45);color:rgba(0,212,255,.95);font-family:monospace;font-size:.72rem;letter-spacing:.14em;cursor:pointer;border-radius:3px">ENTER</button><div id="gp-err" style="display:none;color:#ff6b78;font-size:.7rem;margin-top:8px;font-family:monospace">&#9888; Wrong guest password</div></form><div style="margin-top:8px;font-size:0.625rem;letter-spacing:.1em;color:rgba(123,130,168,.5);font-family:monospace">Shared guest password · synthetic demo data</div></div>
+    <div id="access-denied" style="display:none;color:#ff6b78;font-size:.78rem;margin-top:16px;letter-spacing:.06em;font-family:monospace">⚠ ACCESS DENIED — Unauthorized account</div>
     <div style="margin-top:28px;font-size:0.625rem;color:rgba(123,130,168,.35);letter-spacing:.1em;font-family:monospace">AUTHORIZED PERSONNEL ONLY</div>
   </div>
 </div>
@@ -657,7 +657,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           </div>
           <div class="bubble" id="bub-well">
             <div class="bubble-label">WELLBEING</div>
-            <div class="bubble-val" style="color:#ff4757;">↓ 6%</div>
+            <div class="bubble-val" style="color:#ff6b78;">↓ 6%</div>
           </div>
           <div class="bubble" id="bub-risk">
             <div class="bubble-label">RISK INDEX</div>
@@ -684,11 +684,11 @@ body.pf-focus #pf-focus-bar{display:flex;}
               </svg>
               <div class="donut-center">
                 <div class="donut-pct">38%</div>
-                <div class="donut-delta" style="color:#ff4757;">↓ Critical</div>
+                <div class="donut-delta" style="color:#ff6b78;">↓ Critical</div>
               </div>
             </div>
             <div class="safe-metrics">
-              <div id="safe-thr" style="font-size:0.8rem;font-weight:700;color:#ff4757;">Below the 60 threshold</div>
+              <div id="safe-thr" style="font-size:0.8rem;font-weight:700;color:#ff6b78;">Below the 60 threshold</div>
               <div style="font-size:0.66rem;color:var(--muted);margin-top:4px;line-height:1.4;">Healthy starts at 60. Collaboration, Wellbeing and Risk Index are shown around the sphere.</div>
             </div>
           </div>
@@ -735,7 +735,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="card pulse-card cw-draggable" id="cw-pulse"><span class="drag-handle">⠿</span>
         <div class="pulse-header">
           <div class="card-title">Team Pulse</div>
-          <div class="pulse-live"><div class="pulse-dot"></div> Live · 6 members · burnout %</div>
+          <div class="pulse-live"><div class="pulse-dot"></div> Live · 6 members</div>
         </div>
         <div id="pulse-list"></div>
       </div>
@@ -823,16 +823,16 @@ body.pf-focus #pf-focus-bar{display:flex;}
         <div style="text-align:center;margin-bottom:14px;">
           <div style="font-size:2.2rem;font-weight:800;color:#ff6b35;line-height:1;">0.74</div>
           <div style="font-size:0.625rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;">Overall Risk Index</div>
-          <div style="font-size:0.65rem;color:#ff4757;margin-top:3px;">↑ +0.12 vs last 6 weeks</div>
+          <div style="font-size:0.65rem;color:#ff6b78;margin-top:3px;">↑ +0.12 vs last 6 weeks</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
           <div style="background:rgba(255,71,87,0.1);border:1px solid rgba(255,71,87,0.22);border-radius:8px;padding:8px;text-align:center;">
-            <div style="font-size:1.5rem;font-weight:800;color:#ff4757;line-height:1;">1</div>
-            <div style="font-size:0.625rem;color:rgba(255,71,87,0.75);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;">Critical</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#ff6b78;line-height:1;">1</div>
+            <div style="font-size:0.625rem;color:#ff7a86;text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;">Critical</div>
           </div>
           <div style="background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.22);border-radius:8px;padding:8px;text-align:center;">
             <div style="font-size:1.5rem;font-weight:800;color:#ff6b35;line-height:1;">1</div>
-            <div style="font-size:0.625rem;color:rgba(255,107,53,0.75);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;">High</div>
+            <div style="font-size:0.625rem;color:#ff8a5c;text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;">High</div>
           </div>
           <div style="background:rgba(255,211,42,0.07);border:1px solid rgba(255,211,42,0.18);border-radius:8px;padding:8px;text-align:center;">
             <div style="font-size:1.5rem;font-weight:800;color:#ffd32a;line-height:1;">2</div>
@@ -849,7 +849,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="card" style="padding:14px 16px;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
           <div class="card-title">Arjun — Risk Deep Dive</div>
-          <div style="background:rgba(255,71,87,0.15);color:#ff4757;font-size:0.625rem;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.05em;white-space:nowrap;">CRITICAL · 0.97</div>
+          <div style="background:rgba(255,71,87,0.15);color:#ff6b78;font-size:0.625rem;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:0.05em;white-space:nowrap;">CRITICAL · 0.97</div>
         </div>
         <div class="card-sub" style="margin-bottom:12px;">SHAP feature contributions to risk probability</div>
         <div style="display:flex;flex-direction:column;gap:7px;">
@@ -858,7 +858,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             <div style="flex:1;height:14px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
               <div style="height:100%;width:74%;background:linear-gradient(90deg,#ff4757,#ff6b35);border-radius:3px;"></div>
             </div>
-            <div style="font-size:0.625rem;color:#ff4757;width:34px;text-align:right;font-weight:700;">+0.42</div>
+            <div style="font-size:0.625rem;color:#ff6b78;width:34px;text-align:right;font-weight:700;">+0.42</div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;">
             <div style="font-size:0.625rem;color:var(--muted);width:130px;flex-shrink:0;text-align:right;">Env Satisfaction 0.43</div>
@@ -968,11 +968,11 @@ body.pf-focus #pf-focus-bar{display:flex;}
                   <div style="width:22px;height:22px;border-radius:50%;background:#7b2ff7;display:flex;align-items:center;justify-content:center;font-size:0.625rem;font-weight:700;flex-shrink:0;">A</div>Arjun<span class="ps-desig"> (Sr. Eng.)</span>
                 </div>
               </td>
-              <td style="text-align:center;padding:7px 6px;font-size:0.72rem;font-weight:800;color:#ff4757;">0.97</td>
-              <td style="text-align:center;padding:7px 6px;font-size:0.68rem;color:#ff4757;">97%</td>
-              <td style="text-align:center;padding:7px 6px;font-size:0.68rem;color:#ff4757;">22/100</td>
+              <td style="text-align:center;padding:7px 6px;font-size:0.72rem;font-weight:800;color:#ff6b78;">0.97</td>
+              <td style="text-align:center;padding:7px 6px;font-size:0.68rem;color:#ff6b78;">97%</td>
+              <td style="text-align:center;padding:7px 6px;font-size:0.68rem;color:#ff6b78;">22/100</td>
               <td style="text-align:center;padding:7px 6px;font-size:0.68rem;color:#ffd32a;">0.44</td>
-              <td style="text-align:right;padding:7px 0 7px 6px;"><span style="background:rgba(255,71,87,0.14);color:#ff4757;font-size:0.625rem;font-weight:700;padding:2px 8px;border-radius:8px;letter-spacing:0.05em;">CRITICAL</span></td>
+              <td style="text-align:right;padding:7px 0 7px 6px;"><span style="background:rgba(255,71,87,0.14);color:#ff6b78;font-size:0.625rem;font-weight:700;padding:2px 8px;border-radius:8px;letter-spacing:0.05em;">CRITICAL</span></td>
             </tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
               <td style="padding:7px 8px 7px 0;">
@@ -1051,7 +1051,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 
           <div style="background:rgba(255,71,87,0.06);border:1px solid rgba(255,71,87,0.2);border-radius:8px;padding:9px 11px;">
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-              <div style="font-size:0.66rem;font-weight:700;color:#ff4757;">🔴 CRITICAL — Arjun</div>
+              <div style="font-size:0.66rem;font-weight:700;color:#ff6b78;">🔴 CRITICAL — Arjun</div>
               <div style="font-size:0.625rem;color:var(--muted);">2h ago</div>
             </div>
             <div style="font-size:0.625rem;color:rgba(221,228,245,0.72);line-height:1.4;">Slack message rate ↓61% since AI copilot rollout. Withdrawal language detected (BERT 0.74, designed). Risk probability 0.97 (RF).</div>
@@ -1106,7 +1106,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div style="font-size:0.625rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:3px;">ProSense AI · Team Intelligence</div>
       <div style="font-size:1.25rem;font-weight:700;color:var(--fg);letter-spacing:0.03em;">👥 Team Intelligence</div>
       <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Deep-dive per-member profiles · 6 members · <span class="ps-owner">Deepkant</span>'s team</div>
-      <div style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:4px 10px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.12);border-radius:6px;font-size:0.625rem;color:rgba(0,212,255,0.55);font-family:monospace;letter-spacing:.03em;">
+      <div style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:4px 10px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.12);border-radius:6px;font-size:0.625rem;color:rgba(0,212,255,0.85);font-family:monospace;letter-spacing:.03em;">
         ⚡ Synthetic demo profiles &nbsp;·&nbsp; Model trained on ProSense_Training_Data_5000_v4.csv (5,000 rows) &nbsp;·&nbsp; RF AUC 0.9479 · F1 0.878 · Prec 0.945 · Rec 0.820 &nbsp;·&nbsp; Step 12 Complete
       </div>
     </div>
@@ -1115,7 +1115,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
       <div class="tm-pill active" onclick="selectMember(0)" id="pill-0" style="display:flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;background:rgba(123,47,247,0.18);border:1px solid rgba(123,47,247,0.45);border-radius:30px;cursor:pointer;transition:all .18s;">
         <div style="width:30px;height:30px;border-radius:50%;background:#7b2ff7;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;color:#fff;flex-shrink:0;">A</div>
-        <div><div style="font-size:0.75rem;font-weight:700;color:#fff;">Arjun</div><div style="font-size:0.625rem;color:rgba(255,71,87,0.9);font-weight:600;">CRITICAL</div></div>
+        <div><div style="font-size:0.75rem;font-weight:700;color:#fff;">Arjun</div><div style="font-size:0.625rem;color:#ff7a86;font-weight:600;">CRITICAL</div></div>
       </div>
       <div class="tm-pill" onclick="selectMember(1)" id="pill-1" style="display:flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:30px;cursor:pointer;transition:all .18s;">
         <div style="width:30px;height:30px;border-radius:50%;background:#0070d2;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.82rem;color:#fff;flex-shrink:0;">M</div>
@@ -1148,13 +1148,13 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <div id="tm-avatar" style="width:56px;height:56px;border-radius:50%;background:#7b2ff7;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:#fff;margin:0 auto 8px;border:2px solid rgba(255,71,87,0.6);">A</div>
           <div id="tm-name" style="font-size:1rem;font-weight:800;color:#fff;">Arjun Kumar</div>
           <div id="tm-role" class="ps-desig" style="font-size:0.68rem;color:var(--muted);margin-top:1px;">Sr. Software Engineer</div>
-          <div id="tm-risk-badge" style="display:inline-block;margin-top:6px;background:rgba(255,71,87,0.18);border:1px solid rgba(255,71,87,0.45);border-radius:10px;padding:3px 12px;font-size:0.65rem;font-weight:700;color:#ff4757;">⚠ CRITICAL RISK</div>
+          <div id="tm-risk-badge" style="display:inline-block;margin-top:6px;background:rgba(255,71,87,0.18);border:1px solid rgba(255,71,87,0.45);border-radius:10px;padding:3px 12px;font-size:0.65rem;font-weight:700;color:#ff6b78;">⚠ CRITICAL RISK</div>
           <div class="wb-badge">💛 WELLBEING SIGNAL · NOT A PERFORMANCE METRIC</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:7px;">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(255,71,87,0.08);border-radius:7px;border:1px solid rgba(255,71,87,0.18);">
             <span style="font-size:0.68rem;color:var(--muted);">Risk Score</span>
-            <span id="tm-risk-score" style="font-size:0.85rem;font-weight:800;color:#ff4757;">0.97</span>
+            <span id="tm-risk-score" style="font-size:0.85rem;font-weight:800;color:#ff6b78;">0.97</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(255,107,53,0.08);border-radius:7px;border:1px solid rgba(255,107,53,0.18);">
             <span style="font-size:0.68rem;color:var(--muted);">Burnout</span>
@@ -1166,7 +1166,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(123,47,247,0.08);border-radius:7px;border:1px solid rgba(123,47,247,0.18);">
             <span style="font-size:0.68rem;color:var(--muted);">BERT Fear Index</span>
-            <span id="tm-bert" style="font-size:0.85rem;font-weight:800;color:#7b2ff7;">0.74</span>
+            <span id="tm-bert" style="font-size:0.85rem;font-weight:800;color:#b79cff;">0.74</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(255,255,255,0.04);border-radius:7px;border:1px solid rgba(255,255,255,0.08);">
             <span style="font-size:0.68rem;color:var(--muted);">AI Adoption</span>
@@ -1282,7 +1282,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div style="font-size:0.625rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:3px;">ProSense AI · AI & Productivity</div>
       <div style="font-size:1.25rem;font-weight:700;color:var(--fg);letter-spacing:0.03em;">🤖 AI & Productivity</div>
       <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">AI adoption signals · Tool usage · GitHub activity · Productivity trends</div>
-      <div style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:4px 10px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.12);border-radius:6px;font-size:0.625rem;color:rgba(0,212,255,0.55);font-family:monospace;letter-spacing:.03em;">
+      <div style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:4px 10px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.12);border-radius:6px;font-size:0.625rem;color:rgba(0,212,255,0.85);font-family:monospace;letter-spacing:.03em;">
         ⚡ GitHub signals: REAL (500 commits · 200 PRs · microsoft/vscode API) &nbsp;·&nbsp; AI adoption scores: NLP model · r = 0.469 &nbsp;·&nbsp; After-hours: 54.2% — burnout proxy
       </div>
     </div>
@@ -1322,7 +1322,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
         <div class="card-sub" style="margin-bottom:14px;">NLP-scored · higher = more AI-integrated workflow</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:0.68rem;color:#ff4757;font-weight:600;">⚠ Arjun Kumar</span><span style="font-size:0.68rem;font-weight:700;color:#ff4757;">23%</span></div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:0.68rem;color:#ff6b78;font-weight:600;">⚠ Arjun Kumar</span><span style="font-size:0.68rem;font-weight:700;color:#ff6b78;">23%</span></div>
             <div style="height:7px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden;"><div style="width:23%;height:100%;background:linear-gradient(90deg,#ff4757,#ff6b35);border-radius:4px;"></div></div>
           </div>
           <div>
@@ -1361,7 +1361,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ff4757;font-weight:600;">Arjun</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;color:#ff4757;font-weight:700;">23%</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ff6b78;font-weight:600;">Arjun</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;color:#ff6b78;font-weight:700;">23%</td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ff6b35;font-weight:600;">Meera</td><td style="text-align:center;padding:6px;color:#ffd32a;">⚠️</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;color:#ff6b35;font-weight:700;">45%</td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ffd32a;font-weight:600;"><span class="ps-owner">Deepkant</span></td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;">❌</td><td style="text-align:center;padding:6px;color:#ffd32a;font-weight:700;">52%</td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:6px;color:#ffd32a;font-weight:600;">Rajan</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#ffd32a;">⚠️</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#ffd32a;font-weight:700;">61%</td></tr>
@@ -1369,7 +1369,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             <tr><td style="padding:6px;color:#00d4ff;font-weight:600;">Kenji</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#2ed573;">✅</td><td style="text-align:center;padding:6px;color:#00d4ff;font-weight:700;">85%</td></tr>
           </tbody>
         </table>
-        <div style="margin-top:10px;padding:8px 10px;background:rgba(255,71,87,0.07);border:1px solid rgba(255,71,87,0.18);border-radius:6px;font-size:0.625rem;color:rgba(255,71,87,0.8);">⚠ Arjun not using any AI tools — manual workflow may be increasing cognitive load</div>
+        <div style="margin-top:10px;padding:8px 10px;background:rgba(255,71,87,0.07);border:1px solid rgba(255,71,87,0.18);border-radius:6px;font-size:0.625rem;color:#ff7a86;">⚠ Arjun not using any AI tools — manual workflow may be increasing cognitive load</div>
       </div>
     </div>
 
@@ -1400,7 +1400,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <polyline points="5,25 28,30 51,20 74,15 97,22 120,18 143,12 167,8" fill="none" stroke="var(--red)" stroke-width="2" stroke-linejoin="round"/>
           <polyline points="5,25 28,30 51,20 74,15 97,22 120,18 143,12 167,8" fill="none" stroke="rgba(255,71,87,0.1)" stroke-width="8"/>
         </svg>
-        <div style="font-size:0.625rem;color:#ff4757;margin-top:4px;">⚠ Peak hours: 20:00, 18:00, 00:00, 22:00, 23:00 — burnout signal</div>
+        <div style="font-size:0.625rem;color:#ff6b78;margin-top:4px;">⚠ Peak hours: 20:00, 18:00, 00:00, 22:00, 23:00 — burnout signal</div>
       </div>
     </div>
 
@@ -1410,7 +1410,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="card-sub" style="margin-bottom:12px;">Model-driven interventions to improve team AI maturity</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
         <div style="padding:12px 14px;background:rgba(255,71,87,0.07);border:1px solid rgba(255,71,87,0.2);border-radius:8px;">
-          <div style="font-size:0.72rem;font-weight:700;color:#ff4757;margin-bottom:5px;">🚨 Arjun — Immediate</div>
+          <div style="font-size:0.72rem;font-weight:700;color:#ff6b78;margin-bottom:5px;">🚨 Arjun — Immediate</div>
           <div style="font-size:0.65rem;color:var(--muted);line-height:1.5;">Enroll in GitHub Copilot onboarding. Manual workflow combined with 97% burnout creates unsustainable load. Pair with Kenji for AI-assisted code review sessions.</div>
         </div>
         <div style="padding:12px 14px;background:rgba(255,211,42,0.07);border:1px solid rgba(255,211,42,0.2);border-radius:8px;">
@@ -1448,8 +1448,8 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;">
       <div class="card" style="padding:14px 16px;border-color:rgba(255,71,87,0.25);">
         <div style="font-size:0.625rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Team Health Score</div>
-        <div style="font-size:2rem;font-weight:800;color:#ff4757;">38 / 100</div>
-        <div style="font-size:0.625rem;color:#ff4757;margin-top:3px;">↓ Critical — immediate action</div>
+        <div style="font-size:2rem;font-weight:800;color:#ff6b78;">38 / 100</div>
+        <div style="font-size:0.625rem;color:#ff6b78;margin-top:3px;">↓ Critical — immediate action</div>
         <div style="margin-top:8px;height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;"><div style="width:38%;height:100%;background:linear-gradient(90deg,#ff4757,#ff6b35);border-radius:3px;"></div></div>
       </div>
       <div class="card" style="padding:14px 16px;border-color:rgba(255,71,87,0.2);">
@@ -1512,7 +1512,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(255,71,87,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Arjun Kumar</span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.625rem;">Sr. Software Engineer</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ff4757;">0.97</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff4757;">97%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff4757;">22/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,71,87,0.15);border:1px solid rgba(255,71,87,0.35);color:#ff4757;padding:2px 8px;border-radius:10px;font-size:0.625rem;font-weight:700;">⚠ Critical</span></td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(255,71,87,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Arjun Kumar</span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.625rem;">Sr. Software Engineer</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ff6b78;">0.97</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b78;">97%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b78;">22/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,71,87,0.15);border:1px solid rgba(255,71,87,0.35);color:#ff6b78;padding:2px 8px;border-radius:10px;font-size:0.625rem;font-weight:700;">⚠ Critical</span></td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Meera Singh</span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.625rem;">Product Manager</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ff6b35;">0.72</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b35;">68%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ff6b35;">41/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,107,53,0.12);border:1px solid rgba(255,107,53,0.3);color:#ff6b35;padding:2px 8px;border-radius:10px;font-size:0.625rem;font-weight:700;">↑ High</span></td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);"><span class="ps-owner-full">Deepkant Verma</span></span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.625rem;">Engineering Manager</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ffd32a;">0.48</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">44%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">63/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,211,42,0.1);border:1px solid rgba(255,211,42,0.25);color:#ffd32a;padding:2px 8px;border-radius:10px;font-size:0.625rem;font-weight:700;">~ Medium</span></td></tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.04);"><td style="padding:7px 6px;"><span style="font-weight:700;color:var(--fg);">Rajan Mehta</span><span class="ps-desig"><br><span style="color:var(--muted);font-size:0.625rem;">DevOps Engineer</span></span></td><td style="text-align:center;padding:7px 6px;font-weight:800;color:#ffd32a;">0.55</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">52%</td><td style="text-align:center;padding:7px 6px;font-weight:700;color:#ffd32a;">58/100</td><td style="text-align:center;padding:7px 6px;"><span style="background:rgba(255,211,42,0.1);border:1px solid rgba(255,211,42,0.25);color:#ffd32a;padding:2px 8px;border-radius:10px;font-size:0.625rem;font-weight:700;">~ Medium</span></td></tr>
@@ -1545,7 +1545,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <span style="display:inline-block;width:10px;height:10px;background:#ffd32a;border-radius:2px;margin-left:6px;"></span>Medium
           <span style="display:inline-block;width:10px;height:10px;background:#2ed573;border-radius:2px;margin-left:6px;"></span>Healthy
         </div>
-        <div style="margin-top:8px;font-size:0.625rem;color:var(--muted);border-top:1px solid var(--border);padding-top:6px;">NLP phrase validation (Pearson r): Collaboration <strong style="color:#2ed573;">0.827</strong> · PsySafe <strong style="color:#2ed573;">0.803</strong> · Burnout <strong style="color:#2ed573;">0.771</strong> · SpeakUp <strong style="color:#2ed573;">0.699</strong> · AI <strong style="color:#ffd32a;">0.469</strong> · JobSat <strong style="color:#ffd32a;">0.460</strong> · WLB <strong style="color:#ff4757;">0.305</strong> ⚠ weak signal</div>
+        <div style="margin-top:8px;font-size:0.625rem;color:var(--muted);border-top:1px solid var(--border);padding-top:6px;">NLP phrase validation (Pearson r): Collaboration <strong style="color:#2ed573;">0.827</strong> · PsySafe <strong style="color:#2ed573;">0.803</strong> · Burnout <strong style="color:#2ed573;">0.771</strong> · SpeakUp <strong style="color:#2ed573;">0.699</strong> · AI <strong style="color:#ffd32a;">0.469</strong> · JobSat <strong style="color:#ffd32a;">0.460</strong> · WLB <strong style="color:#ff6b78;">0.305</strong> ⚠ weak signal</div>
       </div>
     </div>
 
@@ -1556,11 +1556,11 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div style="display:flex;flex-direction:column;gap:8px;">
         <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 12px;background:rgba(255,71,87,0.06);border:1px solid rgba(255,71,87,0.18);border-radius:7px;">
           <span style="font-size:1rem;flex-shrink:0;">🚨</span>
-          <div><div style="font-size:0.72rem;font-weight:700;color:#ff4757;margin-bottom:2px;">P1 · Schedule urgent 1:1 with Arjun — this week</div><div style="font-size:0.63rem;color:var(--muted);">Risk 0.97 · Burnout 97% · PsySafe 22/100. Withdrawal pattern confirmed by BERT Fear Index (0.74). Psychological safety crisis — do not delay.</div></div>
+          <div><div style="font-size:0.72rem;font-weight:700;color:#ff6b78;margin-bottom:2px;">P1 · Schedule urgent 1:1 with Arjun — this week</div><div style="font-size:0.63rem;color:var(--muted);">Risk 0.97 · Burnout 97% · PsySafe 22/100. Withdrawal pattern confirmed by BERT Fear Index (0.74). Psychological safety crisis — do not delay.</div></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 12px;background:rgba(255,71,87,0.05);border:1px solid rgba(255,71,87,0.12);border-radius:7px;">
           <span style="font-size:1rem;flex-shrink:0;">🏥</span>
-          <div><div style="font-size:0.72rem;font-weight:700;color:#ff4757;margin-bottom:2px;">P1 · EAP Referral for Arjun</div><div style="font-size:0.63rem;color:var(--muted);">Burnout indicators exceed clinical threshold. Recommend Employee Assistance Programme referral confidentially through HR.</div></div>
+          <div><div style="font-size:0.72rem;font-weight:700;color:#ff6b78;margin-bottom:2px;">P1 · EAP Referral for Arjun</div><div style="font-size:0.63rem;color:var(--muted);">Burnout indicators exceed clinical threshold. Recommend Employee Assistance Programme referral confidentially through HR.</div></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 12px;background:rgba(255,107,53,0.05);border:1px solid rgba(255,107,53,0.15);border-radius:7px;">
           <span style="font-size:1rem;flex-shrink:0;">📊</span>
@@ -1592,16 +1592,16 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <span style="color:#2ed573;font-weight:700;flex-shrink:0;">✓</span><span style="color:var(--muted);">Multicollinearity: 34/41 features dropped by VIF — 7 behavioral signals trained on</span>
         </div>
         <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 10px;background:rgba(255,71,87,0.04);border-radius:5px;border:1px solid rgba(255,71,87,0.12);">
-          <span style="color:#ff4757;font-weight:700;flex-shrink:0;">⚠</span><span style="color:var(--muted);">Fully synthetic training data — biggest production risk, no real org signals</span>
+          <span style="color:#ff6b78;font-weight:700;flex-shrink:0;">⚠</span><span style="color:var(--muted);">Fully synthetic training data — biggest production risk, no real org signals</span>
         </div>
         <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 10px;background:rgba(255,71,87,0.04);border-radius:5px;border:1px solid rgba(255,71,87,0.12);">
           <span style="color:#ffd32a;font-weight:700;flex-shrink:0;">~</span><span style="color:var(--muted);">WLB NLP r=0.305 · JobSat r=0.460 · AI r=0.469 — weak signal pillars need phrase redesign</span>
         </div>
         <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 10px;background:rgba(255,71,87,0.04);border-radius:5px;border:1px solid rgba(255,71,87,0.12);">
-          <span style="color:#ff4757;font-weight:700;flex-shrink:0;">⚠</span><span style="color:var(--muted);">BERT Fear Index: designed and simulated — not yet trained; bias audit pending</span>
+          <span style="color:#ff6b78;font-weight:700;flex-shrink:0;">⚠</span><span style="color:var(--muted);">BERT Fear Index: designed and simulated — not yet trained; bias audit pending</span>
         </div>
         <div style="display:flex;gap:8px;align-items:flex-start;padding:7px 10px;background:rgba(255,71,87,0.04);border-radius:5px;border:1px solid rgba(255,71,87,0.12);grid-column:span 2;">
-          <span style="color:#ff4757;font-weight:700;flex-shrink:0;">⚠</span><span style="color:var(--muted);">Privacy/GDPR framework not formalised — cannot deploy to real users until consent model and data residency are defined</span>
+          <span style="color:#ff6b78;font-weight:700;flex-shrink:0;">⚠</span><span style="color:var(--muted);">Privacy/GDPR framework not formalised — cannot deploy to real users until consent model and data residency are defined</span>
         </div>
       </div>
     </div>
@@ -1763,7 +1763,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px">Statistics</div>
       <div style="font-weight:600;font-size:0.92rem;color:var(--muted)">Test Hypotheses</div>
       <div style="font-size:0.8rem;color:var(--muted);margin-top:5px;line-height:1.5">Is A better than B?<br>Is this lift statistically real?</div>
-      <div style="margin-top:8px;font-size:0.75rem;color:rgba(255,255,255,0.25)">NOT what ProSense needs</div>
+      <div style="margin-top:8px;font-size:0.75rem;color:rgba(255,255,255,0.55)">NOT what ProSense needs</div>
     </div>
     <div style="padding:14px 16px;background:rgba(0,212,170,0.09);border:1px solid rgba(0,212,170,0.35);border-radius:10px">
       <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:6px">Machine Learning ✅ ProSense's Choice</div>
@@ -2413,7 +2413,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
         <div style="padding:10px;background:rgba(85,106,136,0.15);border-radius:8px;text-align:center">
           <div style="color:var(--muted);font-weight:700;margin-bottom:4px">Statistics</div>
           <div style="color:var(--muted);font-size:0.75rem;line-height:1.5">Test hypotheses<br>A/B testing<br>Significance tests</div>
-          <div style="margin-top:8px;font-size:0.72rem;color:rgba(255,255,255,0.25)">NOT ProSense</div>
+          <div style="margin-top:8px;font-size:0.72rem;color:rgba(255,255,255,0.55)">NOT ProSense</div>
         </div>
         <div style="padding:10px;background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.3);border-radius:8px;text-align:center">
           <div style="color:var(--teal);font-weight:700;margin-bottom:4px">Machine Learning ✅</div>
@@ -2762,7 +2762,7 @@ const MEMBERS = [
   {name:'Deepkant',desig:'Mgr',    score:44,risk:'MED', color:'#e67e22', mgr:true},
 ];
 const RISK_COLORS = {CRIT:'rgba(255,71,87,0.2)',HIGH:'rgba(255,107,53,0.18)',MED:'rgba(255,211,42,0.15)',LOW:'rgba(46,213,115,0.18)'};
-const RISK_TEXT   = {CRIT:'#ff4757',HIGH:'#ff6b35',MED:'#ffd32a',LOW:'#2ed573'};
+const RISK_TEXT   = {CRIT:'#ff6b78',HIGH:'#ff6b35',MED:'#ffd32a',LOW:'#2ed573'};
 const BAR_COLORS  = {CRIT:'#ff4757',HIGH:'#ff6b35',MED:'#ffd32a',LOW:'#2ed573'};
 const INITIALS    = ['A','M','R','D','K','D'];
 const AV_BG       = ['#7b2ff7','#0070d2','#e67e22','#2ed573','#00d4ff','#ff4757'];
@@ -3544,7 +3544,7 @@ function selectMember(idx) {
   const badge = document.getElementById('tm-risk-badge');
   if(badge){
     badge.textContent = m.riskLabel==='LOW'?'✓ LOW RISK':m.riskLabel==='MEDIUM'?'~ MEDIUM RISK':m.riskLabel==='HIGH'?'↑ HIGH RISK':'⚠ CRITICAL RISK';
-    badge.style.background = m.riskBg; badge.style.border = '1px solid '+m.riskBorder; badge.style.color = m.riskColor;
+    badge.style.background = m.riskBg; badge.style.border = '1px solid '+m.riskBorder; badge.style.color = (m.riskColor==='#ff4757'?'#ff7a86':m.riskColor);
   }
   setTxt('tm-risk-score',m.riskScore); setStyle('tm-risk-score','color',m.riskColor);
   setTxt('tm-burnout',m.burnout+'%');
@@ -3689,7 +3689,7 @@ if (window.location.protocol === 'file:') {
   <div class="notif-item">
     <div class="notif-dot" style="background:#ff4757;"></div>
     <div>
-      <div style="font-size:0.72rem;font-weight:700;color:#ff4757;margin-bottom:2px;">Critical Alert — Arjun Kumar</div>
+      <div style="font-size:0.72rem;font-weight:700;color:#ff6b78;margin-bottom:2px;">Critical Alert — Arjun Kumar</div>
       <div style="font-size:0.63rem;color:var(--muted);">Risk score 0.97 · Burnout 97% · BERT Fear Index 0.74. Immediate 1:1 recommended.</div>
       <div style="font-size:0.625rem;color:rgba(123,136,176,0.5);margin-top:3px;">Today · 09:14</div>
     </div>
@@ -5247,7 +5247,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v2.6</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.6</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v2.7</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.7</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.7 full review: easier-to-read text, Home Team Pulse shows all six people · v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('v2features','What is new in v2.0','v2.0,v2,what is new,new features,latest release,hide menu,hide navigation,menu button,customise page,customize page,check-in,needs a check-in,simulation charts,sphere speed',
     '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top left, from v2.1; it was top right in v2.0) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
@@ -5964,9 +5964,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v2.6';
+  var CUR = 'v2.7';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v2.7', d:'18 Nov 2026', t:'Full review: easier-to-read text, Home Team Pulse shows all six people', add:['Readability: muted grey, purple and red text lightened so small text passes the 4.5:1 contrast check on every page (Home greeting and quote, 3 New badge, risk badges, Models, MLOps, Architecture)','Home: the bottom row is taller so Team Pulse shows all six members (Deepkant was cut off); the Team Pulse header no longer wraps','Home: Team Pulse and Key Signals scroll inside their card if a screen is short','Checked on all 10 pages at desktop and phone width: no script errors, no sideways scroll, no stray names or company terms']},
     {v:'v2.6', d:'18 Nov 2026', t:'Ask ProSense moves to the header; no more empty space inside cards', add:['Ask ProSense: the button now sits in the header next to ⚙, so it no longer covers the bottom of Home or any other page (in Focus view it still floats at the bottom right)','Risk Signals: the Live Risk Signals feed now scrolls inside the card instead of stretching the Team Risk Scorecard into a tall empty box','Cards in a row: when one card is much shorter than its neighbour it keeps its own height, so there is no empty space inside it (4 Models, Architecture, AI & Productivity)','Phone: on small screens the header button shortens to Ask and the ProSense name makes room']},
     {v:'v2.5', d:'18 Nov 2026', t:'Works on narrow screens: tablet and phone layout', add:['Left menu: below about 1100 px wide it folds away and opens from ☰ Menu as a slide-over; tapping an item or the dimmed area closes it, and so does Esc','Home: stacks into one or two columns instead of being cut off; the globe sits between the cards','Other pages: card rows stack and wide tables scroll sideways inside their card','Header: the People / Teams / Outcomes pills and the name label hide on small screens so the ⚙ menu, avatar and bell stay in view','Wide screens look exactly as before; the old 1100 px minimum width is gone']},
     {v:'v2.4', d:'18 Nov 2026', t:'Quality pass: keyboard and screen-reader access, readable text, small fixes', add:['Keyboard: the left menu, ☰ Menu and the People / Teams / Outcomes pills can be reached with Tab and used with Enter or Space','Screen readers: charts have text descriptions, the page has a main area and page headings, and the current menu item is announced','Text: nothing on the dashboard is smaller than 10 px; the Gap radar and the chart axes are larger','Motion: respects the reduced-motion setting of your device (the globe slows and animations stop)','Fixes: stray gap in the menu item "Deepkant ’s Situation"; Ask ProSense no longer covers the bottom of each page; Model A (Primary) now comes before Model B (Challenger)']},
