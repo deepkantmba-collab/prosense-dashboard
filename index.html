@@ -93,7 +93,9 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
 .tb-pill:hover{color:var(--fg);}
 .tb-pill.active{background:rgba(0,212,255,0.1);border-color:rgba(0,212,255,0.25);color:var(--teal);}
 .tb-right{display:flex;align-items:center;gap:14px;}
-#tb-clock{font-size:0.78rem;color:var(--muted);font-family:monospace;white-space:nowrap;}
+#tb-clock{font-size:0.78rem;color:var(--muted);font-family:monospace;white-space:nowrap;margin-left:6px;}
+body.ps-nav-hidden #sidebar{display:none!important;}
+#ps-nav-btn.on{background:rgba(0,212,255,.25);}
 .nav-group-h{display:flex;align-items:center;gap:8px;padding:11px 18px;margin-top:6px;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);border-top:1px solid rgba(255,255,255,.07);user-select:none;}
 .nav-group-h:hover,.nav-group-h:focus-visible{color:var(--fg);outline:none;}
 .nav-group-h .nav-caret{margin-left:auto;transition:transform .2s;}
@@ -229,7 +231,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 .bubble-delta{font-size:0.65rem;font-weight:600;margin-top:1px;}
 .bubble-note{font-size:0.58rem;color:var(--muted);}
 #bub-health{top:6%;left:50%;transform:translateX(-50%);border:1px solid rgba(0,212,255,0.3);min-width:110px;}
-#bub-prod{top:28%;left:2%;border:1px solid rgba(46,213,115,0.3);}
+#bub-checkin{top:28%;left:2%;border:1px solid rgba(255,107,53,0.35);}
 #bub-collab{bottom:28%;left:2%;border:1px solid rgba(123,136,176,0.25);}
 #bub-well{top:28%;right:2%;border:1px solid rgba(255,71,87,0.3);}
 #bub-risk{bottom:28%;right:2%;border:1px solid rgba(255,107,53,0.3);}
@@ -559,8 +561,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       </div>
     </div>
     <div class="tb-right">
-      <div id="tb-clock">06 Oct 2026 · 00:00:00</div>
-      <div class="cz-btn" onclick="openCustomize()" title="Customise Home">✎ Customise</div>
+      <div class="cz-btn" onclick="openCustomize()" title="Customise the panels on this page">✎ Customise</div>
       <div class="cz-btn" id="pf-focus-btn" onclick="pfToggleFocus()" title="Focus view: hide the menu and header (press Esc to exit)">⛶ Focus</div>
       <div class="tb-bell" onclick="toggleNotif()" title="Notifications">🔔</div>
       <div class="tb-user">
@@ -570,6 +571,8 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <div class="tb-role">Admin</div>
         </div>
       </div>
+      <div id="tb-clock">06 Oct 2026 · 00:00:00</div>
+      <div class="cz-btn" id="ps-nav-btn" onclick="psToggleNav()" title="Hide or show the left menu">☰ Menu</div>
     </div>
   </div>
 
@@ -646,6 +649,11 @@ body.pf-focus #pf-focus-bar{display:flex;}
             <div class="bubble-val" style="color:#ff4757;">38%</div>
             <div class="bubble-delta" style="color:#ff4757;">↓ Critical</div>
             <div class="bubble-note">below 60 threshold</div>
+          </div>
+          <div class="bubble" id="bub-checkin">
+            <div class="bubble-label">NEEDS A CHECK-IN</div>
+            <div class="bubble-val" id="bub-checkin-val" style="color:#ff6b35;">–</div>
+            <div class="bubble-note">critical or high risk · of 6</div>
           </div>
           <div class="bubble" id="bub-collab">
             <div class="bubble-label">COLLABORATION</div>
@@ -2675,7 +2683,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 <div class="cz-overlay" id="cz-overlay" onclick="closeCustomize()"></div>
 <div id="cz-panel">
   <div class="cz-ph">
-    <div style="font-size:0.85rem;font-weight:700;color:var(--fg);">✎ Customise Home</div>
+    <div id="cz-title" style="font-size:0.85rem;font-weight:700;color:var(--fg);">✎ Customise Home</div>
     <div class="cz-close" onclick="closeCustomize()">✓ Done</div>
   </div>
   <div class="cz-hint">Toggle widgets on or off. Changes save automatically and persist across sessions.</div>
@@ -2822,11 +2830,12 @@ document.querySelectorAll('.sig-tab').forEach(t => {
   const COLORS = { high: '#ff4757', med: '#ff6b35', low: '#00d4ff' };
   const CONN_THRESH = 0.38;
 
-  let angle = 0;
+  let angle = 0, spin = 1;
 
   function frame() {
     ctx.clearRect(0, 0, W, H);
-    angle += 0.004;
+    spin += ((window.PS_SPIN_T || 1) - spin) * 0.05;   // eases up or down with the simulation speed
+    angle += 0.004 * spin;
     const cosA = Math.cos(angle), sinA = Math.sin(angle);
 
     // project
@@ -3073,12 +3082,48 @@ const CZ_WIDGETS = [
 ];
 let czPrefs = {};
 
+// Every page except Home uses its top-level cards as the panel list
+let czPagePrefs = {};
+function czPageEl() {
+  return Array.from(document.querySelectorAll('#dash-area > div[id^="page-"]')).find(p => getComputedStyle(p).display !== 'none') || document.getElementById('page-home');
+}
+function czPageName() {
+  const a = document.querySelector('#sidebar .nav-item.active');
+  const t = a ? (a.innerText || a.textContent || '') : '';
+  return t.replace(/^[^A-Za-z]+/, '').replace(/\s+/g, ' ').trim() || 'this page';
+}
+function czCards(page) { return Array.from(page.querySelectorAll('.card')).filter(c => !c.parentElement.closest('.card')); }
+function czLabel(c, i) {
+  const t = c.querySelector('.card-title, h2, h3, .section-title');
+  let s = '';
+  if (t) {
+    const k = t.cloneNode(true);
+    k.querySelectorAll('*').forEach(e => { const x = (e.textContent || '').trim(); if (x === 'i' || /info|drag/i.test(e.className)) e.remove(); });
+    s = k.textContent;
+  }
+  if (!s.trim()) s = (c.innerText || '').split('\n').map(x => x.replace(/[⠿]/g, '').trim()).find(x => x.length > 1) || '';
+  s = s.replace(/\s+/g, ' ').trim();
+  return (s.length > 38 ? s.slice(0, 36) + '…' : s) || ('Panel ' + (i + 1));
+}
+function czSetCard(c, show) {
+  if (show) { c.style.display = c.dataset.czdisp || ''; }
+  else { if (c.style.display !== 'none') c.dataset.czdisp = c.style.display; c.style.display = 'none'; }
+}
+function czApplyPages() {
+  try { czPagePrefs = JSON.parse(localStorage.getItem('prosense_page_prefs') || '{}'); } catch(e) { czPagePrefs = {}; }
+  document.querySelectorAll('#dash-area > div[id^="page-"]').forEach(p => {
+    if (p.id === 'page-home') return;
+    czCards(p).forEach((c, i) => { c.dataset.czid = p.id + ':' + i; czSetCard(c, czPagePrefs[c.dataset.czid] !== false); });
+  });
+}
+
 function loadCzPrefs() {
   try { czPrefs = JSON.parse(localStorage.getItem('prosense_home_prefs') || '{}'); } catch(e) { czPrefs = {}; }
   CZ_WIDGETS.forEach(w => {
     const el = document.getElementById(w.id);
     if (el) el.style.display = czPrefs[w.id] === false ? 'none' : '';
   });
+  czApplyPages();
 }
 
 function openCustomize() {
@@ -3095,27 +3140,53 @@ function closeCustomize() {
 function buildCzList() {
   const list = document.getElementById('cz-list');
   if (!list) return;
+  const page = czPageEl();
+  const home = page.id === 'page-home';
+  const ttl = document.getElementById('cz-title');
+  if (ttl) ttl.textContent = '✎ Customise ' + (home ? 'Home' : czPageName());
+  let items;
+  if (home) {
+    items = CZ_WIDGETS.map(w => ({ id: w.id, label: w.label, icon: w.icon, on: czPrefs[w.id] !== false }));
+  } else {
+    items = czCards(page).map((c, i) => {
+      if (!c.dataset.czid) c.dataset.czid = page.id + ':' + i;
+      return { id: c.dataset.czid, label: czLabel(c, i), icon: '▫', on: c.style.display !== 'none' };
+    });
+  }
   list.innerHTML = '';
-  CZ_WIDGETS.forEach(w => {
-    const isOn = czPrefs[w.id] !== false;
+  if (!items.length) { list.innerHTML = '<div style="padding:14px;font-size:0.72rem;color:var(--muted);">This page has no panels you can hide.</div>'; return; }
+  items.forEach(w => {
     const item = document.createElement('div');
     item.className = 'cz-item';
     item.innerHTML = `
       <div class="cz-item-left">
         <span style="font-size:1rem;width:22px;text-align:center;">${w.icon}</span>
-        <span class="cz-item-name">${w.label}</span>
+        <span class="cz-item-name"></span>
       </div>
-      <div class="cz-switch ${isOn?'on':''}" id="sw-${w.id}" onclick="toggleWidget('${w.id}')">
+      <div class="cz-switch ${w.on ? 'on' : ''}" id="sw-${w.id}">
         <div class="cz-switch-knob"></div>
       </div>`;
+    item.querySelector('.cz-item-name').textContent = w.label;
+    item.querySelector('.cz-switch').addEventListener('click', () => toggleWidget(w.id));
     list.appendChild(item);
   });
 }
 
 function toggleWidget(id) {
-  const el = document.getElementById(id);
   const sw = document.getElementById('sw-' + id);
-  if (!el || !sw) return;
+  if (!sw) return;
+  if (id.indexOf(':') > -1) {
+    const c = document.querySelector('[data-czid="' + id + '"]');
+    if (!c) return;
+    const turnOff = c.style.display !== 'none';
+    czSetCard(c, !turnOff);
+    czPagePrefs[id] = !turnOff;
+    sw.classList.toggle('on', !turnOff);
+    localStorage.setItem('prosense_page_prefs', JSON.stringify(czPagePrefs));
+    return;
+  }
+  const el = document.getElementById(id);
+  if (!el) return;
   const turnOff = czPrefs[id] !== false;
   czPrefs[id] = !turnOff;
   el.style.display = turnOff ? 'none' : '';
@@ -3124,12 +3195,29 @@ function toggleWidget(id) {
 }
 
 function resetCustomize() {
-  czPrefs = {};
-  localStorage.removeItem('prosense_home_prefs');
-  localStorage.removeItem('prosense_card_order');
-  CZ_WIDGETS.forEach(w => { const el = document.getElementById(w.id); if (el) el.style.display = ''; });
+  const page = czPageEl();
+  if (page.id === 'page-home') {
+    czPrefs = {};
+    localStorage.removeItem('prosense_home_prefs');
+    localStorage.removeItem('prosense_card_order');
+    CZ_WIDGETS.forEach(w => { const el = document.getElementById(w.id); if (el) el.style.display = ''; });
+  } else {
+    czCards(page).forEach(c => { delete czPagePrefs[c.dataset.czid]; czSetCard(c, true); });
+    localStorage.setItem('prosense_page_prefs', JSON.stringify(czPagePrefs));
+  }
   buildCzList();
 }
+
+// ── Left menu show / hide (button at the right end of the header) ──
+function psToggleNav(force) {
+  const on = typeof force === 'boolean' ? force : !document.body.classList.contains('ps-nav-hidden');
+  document.body.classList.toggle('ps-nav-hidden', on);
+  const b = document.getElementById('ps-nav-btn');
+  if (b) { b.classList.toggle('on', on); b.textContent = on ? '☰ Show menu' : '☰ Menu'; }
+  try { localStorage.setItem('prosense_nav_hidden', on ? '1' : '0'); } catch (e) {}
+  window.dispatchEvent(new Event('resize'));
+}
+try { if (localStorage.getItem('prosense_nav_hidden') === '1') window.addEventListener('load', () => psToggleNav(true)); } catch (e) {}
 
 // ── Drag & Drop reorder ──────────────────────────────────────────
 function initDragDrop() {
@@ -3225,16 +3313,20 @@ function buildHeatmap() {
   ];
   const tbody = document.getElementById('rpt-heatmap');
   if (!tbody) return;
+  tbody.innerHTML = '';
+  const simd = window.PS_SIM_D;
   rows.forEach(r => {
     const tr = document.createElement('tr');
     tr.style.borderBottom = '1px solid rgba(255,255,255,0.04)';
     const nameTd = document.createElement('td');
     nameTd.style.cssText = 'padding:5px;font-weight:600;color:var(--fg);white-space:nowrap;';
-    nameTd.textContent = r.name; if (r.mgr) nameTd.className = 'ps-owner';
+    nameTd.textContent = (r.mgr && typeof PS_OWN !== 'undefined' && PS_OWN && PS_OWN.first) ? PS_OWN.first : r.name; if (r.mgr) nameTd.className = 'ps-owner';
     tr.appendChild(nameTd);
-    r.scores.forEach(s => {
+    r.scores.forEach(s0 => {
+      let s = s0;
       const td = document.createElement('td');
       td.style.cssText = 'text-align:center;padding:4px;';
+      if (simd != null) s = Math.min(1, s + (1 - s) * simd * 1.25 / 100);
       const pct = Math.round(s * 100);
       const col = s < 0.25 ? '#ff4757' : s < 0.45 ? '#ff6b35' : s < 0.65 ? '#ffd32a' : '#2ed573';
       td.innerHTML = `<span style="display:inline-block;padding:2px 5px;border-radius:4px;background:${col}22;color:${col};font-weight:700;font-size:0.65rem;">${pct}%</span>`;
@@ -3306,8 +3398,9 @@ function renderHomePillars() {
   if (HP_SEL !== 'team' && (!ok || !TEAM_DATA[+HP_SEL])) HP_SEL = 'team';
   const sel = document.getElementById('home-pillars-sel');
   if (sel) {
-    sel.innerHTML = '<option value="team">Team average</option>' +
+    const optHtml = '<option value="team">Team average</option>' +
       TEAM_DATA.map((m, i) => '<option value="' + i + '">' + (ok ? '' : '🔒 ') + m.name + '</option>').join('');
+    if (sel.dataset.sig !== optHtml) { sel.innerHTML = optHtml; sel.dataset.sig = optHtml; }
     sel.value = HP_SEL;
   }
   const indiv = HP_SEL !== 'team' ? TEAM_DATA[+HP_SEL] : null;
@@ -3318,13 +3411,15 @@ function renderHomePillars() {
   const labels = TEAM_DATA[0].pillars.map(p => p.label);
   box.innerHTML = labels.map((lab, i) => {
     let avg;
+    const burn = /burnout/i.test(lab);
+    const simd = window.PS_SIM_D;
+    const sadj = v => simd == null ? v : Math.max(0, Math.min(1, burn ? v * (1 - simd * 1.1 / 100) : v + (1 - v) * simd * 1.25 / 100));
     if (indiv) {
-      avg = indiv.pillars[i] ? indiv.pillars[i].score : 0;
+      avg = sadj(indiv.pillars[i] ? indiv.pillars[i].score : 0);
     } else {
-      const vals = TEAM_DATA.map(m => m.pillars[i] ? m.pillars[i].score : null).filter(v => v !== null);
+      const vals = TEAM_DATA.map(m => m.pillars[i] ? sadj(m.pillars[i].score) : null).filter(v => v !== null);
       avg = vals.reduce((x, y) => x + y, 0) / vals.length;
     }
-    const burn = /burnout/i.test(lab);
     if (burn) avg = 1 - avg;
     const pct = Math.round(avg * 100);
     const col = avg < 0.25 ? '#ff4757' : avg < 0.45 ? '#ff6b35' : avg < 0.65 ? '#ffd32a' : '#2ed573';
@@ -3336,6 +3431,11 @@ function renderHomePillars() {
   }).join('');
 }
 renderHomePillars();
+(function () {
+  const n = TEAM_DATA.filter(m => m.riskLabel === 'CRITICAL' || m.riskLabel === 'HIGH').length;
+  const el = document.getElementById('bub-checkin-val');
+  if (el) { el.textContent = n + ' of ' + TEAM_DATA.length; el.style.color = n ? '#ff6b35' : '#2ed573'; }
+})();
 
 function renderPillars(pillars) {
   const container = document.getElementById('tm-pillars');
@@ -3516,6 +3616,7 @@ function psSetUser(full) {
   try { MEMBERS.forEach(function(m){ if (m.mgr) m.name = first; }); } catch (e) {}
   try { renderTable(); selectMember(currentMember); } catch (e) {}
   try { renderHomePillars(); } catch (e) {}
+  try { window.psSyncAcct && window.psSyncAcct(); } catch (e) {}
   var tn = first + "'s Engineering Team";
   try { EMAIL_CONFIG.teamName = tn; } catch (e) {}
   var c = document.getElementById('cfg-team'); if (c) { c.value = tn; c.placeholder = tn; }
@@ -5088,9 +5189,9 @@ function PSA_ENGINE(getEnv){
     '<p><b>Today:</b> the Random Forest sees 7 structured features only. The wording columns are removed before training. The phrase engine does read wording, so the stored table should be cleaned to match this design.</p>'+
     '<p><b>Honest limit:</b> scores about a person are still personal data, so consent and GDPR still apply.</p>',
     {tags:['Designed'],go:'models',src:'4 Models page · Privacy Guard card',follow:['Which models are trained?','What data do you capture?']});
-  K('slideshow','Slide show','slide show,slideshow,slides,play slides,auto play,autoplay pages,full screen slides,present the dashboard,play the dashboard,cycle pages',
-    '<p>Click <b>▶ Slides</b> in the top bar. The dashboard goes full screen, hides the menu, and moves to the next page automatically. Pick the pace with the <b>Speed</b> box in the bar at the bottom (5, 10, 15, 20, 30 or 60 seconds per page; the default is 20).</p><ul><li><b>❚❚ Auto-run on / ▶ Auto-run off</b> or <b>Space</b> turns auto-run on or off</li><li><b>‹ ›</b> or the <b>Arrow keys</b> to move by hand</li><li><b>Esc</b> or <b>Stop slides</b> to finish</li></ul><p>Team Intelligence and Priya\'s Situation are skipped until the wellbeing consent is given, because they show individual scores. Open one of them once and confirm, and the show includes them for 24 hours.</p>',
-    {tags:['Info'],src:'Top bar · ▶ Slides',follow:['How do I go full screen?','What is Focus view?']});
+  K('slideshow','Showcase (auto-run)','showcase,slide show,slideshow,slides,play slides,auto play,autoplay pages,full screen slides,present the dashboard,play the dashboard,cycle pages',
+    '<p>Click <b>▶ Showcase</b> in the top bar. The dashboard goes full screen, hides the menu, and moves to the next page automatically. Pick the pace with the <b>Speed</b> box in the bar at the bottom (5, 10, 15, 20, 30 or 60 seconds per page; the default is 20).</p><ul><li><b>❚❚ Auto-run on / ▶ Auto-run off</b> or <b>Space</b> turns auto-run on or off</li><li><b>‹ ›</b> or the <b>Arrow keys</b> to move by hand</li><li><b>Esc</b> or <b>Stop Showcase</b> to finish</li></ul><p>Team Intelligence and Priya\'s Situation are skipped until the wellbeing consent is given, because they show individual scores. Open one of them once and confirm, and the show includes them for 24 hours.</p>',
+    {tags:['Info'],src:'Top bar · ▶ Showcase',follow:['How do I go full screen?','What is Focus view?']});
   K('why-rf','Why Random Forest?','why random forest,rf,primary model,why tree models,tree based,why not deep learning,why not neural network,why trees,why rf,deep learning',
     '<p>The data is a <b>table</b>, and tree models are the proven choice for tables. They capture combinations (e.g. overtime together with few 1:1s) that simple linear models miss, work well on 5,000 rows (deep learning needs far more), are explainable with SHAP, train in seconds and need no GPU.</p><p><b>Random Forest</b>: hundreds of trees vote, so it is stable and hard to overfit. It had the best AUC and the fewest false alarms, so it is the <b>primary</b> model.</p>',
     {tags:['Trained'],src:'Deck slide 12',follow:['Why a second model (HistGradientBoosting)?','Compare the two trained models']});
@@ -5149,8 +5250,11 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v1.17</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v1.17</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v2.0</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.0</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
+  K('v2features','What is new in v2.0','v2.0,v2,what is new,new features,latest release,hide menu,hide navigation,menu button,customise page,customize page,check-in,needs a check-in,simulation charts,sphere speed',
+    '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top right) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
+    {tags:['Info'],src:'Settings › Versions & roll back',follow:['How do I see older versions?','How do I run the simulation?']});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
     '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 31'});
   K('pages','The 10 dashboard pages','pages,tabs,navigation,menu,ten pages,10 pages,sections,whats on each page,tour,dashboard tour,list of pages',
@@ -5600,7 +5704,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     '<div class="ps-s-sec">ACCOUNT</div>'+
     '<div class="ps-s-acct"><div class="av">'+uname.trim().charAt(0).toUpperCase()+'</div><div class="nm"><b>'+uname.replace(/[<>&]/g,'')+'</b><span>Admin · controls apply to this browser</span></div><button type="button" class="ps-s-btn" id="ps-s-out">Sign out</button></div>'+
     '<div class="ps-s-sec">PAGE</div>'+
-    '<div class="ps-s-row"><div><b>Customise current page</b><p>Choose which panels appear on the Home page.</p></div><button type="button" class="ps-s-btn" id="ps-s-cust">Customise</button></div>'+
+    '<div class="ps-s-row"><div><b>Customise current page</b><p>Choose which panels appear on the page you are on now.</p></div><button type="button" class="ps-s-btn" id="ps-s-cust">Customise</button></div>'+
     '<div class="ps-s-sec">DISPLAY</div>'+
     '<div class="ps-s-row"><div><b>Appearance</b><p>Switch between the dark and light look.</p></div><div class="ps-seg" id="ps-s-theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div></div>'+
     '<div class="ps-s-row"><div><b>Full screen <span class="ps-s-state" id="ps-st-fs">OFF</span></b><p>Fill the whole screen with the dashboard. Press Esc to leave.</p></div>'+sw('ps-sw-fs','Full screen')+'</div>'+
@@ -5631,7 +5735,9 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   var tb = $('topbar'); if (tb) tb.insertAdjacentElement('afterend', bar); else body.insertBefore(bar, body.firstChild);
 
   /* ───────── open / close ───────── */
-  function openSet(on){ body.classList.toggle('ps-set-open', on); if(on){ sync(); setTimeout(function(){ $('ps-s-x').focus(); },60); } else hb.focus && hb.focus(); }
+  function syncAcct(){ var n=((document.querySelector('.tb-username')||{}).textContent||'').trim()||'Admin user'; var av=panel.querySelector('.ps-s-acct .av'), nm=panel.querySelector('.ps-s-acct .nm b'); if(av) av.textContent=n.charAt(0).toUpperCase(); if(nm) nm.textContent=n; }
+  window.psSyncAcct=syncAcct;
+  function openSet(on){ body.classList.toggle('ps-set-open', on); if(on){ syncAcct(); sync(); setTimeout(function(){ $('ps-s-x').focus(); },60); } else hb.focus && hb.focus(); }
   hb.addEventListener('click', function(){ openSet(true); });
   hb.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSet(true); } });
   $('ps-s-x').addEventListener('click', function(){ openSet(false); });
@@ -5704,7 +5810,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   $('ps-sw-as').addEventListener('click', function(){ P.assistant=!P.assistant; save(); body.classList.toggle('ps-noassist',!P.assistant); sync(); });
 
   /* ───────── page / account ───────── */
-  $('ps-s-cust').addEventListener('click', function(){ openSet(false); try{ openCustomize(); }catch(e){ toast('Customise is available on the Home page'); } });
+  $('ps-s-cust').addEventListener('click', function(){ openSet(false); try{ openCustomize(); }catch(e){ toast('Customise is not available here'); } });
   $('ps-s-out').addEventListener('click', function(){ location.reload(); });
   $('ps-s-def').addEventListener('click', function(){ P={theme:'dark',anon:false,sim:false,assistant:true,desig:false}; save(); applyTheme(); body.classList.remove('ps-show-desig'); setAnon(false); showSim(false); body.classList.remove('ps-noassist'); sync(); toast('Defaults restored'); });
 
@@ -5749,6 +5855,59 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
       var bar=r.querySelector('.member-bar'); if(bar) bar.style.width=v+'%';
       var pc=r.children[3]; if(pc) pc.textContent=v+'%'; });
   }
+  /* ── the rest of the dashboard follows the simulation ── */
+  var ORIG=new Map(), ORIGA=new Map();
+  function put(el,txt,col){ if(!el) return; if(!ORIG.has(el)) ORIG.set(el,{t:el.textContent,c:el.style.color}); el.textContent=txt; if(col) el.style.color=col; }
+  function putA(el,attr,val){ if(!el) return; var o=ORIGA.get(el); if(!o){ o={}; ORIGA.set(el,o); } if(!(attr in o)) o[attr]=el.getAttribute(attr); el.setAttribute(attr,val); }
+  function restoreHome(){ ORIG.forEach(function(o,el){ el.textContent=o.t; el.style.color=o.c; }); ORIG.clear(); ORIGA.forEach(function(o,el){ for(var a in o){ if(o[a]==null) el.removeAttribute(a); else el.setAttribute(a,o[a]); } }); ORIGA.clear(); }
+  function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
+  function qs(x){ return document.querySelector(x); }
+  var STY={CRITICAL:{riskColor:'#ff4757',riskBg:'rgba(255,71,87,0.18)',riskBorder:'rgba(255,71,87,0.45)'},HIGH:{riskColor:'#ff6b35',riskBg:'rgba(255,107,53,0.15)',riskBorder:'rgba(255,107,53,0.4)'},MEDIUM:{riskColor:'#ffd32a',riskBg:'rgba(255,211,42,0.12)',riskBorder:'rgba(255,211,42,0.4)'},LOW:{riskColor:'#2ed573',riskBg:'rgba(46,213,115,0.12)',riskBorder:'rgba(46,213,115,0.4)'}};
+  function bandOf(h){ return h<0.25?['Critical','#ff4757']:h<0.45?['Vulnerable','#ff6b35']:h<0.65?['Cautious','#ffd32a']:h<0.78?['Stable','#2ed573']:['Thriving','#2ed573']; }
+  function adjMember(m,d){
+    var c=Object.assign({},m);
+    c.burnout=adj(m.burnout,-d*1.1*m.burnout/100); c.psysafe=adj(m.psysafe,d*1.25*(100-m.psysafe)/100); c.aiAdopt=adj(m.aiAdopt,d*0.9*(100-m.aiAdopt)/100);
+    c.riskScore=Math.round(clamp(m.riskScore*(1-d*0.012),0.05,0.99)*100)/100;
+    c.radar=m.radar.map(function(v){ return adj(v,d*1.25*(100-v)/100); });
+    c.pillars=m.pillars.map(function(p){ var burn=/burnout/i.test(p.label); var sc=clamp(burn?p.score*(1-d*1.1/100):p.score+(1-p.score)*d*1.25/100,0,1); var b=bandOf(burn?1-sc:sc); return {label:p.label,score:sc,band:b[0],color:b[1]}; });
+    var L=c.riskScore>=0.85?'CRITICAL':c.riskScore>=0.6?'HIGH':c.riskScore>=0.4?'MEDIUM':'LOW'; Object.assign(c,STY[L],{riskLabel:L});
+    return c;
+  }
+  var origSel=null;
+  function hookMember(){
+    if (origSel||typeof selectMember!=='function') return; origSel=selectMember;
+    window.selectMember=function(i){
+      if(!S.active||window.PS_SIM_D==null) return origSel(i);
+      var real=TEAM_DATA.slice(), d=window.PS_SIM_D;
+      try { for(var k=0;k<real.length;k++) TEAM_DATA[k]=adjMember(real[k],d); return origSel(i); }
+      finally { for(var j=0;j<real.length;j++) TEAM_DATA[j]=real[j]; }
+    };
+  }
+  function homeApply(d){
+    window.PS_SIM_D=d;
+    restoreHome();
+    if(d!=null){
+      var h=clamp(Math.round(38+d*1.25),5,95), hc=h<40?'#ff4757':h<60?'#ff6b35':'#2ed573', hl=h<40?'Critical':h<60?'At risk':'Healthy', ha=h<60?'↓ ':'↑ ';
+      var w=Math.round(-6+d*0.55), wt=w<0?'↓ '+(-w)+'%':w>0?'↑ '+w+'%':'→ 0%', wc=w<0?'#ff4757':w>0?'#2ed573':'var(--muted)';
+      var r=clamp(0.74-d*0.021,0.12,0.95), rt=(r>=0.6?'↑ ':'↓ ')+r.toFixed(2), rc=r>=0.6?'#ff6b35':r>=0.4?'#ffd32a':'#2ed573';
+      var ct=d>=12?'↑ Rising':d>=6?'↗ Improving':'→ Flat', cc=d>=12?'#2ed573':d>=6?'#9be564':'var(--muted)';
+      put(qs('#bub-health .bubble-val'),h+'%',hc); put(qs('#bub-health .bubble-delta'),ha+hl,hc); put(qs('#bub-health .bubble-note'),(h<60?'below':'above')+' 60 threshold');
+      put(qs('#bub-well .bubble-val'),wt,wc); put(qs('#bub-collab .bubble-val'),ct,cc); put(qs('#bub-risk .bubble-val'),rt,rc);
+      var rows=document.querySelectorAll('.safe-card .safe-row-val');
+      put(rows[0],ct,cc); put(rows[1],wt,wc); put(rows[2],rt,rc);
+      put(qs('.safe-card .donut-pct'),h+'%'); put(qs('.safe-card .donut-delta'),ha+hl,hc);
+      var ring=qs('.safe-card svg circle[stroke-dasharray]'); if(ring){ putA(ring,'stroke-dasharray',(h/100*188.5).toFixed(1)+' 188.5'); putA(ring,'stroke',hc); }
+      try { var M=MEMBERS, n=0; M.forEach(function(m){ if(adj(m.score,-d*1.1*m.score/100)>=60) n++; }); put(qs('#bub-checkin-val'),n+' of '+M.length,n?'#ff6b35':'#2ed573'); } catch(e){}
+      var poly=qs('#cw-gap svg polygon[stroke="#00d4ff"]');
+      if(poly){ var k=Math.min(1.35,0.55+h/38*0.45), base=[[0,-33],[31,-10],[20,27],[-20,27],[-31,-10]]; putA(poly,'points',base.map(function(p){ return (p[0]*k).toFixed(1)+','+(p[1]*k).toFixed(1); }).join(' '));
+        var kl=1+(k-1)*0.6; document.querySelectorAll('#cw-gap svg text').forEach(function(t){ var m=/(\d+)%/.exec(t.textContent); if(m) put(t,t.textContent.replace(/\d+%/,Math.min(98,Math.round(+m[1]*kl))+'%')); }); }
+    }
+    try { renderHomePillars(); } catch(e){}
+    try { buildHeatmap(); } catch(e){}
+    hookMember(); try { selectMember(currentMember); } catch(e){}
+  }
+  function spinSet(){ window.PS_SPIN_T = S.run ? 1+S.speed*0.8 : 1; }
+  var lastHome=0;
   function render(){
     var vs=simVals(S.t), wk=Math.min(12,Math.floor(S.t+1e-9));
     $('ps-sim-wk').textContent = S.active ? (S.t>=12?'Week 12 / 12 ✓':'Week '+wk+' / 12') : 'Week 0 / 12';
@@ -5761,6 +5920,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     EVENTS.forEach(function(e,i){ if(S.t>=e[0] && !S.fired[i]){ S.fired[i]=1; $('ps-sim-ev').textContent='Week '+Math.min(12,Math.floor(e[0]))+': '+e[1]; } });
     if (S.t>=12) $('ps-sim-ev').textContent='Simulation complete: PsySafe 44 → 63, delivery risk ↓31% (simulated, synthetic data). Week 12: team catches a flawed AI report, $2–4M exposure flagged.';
     hookTable(); if (typeof renderTeamTable==='function') renderTeamTable(); pulseApply(S.active?vs.d:null);
+    spinSet();
+    var nowT=performance.now();
+    if(!S.active){ if(S.touched){ S.touched=false; homeApply(null); } }
+    else if(!S.run || nowT-lastHome>200){ lastHome=nowT; S.touched=true; homeApply(vs.d); }
     $('ps-sim-run').textContent = S.run ? '❚❚ Pause' : (S.t>=12 ? '▶ Run again' : (S.active?'▶ Resume':'▶ Run'));
   }
   function frame(){
@@ -5782,7 +5945,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
   $('ps-sim-run').addEventListener('click', simRun);
   $('ps-sim-reset').addEventListener('click', function(){ simReset(); });
-  $('ps-sim-spd').addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; S.speed=+b.getAttribute('data-s'); [].forEach.call($('ps-sim-spd').children,function(x){ x.classList.toggle('on',x===b); }); });
+  $('ps-sim-spd').addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; S.speed=+b.getAttribute('data-s'); [].forEach.call($('ps-sim-spd').children,function(x){ x.classList.toggle('on',x===b); }); spinSet(); });
   function showSim(on){ P.sim=on; save(); body.classList.toggle('ps-sim-on',on); if(!on) simReset(); }
   $('ps-sw-sim').addEventListener('click', function(){ showSim(!P.sim); sync(); });
 
@@ -5795,9 +5958,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v1.17';
+  var CUR = 'v2.0';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v2.0', d:'18 Nov 2026', t:'Simulation drives the whole Home page, per-page Customise, Showcase', add:['Simulation now updates the Home bubbles, Safe Score, 7 Pillars, Gap radar, Reports heatmap and the Team Intelligence profile (before, only Team Pulse moved). Reset puts every value back. The Risk Signals page and the story-page visuals are fixed illustrations and do not move','The sphere spins faster as the simulation speed goes up and eases back when it stops','New Home bubble "Needs a check-in" (members at critical or high risk) in the spot where Productivity used to be','Customise (top bar and Settings) opens the panel list for the page you are on, not always Home. Reset affects that page only','New ☰ Menu button at the top right hides or shows the left navigation bar','The date and time sit after the user name at the top right','Settings › Account shows the signed-in user (it always said Deepkant Verma)','"▶ Slides" is now "▶ Showcase"']},
     {v:'v1.17', d:'17 Nov 2026', t:'Optional designations, Team member labels', add:['New switch ⚙ Settings › Show designations: job titles (Sr. Engineer, Manager …) are hidden by default and shown only when you pick','Anonymous names now read Team member 1, Team member 2 … (they were Engineer 1, Engineer 2 …) and the manager is Team member 6','Home › 7 Pillars card: a dropdown switches between the team average and any one member (individual scores need the same consent as Team Intelligence)']},
     {v:'v1.16', d:'17 Nov 2026', t:'Home clean-up, your team name, slide speed', add:['Home: Team Velocity card, Velocity row and Productivity tile removed; new 7 Pillars team-average card','Team labels follow the signed-in user: "Deepkant\'s team" instead of "Priya\'s team" on Home, Risk Signals, Team Intelligence and Reports (Priya stays in the story pages)','Notification bell moved to the far right, next to the user avatar','Slide show: speed picker (5 to 60 seconds per page) and auto-run on/off','Sidebar: Priya\'s Situation and the pages below it now sit in a collapsed "Story & Platform" dropdown','Versions & roll back now lives only under ⚙ Settings (header button and sidebar link removed)']},
     {v:'v1.15', d:'17 Nov 2026', t:'Slide show', add:['"▶ Slides" button in the top bar: full screen, Focus view, pages change every 20 seconds','Pause, previous/next, Arrow keys, Space; Esc stops; skips Team Intelligence and Priya\'s Situation (individual scores) until consent is given']},
@@ -5866,7 +6030,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
 })();
 </script>
 <script>
-/* ───────── Slide show: full screen, Focus view, auto-run with a picked speed (display only) ───────── */
+/* ───────── Showcase: full screen, Focus view, auto-run with a picked speed (display only) ───────── */
 (function(){
   var body=document.body, root=document.documentElement;
   var SPEEDS=[5,10,15,20,30,60], dwell=(function(){ var v=20; try{ v=parseInt(localStorage.getItem('ps_slide_secs'),10); }catch(e){} return SPEEDS.indexOf(v)>-1?v:20; })(), on=false, playing=true, timer=null, enteredFs=false, wasFocus=false, bar=null;
@@ -5889,7 +6053,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
       '<label style="display:inline-flex;align-items:center;gap:5px;color:#9fb3c8">Speed <select id="pss-spd" aria-label="Seconds per page" style="background:#0a0e1e;color:#00d4ff;border:1px solid rgba(0,212,255,.35);border-radius:10px;padding:2px 6px;font:600 12px system-ui,sans-serif;cursor:pointer">'+SPEEDS.map(function(n){ return '<option value="'+n+'">'+n+' s / page</option>'; }).join('')+'</select></label>'+
       '<button type="button" id="pss-next" style="'+b+'" aria-label="Next page">›</button>'+
       '<span id="pss-pg" style="min-width:200px;text-align:center"></span>'+
-      '<button type="button" id="pss-stop" style="'+b+'">Stop slides <kbd style="font:600 10px system-ui">Esc</kbd></button>';
+      '<button type="button" id="pss-stop" style="'+b+'">Stop Showcase <kbd style="font:600 10px system-ui">Esc</kbd></button>';
     document.body.appendChild(bar);
     bar.querySelector('#pss-prev').addEventListener('click',function(){ go(-1); });
     bar.querySelector('#pss-next').addEventListener('click',function(){ go(1); });
@@ -5917,12 +6081,12 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
   window.psSlideStart=start; window.psSlideStop=stop;
   /* header button, next to Versions */
-  var sb=document.createElement('div'); sb.className='cz-btn'; sb.id='ps-slides-btn'; sb.title='Slide show: full screen, auto-run with a speed you pick'; sb.textContent='▶ Slides'; sb.setAttribute('role','button'); sb.tabIndex=0;
+  var sb=document.createElement('div'); sb.className='cz-btn'; sb.id='ps-slides-btn'; sb.title='Showcase: full screen, auto-run with a speed you pick'; sb.textContent='▶ Showcase'; sb.setAttribute('role','button'); sb.tabIndex=0;
   var anchor=document.getElementById('ps-settings-btn');
   if(anchor) anchor.insertAdjacentElement('afterend', sb);
   sb.addEventListener('click', start);
   sb.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); start(); } });
-  /* keys while the slide show runs */
+  /* keys while the Showcase runs */
   document.addEventListener('keydown', function(e){
     if(!on) return;
     var tg=e.target, typing=tg&&(/^(INPUT|TEXTAREA|SELECT)$/.test(tg.tagName)||tg.isContentEditable);
