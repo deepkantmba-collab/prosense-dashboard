@@ -88,7 +88,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:auto;
 .tb-brand{font-size:1rem;font-weight:700;color:#fff;}
 .tb-left{flex-shrink:0;}.tb-brand,.tb-username,.tb-role,#tb-clock,.tb-pill,.cz-btn{white-space:nowrap;}
 #topbar .tb-right{min-width:0;gap:6px;}
-@media (max-width:1360px){#tb-clock{display:none;}}
+@media (max-width:1100px){#tb-clock{display:none;}}
 .tb-brand span{color:var(--teal);}
 .tb-sep{color:var(--border);font-size:1.2rem;margin:0 4px;}
 .tb-pills{display:flex;gap:4px;}
@@ -522,7 +522,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div class="nav-item" onclick="setNav(this)"><span class="nav-icon">📋</span> Reports</div>
     <div class="nav-group-h" id="nav-grp-h" role="button" tabindex="0" aria-expanded="false" aria-controls="nav-grp-body"><span class="nav-icon">📖</span> Story &amp; Platform <span class="nav-caret">▾</span></div>
     <div id="nav-grp-body" class="nav-group-body">
-    <div class="nav-item" onclick="lvNav(this,'situation')"><span class="nav-icon">📊</span> Priya's Situation</div>
+    <div class="nav-item" onclick="lvNav(this,'situation')"><span class="nav-icon">📊</span> <span class="ps-owner">Deepkant</span>'s Situation</div>
     <div class="nav-item" onclick="lvNav(this,'models')"><span class="nav-icon">🧠</span> 4 Models Running</div>
     <div class="nav-item" onclick="lvNav(this,'mlops')"><span class="nav-icon">🔄</span> MLOps Safety Net</div>
     <div class="nav-item" onclick="lvNav(this,'resolution')"><span class="nav-icon">✅</span> Resolution</div>
@@ -1611,20 +1611,20 @@ body.pf-focus #pf-focus-bar{display:flex;}
 <!-- ══ Carried forward from the live Vercel dashboard ══ -->
 <div id="page-lv-situation" style="display:none;flex:1;overflow-y:auto;min-height:0;padding:14px 2px 14px 2px;">
 <div class="lv-root" style="display:flex;justify-content:flex-end;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px"><button class="trigger-btn" onclick="manualTriggerEmail()">🚨 Trigger Alert</button><button class="lv-email-badge" onclick="openEmailModal()" style="white-space:nowrap;background:rgba(124,111,247,0.18);border:1px solid rgba(124,111,247,0.6);color:#a89ff7;padding:6px 14px;border-radius:20px;font-size:0.78rem;cursor:pointer;font-weight:600;">✉ Email Alerts: Setup</button><div class="live-badge"><div class="pulse"></div> LIVE</div></div>
-<div class="lv-root"><div class="story-ribbon"><span>📖</span> <span class="story-beat">Act 1 · 0:00–2:00</span> <span>Priya's team velocity is up — but something quietly changed six months ago.</span></div></div>
+<div class="lv-root"><div class="story-ribbon"><span>📖</span> <span class="story-beat">Act 1 · 0:00–2:00</span> <span><span class="ps-owner">Deepkant</span>'s team velocity is up — but something quietly changed six months ago.</span></div></div>
 <div class="lv-root">
 <div id="tab-situation">
 
   <!-- Priya context -->
   <div class="priya-box" style="margin-bottom:20px">
-    <div class="priya-avatar">P</div>
+    <div class="priya-avatar"><span class="ps-owner-init">D</span></div>
     <div>
-      <strong>Priya</strong> — Engineering Manager
+      <strong><span class="ps-owner">Deepkant</span></strong> — Engineering Manager
       &nbsp;<span class="badge bp">AI Copilot rollout: 6 months ago</span>
       &nbsp;<span class="badge by">⚠ Silent risk accumulating</span>
       <div class="mt8 muted">
-        "On paper, velocity went up. But her senior engineer stopped pushing back in stand-ups.
-        Her team started approving AI-generated risk reports in seconds. Nobody noticed."
+        "On paper, velocity went up. But their senior engineer stopped pushing back in stand-ups.
+        Their team started approving AI-generated risk reports in seconds. Nobody noticed."
       </div>
     </div>
   </div>
@@ -1635,24 +1635,24 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="card-title">Hide Expertise from AI</div>
       <div class="stat-val up">63%</div>
       <div class="stat-label">of employees globally</div>
-      <div class="stat-delta up">Priya's team: <strong>71%</strong></div>
+      <div class="stat-delta up"><span class="ps-owner">Deepkant</span>'s team: <strong>71%</strong></div>
     </div>
     <div class="stat-tile">
       <div class="card-title">Meeting Contribution Drop</div>
       <div class="stat-val up">↓41%</div>
       <div class="stat-label">where AI speaks first</div>
-      <div class="stat-delta up">Priya's stand-ups: <strong>↓48%</strong></div>
+      <div class="stat-delta up"><span class="ps-owner">Deepkant</span>'s stand-ups: <strong>↓48%</strong></div>
     </div>
     <div class="stat-tile">
       <div class="card-title">AI Output Accepted Unchanged</div>
       <div class="stat-val up">87%</div>
       <div class="stat-label">no challenge, no scrutiny</div>
-      <div class="stat-delta up">Priya's risk reviews: <strong>6 sec avg</strong></div>
+      <div class="stat-delta up"><span class="ps-owner">Deepkant</span>'s risk reviews: <strong>6 sec avg</strong></div>
     </div>
     <div class="stat-tile">
       <div class="card-title">ProSense PsySafe Score</div>
       <div class="stat-val up" id="priya-psysafe">44</div>
-      <div class="stat-label">Priya's Team (threshold: 60)</div>
+      <div class="stat-label"><span class="ps-owner">Deepkant</span>'s Team (threshold: 60)</div>
       <div class="stat-delta up">↓ 17 pts in 6 weeks</div>
     </div>
   </div>
@@ -1660,7 +1660,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
   <div class="grid-2">
     <!-- Team table -->
     <div class="card">
-      <div class="section-head">Team Overview — Priya's Org
+      <div class="section-head">Team Overview — <span class="ps-owner">Deepkant</span>'s Org
         <span class="muted" style="font-weight:400;font-size:0.78rem"> · live, 5s refresh</span>
       </div>
       <div class="wb-badge" style="margin:0 0 8px 0">💛 WELLBEING SIGNAL · NOT A PERFORMANCE METRIC</div>
@@ -1671,7 +1671,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
         <tbody id="team-tbody"></tbody>
       </table>
       <div class="muted mt" style="font-size:0.76rem">
-        ★ Arjun = Priya's senior engineer — flagged by BERT Fear Index 3 weeks before manager noticed
+        ★ Arjun = <span class="ps-owner">Deepkant</span>'s senior engineer — flagged by BERT Fear Index 3 weeks before manager noticed
       </div>
     </div>
 
@@ -1679,7 +1679,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="display:flex;flex-direction:column;gap:14px">
 
       <div class="alert-box">
-        <div class="alert-title">⚠ Silent Risk Alert — Priya's Team</div>
+        <div class="alert-title">⚠ Silent Risk Alert — <span class="ps-owner">Deepkant</span>'s Team</div>
         <div style="font-size:0.84rem;line-height:1.6">
           Velocity metric: <strong style="color:var(--green)">↑ 22%</strong> (appears healthy to management)<br>
           PsySafe score: <strong style="color:var(--red)">44 / 100</strong> (below critical threshold)<br>
@@ -1702,7 +1702,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       </div>
 
       <div class="card">
-        <div class="card-title">Signals Feeding Into Priya's Risk Score</div>
+        <div class="card-title">Signals Feeding Into <span class="ps-owner">Deepkant</span>'s Risk Score</div>
         <div style="font-size:0.83rem;line-height:1.9">
           <div>💬 Slack: Arjun's message rate ↓ <strong>61%</strong> since copilot rollout</div>
           <div>📋 Jira: AI risk reports merged with <strong>avg 6s review</strong> (was 4.2 min)</div>
@@ -1796,11 +1796,11 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div class="card">
       <div class="card-title">What This Means in Plain English</div>
       <div style="font-size:0.84rem;line-height:2.1">
-        <div>🔴 <strong style="color:var(--red)">Voice Cadence</strong> — Was Priya's most vocal engineer. Now barely speaks in stand-ups.</div>
+        <div>🔴 <strong style="color:var(--red)">Voice Cadence</strong> — Was <span class="ps-owner">Deepkant</span>'s most vocal engineer. Now barely speaks in stand-ups.</div>
         <div>🔴 <strong style="color:var(--red)">AI Scrutiny</strong> — Stopped questioning AI outputs. Accepts everything in seconds.</div>
         <div>🔴 <strong style="color:var(--red)">Meeting Input</strong> — Contribution dropped from 0.71 → 0.31. A 56% fall in 6 weeks.</div>
         <div>🟡 <strong style="color:var(--yellow)">Code Depth</strong> — Code reviews getting shallower. Less thinking, more rubber-stamping.</div>
-        <div>🟢 <strong style="color:var(--green)">Feedback Openness</strong> — Still somewhat open in 1:1s. <em>Priya's entry point for intervention.</em></div>
+        <div>🟢 <strong style="color:var(--green)">Feedback Openness</strong> — Still somewhat open in 1:1s. <em><span class="ps-owner">Deepkant</span>'s entry point for intervention.</em></div>
       </div>
       <div style="margin-top:12px;padding:12px;background:rgba(0,212,170,0.07);border-radius:8px;border:1px solid rgba(0,212,170,0.2);font-size:0.83rem">
         <strong style="color:var(--teal)">Key insight:</strong> Arjun hasn't quit. He's gone quiet. That looks like compliance — but it's withdrawal. ProSense sees it 3 weeks before any manager would.
@@ -1817,18 +1817,18 @@ body.pf-focus #pf-focus-bar{display:flex;}
 
 <div id="page-lv-models" style="display:none;flex:1;overflow-y:auto;min-height:0;padding:14px 2px 14px 2px;">
 <div class="lv-root" style="display:flex;justify-content:flex-end;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px"><button class="trigger-btn" onclick="manualTriggerEmail()">🚨 Trigger Alert</button><button class="lv-email-badge" onclick="openEmailModal()" style="white-space:nowrap;background:rgba(124,111,247,0.18);border:1px solid rgba(124,111,247,0.6);color:#a89ff7;padding:6px 14px;border-radius:20px;font-size:0.78rem;cursor:pointer;font-weight:600;">✉ Email Alerts: Setup</button><div class="live-badge"><div class="pulse"></div> LIVE</div></div>
-<div class="lv-root"><div class="story-ribbon"><span>📖</span> <span class="story-beat">Act 2 · 2:00–3:45</span> <span>Four models for Priya's team: two trained (Random Forest, HistGradientBoosting) and two designed and simulated (delivery, blind AI trust).</span></div></div>
+<div class="lv-root"><div class="story-ribbon"><span>📖</span> <span class="story-beat">Act 2 · 2:00–3:45</span> <span>Four models for <span class="ps-owner">Deepkant</span>'s team: two trained (Random Forest, HistGradientBoosting) and two designed and simulated (delivery, blind AI trust).</span></div></div>
 <div class="lv-root">
 <div id="tab-models">
 
   <div class="priya-box" style="margin-bottom:20px">
-    <div class="priya-avatar">P</div>
+    <div class="priya-avatar"><span class="ps-owner-init">D</span></div>
     <div>
-      <strong>Four models for Priya's team (2 trained · 2 designed)</strong>
+      <strong>Four models for <span class="ps-owner">Deepkant</span>'s team (2 trained · 2 designed)</strong>
       &nbsp;<span class="badge bt">Every score explained with SHAP</span>
       &nbsp;<span class="badge bp">BERT Fear Index (designed · simulated)</span>
       <div class="mt8 muted">
-        "The behavioral classifier is the one that would've caught her team approving that flawed risk report in six seconds flat."
+        "The behavioral classifier is the one that would've caught their team approving that flawed risk report in six seconds flat."
       </div>
     </div>
   </div>
@@ -1863,7 +1863,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="model-score" style="color:var(--orange)" id="attrition-score">0.97</div>
       <div class="rbar-bg"><div class="rbar-fill" id="attrition-bar" style="width:97%;background:var(--orange)"></div></div>
       <div class="model-story">
-        Tracking <strong>Priya's full team</strong> — manager tenure, remote work, training frequency.
+        Tracking <strong><span class="ps-owner">Deepkant</span>'s full team</strong> — manager tenure, remote work, training frequency.
         Risk probability for Arjun: <strong style="color:var(--orange)">0.97</strong> · Model AUC 0.95 · F1 0.88 · <em>Step 12 trained on v4</em>.
       </div>
     </div>
@@ -1879,7 +1879,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="model-score" style="color:var(--yellow)" id="delivery-score">0.55</div>
       <div class="rbar-bg"><div class="rbar-fill" id="delivery-bar" style="width:55%;background:var(--yellow)"></div></div>
       <div class="model-story">
-        <strong>ARIMA</strong> captures the seasonal rhythm of Priya's sprint cycles.
+        <strong>ARIMA</strong> captures the seasonal rhythm of <span class="ps-owner">Deepkant</span>'s sprint cycles.
         <strong>LSTM</strong> catches irregular, longer dependencies — like the slow 8-week erosion
         in code-review depth that ARIMA would miss. Combined: 55% sprint failure probability.
       </div>
@@ -1896,7 +1896,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="model-score" style="color:var(--red)" id="airisk-score">0.87</div>
       <div class="rbar-bg"><div class="rbar-fill" id="airisk-bar" style="width:87%;background:var(--red)"></div></div>
       <div class="model-story">
-        The model built for <strong>Priya's exact situation</strong>. Challenge Index · Blind AI acceptance ·
+        The model built for <strong><span class="ps-owner">Deepkant</span>'s exact situation</strong>. Challenge Index · Blind AI acceptance ·
         AI Adoption Sentiment. This is the model that flagged the 6-second risk-report approvals
         — <em>weeks before any delivery failure.</em>
         <strong style="color:var(--red)"> Scenario score — not yet trained on real data.</strong>
@@ -1911,7 +1911,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="card-title">SHAP Explainability — Random Forest (primary model) · Arjun</div>
       <div class="muted" style="margin-bottom:12px">Why did the model score Arjun at 0.97?
         Top SHAP drivers: attrition_risk flagged (+0.42), low env_satisfaction 0.43 (+0.31), low 1:1 frequency 0.44 (+0.24).
-        Priya's compliance team sees this — not just the score. <em style="color:var(--purple)">(Step 12 · Random Forest · v4 trained)</em></div>
+        <span class="ps-owner">Deepkant</span>'s compliance team sees this — not just the score. <em style="color:var(--purple)">(Step 12 · Random Forest · v4 trained)</em></div>
       <div id="shap-bars"></div>
       <div class="muted mt" style="font-size:0.76rem">
         SHAP values versioned alongside model artifact in MLflow Registry · Regulatory audit trail included
@@ -1945,7 +1945,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <div style="padding:10px;background:rgba(124,111,247,0.07);
             border-radius:8px;border:1px solid rgba(124,111,247,0.2)">
             This signal was detected <strong style="color:var(--purple)">3 weeks before</strong>
-            Priya noticed Arjun going quiet in stand-ups.
+            <span class="ps-owner">Deepkant</span> noticed Arjun going quiet in stand-ups.
             <div class="muted mt8">Privacy: anonymised feedback · wellbeing use only · never for performance reviews</div>
           </div>
         </div>
@@ -2018,29 +2018,29 @@ body.pf-focus #pf-focus-bar{display:flex;}
 <div id="tab-mlops">
 
   <div class="priya-box" style="margin-bottom:20px">
-    <div class="priya-avatar">P</div>
+    <div class="priya-avatar"><span class="ps-owner-init">D</span></div>
     <div>
       <strong>The thing that keeps us up at night</strong>
       <div class="mt8 muted">
         "A model that's 91% accurate in month one can silently drift to 65% by month six —
-        for Priya, that means the burnout model starts missing real risk,
-        or the delivery model cries wolf so often she stops trusting it."
+        for <span class="ps-owner">Deepkant</span>, that means the burnout model starts missing real risk,
+        or the delivery model cries wolf so often the manager stops trusting it."
       </div>
     </div>
   </div>
 
   <!-- Drift table -->
   <div class="card" style="margin-bottom:20px">
-    <div class="section-head">Four Types of Drift — All Monitored for Priya's Org</div>
+    <div class="section-head">Four Types of Drift — All Monitored for <span class="ps-owner">Deepkant</span>'s Org</div>
     <div style="display:grid;grid-template-columns:110px 1fr 1fr 1fr;gap:0;
       padding:8px 0;border-bottom:1px solid var(--border);
       font-size:0.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">
-      <div>Type</div><div>Definition</div><div>Priya's Exact Example</div><div>Detection Method</div>
+      <div>Type</div><div>Definition</div><div><span class="ps-owner">Deepkant</span>'s Exact Example</div><div>Detection Method</div>
     </div>
     <div class="drift-row">
       <div class="drift-type" style="color:var(--yellow)">Data Drift</div>
       <div class="drift-example">Input feature distribution changes</div>
-      <div class="drift-example">Priya's team shifts Zoom → Teams;
+      <div class="drift-example"><span class="ps-owner">Deepkant</span>'s team shifts Zoom → Teams;
         meeting-cadence signals change; PsySafe response rates drop post-rollout</div>
       <div class="drift-method"><span class="badge bp">PSI</span>
         Population Stability Index on the 7 model features + 7 pillar scores; alert if PSI &gt; 0.2</div>
@@ -2059,14 +2059,14 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="drift-example">Accuracy degrades over time</div>
       <div class="drift-example">Burnout model trained on 2024 data
         starts mis-scoring 2026 AI-augmented teams —
-        false negatives rise, real risk missed for Priya</div>
+        false negatives rise, real risk missed for <span class="ps-owner">Deepkant</span></div>
       <div class="drift-method"><span class="badge br">Weekly</span>
         Precision/recall tracking; SHAP importance drift detection</div>
     </div>
     <div class="drift-row">
       <div class="drift-type" style="color:var(--muted)">Infra Drift</div>
       <div class="drift-example">Serving environment changes</div>
-      <div class="drift-example">Kafka schema change breaks Priya's
+      <div class="drift-example">Kafka schema change breaks <span class="ps-owner">Deepkant</span>'s
         feature pipeline; Jira API version changes ticket encoding silently</div>
       <div class="drift-method"><span class="badge bt">OTel</span>
         OpenTelemetry traces + Feast + Kafka schema registry</div>
@@ -2076,12 +2076,12 @@ body.pf-focus #pf-focus-bar{display:flex;}
   <!-- PSI meter -->
   <div class="grid-2" style="margin-bottom:20px">
     <div class="card">
-      <div class="card-title">Live PSI Monitor — Priya's Org · Key Features</div>
+      <div class="card-title">Live PSI Monitor — <span class="ps-owner">Deepkant</span>'s Org · Key Features</div>
       <div id="psi-meters" style="margin-top:8px"></div>
       <div class="muted mt" style="font-size:0.76rem">Alert threshold: PSI > 0.2 · Auto-retrain queued in Databricks on latest 90-day window</div>
     </div>
     <div class="card">
-      <div class="card-title">Retraining Triggers — Priya's Burnout Model</div>
+      <div class="card-title">Retraining Triggers — <span class="ps-owner">Deepkant</span>'s Burnout Model</div>
       <div style="font-size:0.83rem">
         <table class="ttable">
           <thead><tr><th>Trigger</th><th>Type</th><th>Action</th></tr></thead>
@@ -2113,7 +2113,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div style="font-size:0.84rem;line-height:2.0">
         <div>📸 <strong>Imagine training a spam filter in 2020.</strong> It learns what spam looks like then.</div>
         <div>📅 <strong>By 2026</strong>, scammers have changed. The filter starts letting fraud through — and flagging legitimate email.</div>
-        <div>🏦 <strong>For Priya's organisation</strong>, the burnout model was trained before AI copilots existed. Now <em>post-AI burnout looks different</em> — cognitive offloading, not overwork.</div>
+        <div>🏦 <strong>For <span class="ps-owner">Deepkant</span>'s organisation</strong>, the burnout model was trained before AI copilots existed. Now <em>post-AI burnout looks different</em> — cognitive offloading, not overwork.</div>
         <div style="margin-top:12px;padding:10px;background:rgba(124,111,247,0.08);border-radius:8px;border:1px solid rgba(124,111,247,0.2)">
           <strong style="color:var(--purple)">ProSense solution:</strong> Auto-retrain triggers when PSI exceeds 0.2 or weekly on Mondays — model accuracy stays above 88%.
         </div>
@@ -2144,7 +2144,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
         <div style="font-weight:600;margin:4px 0">Canary 25%</div>
         <div class="deploy-pct" id="canary-pct">25%</div>
         <div class="muted">SHAP explainability validated for manager-facing consistency</div>
-        <div class="badge bp" style="margin-top:8px">▶ Active — Priya's team</div>
+        <div class="badge bp" style="margin-top:8px">▶ Active — <span class="ps-owner">Deepkant</span>'s team</div>
       </div>
       <div style="align-self:center;color:var(--muted);font-size:1.2rem;padding:0 4px">→</div>
       <div class="deploy-step">
@@ -2180,7 +2180,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
       <div style="padding:14px;background:rgba(0,212,170,0.07);border:1px solid rgba(0,212,170,0.2);border-radius:10px">
         <div style="font-size:0.8rem;font-weight:700;color:var(--teal);margin-bottom:6px">Human-in-the-Loop</div>
-        <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">ProSense flags → Priya decides. AI is decision-support, never autonomous action.</div>
+        <div style="font-size:0.78rem;color:var(--muted);line-height:1.6">ProSense flags → <span class="ps-owner">Deepkant</span> decides. AI is decision-support, never autonomous action.</div>
       </div>
       <div style="padding:14px;background:rgba(124,111,247,0.07);border:1px solid rgba(124,111,247,0.2);border-radius:10px">
         <div style="font-size:0.8rem;font-weight:700;color:var(--purple);margin-bottom:6px">Audit Trail</div>
@@ -2206,14 +2206,14 @@ body.pf-focus #pf-focus-bar{display:flex;}
 
 <div id="page-lv-resolution" style="display:none;flex:1;overflow-y:auto;min-height:0;padding:14px 2px 14px 2px;">
 <div class="lv-root" style="display:flex;justify-content:flex-end;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px"><button class="trigger-btn" onclick="manualTriggerEmail()">🚨 Trigger Alert</button><button class="lv-email-badge" onclick="openEmailModal()" style="white-space:nowrap;background:rgba(124,111,247,0.18);border:1px solid rgba(124,111,247,0.6);color:#a89ff7;padding:6px 14px;border-radius:20px;font-size:0.78rem;cursor:pointer;font-weight:600;">✉ Email Alerts: Setup</button><div class="live-badge"><div class="pulse"></div> LIVE</div></div>
-<div class="lv-root"><div class="story-ribbon"><span>📖</span> <span class="story-beat">Act 4 · 6:00–7:30</span> <span>Simulated: three weeks after the intervention, Priya's team catches the flawed report.</span></div></div>
+<div class="lv-root"><div class="story-ribbon"><span>📖</span> <span class="story-beat">Act 4 · 6:00–7:30</span> <span>Simulated: three weeks after the intervention, <span class="ps-owner">Deepkant</span>'s team catches the flawed report.</span></div></div>
 <div class="lv-root">
 <div id="tab-resolution">
 
   <div class="priya-box" style="margin-bottom:20px">
-    <div class="priya-avatar">P</div>
+    <div class="priya-avatar"><span class="ps-owner-init">D</span></div>
     <div>
-      <strong>Three weeks after ProSense flagged Priya's team</strong>
+      <strong>Three weeks after ProSense flagged <span class="ps-owner">Deepkant</span>'s team</strong>
       <div class="mt8 muted">
         "No alarms, no consultants, no dashboard drama. Just a quietly safer team, working better with their AI."
       </div>
@@ -2227,7 +2227,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="int-card" style="border-color:var(--red)">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
           <span class="badge br">Blind AI Trust · HIGH</span>
-          <span class="badge bp">Priya's Team</span>
+          <span class="badge bp"><span class="ps-owner">Deepkant</span>'s Team</span>
           <span class="badge by" style="margin-left:auto">+14pts PsySafe est.</span>
         </div>
         <div class="int-title">'Loyal Opposition' Exercise — Tomorrow's Stand-up</div>
@@ -2239,7 +2239,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
         <div class="int-meta">
           <span class="badge bt">10 min</span>
           <span class="badge bt">Rotating role</span>
-          <span class="badge bt">Facilitator: Priya</span>
+          <span class="badge bt">Facilitator: <span class="ps-owner">Deepkant</span></span>
           <span class="badge bg">Research-based · simulated</span>
         </div>
       </div>
@@ -2266,7 +2266,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="resolution-box mt">
         <div class="resolution-title">✅ What Actually Happened — Week 3</div>
         <div style="font-size:0.86rem;line-height:1.8">
-          Priya runs the 'loyal opposition' exercise in Tuesday's stand-up.<br>
+          <span class="ps-owner">Deepkant</span> runs the 'loyal opposition' exercise in Tuesday's stand-up.<br>
           The rotating member — not Arjun — challenges the AI's quarterly risk report.<br>
           <strong>They find a miscalculated exposure figure in the report.</strong><br>
           The flawed report had been in the review queue for 4 days.
@@ -2282,7 +2282,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
 
       <!-- PsySafe trend -->
       <div class="card">
-        <div class="card-title">PsySafe Score Trend — Priya's Team</div>
+        <div class="card-title">PsySafe Score Trend — <span class="ps-owner">Deepkant</span>'s Team</div>
         <canvas id="trend-canvas" height="150"></canvas>
         <div class="muted mt" style="font-size:0.76rem">
           ⚠ Alert threshold: 60 · Intervention deployed at Week 9 · Score recovering
@@ -2293,7 +2293,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="card">
         <div class="card-title">Closed Loop — Intervention → Model Improvement</div>
         <div style="font-size:0.83rem;line-height:1.9">
-          <div>Week 9: Loyal opposition deployed by Priya</div>
+          <div>Week 9: Loyal opposition deployed by <span class="ps-owner">Deepkant</span></div>
           <div>Week 10–12: PsySafe ↑ 13 pts (42 → 55), on track for 63 by day 90</div>
           <div>Week 12: <strong style="color:var(--green)">Flawed report caught</strong></div>
           <div style="margin-top:8px;padding:10px;background:rgba(124,111,247,0.08);
@@ -2330,7 +2330,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:0.8rem">
       <div><span style="color:var(--purple);font-weight:700">LLM</span><br><span style="color:var(--muted)">BERT Fear Index · Encoder-only transformer · Bidirectional · Classifies withdrawal language</span></div>
       <div><span style="color:var(--teal);font-weight:700">Memory</span><br><span style="color:var(--muted)">Short-term: 5s live refresh · Long-term: 90-day Feast store + intervention outcomes as ground truth</span></div>
-      <div><span style="color:var(--yellow);font-weight:700">Planning</span><br><span style="color:var(--muted)">PSI &gt; 0.2 → retrain · Precision drop → rollback (60s) · Score → intervention playbook for Priya</span></div>
+      <div><span style="color:var(--yellow);font-weight:700">Planning</span><br><span style="color:var(--muted)">PSI &gt; 0.2 → retrain · Precision drop → rollback (60s) · Score → intervention playbook for <span class="ps-owner">Deepkant</span></span></div>
       <div><span style="color:var(--green);font-weight:700">Tools</span><br><span style="color:var(--muted)">GitHub · Jira · Slack · Zoom · Email Alerts · MLflow · Databricks · Evidently · Grafana</span></div>
     </div>
     <div style="margin-top:10px;font-size:0.78rem;color:var(--muted)">
@@ -2342,7 +2342,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
   <!-- BEFORE / AFTER CHART -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;align-items:start">
     <div class="card">
-      <div class="card-title">Before vs After ProSense — 5 Key Metrics for Priya's Team</div>
+      <div class="card-title">Before vs After ProSense — 5 Key Metrics for <span class="ps-owner">Deepkant</span>'s Team</div>
       <div class="muted" style="margin-bottom:8px;font-size:0.8rem">Simulated 90-day pilot · synthetic data. Grey = before. Colour = after.</div>
       <canvas id="before-after-canvas" height="200"></canvas>
     </div>
@@ -3610,6 +3610,7 @@ function psSetUser(full) {
   try { TEAM_DATA.forEach(function(m){ if (m.role === 'Engineering Manager') { m.name = full; m.init = first.charAt(0).toUpperCase(); } }); } catch (e) {}
   try { MEMBERS.forEach(function(m){ if (m.mgr) m.name = first; }); } catch (e) {}
   try { renderTable(); selectMember(currentMember); } catch (e) {}
+  try { renderTeamTable(); } catch (e) {}
   try { renderHomePillars(); } catch (e) {}
   try { window.psSyncAcct && window.psSyncAcct(); } catch (e) {}
   var tn = first + "'s Engineering Team";
@@ -3922,10 +3923,10 @@ setNav = function(el) {
 
 // ══════════ RIBBON ══════════
 const ribbons = {
-  situation:    { beat:'Act 1 · 0:00–2:00',  text:"Priya's team velocity is up — but something quietly changed six months ago." },
-  models:       { beat:'Act 2 · 2:00–3:45',  text:"Four models for Priya's team: two trained (Random Forest, HistGradientBoosting) and two designed and simulated (delivery, blind AI trust)." },
+  situation:    { beat:'Act 1 · 0:00–2:00',  text:"The manager's team velocity is up — but something quietly changed six months ago." },
+  models:       { beat:'Act 2 · 2:00–3:45',  text:"Four models for the manager's team: two trained (Random Forest, HistGradientBoosting) and two designed and simulated (delivery, blind AI trust)." },
   mlops:        { beat:'Act 3 · 3:45–5:15',  text:"A model at 91% in month one can silently drift to 65% by month six. Here's the safety net." },
-  resolution:   { beat:'Act 4 · 6:00–7:30',  text:"Simulated: three weeks after the intervention, Priya's team catches the flawed report." },
+  resolution:   { beat:'Act 4 · 6:00–7:30',  text:"Simulated: three weeks after the intervention, the team catches the flawed report." },
   architecture: { beat:'Architecture Deep Dive',        text:"How every core concept — Transformers, Agentic AI, Context Engineering, RAG — maps into ProSense's architecture." }
 };
 function setRibbon(name) {}
@@ -3939,7 +3940,7 @@ const LV_MEMBERS = [
   { name:'Rajan',          psysafe:58, burnout:52, aiRisk:62, flag:'medium' },
   { name:'Divya',          psysafe:82, burnout:18, aiRisk:23, flag:'low' },
   { name:'Kenji',          psysafe:74, burnout:24, aiRisk:43, flag:'low' },
-  { name:'Priya (Mgr)',    psysafe:63, burnout:44, aiRisk:13, flag:'medium' },
+  { name:'Priya (Mgr)', mgr:true,    psysafe:63, burnout:44, aiRisk:13, flag:'medium' },
 ];
 
 function badgeFlag(f) {
@@ -3959,7 +3960,7 @@ let liveMembers = JSON.parse(JSON.stringify(LV_MEMBERS));
 function renderTeamTable() {
   document.getElementById('team-tbody').innerHTML = liveMembers.map(m => `
     <tr ${m.highlight?'class="highlight"':''}>
-      <td style="font-weight:${m.highlight?'700':'400'}">${m.name}${m.highlight?' ★':''}</td>
+      <td style="font-weight:${m.highlight?'700':'400'}">${m.mgr?(((typeof PS_OWN!=='undefined'&&PS_OWN&&PS_OWN.first)||'Deepkant')+' (Mgr)'):m.name}${m.highlight?' ★':''}</td>
       <td>
         <span style="font-weight:700;color:${colorFor(m.psysafe,true)}">${Math.round(m.psysafe)}</span>
         <div class="rbar-bg"><div class="rbar-fill" style="width:${m.psysafe}%;background:${colorFor(m.psysafe,true)}"></div></div>
@@ -4764,9 +4765,9 @@ function lvNav(el, name) {
     ["known limitations", "The seven honest constraints of this project and how each was handled.", "A tick means it is resolved, a warning means it is still open. Responsible AI means naming these.", ""],
 
     // ── Priya's Situation ──
-    ["hide expertise from ai", "A headline statistic: the share of employees who hold back their expertise from AI, compared with Priya's team.", "Compare the large number (everyone) with the team figure underneath. A higher team figure means a bigger concern.", "Scenario figure"],
-    ["meeting contribution drop", "How much meeting contribution falls when the AI speaks first.", "Compare the general figure with Priya's stand-ups. A bigger drop means people are staying quiet.", "Scenario figure"],
-    ["ai output accepted unchanged", "How often AI-written output is accepted without any edit or challenge.", "A high number means little human scrutiny. Priya's risk reviews take about 6 seconds on average.", "Scenario figure"],
+    ["hide expertise from ai", "A headline statistic: the share of employees who hold back their expertise from AI, compared with the manager's team.", "Compare the large number (everyone) with the team figure underneath. A higher team figure means a bigger concern.", "Scenario figure"],
+    ["meeting contribution drop", "How much meeting contribution falls when the AI speaks first.", "Compare the general figure with the manager's stand-ups. A bigger drop means people are staying quiet.", "Scenario figure"],
+    ["ai output accepted unchanged", "How often AI-written output is accepted without any edit or challenge.", "A high number means little human scrutiny. The manager's risk reviews take about 6 seconds on average.", "Scenario figure"],
     ["prosense psysafe score", "The team's psychological-safety score (0 to 100) against the alert threshold of 60, with a live team table.", "Below 60 is an alert. The score fell 17 points in 6 weeks. This is a wellbeing signal, not a performance metric.", "Synthetic data"],
     ["the gap prosense closes", "What traditional tools see versus what ProSense sees.", "Traditional tools see velocity and tickets going up. ProSense sees safety falling and scrutiny disappearing, then Sense, Predict, Intervene.", ""],
     ["signals feeding into priya", "The raw signals that go into the manager's risk score.", "Each line is one tool (Slack, Jira, Zoom, Confluence, GitHub) and what changed in it.", "Synthetic data"],
@@ -4816,6 +4817,7 @@ function lvNav(el, name) {
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
   function find(key) {
+    try { var o=((window.PS_OWN&&PS_OWN.first)||'deepkant').toLowerCase(); key=String(key).split(o).join('priya').split('team member 6').join('priya'); } catch(e){}
     for (var i = 0; i < HELP.length; i++) if (key.indexOf(HELP[i][0]) === 0) return HELP[i];
     return null;
   }
@@ -5124,9 +5126,9 @@ function PSA_ENGINE(getEnv){
   K('vision','Vision','vision,mission,why was it built,why build it,why does prosense exist,goal of the project,north star',
     '<p>“Every team using AI should stay psychologically safe, and every manager should see silent risk early enough to help.”</p><p><b>Sense</b> the signals → <b>Predict</b> the risk → <b>Intervene</b> early. It is a wellbeing early-warning system, not surveillance: it is built to protect people, not to rate them.</p>',
     {go:'architecture',src:'AI Architecture page · Vision card'});
-  K('problem','The problem: Priya\'s team story','problem,story,priya s team,why needed,what problem,silent risk,going quiet,velocity up,act 1,problem statement,motivation',
-    '<p><b>Priya</b> (a fictional engineering manager) gave her team an AI coding assistant. On paper, velocity rose <b>22%</b>. Underneath:</p><ul><li>Psychological safety <b>44/100</b> (threshold 60), down 17 points in 6 weeks</li><li>Team Health <b>38/100</b> (Critical)</li><li>AI risk reports approved in <b>6 seconds</b> (used to take 4.2 minutes), so nobody checks</li><li><b>Arjun</b>, her senior engineer: burnout 97%, risk 0.97, Slack messages ↓61%, stand-up contribution ↓48%. He hasn\'t quit; he has gone quiet.</li></ul><p>All people and numbers are fictional and synthetic.</p>',
-    {tags:['Synthetic data'],go:'situation',src:'Priya\'s Situation page',follow:['Why is Arjun at risk?','Why do today\'s tools miss this?']});
+  K('problem','The problem: the manager\'s team story','problem,story,priya s team,why needed,what problem,silent risk,going quiet,velocity up,act 1,problem statement,motivation',
+    '<p><b>{{OWNER}}</b>, the engineering manager in the story, gave their team an AI coding assistant. On paper, velocity rose <b>22%</b>. Underneath:</p><ul><li>Psychological safety <b>44/100</b> (threshold 60), down 17 points in 6 weeks</li><li>Team Health <b>38/100</b> (Critical)</li><li>AI risk reports approved in <b>6 seconds</b> (used to take 4.2 minutes), so nobody checks</li><li><b>Arjun</b>, their senior engineer: burnout 97%, risk 0.97, Slack messages ↓61%, stand-up contribution ↓48%. He hasn\'t quit; he has gone quiet.</li></ul><p>All people and numbers are fictional and synthetic.</p>',
+    {tags:['Synthetic data'],go:'situation',src:'Situation page',follow:['Why is Arjun at risk?','Why do today\'s tools miss this?']});
   K('simulation','The simulation (admin demo tool)','what is the simulation,simulation controls,simulated pilot,how does the simulation work,run simulation,simulation mode,90 day simulation,admin settings,settings panel,anonymous names,engineer 1,light mode',
     '<p>The <b>simulation</b> replays the <b>90-day pilot</b> week by week on synthetic data. Turn it on in <b>⚙ Settings › Demo tools › Simulation controls</b>, then press <b>Run</b> (1×, 4× or 10× speed):</p><ul><li><b>Weeks 0–8:</b> PsySafe falls from about 67 to <b>44</b> (down 17 points in 6 weeks); an alert fires when it drops below 60</li><li><b>Week 9:</b> intervention: a loyal-opposition exercise and a non-performance 1:1 with Arjun</li><li><b>Weeks 9–12:</b> PsySafe recovers to <b>63</b>; delivery risk falls 31%, silent dissent 40%, attrition risk 18%</li><li><b>Week 12:</b> the team catches a flawed AI report ($2–4M exposure)</li></ul><p>The team table, Team Pulse and the PsySafe tile move with it. Reset puts everything back. Other admin options: <b>Appearance</b> (dark/light), <b>Full screen</b>, <b>Focus view</b> and <b>Anonymous names</b> (Team member 1–6, team shown as “Simulation”). Job titles are hidden by default; <b>⚙ Settings › Show designations</b> turns them on. On Home, the <b>7 Pillars</b> card has a dropdown: team average, or one member (individual scores need the same consent as Team Intelligence).</p>',
     {tags:['Simulated','Synthetic data'],src:'Admin settings · Resolution page (pilot numbers)',follow:['Run the simulation','What happened in the pilot?']});
@@ -5185,7 +5187,7 @@ function PSA_ENGINE(getEnv){
     '<p><b>Honest limit:</b> scores about a person are still personal data, so consent and GDPR still apply.</p>',
     {tags:['Designed'],go:'models',src:'4 Models page · Privacy Guard card',follow:['Which models are trained?','What data do you capture?']});
   K('slideshow','Showcase (auto-run)','showcase,slide show,slideshow,slides,play slides,auto play,autoplay pages,full screen slides,present the dashboard,play the dashboard,cycle pages',
-    '<p>Click <b>▶ Showcase</b> in the top bar. The dashboard goes full screen, hides the menu, and moves to the next page automatically. Pick the pace with the <b>Speed</b> box in the bar at the bottom (5, 10, 15, 20, 30 or 60 seconds per page; the default is 20).</p><ul><li><b>❚❚ Auto-run on / ▶ Auto-run off</b> or <b>Space</b> turns auto-run on or off</li><li><b>‹ ›</b> or the <b>Arrow keys</b> to move by hand</li><li><b>Esc</b> or <b>Stop Showcase</b> to finish</li></ul><p>Team Intelligence and Priya\'s Situation are skipped until the wellbeing consent is given, because they show individual scores. Open one of them once and confirm, and the show includes them for 24 hours.</p>',
+    '<p>Click the <b>⚙</b> menu in the top bar, then <b>▶ Showcase</b>. The dashboard goes full screen, hides the menu, and moves to the next page automatically. Pick the pace with the <b>Speed</b> box in the bar at the bottom (5, 10, 15, 20, 30 or 60 seconds per page; the default is 20).</p><ul><li><b>❚❚ Auto-run on / ▶ Auto-run off</b> or <b>Space</b> turns auto-run on or off</li><li><b>‹ ›</b> or the <b>Arrow keys</b> to move by hand</li><li><b>Esc</b> or <b>Stop Showcase</b> to finish</li></ul><p>Team Intelligence and the Situation page are skipped until the wellbeing consent is given, because they show individual scores. Open one of them once and confirm, and the show includes them for 24 hours.</p>',
     {tags:['Info'],src:'Top bar · ▶ Showcase',follow:['How do I go full screen?','What is Focus view?']});
   K('why-rf','Why Random Forest?','why random forest,rf,primary model,why tree models,tree based,why not deep learning,why not neural network,why trees,why rf,deep learning',
     '<p>The data is a <b>table</b>, and tree models are the proven choice for tables. They capture combinations (e.g. overtime together with few 1:1s) that simple linear models miss, work well on 5,000 rows (deep learning needs far more), are explainable with SHAP, train in seconds and need no GPU.</p><p><b>Random Forest</b>: hundreds of trees vote, so it is stable and hard to overfit. It had the best AUC and the fewest false alarms, so it is the <b>primary</b> model.</p>',
@@ -5245,15 +5247,18 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v2.1</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.1</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v2.2</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.2</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('v2features','What is new in v2.0','v2.0,v2,what is new,new features,latest release,hide menu,hide navigation,menu button,customise page,customize page,check-in,needs a check-in,simulation charts,sphere speed',
     '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top left, from v2.1; it was top right in v2.0) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
     {tags:['Info'],src:'Settings › Versions & roll back',follow:['How do I see older versions?','How do I run the simulation?']});
+  K('email-alerts','Email alerts','email alert,email alerts,alert email,send email,notify,notification,emailjs,test email,threshold email,set up email',
+    '<p>The dashboard can email you when a threshold is crossed (PsySafe, burnout, AI risk or a high-risk member).</p><ol><li>Open <b>⚙ Settings › Email alerts › Set up</b></li><li>Enter your own free <b>EmailJS</b> Service ID, Template ID and Public Key, and the recipient addresses</li><li>Pick the conditions and how often each may fire, then save</li><li>Press <b>Send test</b> in Settings to check it works</li></ol><p>The keys and addresses are stored in this browser only. They are never part of the published page. The page has no server, so alerts are sent only while the dashboard is open in a browser.</p>',
+    {tags:['Info'],src:'Settings › Email alerts',follow:['What is in Settings?','What are the safeguards?']});
   K('access','How to open the dashboard','access,guest,login,sign in,how to open,link,url,demo access,try it,google sign in,open the dashboard,credentials',
     '<ol><li>Open the dashboard link</li><li>Click <b>CONTINUE AS GUEST · DEMO</b> (no account needed)</li><li>Accept the wellbeing consent</li><li>Explore the 10 pages in the left menu</li></ol>',{tags:['Info'],src:'Deck slide 31'});
   K('pages','The 10 dashboard pages','pages,tabs,navigation,menu,ten pages,10 pages,sections,whats on each page,tour,dashboard tour,list of pages',
-    '<ol><li><b>Home</b>: Team Health, PsySafe, Team Pulse, recommended actions</li><li><b>Team Intelligence</b>: individual profiles (consent first)</li><li><b>Risk Signals</b>: scorecard and SHAP reasons</li><li><b>AI &amp; Productivity</b>: AI adoption and public GitHub patterns</li><li><b>Reports</b>: pillar heatmap, outcomes, limitations</li><li><b>Priya\'s Situation</b>: the story and live team table</li><li><b>4 Models Running</b>: trained vs designed models</li><li><b>MLOps Safety Net</b>: drift and rollback</li><li><b>Resolution</b>: intervention and simulated pilot</li><li><b>AI Architecture</b>: vision, models and why, challenges</li></ol><p>Say “open the models page” and I\'ll take you there.</p>',{tags:['Info'],src:'Deck slides 17–21'});
+    '<ol><li><b>Home</b>: Team Health, PsySafe, Team Pulse, recommended actions</li><li><b>Team Intelligence</b>: individual profiles (consent first)</li><li><b>Risk Signals</b>: scorecard and SHAP reasons</li><li><b>AI &amp; Productivity</b>: AI adoption and public GitHub patterns</li><li><b>Reports</b>: pillar heatmap, outcomes, limitations</li><li><b>{{OWNER}}\'s Situation</b>: the story and live team table</li><li><b>4 Models Running</b>: trained vs designed models</li><li><b>MLOps Safety Net</b>: drift and rollback</li><li><b>Resolution</b>: intervention and simulated pilot</li><li><b>AI Architecture</b>: vision, models and why, challenges</li></ol><p>Say “open the models page” and I\'ll take you there.</p>',{tags:['Info'],src:'Deck slides 17–21'});
   K('about-agent','How this assistant works','how do you work,are you ai,are you chatgpt,are you an llm,who are you,what are you,how does this chatbot work,assistant,agent,how are you built,are you real ai,do you use gpt,model behind you,are you generative,do you use claude',
     '<p>I\'m a <b>rule-based assistant that runs entirely in your browser</b>. I am <b>not</b> a generative AI model, and nothing you type leaves this page.</p><ul><li>I read the dashboard\'s own synthetic data (team profiles, SHAP, drift, model scores) and a curated set of project notes</li><li>For each question I pick the closest topic or run a small calculation (rank, compare, average), and show <b>how I got the answer</b></li><li>I tag answers <b>Trained / Designed / Simulated / Synthetic data</b> and never present designed models as trained</li><li>If I don\'t know, I say so instead of guessing</li></ul>',{tags:['Info'],src:'This assistant'});
   K('evaluation','How the model is evaluated','evaluation,evals,how do you test,testing,grader,deterministic,model graded,human evaluation,quality checks,validation,tiers,cross validation,eval',
@@ -5317,7 +5322,7 @@ function PSA_ENGINE(getEnv){
       var good = (b.better==='down'&&chg<0)||(b.better==='up'&&chg>0);
       return [esc(b.label), b.before.toFixed(2), b.after.toFixed(2), '<b style="color:'+(good?'#2ed573':'#ff4757')+'">'+(chg>0?'↑ ':'↓ ')+Math.abs(chg)+'%</b>'];
     });
-    return '<p><b>Simulated results on synthetic data.</b> In week 9 Priya runs a “loyal opposition” exercise (one person argues against the AI for 10 minutes) and has a non-performance 1:1 with Arjun. In week 12 the team catches a flawed AI report (<b>$2–4M exposure flagged, simulated</b>).</p>'+
+    return '<p><b>Simulated results on synthetic data.</b> In week 9 {{OWNER}} runs a “loyal opposition” exercise (one person argues against the AI for 10 minutes) and has a non-performance 1:1 with Arjun. In week 12 the team catches a flawed AI report (<b>$2–4M exposure flagged, simulated</b>).</p>'+
       (rows.length?tbl(['Metric','Before','After','Change'],rows,1):'<p>Delivery risk ↓31%, meeting candor ↑24%, silent dissent ↓40%, attrition risk ↓18%, PsySafe 44 → 63.</p>')+
       '<p>No real organisation has used ProSense yet; a real pilot is the next step.</p>';
   }
@@ -5430,7 +5435,7 @@ function PSA_ENGINE(getEnv){
 
   /* ───────── routing ───────── */
   var PAGES = {home:['home','overview page','pulse'],team:['team intelligence'],risk:['risk signals','risk page','risk tab'],ai:['ai productivity','ai and productivity','productivity'],reports:['reports','report page','heatmap'],situation:['priya s situation','situation','story page','simulation page','simulation team','simulation tab'],models:['4 models','models page','model page','models running','models tab'],mlops:['mlops','safety net'],resolution:['resolution','pilot page'],architecture:['architecture','ai architecture','vision page']};
-  var PAGE_LABEL = {home:'Home',team:'Team Intelligence',risk:'Risk Signals',ai:'AI & Productivity',reports:'Reports',situation:'Priya\'s Situation',models:'4 Models Running',mlops:'MLOps Safety Net',resolution:'Resolution',architecture:'AI Architecture'};
+  var PAGE_LABEL = {home:'Home',team:'Team Intelligence',risk:'Risk Signals',ai:'AI & Productivity',reports:'Reports',situation:'Situation',models:'4 Models Running',mlops:'MLOps Safety Net',resolution:'Resolution',architecture:'AI Architecture'};
   function pageFrom(n){ var f=null; Object.keys(PAGES).forEach(function(k){ PAGES[k].forEach(function(p){ if(!f && (' '+n+' ').indexOf(' '+p+' ')>-1) f=k; }); }); return f; }
   var ctx = {member:null,sub:null};
   var CAPS = '<p>I can answer from this project\'s own data and notes. Try:</p><ul><li><b>The project</b>: what it is, the approach, the data, the vision</li><li><b>The models</b>: which are trained vs designed, why Random Forest, results, SHAP</li><li><b>The team</b>: “Why is Arjun at risk?”, “Compare Arjun and Meera”, “Who is at risk?”</li><li><b>Charts</b>: “What does the risk timeline show?”</li><li><b>Honesty</b>: limitations, pending actions, safeguards, roadmap</li><li><b>Actions</b>: “open the models page”, “turn on focus view”</li></ul>';
@@ -5700,6 +5705,8 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
     '<div class="ps-s-acct"><div class="av">'+uname.trim().charAt(0).toUpperCase()+'</div><div class="nm"><b>'+uname.replace(/[<>&]/g,'')+'</b><span>Admin · controls apply to this browser</span></div><button type="button" class="ps-s-btn" id="ps-s-out">Sign out</button></div>'+
     '<div class="ps-s-sec">PAGE</div>'+
     '<div class="ps-s-row"><div><b>Customise current page</b><p>Choose which panels appear on the page you are on now.</p></div><button type="button" class="ps-s-btn" id="ps-s-cust">Customise</button></div>'+
+    '<div class="ps-s-sec">ALERTS</div>'+
+    '<div class="ps-s-row"><div><b>Email alerts <span class="ps-s-state" id="ps-st-mail">NOT SET UP</span></b><p>Send an email when PsySafe, burnout or AI risk crosses a threshold. Uses your own free EmailJS account. The keys and addresses stay in this browser and are never part of the published page.</p></div><div style="display:flex;gap:6px;flex-shrink:0"><button type="button" class="ps-s-btn" id="ps-s-mail">Set up</button><button type="button" class="ps-s-btn" id="ps-s-mailtest">Send test</button></div></div>'+
     '<div class="ps-s-sec">DISPLAY</div>'+
     '<div class="ps-s-row"><div><b>Appearance</b><p>Switch between the dark and light look.</p></div><div class="ps-seg" id="ps-s-theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div></div>'+
     '<div class="ps-s-row"><div><b>Full screen <span class="ps-s-state" id="ps-st-fs">OFF</span></b><p>Fill the whole screen with the dashboard. Press Esc to leave.</p></div>'+sw('ps-sw-fs','Full screen')+'</div>'+
@@ -5732,7 +5739,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   /* ───────── open / close ───────── */
   function syncAcct(){ var n=((document.querySelector('.tb-username')||{}).textContent||'').trim()||'Admin user'; var av=panel.querySelector('.ps-s-acct .av'), nm=panel.querySelector('.ps-s-acct .nm b'); if(av) av.textContent=n.charAt(0).toUpperCase(); if(nm) nm.textContent=n; }
   window.psSyncAcct=syncAcct;
-  function openSet(on){ body.classList.toggle('ps-set-open', on); if(on){ syncAcct(); sync(); setTimeout(function(){ $('ps-s-x').focus(); },60); } else hb.focus && hb.focus(); }
+  function openSet(on){ body.classList.toggle('ps-set-open', on); if(on){ syncAcct(); mailState(); sync(); setTimeout(function(){ $('ps-s-x').focus(); },60); } else hb.focus && hb.focus(); }
   hb.addEventListener('click', function(){ openSet(true); });
   hb.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSet(true); } });
   $('ps-s-x').addEventListener('click', function(){ openSet(false); });
@@ -5771,7 +5778,7 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   var AVSEL = '.member-avatar,#tm-avatar,.priya-avatar';
   var touched = new Map();
   function xform(v, el, node){
-    if (el && el.classList && el.classList.contains('ps-owner') && el.nextSibling && el.nextSibling.nodeType===3 && /^(['’]s)? ?(Engineering Team|Team|team|Situation)/.test(el.nextSibling.nodeValue)) return v.replace(v.trim(),'Simulation');
+    if (el && el.classList && el.classList.contains('ps-owner') && el.nextSibling && el.nextSibling.nodeType===3 && /^(['’]s)? ?(Engineering Team|Team|team|Situation)/.test(el.nextSibling.nodeValue)) return v.replace(v.trim(), /^['’]s Situation/.test(el.nextSibling.nodeValue)?'Team':'Simulation');
     if (node && node.previousSibling && node.previousSibling.nodeType===1 && node.previousSibling.classList.contains('ps-owner') && /^['’]s (?=Engineering Team|Team|team|Situation)/.test(v)) return v.replace(/^['’]s /,' ');
     if (el && el.closest && el.closest(AVSEL+',.ps-owner-init')) { var t=v.trim();
       if (el.closest('.ps-owner-init,.priya-avatar')) return v.replace(t,'T6');
@@ -5805,6 +5812,12 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   $('ps-sw-as').addEventListener('click', function(){ P.assistant=!P.assistant; save(); body.classList.toggle('ps-noassist',!P.assistant); sync(); });
 
   /* ───────── page / account ───────── */
+  function mailState(){ var el=$('ps-st-mail'); if(!el) return; var ok=false; try{ ok=!!(EMAIL_CONFIG.serviceId&&EMAIL_CONFIG.templateId&&EMAIL_CONFIG.publicKey&&EMAIL_CONFIG.recipients.length); }catch(e){} el.textContent=ok?'SET UP':'NOT SET UP'; el.classList.toggle('on',ok); }
+  window.psMailState=mailState;
+  $('ps-s-mail').addEventListener('click', function(){ openSet(false); try{ openEmailModal(); }catch(e){ toast('Email alerts are not available here'); } });
+  $('ps-s-mailtest').addEventListener('click', function(){ var ok=false; try{ ok=!!(EMAIL_CONFIG.serviceId&&EMAIL_CONFIG.templateId&&EMAIL_CONFIG.publicKey&&EMAIL_CONFIG.recipients.length); }catch(e){}
+    if(!ok){ openSet(false); try{ openEmailModal(); }catch(e){} toast('Fill in the EmailJS details first, then press Send test'); return; }
+    try{ testEmail(); toast('Sending a test email…'); }catch(e){ toast('Could not send the test email'); } });
   $('ps-s-cust').addEventListener('click', function(){ openSet(false); try{ openCustomize(); }catch(e){ toast('Customise is not available here'); } });
   $('ps-s-out').addEventListener('click', function(){ location.reload(); });
   $('ps-s-def').addEventListener('click', function(){ P={theme:'dark',anon:false,sim:false,assistant:true,desig:false}; save(); applyTheme(); body.classList.remove('ps-show-desig'); setAnon(false); showSim(false); body.classList.remove('ps-noassist'); sync(); toast('Defaults restored'); });
@@ -5951,9 +5964,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v2.1';
+  var CUR = 'v2.2';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v2.2', d:'18 Nov 2026', t:'Team name follows the signed-in user everywhere, email alerts in Settings', add:['The story pages (the Situation, 4 Models, MLOps and Resolution pages), the left-menu item and the team table now use the signed-in user\'s name instead of "Priya" (the label under Settings, the avatar initial and the Ask ProSense answers follow too). Anonymous names show "Team Situation"','New ⚙ Settings › Email alerts row: Set up opens the alert panel (your own EmailJS keys and recipients, kept in this browser only) and Send test sends a test email','Story text no longer says "her"','Top bar: Customise, Focus, Settings and Showcase now sit under one ⚙ menu']},
     {v:'v2.1', d:'18 Nov 2026', t:'Home de-duplicated, Menu button on the left', add:['Home: the Team Health bubble on the sphere is gone (the Safe Score donut and the headline already say it)','Safe Score card: the Collaboration, Wellbeing and Risk Index rows are gone (the sphere bubbles show them); the card now shows the donut and a "below / above the 60 threshold" note','The ☰ Menu button moved to the left of the top bar, so it stays in place when the left menu is hidden']},
     {v:'v2.0', d:'18 Nov 2026', t:'Simulation drives the whole Home page, per-page Customise, Showcase', add:['Simulation now updates the Home bubbles, Safe Score, 7 Pillars, Gap radar, Reports heatmap and the Team Intelligence profile (before, only Team Pulse moved). Reset puts every value back. The Risk Signals page and the story-page visuals are fixed illustrations and do not move','The sphere spins faster as the simulation speed goes up and eases back when it stops','New Home bubble "Needs a check-in" (members at critical or high risk) in the spot where Productivity used to be','Customise (top bar and Settings) opens the panel list for the page you are on, not always Home. Reset affects that page only','New ☰ Menu button at the top right hides or shows the left navigation bar','The date and time sit after the user name at the top right','Settings › Account shows the signed-in user (it always said Deepkant Verma)','"▶ Slides" is now "▶ Showcase"']},
     {v:'v1.17', d:'17 Nov 2026', t:'Optional designations, Team member labels', add:['New switch ⚙ Settings › Show designations: job titles (Sr. Engineer, Manager …) are hidden by default and shown only when you pick','Anonymous names now read Team member 1, Team member 2 … (they were Engineer 1, Engineer 2 …) and the manager is Team member 6','Home › 7 Pillars card: a dropdown switches between the team average and any one member (individual scores need the same consent as Team Intelligence)']},
@@ -6093,6 +6107,35 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   /* browser's own Esc or exit from full screen also stops the show */
   function fsChanged(){ if(on && enteredFs && !fsOn()) stop(); }
   document.addEventListener('fullscreenchange', fsChanged); document.addEventListener('webkitfullscreenchange', fsChanged);
+})();
+
+/* ───────── Header tidy-up: Customise, Focus, Settings and Showcase live under one ⚙ menu ───────── */
+(function(){
+  var tr=document.querySelector('.tb-right'); if(!tr) return;
+  var cust=[].filter.call(tr.querySelectorAll('.cz-btn'),function(b){ return /openCustomize/.test(b.getAttribute('onclick')||''); })[0];
+  var items=[cust, document.getElementById('pf-focus-btn'), document.getElementById('ps-settings-btn'), document.getElementById('ps-slides-btn')].filter(Boolean);
+  if(items.length<2) return;
+  var css=document.createElement('style');
+  css.textContent='#ps-gear-wrap{position:relative;display:flex;align-items:center}'+
+    '#ps-gear{font-size:.95rem;padding:4px 11px}#ps-gear-wrap.open #ps-gear{background:rgba(0,212,255,.25)}'+
+    '#ps-gearmenu{display:none;position:absolute;right:0;top:calc(100% + 10px);min-width:200px;background:var(--card,#0e1424);border:1px solid rgba(0,212,255,.3);border-radius:12px;padding:6px;z-index:2147482000;flex-direction:column;gap:2px;box-shadow:0 12px 34px rgba(0,0,0,.45)}'+
+    '#ps-gear-wrap.open #ps-gearmenu{display:flex}'+
+    '#ps-gearmenu .cz-btn{border:0;border-radius:8px;background:transparent;padding:9px 12px;font-size:.8rem;text-align:left;margin:0}'+
+    '#ps-gearmenu .cz-btn:hover,#ps-gearmenu .cz-btn:focus{background:rgba(0,212,255,.14);outline:none}'+
+    '#ps-gearmenu .cz-btn.on{background:rgba(0,212,255,.22)}';
+  document.head.appendChild(css);
+  var wrap=document.createElement('div'); wrap.id='ps-gear-wrap';
+  var g=document.createElement('div'); g.className='cz-btn'; g.id='ps-gear'; g.textContent='⚙'; g.title='Tools: Customise, Focus, Settings, Showcase'; g.setAttribute('role','button'); g.setAttribute('aria-haspopup','true'); g.setAttribute('aria-expanded','false'); g.tabIndex=0;
+  var m=document.createElement('div'); m.id='ps-gearmenu'; m.setAttribute('role','menu');
+  wrap.appendChild(g); wrap.appendChild(m);
+  var first=items[0]; first.parentNode.insertBefore(wrap, first);
+  items.forEach(function(b){ b.setAttribute('role','menuitem'); m.appendChild(b); });
+  function set(on){ wrap.classList.toggle('open',on); g.setAttribute('aria-expanded',on?'true':'false'); }
+  g.addEventListener('click', function(e){ e.stopPropagation(); set(!wrap.classList.contains('open')); });
+  g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); set(!wrap.classList.contains('open')); } });
+  m.addEventListener('click', function(){ setTimeout(function(){ set(false); },0); });
+  document.addEventListener('click', function(e){ if(!wrap.contains(e.target)) set(false); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && wrap.classList.contains('open')){ set(false); g.focus(); } }, true);
 })();
 </script>
 <!-- PS-ADMIN:END -->

@@ -24,6 +24,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v1.17 | 2026-11-17 | Job titles optional (⚙ Settings › Show designations, off by default), anonymous names read "Team member 1–6", 7 Pillars card can show one member as well as the team average (consent needed for individuals) |
 | v2.0 | 2026-11-18 | Simulation updates the whole Home page, Team Intelligence profile and Reports heatmap (Risk Signals and story-page visuals stay static), sphere spin follows simulation speed, "Needs a check-in" bubble, Customise per page, ☰ Menu hides the left navigation bar, date/time after the user name, Settings › Account shows the signed-in user, Slides renamed Showcase |
 | v2.1 | 2026-11-18 | Home de-duplicated: Team Health bubble removed, Safe Score card shows the donut and a threshold note (rows removed); ☰ Menu button moved to the left of the top bar; clock hidden under 1360 px width |
+| v2.2 | 2026-11-18 | Team name follows the signed-in user on the story pages, menu item, team table, avatar and Ask ProSense (no more "Priya"); Settings › Email alerts (set up + send test); Customise / Focus / Settings / Showcase moved under one ⚙ menu |
 
 ## Rolling back
 
