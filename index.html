@@ -175,7 +175,7 @@ body:not(.ps-show-desig) .ps-desig{display:none!important;}
 .card-sub{font-size:11px;color:var(--muted);}
 
 /* ══ Chart helpers: info pop-up, enlarge, focus view ══ */
-span.pf-tools{display:inline-flex;align-items:center;gap:5px;margin-left:8px;vertical-align:middle;opacity:.5;transition:opacity .15s;text-transform:none;letter-spacing:0;font-weight:400;}
+span.pf-tools{white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:5px;margin-left:8px;vertical-align:middle;opacity:.5;transition:opacity .15s;text-transform:none;letter-spacing:0;font-weight:400;}
 .card:hover span.pf-tools,.gap-card:hover span.pf-tools,.stat-tile:hover span.pf-tools,span.pf-tools:focus-within{opacity:1;}
 span.pf-tools .pf-btn{width:18px;height:18px;min-width:18px;padding:0;margin:0;border-radius:50%;border:1px solid rgba(0,212,255,.38);background:rgba(0,212,255,.08);color:var(--teal,#00d4ff);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font:italic 700 11px/1 Georgia,'Times New Roman',serif;transition:background .15s;}
 span.pf-tools .pf-btn:hover,span.pf-tools .pf-btn:focus-visible{background:rgba(0,212,255,.28);outline:none;}
@@ -272,7 +272,8 @@ body.pf-focus #pf-focus-bar{display:flex;}
 
 /* ── BOTTOM ROW CARDS ── */
 .pulse-card{overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;}
-.pulse-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.pulse-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2px 10px;margin-bottom:8px;}
+.pulse-header .card-title{white-space:nowrap;}
 .pulse-live{white-space:nowrap;display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
 .pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-anim 1.4s infinite;}
 @keyframes pulse-anim{0%,100%{opacity:1}50%{opacity:.3}}
@@ -4937,8 +4938,17 @@ function lvNav(el, name) {
     if (!cur) return;
     var card = cur.card, body = ov.querySelector('.pf-max-body'), z = cur.zoomer;
     var availW = body.clientWidth - 4, availH = body.clientHeight - 4;
-    card.style.transform = 'none'; card.style.width = cur.w + 'px';
-    var h = card.offsetHeight, w = cur.w;
+    card.style.transform = 'none';
+    /* Wide, short cards (e.g. Key Signals) would only scale ~1x as a strip. Try narrower layout widths
+       (text re-wraps, the card gets taller) and keep the one that scales largest on this screen. */
+    var w = cur.w, h = 0, bestK = -1, bestW = w, bestH = 0, f, cw, ch, kk;
+    for (f = 1; f >= 0.4; f -= 0.15) {
+      cw = Math.round(cur.w * f); if (f < 1 && cw < 440) break;
+      card.style.width = cw + 'px'; ch = card.offsetHeight;
+      kk = Math.min(availW / cw, availH / ch, 2.5);
+      if (kk > bestK * 1.06) { bestK = kk; bestW = cw; bestH = ch; }
+    }
+    w = bestW; h = bestH; card.style.width = w + 'px';
     var kFit = Math.min(availW / w, availH / h), k;
     if (kFit >= 1.2) k = Math.min(kFit, 2.5);          // fits on screen: scale up to fill it
     else k = Math.max(1, Math.min(availW / w, 2.5));   // tall or wide: fill the width, scroll down
@@ -5105,6 +5115,25 @@ function lvNav(el, name) {
 })();
 </script>
 <!-- PS-USERMENU:END -->
+<script>
+/* PS-HOMEFIT: the Home top row must never be shorter than its tallest column (prevents the bottom row covering the cards above it) */
+(function(){
+  var raf=0;
+  function fit(){
+    raf=0;
+    var tr=document.getElementById('top-row'); if(!tr||!tr.offsetParent) return;
+    tr.style.minHeight='';
+    if(innerWidth<=1100) return;
+    var need=0, cols=['col-left','col-center','col-right'];
+    cols.forEach(function(id){ var c=document.getElementById(id); if(!c) return; if(c.scrollHeight>c.clientHeight+1) need=Math.max(need,c.scrollHeight-c.clientHeight+tr.offsetHeight); });
+    if(need>tr.offsetHeight) tr.style.minHeight=Math.ceil(need)+'px';
+  }
+  function sched(){ if(!raf) raf=requestAnimationFrame(fit); }
+  window.addEventListener('resize',sched); window.addEventListener('load',function(){ sched(); setTimeout(sched,600); setTimeout(sched,2000); });
+  document.addEventListener('click',function(){ setTimeout(sched,150); },true);
+  if(window.ResizeObserver){ window.addEventListener('load',function(){ var ro=new ResizeObserver(sched); ['col-left','col-center','col-right'].forEach(function(id){ var c=document.getElementById(id); if(c) [].slice.call(c.children).forEach(function(k){ ro.observe(k); }); }); }); }
+})();
+</script>
 <!-- PS-AGENT:START — "Ask ProSense" chat agent. Runs fully in the browser: no API key, no network calls, no external AI service. -->
 <style id="ps-agent-css">
 #ps-fab{position:fixed;right:18px;bottom:18px;z-index:8500;display:none;align-items:center;gap:8px;padding:10px 16px 10px 13px;border-radius:26px;border:1px solid rgba(0,212,255,.55);background:linear-gradient(135deg,rgba(0,212,255,.22),rgba(123,47,247,.34));color:#fff;font:600 .82rem var(--font);cursor:pointer;box-shadow:0 6px 24px rgba(0,0,0,.45),0 0 18px rgba(0,212,255,.18);backdrop-filter:blur(6px)}
@@ -5348,7 +5377,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart or tile scaled up to fill the screen, with the text and charts redrawn sharp (54 of them); tall widgets scroll inside the view; <b>Esc</b> closes it</li><li><b>Your name / avatar</b> in the top bar opens an account menu: <b>Switch user</b> (back to Google, test user or guest sign-in) and <b>Log out</b></li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v2.10</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.10</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.10 bigger focused enlarge view, account menu (Switch user, Log out), new footer · v2.9 honest model figures: a data-leak fix, AUC 0.9479 becomes 0.9021 · v2.8 design polish: Inter font, steady text sizes, sharper charts, calmer globe · v2.7 full review: easier-to-read text, Home Team Pulse shows all six people · v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v2.11</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.11</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.10 bigger focused enlarge view, account menu (Switch user, Log out), new footer · v2.9 honest model figures: a data-leak fix, AUC 0.9479 becomes 0.9021 · v2.8 design polish: Inter font, steady text sizes, sharper charts, calmer globe · v2.7 full review: easier-to-read text, Home Team Pulse shows all six people · v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('v2features','What is new in v2.0','v2.0,v2,what is new,new features,latest release,hide menu,hide navigation,menu button,customise page,customize page,check-in,needs a check-in,simulation charts,sphere speed',
     '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top left, from v2.1; it was top right in v2.0) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
@@ -6065,9 +6094,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v2.10';
+  var CUR = 'v2.11';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v2.11', d:'18 Nov 2026', t:'Enlarge view reads larger and more focused, Home layout safeguard', add:['Enlarge: wide, short widgets (for example Key Signals) now re-flow to a narrower layout and scale up to 2.5x, so the text is large and readable instead of a small wide strip','Home: the top row can no longer be shorter than its tallest column, so the bottom row (Team Pulse and others) never covers the cards above it','Team Pulse header wraps cleanly on narrow cards']},
     {v:'v2.10', d:'18 Nov 2026', t:'Bigger, focused enlarge view, account menu, new footer', add:['Enlarge (the ⤢ button or double-click): the widget now scales up to fill the screen, with its text and charts redrawn sharp, instead of showing the same size in a wider pop-up. Tall widgets scroll inside the view','Account menu: click your name or avatar in the top bar for Switch user (back to the Google, test user or guest sign-in) and Log out','Footer now reads: Training dataset · ProSense_Training_Data_5000_v4.csv · 5,000 rows · 53 columns · 0 nulls · Synthetic training data · Seven behavioural pillars enriched']},
     {v:'v2.9', d:'18 Nov 2026', t:'Honest model figures: a data-leak fix, AUC 0.9479 becomes 0.9021', add:['Fix: the old Random Forest run used an outcome column (attrition_risk) as an input, which let the model see part of the answer. It is now removed before training','New figures on every page and in Ask ProSense: Random Forest AUC 0.9021, precision 90.3%, recall 81.8%, F1 0.859; HistGradientBoosting AUC 0.8934. The old values were 0.9479 and 0.9376','The model now uses 6 features instead of 7 (38 candidates, 32 dropped by VIF)','Risk page and Models page: the SHAP chart is recomputed. Remote work, 1:1 frequency and overtime are now the top drivers for the Arjun-like profile','Plain-English lines updated: 90.3% precision is about 9 in 10 alerts being real; recall is about 4 in 5 real risks caught','Confusion matrix in Ask ProSense now shows the Random Forest: 549 caught, 122 missed, 59 false alarms, 270 cleared']},
     {v:'v2.8', d:'18 Nov 2026', t:'Design polish: Inter font, steady type sizes, sharper charts, calmer globe', add:['Typography: the Inter font now loads on every computer, with one set of text sizes (24px page titles, 16px section headings, 13 to 14px body text, 11 to 12px small print). Numbers line up in columns (tabular figures)','Colours and depth: three background layers (page, card, pop-up), thin 1px borders, no heavy shadows or blur. Bright colours are kept for actions and alerts','Spacing: an 8px grid with 16px between cards and 20px inside them','Charts: every canvas is drawn at the screen\'s pixel density, so lines and text are sharp on Retina screens. Gridlines are softer, chart text is larger, and chart colours that were not showing before now display correctly','Globe: softer lines and dimmer low-risk points so it sits behind the numbers and alerts','Interaction: 150ms fades on cards, buttons, tabs and inputs, plus a clear focus outline for keyboard users','Team Intelligence: Behavioural Radar is larger and Pillar Scores fill their card','Home scrolls on short screens instead of squeezing the cards']},
