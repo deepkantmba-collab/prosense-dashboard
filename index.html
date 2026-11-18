@@ -5247,7 +5247,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart full size (54 of them); <b>Esc</b> closes it</li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v2.4</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.4</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v2.5</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.5</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('v2features','What is new in v2.0','v2.0,v2,what is new,new features,latest release,hide menu,hide navigation,menu button,customise page,customize page,check-in,needs a check-in,simulation charts,sphere speed',
     '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top left, from v2.1; it was top right in v2.0) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
@@ -5964,9 +5964,10 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v2.4';
+  var CUR = 'v2.5';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v2.5', d:'18 Nov 2026', t:'Works on narrow screens: tablet and phone layout', add:['Left menu: below about 1100 px wide it folds away and opens from ☰ Menu as a slide-over; tapping an item or the dimmed area closes it, and so does Esc','Home: stacks into one or two columns instead of being cut off; the globe sits between the cards','Other pages: card rows stack and wide tables scroll sideways inside their card','Header: the People / Teams / Outcomes pills and the name label hide on small screens so the ⚙ menu, avatar and bell stay in view','Wide screens look exactly as before; the old 1100 px minimum width is gone']},
     {v:'v2.4', d:'18 Nov 2026', t:'Quality pass: keyboard and screen-reader access, readable text, small fixes', add:['Keyboard: the left menu, ☰ Menu and the People / Teams / Outcomes pills can be reached with Tab and used with Enter or Space','Screen readers: charts have text descriptions, the page has a main area and page headings, and the current menu item is announced','Text: nothing on the dashboard is smaller than 10 px; the Gap radar and the chart axes are larger','Motion: respects the reduced-motion setting of your device (the globe slows and animations stop)','Fixes: stray gap in the menu item "Deepkant ’s Situation"; Ask ProSense no longer covers the bottom of each page; Model A (Primary) now comes before Model B (Challenger)']},
     {v:'v2.3', d:'18 Nov 2026', t:'Fix: ⚙ menu items clickable, user avatar and bell on the far right', add:['Fix: Customise, Focus, Settings and Showcase in the ⚙ menu now respond to clicks (the menu was sitting under the page content)','The ⚙ menu has a solid background','Top bar order, left to right: clock, ⚙, your avatar and name, 🔔 bell']},
     {v:'v2.2', d:'18 Nov 2026', t:'Team name follows the signed-in user everywhere, email alerts in Settings', add:['The story pages (the Situation, 4 Models, MLOps and Resolution pages), the left-menu item and the team table now use the signed-in user\'s name instead of "Priya" (the label under Settings, the avatar initial and the Ask ProSense answers follow too). Anonymous names show "Team Situation"','New ⚙ Settings › Email alerts row: Set up opens the alert panel (your own EmailJS keys and recipients, kept in this browser only) and Send test sends a test email','Story text no longer says "her"','Top bar: Customise, Focus, Settings and Showcase now sit under one ⚙ menu']},
@@ -6181,6 +6182,86 @@ body.ps-noassist #ps-fab,body.ps-noassist #ps-panel{display:none!important}
   var timer=null; function later(){ clearTimeout(timer); timer=setTimeout(pass,500); }
   pass();
   new MutationObserver(later).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+})();
+</script>
+<style id="ps-resp-css">
+/* v2.5 responsive layout */
+body{min-width:0!important}
+#ps-nav-bd{display:none;position:fixed;inset:0;background:rgba(2,4,12,.62);z-index:890}
+@media (max-width:1100px){
+  #sidebar{position:fixed;top:0;left:0;bottom:0;height:100vh;z-index:900;overflow-y:auto;box-shadow:12px 0 40px rgba(0,0,0,.55)}
+  body:not(.ps-nav-hidden):not(.pf-focus) #ps-nav-bd{display:block}
+  #topbar{padding:0 12px}
+  .tb-pills,.tb-sep{display:none!important}
+}
+@media (max-width:1100px){
+  #page-home #top-row{grid-template-columns:1fr 1fr!important;grid-template-areas:"lft rgt" "ctr ctr";flex:none!important;min-height:0!important}
+  #page-home #col-center{grid-area:ctr;height:250px}
+  #page-home #col-left{grid-area:lft}
+  #page-home #col-right{grid-area:rgt}
+  #page-home #bottom-row{grid-template-columns:1fr 1fr!important;height:auto!important;min-height:0!important}
+  #page-home #bottom-row>*:nth-child(3){grid-column:1/-1}
+  #page-home>*{flex-shrink:0}
+  #page-home{padding-bottom:72px!important}
+  #col-left,#col-right{overflow:visible!important}
+}
+@media (max-width:900px){
+  #dash-area{padding:10px 10px 0}
+  #dash-area [style*="grid-template-columns:1fr 1fr"],
+  #dash-area [style*="grid-template-columns:280px 1fr"],
+  #dash-area [style*="grid-template-columns:220px 280px 1fr"],
+  #dash-area [style*="grid-template-columns:210px 1fr 1fr"],
+  #dash-area [style*="grid-template-columns:1fr 320px"],
+  #dash-area .lv-root .grid-2{grid-template-columns:1fr!important}
+  #dash-area [style*="grid-template-columns:repeat("],
+  #dash-area .lv-root .grid-3,#dash-area .lv-root .grid-4{grid-template-columns:repeat(2,1fr)!important}
+  #dash-area table{display:block;max-width:100%;overflow-x:auto}
+  #notif-panel{max-width:calc(100vw - 20px);right:10px}
+}
+@media (max-width:760px){
+  #page-home #top-row,#page-home #bottom-row{grid-template-columns:1fr!important;grid-template-areas:none}
+  #page-home #col-center,#page-home #col-left,#page-home #col-right{grid-area:auto}
+  #page-home #bottom-row>*:nth-child(3){grid-column:auto}
+}
+@media (max-width:620px){
+  .tb-userinfo{display:none}
+  #topbar{gap:6px}
+  #ps-nav-btn{padding:4px 9px}
+  .login-card{min-width:0!important;width:92vw;padding:36px 20px!important}
+  .lv-root .shap-label{width:110px}
+  #dash-area table td,#dash-area table th{min-width:96px}
+  #dash-area .lv-root .grid-3,#dash-area [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important}
+  #col-center{height:240px}
+  #ps-fab span{display:none}
+}
+</style>
+<div id="ps-nav-bd" aria-hidden="true"></div>
+<script>
+(function(){
+  var mq=window.matchMedia('(max-width:1100px)');
+  var orig=window.psToggleNav;
+  function btn(on){ var b=document.getElementById('ps-nav-btn'); if(b){ b.classList.toggle('on',on&&!mq.matches); b.textContent=(on&&!mq.matches)?'☰ Show menu':'☰ Menu'; b.setAttribute('aria-expanded', String(!on)); } }
+  window.psToggleNav=function(force){
+    if(!mq.matches){ if(orig) orig(force); btn(document.body.classList.contains('ps-nav-hidden')); return; }
+    var on=typeof force==='boolean'?force:!document.body.classList.contains('ps-nav-hidden');
+    document.body.classList.toggle('ps-nav-hidden',on);   /* narrow: temporary drawer, not remembered */
+    btn(on); window.dispatchEvent(new Event('resize'));
+  };
+  function sync(){
+    if(mq.matches){ document.body.classList.add('ps-nav-hidden'); btn(true); }
+    else { var h=false; try{ h=localStorage.getItem('prosense_nav_hidden')==='1'; }catch(e){}
+      document.body.classList.toggle('ps-nav-hidden',h); btn(h); }
+    window.dispatchEvent(new Event('resize'));
+  }
+  if(mq.addEventListener) mq.addEventListener('change',sync); else mq.addListener(sync);
+  document.getElementById('ps-nav-bd').addEventListener('click',function(){ window.psToggleNav(true); });
+  document.addEventListener('click',function(e){
+    if(!mq.matches) return;
+    var it=e.target.closest&&e.target.closest('#sidebar .nav-item');
+    if(it) setTimeout(function(){ window.psToggleNav(true); },60);
+  });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&mq.matches&&!document.body.classList.contains('ps-nav-hidden')) window.psToggleNav(true); });
+  if(document.readyState==='complete') sync(); else window.addEventListener('load',sync);
 })();
 </script>
 <!-- PS-ADMIN:END -->
