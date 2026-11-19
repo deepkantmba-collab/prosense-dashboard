@@ -913,37 +913,32 @@ body.pf-focus #pf-focus-bar{display:flex;}
       <div class="card" style="padding:20px;">
         <div class="card-title" style="margin-bottom:2px;">Risk Timeline</div>
         <div class="card-sub" style="margin-bottom:10px;">6-week risk score trend · Arjun vs Team Average</div>
-        <svg width="100%" height="130" viewBox="0 0 300 130" preserveAspectRatio="none">
+        <svg width="100%" viewBox="0 0 440 136" style="display:block;height:auto" role="img" aria-label="Risk timeline over six weeks: Arjun climbs to 0.97 while the team average stays near 0.3">
           <!-- grid -->
-          <line x1="32" y1="10" x2="32" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-          <line x1="32" y1="100" x2="295" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-          <line x1="32" y1="78"  x2="295" y2="78"  stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
-          <line x1="32" y1="55"  x2="295" y2="55"  stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
-          <line x1="32" y1="32"  x2="295" y2="32"  stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
+          <line x1="44" y1="14" x2="44" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="44" y1="110" x2="432" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="44" y1="86" x2="432" y2="86" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
+          <line x1="44" y1="62" x2="432" y2="62" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
+          <line x1="44" y1="38" x2="432" y2="38" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
           <!-- Y labels -->
-          <text x="28" y="103" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="end">0.0</text>
-          <text x="28" y="81"  fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="end">0.25</text>
-          <text x="28" y="58"  fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="end">0.50</text>
-          <text x="28" y="35"  fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="end">0.75</text>
+          <text x="38" y="113" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="end">0.0</text>
+          <text x="38" y="89" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="end">0.25</text>
+          <text x="38" y="65" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="end">0.50</text>
+          <text x="38" y="41" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="end">0.75</text>
           <!-- X labels -->
-          <text x="62"  y="115" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W1</text>
-          <text x="111" y="115" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W2</text>
-          <text x="160" y="115" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W3</text>
-          <text x="209" y="115" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W4</text>
-          <text x="258" y="115" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W5</text>
-          <text x="293" y="115" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W6</text>
+          <text x="70" y="128" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W1</text>
+          <text x="140" y="128" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W2</text>
+          <text x="210" y="128" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W3</text>
+          <text x="280" y="128" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W4</text>
+          <text x="350" y="128" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W5</text>
+          <text x="420" y="128" fill="rgba(123,136,176,0.6)" font-size="10" text-anchor="middle">W6</text>
           <!-- Team Avg (teal dashed) -->
-          <polyline points="62,73 111,71 160,70 209,69 258,68 293,67"
-            fill="none" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
-          <!-- Arjun (red solid, escalating from 0.55→0.97) -->
-          <polyline points="62,60 111,53 160,44 209,32 258,20 293,11"
-            fill="none" stroke="#ff4757" stroke-width="2.5" stroke-linejoin="round"
-            style="filter:drop-shadow(0 0 3px rgba(255,71,87,0.7))"/>
-          <!-- Dot at W6 -->
-          <circle cx="293" cy="11" r="4" fill="#ff4757" style="filter:drop-shadow(0 0 5px #ff4757)"/>
-          <!-- Label -->
-          <rect x="266" y="3" width="28" height="13" rx="3" fill="rgba(255,71,87,0.18)" stroke="rgba(255,71,87,0.4)" stroke-width="0.8"/>
-          <text x="280" y="12" fill="#ff4757" font-size="10" text-anchor="middle" font-weight="700">0.97</text>
+          <polyline points="70,81 140,79 210,78 280,77 350,76 420,75" fill="none" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+          <!-- Arjun (red solid, escalating to 0.97) -->
+          <polyline points="70,67 140,60 210,50 280,37 350,25 420,17" fill="none" stroke="#ff4757" stroke-width="2.5" stroke-linejoin="round" style="filter:drop-shadow(0 0 3px rgba(255,71,87,0.7))"/>
+          <circle cx="420" cy="17" r="4" fill="#ff4757" style="filter:drop-shadow(0 0 5px #ff4757)"/>
+          <rect x="372" y="9" width="32" height="15" rx="3" fill="rgba(255,71,87,0.18)" stroke="rgba(255,71,87,0.4)" stroke-width="0.8"/>
+          <text x="388" y="20" fill="#ff4757" font-size="10" text-anchor="middle" font-weight="700">0.97</text>
         </svg>
         <div style="display:flex;gap:16px;margin-top:2px;">
           <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);">
@@ -1164,7 +1159,6 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <div id="tm-name" style="font-size:16px;font-weight:800;color:#fff;">Arjun Kumar</div>
           <div id="tm-role" class="ps-desig" style="font-size:11px;color:var(--muted);margin-top:1px;">Sr. Software Engineer</div>
           <div id="tm-risk-badge" style="display:inline-block;margin-top:6px;background:rgba(255,71,87,0.18);border:1px solid rgba(255,71,87,0.45);border-radius:10px;padding:3px 12px;font-size:11px;font-weight:700;color:#ff6b78;">⚠ CRITICAL RISK</div>
-          <div class="wb-badge">💛 WELLBEING SIGNAL · NOT A PERFORMANCE METRIC</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:7px;">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(255,71,87,0.08);border-radius:7px;border:1px solid rgba(255,71,87,0.18);">
@@ -1188,6 +1182,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
             <span id="tm-ai-adopt" style="font-size:14px;font-weight:800;color:var(--fg);">23%</span>
           </div>
         </div>
+        <div style="text-align:center;margin-top:12px;"><div class="wb-badge">💛 WELLBEING SIGNAL · NOT A PERFORMANCE METRIC</div></div>
       </div>
 
       <!-- Radar Chart -->
@@ -5381,7 +5376,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart or tile scaled up to fill the screen, with the text and charts redrawn sharp (54 of them); tall widgets scroll inside the view; <b>Esc</b> closes it</li><li><b>Your name / avatar</b> in the top bar opens an account menu: <b>Switch user</b> (back to Google, test user or guest sign-in) and <b>Log out</b></li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v2.21</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.20</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.21 (Indigo only) chart labels on sparklines, commits, risk bars and SHAP, plus a sidebar overlap fix · v2.20 (Indigo only) hidden-until-hover scrollbars, floating dropdowns that flip at the screen edge, search in long lists · v2.19 radar-heart logo on every appearance, live motion on Indigo · v2.18 Versions list grouped into Version 2 and Version 1 · v2.17 live radar-heart logo · v2.16 live clickable data points on Slate and Indigo, arrange and resize widgets, translucent logo · v2.14 Slate Home redesign (status line, KPI tiles, next best actions), themed dropdown lists, a cleaner Safe Score gauge, a 22-slide presentation · v2.13 a real drift (PSI) check on the MLOps page, scenario figures labelled · v2.12 Slate appearance · v2.11 focused enlarge for wide cards · v2.10 bigger focused enlarge view, account menu (Switch user, Log out), new footer · v2.9 honest model figures: a data-leak fix, AUC 0.9479 becomes 0.9021 · v2.8 design polish: Inter font, steady text sizes, sharper charts, calmer globe · v2.7 full review: easier-to-read text, Home Team Pulse shows all six people · v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v2.22</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.21</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.22 one menu at a time, collapsible Settings sections, weekly values on the Team Intelligence trends, Risk Timeline proportions, Wellbeing badge at the bottom of the profile · v2.21 (Indigo only) chart labels on sparklines, commits, risk bars and SHAP, plus a sidebar overlap fix · v2.20 (Indigo only) hidden-until-hover scrollbars, floating dropdowns that flip at the screen edge, search in long lists · v2.19 radar-heart logo on every appearance, live motion on Indigo · v2.18 Versions list grouped into Version 2 and Version 1 · v2.17 live radar-heart logo · v2.16 live clickable data points on Slate and Indigo, arrange and resize widgets, translucent logo · v2.14 Slate Home redesign (status line, KPI tiles, next best actions), themed dropdown lists, a cleaner Safe Score gauge, a 22-slide presentation · v2.13 a real drift (PSI) check on the MLOps page, scenario figures labelled · v2.12 Slate appearance · v2.11 focused enlarge for wide cards · v2.10 bigger focused enlarge view, account menu (Switch user, Log out), new footer · v2.9 honest model figures: a data-leak fix, AUC 0.9479 becomes 0.9021 · v2.8 design polish: Inter font, steady text sizes, sharper charts, calmer globe · v2.7 full review: easier-to-read text, Home Team Pulse shows all six people · v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('v2features','What is new in v2.0','v2.0,v2,what is new,new features,latest release,hide menu,hide navigation,menu button,customise page,customize page,check-in,needs a check-in,simulation charts,sphere speed',
     '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top left, from v2.1; it was top right in v2.0) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
@@ -6387,9 +6382,10 @@ html.ps-slate #home-pillars>div>span:first-child{width:140px!important}
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v2.21';
+  var CUR = 'v2.22';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v2.22', d:'19 Nov 2026', t:'One menu at a time, Settings accordions, labelled trends', add:['Every appearance: opening the account menu, the ⚙ menu, notifications or Settings closes any other open menu first','Settings: Account, Page, Alerts, Display, Privacy, Demo tools and Versions & roll back are collapsible sections, all closed when Settings opens; opening one closes the others','Team Intelligence trends (Slack messages, stand-up contributions, PR review depth) show every weekly value, W1 to W7, the unit and the W1 to W7 change; the v2.21 chart labels now show on every appearance','Risk Timeline keeps its proportions instead of stretching sideways, with evenly spaced weeks','Team Intelligence: the Wellbeing signal badge moved to the bottom of the profile panel']},
     {v:'v2.21', d:'19 Nov 2026', t:'Chart labels and sidebar fix (Indigo only)', add:['Indigo appearance only: Dark, Light and Slate are unchanged from v2.20','Team Intelligence sparklines show week 1 and latest values, the % change, week markers W1 to W7 and end dots','Commits by Day shows weekdays, the Fri peak and the Sun low','PR Response Time and After-Hours Commits are marked as illustrative trend shapes; their real figures stay below','4 Models: each risk bar shows its 0 to 1.0 scale; SHAP bars say what bar length and colour mean','Fixed: the sidebar footer no longer overlaps menu items when the Method group is open on a short window']},
     {v:'v2.20', d:'19 Nov 2026', t:'Cleaner scrollbars and smarter dropdowns (Indigo only)', add:['Indigo appearance only: Dark, Light and Slate are unchanged from v2.19','Scrollbars stay hidden until you hover over the area that scrolls, then fade in; every page keeps a fixed scrollbar gutter, so switching between short and long pages no longer shifts the layout sideways','Long lists (the sidebar menu on a short window, the Customise list, chat, dropdown lists) fade softly at the edge that has more to scroll','Dropdowns open as a floating panel above everything, so a card can never cut them off; near the bottom or right edge they flip upward or shift inward instead of making the page scroll','Lists with more than 8 options (such as Versions) get a search box at the top that filters as you type; arrow keys, Enter, Escape and type-ahead all work','The 150 ms scale-and-slide open and close turns into a simple fade for reduced-motion users']},
 {v:'v2.19', d:'19 Nov 2026', t:'Radar-heart logo on every appearance, live motion on Indigo', add:['The live radar-heart logo now shows in Dark and Light too, in the sidebar and on the sign-in screen (it was Slate and Indigo only)','Indigo only: business icons on every widget of every page, bold counting metrics, bars that fill, a Team Pulse donut, a Key Insights panel, and every widget now animates in, bars fill, the Safe Score ring draws, numbers count up, the banner shimmers and the critical items glow; hover lifts cards. It replays every time you open a page, click a menu item, switch to Indigo or return to the tab, and is off for reduced-motion users']},
@@ -7825,28 +7821,28 @@ html.ps-slate.ps-indigo .ps-dd-search input:focus{border-color:rgba(196,181,253,
 })();
 </script>
 <style id="ps-lbl-css">
-/* ───────── v2.21 chart labels (Indigo only): the labels exist in the page but stay hidden on the other appearances ───────── */
-.ps-lb,.ps-spk-dot,.ps-spk-tk{display:none}
-html.ps-indigo .ps-lb{display:flex}
-html.ps-indigo .ps-spk-dot,html.ps-indigo .ps-spk-tk{display:block}
-.ps-spk-wrap{position:relative}
-.ps-lb{font-size:10.5px;line-height:1.3;color:var(--muted);justify-content:space-between;align-items:baseline;gap:8px;margin-top:3px}
-.ps-lb b{font-weight:700;color:var(--text,#e8eaf6);font-variant-numeric:tabular-nums}
+/* ───────── chart labels (v2.21 Indigo, v2.22 every appearance) ───────── */
+.ps-lb{display:flex;font-size:10.5px;line-height:1.3;color:var(--muted);justify-content:space-between;align-items:baseline;gap:8px;margin-top:3px}
+.ps-lb b{font-weight:700;color:var(--fg);font-variant-numeric:tabular-nums}
 .ps-lb i{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums}
 .ps-lb.ps-cap{justify-content:flex-start;gap:12px;flex-wrap:wrap;margin:2px 0 8px;font-size:11px}
 .ps-lb.ps-cap .p{color:#ff6b78}.ps-lb.ps-cap .n{color:#2ed573}
 .ps-lb.ps-scale{margin-top:4px}
 .ps-lb.ps-ill{justify-content:flex-start;font-style:italic;opacity:.8}
-.ps-spk-dot{position:absolute;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 2px #14174a;pointer-events:none}
+.ps-spk-wrap{position:relative;padding-top:14px}
+.ps-spk-wrap>svg{display:block}
+.ps-spk-dot{position:absolute;width:8px;height:8px;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 2px var(--card,#0f1424);pointer-events:none}
+.ps-spk-dot.sm{width:5px;height:5px;box-shadow:0 0 0 1.5px var(--card,#0f1424)}
+.ps-spk-v{position:absolute;transform:translate(-50%,-100%);margin-top:-5px;font-size:10px;font-weight:700;color:var(--fg);white-space:nowrap;pointer-events:none;font-variant-numeric:tabular-nums;line-height:1}
+.ps-spk-v.dn{transform:translate(-50%,0);margin-top:6px}
+.ps-spk-v.end{font-size:11px}
 .ps-spk-pk{position:absolute;transform:translate(-50%,-100%);font-size:10px;font-weight:700;white-space:nowrap;pointer-events:none;margin-top:-5px}
-.ps-spk-ax{position:relative;height:13px;margin-top:2px}
+.ps-spk-ax{position:relative;height:13px;margin-top:3px}
 .ps-spk-tk{position:absolute;top:0;transform:translateX(-50%);font-size:10px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
-html.ps-indigo .ps-spk-pk{display:block}
-.ps-spk-pk{display:none}
 </style>
 <script id="ps-lbl-js">
 (function(){
-  var SPK_UNIT=['msgs per week','per week','score'];
+  var SPK_UNIT=['Messages per week','Contributions per week','Review depth score (0–100)'];
   function el(tag,cls,html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
   function pctX(x){ return (x/180*100).toFixed(2)+'%'; }
   /* put the svg inside a relative wrapper so dots and ticks can sit on the line */
@@ -7855,22 +7851,30 @@ html.ps-indigo .ps-spk-pk{display:block}
     if(w&&w.classList&&w.classList.contains('ps-spk-wrap')) return w;
     w=el('div','ps-spk-wrap'); svg.parentNode.insertBefore(w,svg); w.appendChild(svg); return w;
   }
-  function clear(w){ [].slice.call(w.querySelectorAll('.ps-spk-dot,.ps-spk-pk')).forEach(function(n){ n.remove(); });
+  function clear(w){ [].slice.call(w.querySelectorAll('.ps-spk-dot,.ps-spk-pk,.ps-spk-v')).forEach(function(n){ n.remove(); });
     var nx=w.nextElementSibling; while(nx&&(nx.classList.contains('ps-spk-ax')||nx.classList.contains('ps-spk-meta'))){ var d=nx; nx=nx.nextElementSibling; d.remove(); } }
-  function dot(w,x,y,col,H){ var d=el('span','ps-spk-dot'); d.style.left=pctX(x); d.style.top=(y/50*H).toFixed(1)+'px'; d.style.background=col; w.appendChild(d); }
+  var PAD=14;
+  function dot(w,x,y,col,H,cls){ var d=el('span','ps-spk-dot'+(cls?' '+cls:'')); d.style.left=pctX(x); d.style.top=(PAD+y/50*H).toFixed(1)+'px'; d.style.background=col; w.appendChild(d); }
   /* Team Intelligence sparklines: first value, latest value and the change, plus a week axis */
   function labelSpark(idx,data,color){
     var svg=document.getElementById('tm-spark-'+idx); if(!svg||!data||data.length<2) return;
     var w=wrap(svg); clear(w);
     var max=Math.max.apply(null,data), min=Math.min.apply(null,data), range=max-min||1, n=data.length, H=svg.getBoundingClientRect().height||50;
     var X=function(i){ return i/(n-1)*170+5; }, Y=function(v){ return 45-((v-min)/range)*38; };
-    dot(w,X(0),Y(data[0]),'#98a0c8',H); dot(w,X(n-1),Y(data[n-1]),color,H);
+    for(var i=0;i<n;i++){
+      var v=data[i], end=(i===0||i===n-1), y=Y(v);
+      dot(w,X(i),y,i===n-1?color:(i===0?'#98a0c8':color),H,end?'':'sm');
+      /* value above the point; below it only for a dip with room underneath */
+      var nb=i===0?[data[1]]:i===n-1?[data[n-2]]:[data[i-1],data[i+1]], avg=nb.reduce(function(a,b){return a+b;},0)/nb.length;
+      var lab=el('span','ps-spk-v'+(end?' end':'')+((v<avg&&y<30)?' dn':''),String(v));
+      lab.style.left=pctX(X(i)); lab.style.top=(PAD+y/50*H).toFixed(1)+'px'; if(i===n-1) lab.style.color=color;
+      w.appendChild(lab);
+    }
     var first=data[0], last=data[n-1], ch=first?Math.round((last-first)/first*100):0;
-    var meta=el('div','ps-lb ps-spk-meta','<span>Week 1 <b>'+first+'</b></span><span><i style="color:'+color+'">'+(ch>0?'+':ch<0?'−':'')+Math.abs(ch)+'%</i> &nbsp;Week '+n+' <b style="color:'+color+'">'+last+'</b></span>');
+    var meta=el('div','ps-lb ps-spk-meta','<span>'+(SPK_UNIT[idx]||'')+'</span><span>W1 → W'+n+' <i style="color:'+color+'">'+(ch>0?'+':ch<0?'−':'')+Math.abs(ch)+'%</i></span>');
     var ax=el('div','ps-spk-ax');
-    for(var i=0;i<n;i++){ var t=el('span','ps-spk-tk','W'+(i+1)); t.style.left=pctX(X(i)); ax.appendChild(t); }
+    for(var t=0;t<n;t++){ var tk=el('span','ps-spk-tk','W'+(t+1)); tk.style.left=pctX(X(t)); ax.appendChild(tk); }
     w.insertAdjacentElement('afterend',ax); ax.insertAdjacentElement('afterend',meta);
-    var u=SPK_UNIT[idx]; if(u){ meta.title=u; }
   }
   var o=window.renderSparkline;
   if(typeof o==='function'){ window.renderSparkline=function(i,d,c){ var r=o.apply(this,arguments); try{ labelSpark(i,d,c); }catch(e){} return r; }; }
@@ -7887,10 +7891,10 @@ html.ps-indigo .ps-spk-pk{display:block}
     var c=cardByTitle('Commits by Day');
     if(c&&!c._psl){ var svg=c.querySelector(':scope > svg'); if(svg){ c._psl=1;
       var w=wrap(svg), days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], pts=[[5,46],[28,44],[51,40],[74,15],[97,10],[120,38],[143,50]], H=svg.getBoundingClientRect().height||55;
-      var dd=function(x,y,col){ var d=el('span','ps-spk-dot'); d.style.left=pctX(x); d.style.top=(y/55*H).toFixed(1)+'px'; d.style.background=col; w.appendChild(d); };
+      var dd=function(x,y,col){ var d=el('span','ps-spk-dot'); d.style.left=pctX(x); d.style.top=(PAD+y/55*H).toFixed(1)+'px'; d.style.background=col; w.appendChild(d); };
       dd(97,10,'#ff6b35'); dd(143,50,'#98a0c8');
-      var pk=el('span','ps-spk-pk','Fri 145'); pk.style.left=pctX(97); pk.style.top=(10/55*H).toFixed(1)+'px'; pk.style.color='#ff6b35'; w.appendChild(pk);
-      var lo=el('span','ps-spk-pk','Sun 10'); lo.style.left=pctX(143); lo.style.top=(50/55*H-10).toFixed(1)+'px'; lo.style.color='#98a0c8'; w.appendChild(lo);
+      var pk=el('span','ps-spk-pk','Fri 145'); pk.style.left=pctX(97); pk.style.top=(PAD+10/55*H).toFixed(1)+'px'; pk.style.color='#ff6b35'; w.appendChild(pk);
+      var lo=el('span','ps-spk-pk','Sun 10'); lo.style.left=pctX(143); lo.style.top=(PAD+50/55*H-10).toFixed(1)+'px'; lo.style.color='#98a0c8'; w.appendChild(lo);
       var ax=el('div','ps-spk-ax'); days.forEach(function(d,i){ var t=el('span','ps-spk-tk',d); t.style.left=pctX(pts[i][0]); ax.appendChild(t); }); w.insertAdjacentElement('afterend',ax);
     } }
     ['PR Response Time','After-Hours Commits'].forEach(function(t){
@@ -7910,6 +7914,95 @@ html.ps-indigo .ps-spk-pk{display:block}
   function build(){ refreshSpark(); staticCards(); bars(); }
   build(); setInterval(build,1200);
   new MutationObserver(build).observe(document.documentElement,{attributes:true,attributeFilter:['class']});
+})();
+</script>
+<style id="ps-acc-css">
+/* ───────── v2.22 Settings accordions (every appearance) ───────── */
+#ps-set .ps-acc-h{display:flex;align-items:center;justify-content:space-between;width:100%;margin:0;padding:14px 4px;background:none;border:0;border-top:1px solid rgba(255,255,255,.08);border-radius:0;cursor:pointer;text-align:left}
+#ps-set .ps-acc-h:first-of-type{border-top:1px solid rgba(255,255,255,.08);padding-top:14px}
+#ps-set .ps-acc-h:hover{color:var(--fg)}
+#ps-set .ps-acc-h:focus-visible{outline:2px solid var(--teal);outline-offset:-2px}
+#ps-set .ps-acc-h .ch{font-size:.8rem;letter-spacing:0;transition:transform .15s ease}
+#ps-set .ps-acc-h[aria-expanded="true"]{color:var(--fg)}
+#ps-set .ps-acc-h[aria-expanded="true"] .ch{transform:rotate(90deg)}
+#ps-set .ps-acc-b{padding:2px 0 12px}
+#ps-set .ps-acc-b[hidden]{display:none}
+#ps-set .ps-acc-foot{border-top:1px solid rgba(255,255,255,.08)}
+@media (prefers-reduced-motion: reduce){#ps-set .ps-acc-h .ch{transition:none}}
+</style>
+<script id="ps-acc-js">
+(function(){
+  var body=document.body;
+  function $(id){ return document.getElementById(id); }
+
+  /* ── 1. one overlay at a time: account menu, ⚙ menu, notifications, Settings ── */
+  function closeOthers(keep){
+    var um=$('ps-um'), tu=document.querySelector('.tb-user');
+    if(keep!=='um'&&um&&um.classList.contains('on')){ um.classList.remove('on'); if(tu) tu.setAttribute('aria-expanded','false'); }
+    var gw=$('ps-gear-wrap'), g=$('ps-gear');
+    if(keep!=='gear'&&gw&&gw.classList.contains('open')){ gw.classList.remove('open'); if(g) g.setAttribute('aria-expanded','false'); }
+    var np=$('notif-panel'); if(keep!=='notif'&&np) np.classList.remove('open');
+    if(keep!=='list'&&window.PSPop&&PSPop.close){ try{ PSPop.close(false,true); }catch(e){} }
+  }
+  function which(t){
+    if(!t||!t.closest) return null;
+    if(t.closest('#ps-um')||t.closest('#ps-gearmenu')||t.closest('#notif-panel')) return null;   /* clicks inside a menu are that menu's business */
+    if(t.closest('.tb-user')) return 'um';
+    if(t.closest('#ps-gear')) return 'gear';
+    if(t.closest('.tb-bell')) return 'notif';
+    return null;
+  }
+  /* capture phase: runs before the trigger's own handler (which stops the click from bubbling) */
+  document.addEventListener('click', function(e){ var k=which(e.target); if(k) closeOthers(k); }, true);
+  document.addEventListener('keydown', function(e){ if(e.key!=='Enter'&&e.key!==' ') return; var k=which(e.target); if(k) closeOthers(k); }, true);
+
+  /* ── 5. Settings: every section is an accordion, all closed on open, one open at a time ── */
+  var want=null;
+  function heads(){ return [].slice.call(document.querySelectorAll('#ps-set .ps-acc-h')); }
+  function setOpen(h,on){
+    h.setAttribute('aria-expanded',on?'true':'false');
+    var b=$(h.getAttribute('aria-controls')); if(b) b.hidden=!on;
+  }
+  function only(h){ heads().forEach(function(x){ setOpen(x, x===h); }); }
+  function build(){
+    var panel=$('ps-set'); if(!panel||panel._psAcc) return !!panel;
+    var secs=[].slice.call(panel.querySelectorAll(':scope > .ps-s-sec')); if(!secs.length) return false;
+    panel._psAcc=1;
+    secs.forEach(function(sec,n){
+      var key=(sec.textContent||'').trim().toLowerCase().replace(/[^a-z]+/g,'-').replace(/^-|-$/g,'');
+      var h=document.createElement('button'); h.type='button'; h.className='ps-s-sec ps-acc-h';
+      if(sec.id) h.id=sec.id; h.setAttribute('data-k',key);
+      h.innerHTML='<span>'+sec.innerHTML+'</span><span class="ch" aria-hidden="true">›</span>';
+      var b=document.createElement('div'); b.className='ps-acc-b'; b.id='ps-acc-'+n; b.setAttribute('role','region'); b.hidden=true;
+      h.setAttribute('aria-controls',b.id); h.setAttribute('aria-expanded','false');
+      var nx=sec.nextElementSibling;
+      while(nx&&!nx.classList.contains('ps-s-sec')&&!(nx.querySelector&&nx.querySelector('#ps-s-def'))){ var m=nx; nx=nx.nextElementSibling; b.appendChild(m); }
+      sec.parentNode.insertBefore(h,sec); sec.parentNode.insertBefore(b,sec); sec.remove();
+      b.setAttribute('aria-labelledby', h.id||(h.id='ps-acch-'+n));
+      h.addEventListener('click', function(){ var on=h.getAttribute('aria-expanded')==='true'; if(on) setOpen(h,false); else only(h); });
+    });
+    var foot=$('ps-s-def'); if(foot){ var row=foot.closest('.ps-s-row'); if(row) row.classList.add('ps-acc-foot'); }
+    /* the old "scroll down to find it" shortcut now opens the Versions section */
+    var vj=$('ps-s-vjump');
+    if(vj){ vj.innerHTML='🕘 Versions &amp; roll back'; vj.addEventListener('click', function(){ var v=$('ps-s-versions'); if(v) only(v); }, true); }
+    return true;
+  }
+  function onOpen(){
+    if(!body.classList.contains('ps-set-open')) return;
+    closeOthers('set');
+    heads().forEach(function(h){ setOpen(h,false); });
+    if(want){ var h=document.querySelector('#ps-set .ps-acc-h[data-k="'+want+'"]'); if(h) only(h); want=null; }
+  }
+  new MutationObserver(function(){ onOpen(); }).observe(body,{attributes:true,attributeFilter:['class']});
+  /* PSAdmin.versions() opens Settings at Versions & roll back */
+  function hookApi(){
+    if(!window.PSAdmin||PSAdmin._psAcc) return; PSAdmin._psAcc=1;
+    var ov=PSAdmin.versions;
+    /* if Settings is already open, the class toggle is a no-op and no observer runs, so don't leave `want` set for the next open */
+    if(typeof ov==='function') PSAdmin.versions=function(){ var was=body.classList.contains('ps-set-open'); want='versions-roll-back'; var r=ov.apply(this,arguments); if(was) want=null; var v=$('ps-s-versions'); if(v&&v.getAttribute('aria-expanded')!=='true') only(v); return r; };
+  }
+  function init(){ build(); hookApi(); }
+  init(); document.addEventListener('DOMContentLoaded', init); setTimeout(init,800);
 })();
 </script>
 <!-- PS-ADMIN:END -->
