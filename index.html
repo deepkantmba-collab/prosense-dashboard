@@ -683,7 +683,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
           <div class="card-sub">Overall team health</div>
           <div class="safe-body">
             <div class="donut-wrap">
-              <svg width="92" height="92" viewBox="0 0 80 80">
+              <svg width="104" height="104" viewBox="0 0 80 80">
                 <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"/>
                 <circle cx="40" cy="40" r="30" fill="none" stroke="#ff4757" stroke-width="8"
                   stroke-dasharray="71.6 188.5" stroke-dashoffset="0"
@@ -691,8 +691,8 @@ body.pf-focus #pf-focus-bar{display:flex;}
                   style="filter:drop-shadow(0 0 4px #ff475788)"/>
               </svg>
               <div class="donut-center">
-                <div class="donut-pct">38%</div>
-                <div class="donut-delta" style="color:#ff6b78;">↓ Critical</div>
+                <div class="donut-num"><span class="donut-pct">38</span><span class="donut-unit">/100</span></div>
+                <div class="donut-delta" style="color:#ff6b78;">Critical</div>
               </div>
             </div>
             <div class="safe-metrics">
@@ -5338,7 +5338,7 @@ function PSA_ENGINE(getEnv){
   K('psysafe','PsySafe: psychological safety','psysafe,safe to speak up,60 threshold,threshold 60,44,team psysafe,what is psysafe,speak up',
     '<p><b>PsySafe</b> (psychological safety) is whether people feel safe to speak up. The threshold is <b>60</b>. {{OWNER}}\'s team scores <b>44/100</b>, down 17 points in 6 weeks.</p><p>The team figure is a team-level survey score, so it is not the average of the six individual scores (22, 41, 58, 63, 74, 82).</p>',{tags:['Synthetic data'],go:'home',src:'Home page · deck slide 16'});
   K('team-health','Team Health score (38/100)','team health,38,health score,prosense safe score,safe score,overall score,critical score,team score',
-    '<p>The <b>ProSense Safe Score</b> is one overall team-health number from 0 to 100. Higher is healthier. {{OWNER}}\'s team is <b>38/100, labelled Critical</b>. On Home it is the donut in the Safe Score card (the headline repeats it in words); Collaboration, Wellbeing and Risk Index are the bubbles around the sphere.</p>',{tags:['Synthetic data'],go:'home',src:'Home page'});
+    '<p>The <b>ProSense Safe Score</b> is one overall team-health number from 0 to 100. Higher is healthier. {{OWNER}}\'s team is <b>38/100, labelled Critical</b>. On Home it is the donut in the Safe Score card (the headline repeats it in words); Collaboration, Wellbeing and Risk Index are the bubbles around the sphere (tiles next to the Safe Score in the Slate appearance).</p>',{tags:['Synthetic data'],go:'home',src:'Home page'});
   K('ai-adoption','AI adoption and AI scrutiny','ai adoption,adoption,ai usage,ai scrutiny,hide expertise,hide expertise from ai,71%,using ai,ai usage per person',
     '<p><b>AI adoption</b> is one of the 7 pillars. Per person it ranges from <b>Arjun 23%</b> up to <b>Kenji 85%</b>. The related warning signs are people <b>hiding expertise from AI</b> (71% of the team in the scenario) and approving AI output without checking it.</p>',{tags:['Synthetic data'],go:'ai',src:'AI & Productivity page'});
   K('bert','BERT Fear Index (designed)','bert,fear index,language model,transformer,nlp model,withdrawal language,fear language,bert fear index,0.74,0.65,encoder,fine tune',
@@ -5375,7 +5375,7 @@ function PSA_ENGINE(getEnv){
   K('tools','Dashboard tools: ⓘ, ⤢, ⛶','dashboard tools,double click,double-click,info icon,enlarge,tooltip,focus view,focus mode,shortcuts,keyboard,how to use dashboard,full screen,f key,hover,question mark,magnify,how do i use',
     '<ul><li><b>ⓘ</b> hover for a pop-up: what the chart shows, how to read it, and whether the data is trained, designed or simulated (58 of them)</li><li><b>⤢</b> opens any chart or tile scaled up to fill the screen, with the text and charts redrawn sharp (54 of them); tall widgets scroll inside the view; <b>Esc</b> closes it</li><li><b>Your name / avatar</b> in the top bar opens an account menu: <b>Switch user</b> (back to Google, test user or guest sign-in) and <b>Log out</b></li><li><b>Double-click</b> any chart or tile to enlarge it too; double-click its title, press <b>Esc</b> or click outside to close</li><li><b>⛶ Focus</b> hides the menu and header; button in the header or press <b>F</b>; <b>Esc</b> exits</li><li><b>/</b> opens this assistant</li></ul>',{tags:['Info'],src:'Deck slide 22'});
   K('versions','Versions and roll back','version,versions,version history,roll back,dashboard rollback,role back,previous version,older version,old version,go back to a version,restore version,which version,what version,changelog,release notes,what changed,difference between versions',
-    '<p>You are on <b>v2.13</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.12</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.10 bigger focused enlarge view, account menu (Switch user, Log out), new footer · v2.9 honest model figures: a data-leak fix, AUC 0.9479 becomes 0.9021 · v2.8 design polish: Inter font, steady text sizes, sharper charts, calmer globe · v2.7 full review: easier-to-read text, Home Team Pulse shows all six people · v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
+    '<p>You are on <b>v2.14</b>, the latest. Every release of the dashboard is saved, and you can go back to one at any time:</p><ul><li><b>⚙ Settings › Versions &amp; roll back</b> lists <b>v1.5 to v2.13</b>. Each shows what it added and what it does not have yet</li><li><b>Open</b> shows an older version in this tab, for this browser only. A bar at the bottom brings you back to the latest</li><li><b>Roll back for everyone</b> (site owner): pick a version, copy the git command and run it; Pages updates in about a minute, and the same command with a newer version undoes it</li></ul><p>Releases: v2.14 Slate Home redesign (status line, KPI tiles, next best actions), themed dropdown lists, a cleaner Safe Score gauge, a 22-slide presentation · v2.13 a real drift (PSI) check on the MLOps page, scenario figures labelled · v2.12 Slate appearance · v2.11 focused enlarge for wide cards · v2.10 bigger focused enlarge view, account menu (Switch user, Log out), new footer · v2.9 honest model figures: a data-leak fix, AUC 0.9479 becomes 0.9021 · v2.8 design polish: Inter font, steady text sizes, sharper charts, calmer globe · v2.7 full review: easier-to-read text, Home Team Pulse shows all six people · v2.6 Ask ProSense button moves to the header, cards no longer show empty space · v2.5 narrow-screen layout: the menu becomes a slide-over and pages stack on tablets and phones · v2.4 quality pass: keyboard and screen-reader access, text never below 10 px, reduced-motion support, small fixes · v2.3 fix: the ⚙ menu items respond to clicks, avatar and bell on the far right · v2.2 team name follows the signed-in user on every page, Email alerts row in Settings, Customise / Focus / Settings / Showcase under one ⚙ menu · v2.1 Home de-duplicated (no Team Health bubble, Safe Score card shows only the donut), Menu button on the left · v2.0 simulation drives the Home page, Team Intelligence and the heatmap, Customise per page, ☰ Menu button, Showcase (was Slides), check-in bubble · v1.17 designations optional (Settings switch, off by default), anonymous labels read Team member 1–6, 7 Pillars card can show one member (consent needed) · v1.16 Home clean-up, team label and greeting show the signed-in first name, slide speed and auto-run, Versions only under Settings · v1.15 slide show · v1.14 Versions button in the top bar (removed in v1.16) · v1.13 versions shortcut · v1.12 Privacy Guard · v1.11 guest password · v1.10 test user sign-in · v1.9 version history · v1.8 double-click to enlarge · v1.7 Settings panel · v1.6 this assistant · v1.5 name clean-up. v1.0–v1.4 are early builds kept in git only.</p>',
     {tags:['Info'],src:'Admin settings › Versions & roll back · deck slide 24'});
   K('v2features','What is new in v2.0','v2.0,v2,what is new,new features,latest release,hide menu,hide navigation,menu button,customise page,customize page,check-in,needs a check-in,simulation charts,sphere speed',
     '<p><b>v2.0</b> (18 Nov 2026):</p><ul><li><b>Simulation</b> now moves the Home bubbles, Safe Score, 7 Pillars card, Gap radar, the Reports heatmap and the Team Intelligence profile, not only Team Pulse. Reset restores everything. The Risk Signals page and the story-page visuals are fixed illustrations and do not move</li><li>The <b>sphere</b> spins faster at higher simulation speeds</li><li><b>Needs a check-in</b> bubble on Home: members at critical or high risk, out of 6</li><li><b>Customise</b> opens the panel list for the page you are on; Reset applies to that page only</li><li><b>☰ Menu</b> (top left, from v2.1; it was top right in v2.0) hides or shows the left navigation bar</li><li>Date and time now sit after the user name; Settings › Account shows the signed-in user; <b>▶ Showcase</b> is the new name for Slides</li></ul>',
@@ -5908,6 +5908,179 @@ html.ps-slate .ps-empty{padding:28px 16px;text-align:center;color:#8a90a2;font-s
 })();
 </script>
 
+<style id="ps-slate3-css">
+/* Slate v2.14: Home re-layout (status line, KPI strip, why + who, next best actions) and cleaner navigation. Slate only: Dark and Light are unchanged. */
+html:not(.ps-slate) .ps-sl-only{display:none!important}
+html.ps-slate .ps-sl-hide{display:none!important}
+/* top bar: page context instead of a second logo and duplicate tabs; date without seconds */
+html.ps-slate :is(.tb-brand,.tb-sep,.tb-pills,#tb-clock){display:none!important}
+@media (min-width:1101px){html.ps-slate body:not(.ps-nav-hidden) #ps-nav-btn{display:none!important}}
+#ps-sl-ctx{display:flex;align-items:baseline;gap:10px;white-space:nowrap;min-width:0;overflow:hidden}
+#ps-sl-ctx b{font:700 17px/1.2 var(--font);color:#eef0f5;letter-spacing:-.01em}
+#ps-sl-ctx>span{font-size:12.5px;color:#8a90a2;overflow:hidden;text-overflow:ellipsis}
+#ps-sl-date{font-size:12.5px;color:#8a90a2;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width:1100px){#ps-sl-date{display:none!important}}
+@media (max-width:700px){#ps-sl-ctx>span{display:none}}
+/* sidebar: Overview / Understand / Act / Method groups, Resolution promoted to Act */
+.ps-sl-sec{padding:16px 22px 6px;font:600 10px/1 var(--font);letter-spacing:.14em;text-transform:uppercase;color:#636a7e}
+html.ps-slate #nav-grp-h{border-top:0;margin-top:0}
+/* Home grid: problem -> why/who -> act */
+html.ps-slate #page-home:not([style*="display: none"]):not([style*="display:none"]){display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-areas:"st st st st st st st st st st st st" "sf sf sf sf k1 k1 k2 k2 k3 k3 k4 k4" "pl pl pl pl pl pl pl pu pu pu pu pu" "nb nb nb nb nb nb nb nb nb nb nb nb";gap:16px;align-content:start;align-items:stretch}
+html.ps-slate #page-home :is(#top-row,#col-left,#col-center,#globe-container,#col-right,#bottom-row){display:contents!important}
+html.ps-slate #page-home :is(#globe-canvas,#cw-gap,#cw-insights,#cw-signals,#cw-actions){display:none!important}
+html.ps-slate #page-home .greeting-block{grid-area:st;padding:0}
+html.ps-slate #cw-safe{grid-area:sf}
+html.ps-slate #bub-checkin{grid-area:k1}
+html.ps-slate #bub-well{grid-area:k2}
+html.ps-slate #bub-collab{grid-area:k3}
+html.ps-slate #bub-risk{grid-area:k4}
+html.ps-slate #cw-pillars{grid-area:pl}
+html.ps-slate #cw-pulse{grid-area:pu}
+html.ps-slate #ps-sl-nba{grid-area:nb}
+html.ps-slate #page-home :is(#cw-pillars,#cw-pulse,#cw-safe){height:auto!important;max-height:none!important;margin:0!important}
+html.ps-slate body:has(#page-home:not([style*="display: none"]):not([style*="display:none"])) #data-banner{display:none!important}
+/* status line replaces the three-part headline */
+html.ps-slate #page-home .greeting-block :is(.greeting-h1,.greeting-sub,.greeting-body){display:none!important}
+#ps-sl-status{display:flex;align-items:flex-start;gap:14px;margin-top:10px;padding:16px 20px;border-radius:14px;background:rgba(255,84,104,.07);border:1px solid rgba(255,84,104,.24)}
+#ps-sl-status .dot{width:10px;height:10px;border-radius:50%;background:#ff5468;margin-top:8px;flex:none;box-shadow:0 0 0 4px rgba(255,84,104,.16)}
+#ps-sl-status[data-tone="warn"]{background:rgba(255,176,32,.07);border-color:rgba(255,176,32,.26)}
+#ps-sl-status[data-tone="warn"] .dot{background:#ffb020;box-shadow:0 0 0 4px rgba(255,176,32,.16)}
+#ps-sl-status[data-tone="ok"]{background:rgba(61,220,151,.07);border-color:rgba(61,220,151,.26)}
+#ps-sl-status[data-tone="ok"] .dot{background:#3ddc97;box-shadow:0 0 0 4px rgba(61,220,151,.16)}
+#ps-sl-status h1{font:700 21px/1.3 var(--font);color:#f2f3f7;margin:0;letter-spacing:-.015em}
+#ps-sl-status p{margin:4px 0 0;font-size:13.5px;color:#aab0bf;line-height:1.5}
+/* KPI tiles (the four former sphere bubbles) */
+html.ps-slate #page-home .bubble{position:static!important;inset:auto!important;transform:none!important;animation:none!important;backdrop-filter:none!important;text-align:left;background:#16181e!important;border:1px solid rgba(255,255,255,.06)!important;border-radius:16px;padding:18px;box-shadow:0 1px 2px rgba(0,0,0,.28),0 10px 28px rgba(0,0,0,.22);display:flex;flex-direction:column;justify-content:center;gap:8px;min-width:0}
+html.ps-slate #page-home .bubble-val{font-size:1.9rem!important;white-space:nowrap}
+html.ps-slate #page-home .bubble-note{line-height:1.4}
+/* 7 Pillars: weakest first, a line at 60, the two weakest highlighted */
+html.ps-slate #home-pillars>div{order:var(--o,0)}
+html.ps-slate #home-pillars>div>div{position:relative;overflow:visible!important;height:8px!important;border-radius:4px!important}
+html.ps-slate #home-pillars>div>div>div:first-child{border-radius:4px}
+.ps-sl-tick{position:absolute;top:-4px;bottom:-4px;left:60%;width:2px;border-radius:1px;background:rgba(255,255,255,.6)}
+html.ps-slate #home-pillars>div.ps-sl-weak>span:first-child{color:#eef0f5!important;font-weight:600}
+html.ps-slate #home-pillars>div>span:first-child{width:140px!important}
+.ps-sl-hint{font-size:11px;color:#8a90a2;margin-top:4px}
+.ps-sl-hint i{display:inline-block;width:2px;height:10px;background:rgba(255,255,255,.6);vertical-align:-1px;margin:0 4px}
+/* Next best actions: AI Insights + Recommended Actions merged */
+#ps-sl-nba .hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+#ps-sl-nba .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ps-sl-act{display:flex;flex-direction:column;gap:8px;padding:16px;border:1px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.02);min-width:0}
+.ps-sl-act .k{font:600 10px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:#8a90a2}
+.ps-sl-act .k.p1{color:#ff8a98}
+.ps-sl-act h3{margin:0;font:700 15px/1.3 var(--font);color:#f2f3f7}
+.ps-sl-act p{margin:0;font-size:12.5px;line-height:1.5;color:#aab0bf}
+.ps-sl-act p.why{color:#d4d8e2}
+.ps-sl-act p b{display:inline-block;min-width:44px;font:600 10px/1 var(--font);letter-spacing:.1em;text-transform:uppercase;color:#7d8397}
+.ps-sl-act .btns{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;padding-top:6px}
+.ps-sl-act button,#ps-sl-nba .ft button{font:600 12px/1 var(--font);padding:9px 12px;border-radius:8px;cursor:pointer;background:rgba(124,124,255,.16);border:1px solid rgba(124,124,255,.34);color:#c8c8ff}
+.ps-sl-act button:hover{background:rgba(124,124,255,.26)}
+.ps-sl-act button.sec{background:transparent;border-color:rgba(255,255,255,.12);color:#aab0bf}
+.ps-sl-act button.sec:hover{border-color:rgba(255,255,255,.24);color:#e6e8ee}
+#ps-sl-nba .ft{margin-top:12px;display:flex;justify-content:flex-end}
+#ps-sl-nba .ft button{background:none;border:0;padding:6px 0;color:#b4b4ff}
+@media (max-width:1100px){
+  html.ps-slate #page-home:not([style*="display: none"]):not([style*="display:none"]){grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"st st" "sf sf" "k1 k2" "k3 k4" "pl pl" "pu pu" "nb nb"}
+  #ps-sl-nba .grid{grid-template-columns:1fr}
+}
+</style>
+<script id="ps-slate3-js">
+(function(){
+  var root=document.documentElement;
+  function $(i){return document.getElementById(i)}
+  function mk(h){var d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild}
+  function txt(n){return (n&&n.textContent||'').trim()}
+  function go(t){
+    var n=[].filter.call(document.querySelectorAll('#sidebar .nav-item'),function(x){return !x.classList.contains('ps-sl-only')&&txt(x).indexOf(t)>=0})[0];
+    if(n){n.click(); var a=$('dash-area'); if(a) a.scrollTop=0;}
+  }
+  function owner(){var o=document.querySelector('.ps-owner');return o?txt(o):'Priya'}
+  function init(){
+    if($('ps-sl-status')) return;
+    /* top bar */
+    var nb=$('ps-nav-btn');
+    if(nb) nb.insertAdjacentElement('afterend',mk('<div id="ps-sl-ctx" class="ps-sl-only"><b id="ps-sl-page">Home</b><span><span class="ps-owner">'+owner()+'</span>’s team · synthetic demo data</span></div>'));
+    var clk=$('tb-clock'), dt=mk('<span id="ps-sl-date" class="ps-sl-only"></span>');
+    if(clk){clk.insertAdjacentElement('afterend',dt); var tick=function(){var s=txt(clk).split(' · ')[0]; if(s&&dt.textContent!==s) dt.textContent=s;}; tick(); setInterval(tick,15000);}
+    /* sidebar groups */
+    var items=[].slice.call(document.querySelectorAll('#sidebar .sb-nav > .nav-item'));
+    function sec(label,before){if(before) before.insertAdjacentElement('beforebegin',mk('<div class="ps-sl-sec ps-sl-only" aria-hidden="true">'+label+'</div>'));}
+    function find(t){return items.filter(function(x){return txt(x).indexOf(t)>=0})[0]}
+    var rep=find('Reports');
+    sec('Overview',find('Home')); sec('Understand',find('Team Intelligence')); sec('Act',rep); sec('Method',$('nav-grp-h'));
+    var orig=[].filter.call(document.querySelectorAll('#nav-grp-body .nav-item'),function(x){return txt(x).indexOf('Resolution')>=0})[0];
+    if(orig&&rep){
+      orig.classList.add('ps-sl-hide');
+      var cl=mk('<div class="nav-item ps-sl-only" role="button" tabindex="0"><span class="nav-icon">✅</span> Resolution</div>');
+      cl.addEventListener('click',function(){ if(typeof lvNav==='function') lvNav(cl,'resolution'); });
+      cl.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); cl.click(); } });
+      rep.insertAdjacentElement('beforebegin',cl);
+      new MutationObserver(function(){ if(orig.classList.contains('active')) cl.classList.add('active'); }).observe(orig,{attributes:true,attributeFilter:['class']});
+    }
+    /* page title follows the active menu item */
+    function pageName(){
+      var a=document.querySelector('#sidebar .nav-item.active'); if(!a) return 'Home';
+      return [].filter.call(a.childNodes,function(n){return !(n.classList&&n.classList.contains('nav-icon'))}).map(function(n){return n.textContent}).join('').trim()||'Home';
+    }
+    var pg=$('ps-sl-page'); function syncPage(){ if(pg){var s=pageName(); if(pg.textContent!==s) pg.textContent=s;} }
+    new MutationObserver(syncPage).observe($('sidebar'),{attributes:true,subtree:true,attributeFilter:['class']}); syncPage();
+    /* status line */
+    var gb=document.querySelector('#page-home .greeting-block');
+    if(gb) gb.appendChild(mk('<div id="ps-sl-status" class="ps-sl-only"><span class="dot" aria-hidden="true"></span><div><h1 id="ps-sl-h1">Team health</h1><p id="ps-sl-p"></p></div></div>'));
+    /* Safe Score: drop the "around the sphere" line */
+    var thr=$('safe-thr'), nx=thr&&thr.nextElementSibling;
+    if(nx){ nx.classList.add('ps-sl-hide'); nx.insertAdjacentElement('afterend',mk('<div class="ps-sl-only" style="font-size:11.5px;color:#8a90a2;margin-top:4px;line-height:1.45">Healthy starts at 60. The tiles alongside show what is moving it; the 7 Pillars below show why.</div>')); }
+    /* KPI tiles: every number gets a baseline or threshold */
+    function note(id,t){var b=$(id); if(b) b.appendChild(mk('<div class="bubble-note ps-sl-only">'+t+'</div>'));}
+    note('bub-well','vs 6 weeks ago'); note('bub-collab','vs 6 weeks ago'); note('bub-risk','0 to 1 · high at 0.60 or more');
+    /* pillar hint */
+    var su=$('hp-sub'); if(su) su.insertAdjacentElement('afterend',mk('<div class="ps-sl-hint ps-sl-only">Weakest first · the <i></i> line marks 60, the same healthy line as the Safe Score</div>'));
+    /* next best actions */
+    var ph=$('page-home');
+    if(ph) ph.appendChild(mk(
+      '<section class="card ps-sl-only" id="ps-sl-nba" aria-labelledby="ps-sl-nba-h">'+
+      '<div class="hd"><div class="card-title" id="ps-sl-nba-h" style="margin:0">Next best actions</div><div class="card-sub" style="margin:0">Suggested by ProSense · the manager decides · nothing happens automatically</div></div>'+
+      '<div class="grid">'+
+      '<article class="ps-sl-act"><div class="k p1">Do first</div><h3>1:1 with Arjun</h3><p class="why"><b>Why</b>Highest burnout on the team (critical) · Slack messages ↓61% since the Copilot rollout</p><p><b>What</b>A non-performance check-in: understand blockers and rebuild his voice in the team.</p><div class="btns"><button type="button" data-go="Resolution">Plan the 1:1 →</button><button type="button" class="sec" data-go="Risk Signals">See evidence</button></div></article>'+
+      '<article class="ps-sl-act"><div class="k">This week</div><h3>Team wellbeing check-in</h3><p class="why"><b>Why</b>Stand-up contribution ↓48% in 6 weeks · rising stress for 2 more people</p><p><b>What</b>A short, open team conversation about workload since the rollout.</p><div class="btns"><button type="button" data-go="Resolution">Plan the check-in →</button><button type="button" class="sec" data-go="Team Intelligence">See the team</button></div></article>'+
+      '<article class="ps-sl-act"><div class="k">This sprint</div><h3>Loyal-opposition session</h3><p class="why"><b>Why</b>87% of AI drafts accepted with zero edits · PR review time down from 4 h to 11 min</p><p><b>What</b>One person argues against the AI output for 10 minutes before the team signs off.</p><div class="btns"><button type="button" data-go="Resolution">Set it up →</button><button type="button" class="sec" data-go="AI &amp; Productivity">See AI signals</button></div></article>'+
+      '</div><div class="ft"><button type="button" data-go="Risk Signals">See all signals in Risk Signals →</button></div></section>'));
+    var nbaEl=$('ps-sl-nba');
+    if(nbaEl) nbaEl.addEventListener('click',function(e){ var b=e.target.closest('[data-go]'); if(b) go(b.getAttribute('data-go')); });
+    /* live updates */
+    var hp=$('home-pillars');
+    if(hp) new MutationObserver(update).observe(hp,{childList:true});
+    ['cw-safe','bub-checkin'].forEach(function(id){var n=$(id); if(n) new MutationObserver(update).observe(n,{childList:true,subtree:true,characterData:true});});
+    update();
+  }
+  var busy=false;
+  function update(){
+    if(busy) return; busy=true;
+    try{
+      var rows=[].slice.call(document.querySelectorAll('#home-pillars>div')).map(function(r){return {r:r,n:txt(r.firstElementChild),v:parseInt(txt(r.lastElementChild),10)}}).filter(function(x){return !isNaN(x.v)});
+      var s=rows.slice().sort(function(a,b){return a.v-b.v});
+      rows.forEach(function(x){
+        x.r.style.setProperty('--o',x.v); x.r.classList.toggle('ps-sl-weak',s.indexOf(x)<2);
+        var tr=x.r.children[1]; if(tr&&!tr.querySelector('.ps-sl-tick')){var i=document.createElement('i');i.className='ps-sl-tick ps-sl-only';i.setAttribute('aria-hidden','true');tr.appendChild(i);}
+      });
+      var h=parseInt(txt(document.querySelector('#cw-safe .donut-pct')),10), st=$('ps-sl-status'), h1=$('ps-sl-h1'), p=$('ps-sl-p');
+      if(st&&h1&&p&&!isNaN(h)){
+        st.setAttribute('data-tone',h<40?'crit':h<60?'warn':'ok');
+        var a=h<60?'Team health is '+h+'/100, '+(60-h)+' points below the healthy line':'Team health is '+h+'/100, above the healthy line of 60';
+        var ck=txt($('bub-checkin-val')), ti=txt($('hp-title')), team=/team average/i.test(ti);
+        var b=(ck&&ck!=='–'?ck+' people need a check-in (critical or high risk). ':'')+
+          (s.length>1?(team?'Weakest team pillars: ':'Weakest pillars for '+ti.replace(/^7 Pillars · /,'')+': ')+s[0].n+' '+s[0].v+'% and '+s[1].n+' '+s[1].v+'%.':'');
+        if(h1.textContent!==a) h1.textContent=a; if(p.textContent!==b) p.textContent=b;
+      }
+    }catch(e){}
+    busy=false;
+  }
+  /* the globe measures its box: re-measure when leaving Slate */
+  new MutationObserver(function(){ setTimeout(function(){ window.dispatchEvent(new Event('resize')); },60); }).observe(root,{attributes:true,attributeFilter:['class']});
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
 <script id="ps-admin-js">
 (function(){
   'use strict';
@@ -6129,7 +6302,7 @@ html.ps-slate .ps-empty{padding:28px 16px;text-align:center;color:#8a90a2;font-s
       var ct=d>=12?'↑ Rising':d>=6?'↗ Improving':'→ Flat', cc=d>=12?'#2ed573':d>=6?'#9be564':'var(--muted)';
       put(qs('#safe-thr'),(h<60?'Below':'Above')+' the 60 threshold',hc);
       put(qs('#bub-well .bubble-val'),wt,wc); put(qs('#bub-collab .bubble-val'),ct,cc); put(qs('#bub-risk .bubble-val'),rt,rc);
-      put(qs('.safe-card .donut-pct'),h+'%'); put(qs('.safe-card .donut-delta'),ha+hl,hc);
+      put(qs('.safe-card .donut-pct'),String(h)); put(qs('.safe-card .donut-delta'),hl,hc);
       var ring=qs('.safe-card svg circle[stroke-dasharray]'); if(ring){ putA(ring,'stroke-dasharray',(h/100*188.5).toFixed(1)+' 188.5'); putA(ring,'stroke',hc); }
       try { var M=MEMBERS, n=0; M.forEach(function(m){ if(adj(m.score,-d*1.1*m.score/100)>=60) n++; }); put(qs('#bub-checkin-val'),n+' of '+M.length,n?'#ff6b35':'#2ed573'); } catch(e){}
       var poly=qs('#cw-gap svg polygon[stroke="#00d4ff"]');
@@ -6192,9 +6365,10 @@ html.ps-slate .ps-empty{padding:28px 16px;text-align:center;color:#8a90a2;font-s
   }
 
   /* ───────── versions & roll back ───────── */
-  var CUR = 'v2.13';
+  var CUR = 'v2.14';
   var PUB = 'https://deepkantmba-collab.github.io/prosense-dashboard/';
   var VERS = [
+    {v:'v2.14', d:'19 Nov 2026', t:'Slate Home redesign, themed dropdowns, cleaner Safe Score gauge, 22-slide presentation', add:['Slate appearance only: a new Home that reads problem, then why, then action. A one-line status at the top, the Safe Score with four KPI tiles (each with its baseline or threshold), the 7 Pillars weakest first with a line at 60, Team Pulse, and three Next best actions with Why and What. Dark and Light keep the classic Home','Slate appearance only: the header shows the page name and team instead of a second logo and duplicate tabs; the menu is grouped into Overview, Understand, Act and Method, with Resolution moved up to Act','Dropdown lists (for example the 7 Pillars picker on Home) now follow the Dark, Light or Slate appearance instead of opening as a white list','Safe Score gauge: the number and its /100 unit share one type style and sit inside the ring; the Critical label no longer spills over the edge','The linked presentation is now 22 slides with a summary and an ask, 5-fold cross-validation and baselines, and the real drift check']},
     {v:'v2.13', d:'19 Nov 2026', t:'Honest drift monitor, labelled scenario figures, Slate refinements', add:['MLOps: the PSI monitor now shows a real calculation (baseline and an injected stress test) on the synthetic data instead of simulated meters; it is labelled as a demo and no drift has been observed','Situation page figures (63%, 41%, 87%) are labelled scenario figures, the 45-second scoring line is a design target, and $2–4M is labelled an illustrative estimate','Slate: one interactive accent colour, bigger KPI numbers, threshold bars (amber at 80% of the limit, red when over), empty states and phone-width table cards']},
     {v:'v2.12', d:'18 Nov 2026', t:'New Slate appearance', add:['Settings › Appearance now has a third option, Slate: neutral grey surfaces, softer borders, rounder cards and an indigo accent for buttons, tabs and the active menu item.','Data colours stay the same, so charts read exactly as before. Dark remains the default.','Ask ProSense understands "switch to slate theme", and Reset to defaults returns to Dark.']},
     {v:'v2.11', d:'18 Nov 2026', t:'Enlarge view reads larger and more focused, Home layout safeguard', add:['Enlarge: wide, short widgets (for example Key Signals) now re-flow to a narrower layout and scale up to 2.5x, so the text is large and readable instead of a small wide strip','Home: the top row can no longer be shorter than its tallest column, so the bottom row (Team Pulse and others) never covers the cards above it','Team Pulse header wraps cleanly on narrow cards']},
@@ -6575,6 +6749,23 @@ button:active,[role=button]:active{transform:translateY(1px)}
 :focus{outline:none}
 :focus-visible{outline:2px solid #00d4ff!important;outline-offset:2px!important;border-radius:6px}
 input:focus-visible,select:focus-visible,textarea:focus-visible{outline-offset:0!important;border-color:#00d4ff!important}
+/* PS-SELECT: dropdown lists follow the theme (native popups ignore the page filter) */
+select{color-scheme:dark}
+select option,select optgroup{background:#131c2e;color:#e6edf7}
+select option:checked{background:#1e3a5f;color:#fff}
+select option:disabled{color:#6b7a94}
+.ps-slate select option,.ps-slate select optgroup{background:#1d2027;color:#e6e8ee}
+.ps-slate select option:checked{background:#2b2d5c;color:#fff}
+.ps-light select{color-scheme:light}
+.ps-light select option,.ps-light select optgroup{background:#ffffff;color:#111827}
+.ps-light select option:checked{background:#dbeafe;color:#0b1220}
+/* PS-GAUGE: Safe Score number and label sit inside the ring, one type system */
+.safe-card .donut-wrap{width:104px;height:104px}
+.safe-card .donut-center{gap:3px}
+.safe-card .donut-num{display:flex;align-items:baseline;line-height:1}
+.safe-card .donut-pct{font:700 26px/1 var(--font);letter-spacing:-.02em;font-variant-numeric:tabular-nums lining-nums;color:#fff}
+.safe-card .donut-unit{font:600 11px/1 var(--font);color:var(--muted);margin-left:1px}
+.safe-card .donut-delta{font:700 9.5px/1 var(--font);letter-spacing:.08em;text-transform:uppercase}
 @media (prefers-reduced-motion: reduce){button:active,[role=button]:active{transform:none}}
 /* Home: with roomier cards the page scrolls on short screens instead of clipping cards */
 #page-home>*{flex-shrink:0}
