@@ -41,6 +41,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v2.16 | 2026-11-19 | Slate and Indigo Home: every number and widget is a live reference (hover shows meaning, value and source; click opens the cited page and highlights the card; banner and next best actions linked; Back to Home); Settings › Arrange and resize widgets (drag, resize, keyboard, Reset layout); translucent glowing ProSense heart logo with beating heart and running ECG; Indigo KPI tiles match the cards; Dark and Light globe tiles aligned; 7 Pillars and Team Pulse no longer clipped on short and phone screens |
 | v2.17 | 2026-11-19 | Live radar-heart logo on Slate and Indigo: a heart inside a radar whose sweep turns, signals light up as it passes, the heart beats and the ECG line runs; motion stops with reduce-motion; sidebar and sign-in |
 | v2.18 | 2026-11-19 | Settings › Versions & roll back grouped into two drop-downs, Version 2 (v2.0 onward, open) and Version 1 (v1.5 to v1.17, closed); linked presentation rebuilt (22 slides) with the title slide showing dashboard v2.18 and the four themes listed |
+| v2.19 | 2026-11-19 | Radar-heart logo on all four appearances (Dark, Light, Slate, Indigo); Indigo-only motion and icons on every page: widgets animate in, bars fill, Safe Score ring draws, numbers count up, business emojis on every card title and metric, Team Pulse donut and Key Insights panel on Home, replays on every page open; linked presentation rebuilt (22 slides) for v2.19 |
 
 ## Rolling back
 
