@@ -42,6 +42,7 @@ Every change to the public dashboard is a git commit, and each release has a tag
 | v2.17 | 2026-11-19 | Live radar-heart logo on Slate and Indigo: a heart inside a radar whose sweep turns, signals light up as it passes, the heart beats and the ECG line runs; motion stops with reduce-motion; sidebar and sign-in |
 | v2.18 | 2026-11-19 | Settings › Versions & roll back grouped into two drop-downs, Version 2 (v2.0 onward, open) and Version 1 (v1.5 to v1.17, closed); linked presentation rebuilt (22 slides) with the title slide showing dashboard v2.18 and the four themes listed |
 | v2.19 | 2026-11-19 | Radar-heart logo on all four appearances (Dark, Light, Slate, Indigo); Indigo-only motion and icons on every page: widgets animate in, bars fill, Safe Score ring draws, numbers count up, business emojis on every card title and metric, Team Pulse donut and Key Insights panel on Home, replays on every page open; linked presentation rebuilt (22 slides) for v2.19 |
+| v2.20 | 2026-11-19 | Indigo appearance only (Dark, Light and Slate unchanged): scrollbars hidden until hover with a fixed gutter (no sideways layout shift); fade on long lists; dropdowns float above cards and flip or shift at the screen edge; search box on lists with more than 8 options; 150 ms scale-and-slide, fade only under reduced motion; linked presentation rebuilt (22 slides) for v2.20 |
 
 ## Rolling back
 
