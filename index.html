@@ -542,7 +542,7 @@ body.pf-focus #pf-focus-bar{display:flex;}
     <div style="margin-top:3px">Synthetic demo data</div>
     <div style="margin-top:6px"><a href="presentation.html" target="_blank" rel="noopener" style="color:var(--cyan,#22d3ee);text-decoration:none;font-weight:600">View Presentation →</a></div>
     <div style="margin-top:4px"><a href="deck/ProSense_AI_Capstone_Deck.pptx" download rel="noopener" style="color:var(--cyan,#22d3ee);text-decoration:none;font-weight:600">Capstone Deck (PPTX) →</a></div>
-    <div style="margin-top:4px"><a href="video/player.html" target="_blank" rel="noopener" style="color:var(--cyan,#22d3ee);text-decoration:none;font-weight:600">Walkthrough Video →</a></div>
+    <div style="margin-top:4px"><a href="video/v6/player.html" target="_blank" rel="noopener" style="color:var(--cyan,#22d3ee);text-decoration:none;font-weight:600">Walkthrough Video →</a></div>
   </div>
 </nav>
 <script>
@@ -6098,7 +6098,7 @@ html.ps-slate #home-pillars>div>span:first-child{width:140px!important}
 (function(){
   'use strict';
   var KEY = 'prosense_prefs_v1';
-  var P = {theme:'dark', anon:false, sim:false, assistant:true, desig:false, arrange:false};
+  var P = {theme:'indigo', anon:false, sim:false, assistant:true, desig:false, arrange:false};
   try { var s = JSON.parse(localStorage.getItem(KEY)||'{}'); Object.keys(P).forEach(function(k){ if (k in s && typeof s[k]===typeof P[k]) P[k]=s[k]; }); } catch(e){}
   function save(){ try { localStorage.setItem(KEY, JSON.stringify(P)); } catch(e){} }
   function $(id){ return document.getElementById(id); }
@@ -6163,7 +6163,7 @@ html.ps-slate #home-pillars>div>span:first-child{width:140px!important}
   document.addEventListener('keydown', function(e){ if (e.key==='Escape' && body.classList.contains('ps-set-open')) { e.stopPropagation(); e.preventDefault(); openSet(false); } }, true);
 
   /* ───────── appearance ───────── */
-  function applyTheme(){ if(['dark','light','slate','indigo'].indexOf(P.theme)<0) P.theme='dark'; root.classList.toggle('ps-light', P.theme==='light'); root.classList.toggle('ps-slate', P.theme==='slate'||P.theme==='indigo'); root.classList.toggle('ps-indigo', P.theme==='indigo'); }
+  function applyTheme(){ if(['dark','light','slate','indigo'].indexOf(P.theme)<0) P.theme='indigo'; root.classList.toggle('ps-light', P.theme==='light'); root.classList.toggle('ps-slate', P.theme==='slate'||P.theme==='indigo'); root.classList.toggle('ps-indigo', P.theme==='indigo'); }
   $('ps-s-theme').addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return; P.theme=b.getAttribute('data-t'); save(); applyTheme(); sync(); });
 
   /* ───────── full screen / focus ───────── */
@@ -6240,7 +6240,7 @@ html.ps-slate #home-pillars>div>span:first-child{width:140px!important}
     try{ testEmail(); toast('Sending a test email…'); }catch(e){ toast('Could not send the test email'); } });
   $('ps-s-cust').addEventListener('click', function(){ openSet(false); try{ openCustomize(); }catch(e){ toast('Customise is not available here'); } });
   $('ps-s-out').addEventListener('click', function(){ location.reload(); });
-  $('ps-s-def').addEventListener('click', function(){ P={theme:'dark',anon:false,sim:false,assistant:true,desig:false,arrange:false}; body.classList.remove('ps-arrange'); try{ if(window.psLayout) window.psLayout.reset(true); }catch(e){} save(); applyTheme(); body.classList.remove('ps-show-desig'); setAnon(false); showSim(false); body.classList.remove('ps-noassist'); sync(); toast('Defaults restored'); });
+  $('ps-s-def').addEventListener('click', function(){ P={theme:'indigo',anon:false,sim:false,assistant:true,desig:false,arrange:false}; body.classList.remove('ps-arrange'); try{ if(window.psLayout) window.psLayout.reset(true); }catch(e){} save(); applyTheme(); body.classList.remove('ps-show-desig'); setAnon(false); showSim(false); body.classList.remove('ps-noassist'); sync(); toast('Defaults restored'); });
 
   /* ───────── simulation (simulated 90-day pilot, synthetic data) ───────── */
   var S = {t:0, run:false, speed:1, active:false, last:0, raf:0, fired:{}, psTxt:null};
@@ -6469,7 +6469,7 @@ html.ps-slate #home-pillars>div>span:first-child{width:140px!important}
   /* ───────── public hooks (used by the assistant) ───────── */
   window.PSAdmin = {
     sim:function(a){ if(!P.sim) showSim(true); sync(); if(a==='run'){ if(!S.run) simRun(); } else if(a==='reset') simReset(); else if(a==='pause'&&S.run) simRun(); },
-    theme:function(t){ P.theme=(['light','slate','indigo'].indexOf(t)>-1)?t:'dark'; save(); applyTheme(); sync(); },
+    theme:function(t){ P.theme=(['dark','light','slate','indigo'].indexOf(t)>-1)?t:'indigo'; save(); applyTheme(); sync(); },
     anon:function(on){ P.anon=!!on; save(); setAnon(P.anon); sync(); },
     desig:function(on){ P.desig=!!on; save(); body.classList.toggle('ps-show-desig',P.desig); sync(); },
     open:function(){ openSet(true); },

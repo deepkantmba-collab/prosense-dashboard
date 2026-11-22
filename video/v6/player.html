@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProSense AI · Dashboard walkthrough</title>
+<style>
+  :root { --bg:#0a0e1a; --panel:#111827; --line:#1f2a44; --text:#e6edf7; --muted:#9fb0c8; --accent:#22d3ee; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:1100px; margin:0 auto; padding:20px 16px 40px; }
+  header { display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+  h1 { font-size:20px; margin:0; }
+  a { color:var(--accent); text-decoration:none; font-weight:600; }
+  a:hover { text-decoration:underline; }
+  video { display:block; width:100%; background:#000; border-radius:12px; border:1px solid var(--line); }
+  .bar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:14px; padding:12px 14px;
+         background:var(--panel); border:1px solid var(--line); border-radius:12px; }
+  .bar .label { color:var(--muted); font-size:14px; margin-right:2px; }
+  .speeds { display:flex; gap:6px; flex-wrap:wrap; }
+  button { font:inherit; font-size:14px; font-weight:600; color:var(--text); background:#0f172a; border:1px solid var(--line);
+           border-radius:8px; padding:7px 12px; cursor:pointer; min-width:54px; }
+  button:hover { border-color:var(--accent); }
+  button[aria-pressed="true"] { background:var(--accent); color:#04222a; border-color:var(--accent); }
+  button:focus-visible, a:focus-visible, video:focus-visible { outline:3px solid #93c5fd; outline-offset:2px; }
+  .step { min-width:40px; padding:7px 10px; }
+  .now { margin-left:auto; color:var(--muted); font-size:14px; }
+  .now b { color:var(--text); }
+  .keys { margin:12px 2px 0; color:var(--muted); font-size:13px; }
+  kbd { font:12px ui-monospace,Menlo,monospace; background:#0f172a; border:1px solid var(--line); border-bottom-width:2px;
+        border-radius:5px; padding:1px 6px; color:var(--text); }
+  .note { margin-top:18px; color:var(--muted); font-size:13px; }
+  .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>ProSense AI · Dashboard walkthrough</h1>
+    <a href="../../index.html">← Back to the dashboard</a>
+  </header>
+
+  <video id="v" controls preload="metadata" playsinline tabindex="0" aria-label="ProSense AI dashboard walkthrough video">
+    <source src="ProSense_Dashboard_Walkthrough_v6.mp4" type="video/mp4">
+    Your browser cannot play this video.
+    <a href="ProSense_Dashboard_Walkthrough_v6.mp4">Download the MP4</a>.
+  </video>
+
+  <div class="bar" role="group" aria-label="Playback speed">
+    <span class="label" id="speed-label">Speed</span>
+    <button type="button" class="step" id="slower" aria-label="Slower">−</button>
+    <div class="speeds" id="speeds" aria-labelledby="speed-label"></div>
+    <button type="button" class="step" id="faster" aria-label="Faster">+</button>
+    <span class="now">Now playing at <b id="now">1×</b></span>
+  </div>
+
+  <p class="keys">Shortcuts: <kbd>[</kbd> slower · <kbd>]</kbd> faster · <kbd>0</kbd> back to 1× ·
+     <kbd>Space</kbd> play / pause · <kbd>←</kbd> <kbd>→</kbd> skip 5 s</p>
+  <p class="note">Demo uses synthetic data only. Simulated outcomes are labelled as simulated.</p>
+  <div class="sr" id="live" role="status" aria-live="polite"></div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2];
+  var KEY = 'prosense-video-speed';
+  var v = document.getElementById('v');
+  var box = document.getElementById('speeds');
+  var now = document.getElementById('now');
+  var live = document.getElementById('live');
+  var buttons = [];
+
+  function fmt(s) { return String(s).replace(/^0\./, '0.') + '×'; }
+
+  function load() {
+    try { var s = parseFloat(localStorage.getItem(KEY)); return SPEEDS.indexOf(s) >= 0 ? s : 1; }
+    catch (e) { return 1; }
+  }
+  function save(s) { try { localStorage.setItem(KEY, String(s)); } catch (e) { /* private mode */ } }
+
+  function set(s, announce) {
+    v.playbackRate = s;
+    v.defaultPlaybackRate = s;            // keeps the speed when the source reloads
+    v.preservesPitch = true;              // voice stays natural when sped up or slowed down
+    if ('webkitPreservesPitch' in v) v.webkitPreservesPitch = true;
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(parseFloat(b.dataset.s) === s)); });
+    now.textContent = fmt(s);
+    if (announce) live.textContent = 'Speed ' + fmt(s);
+    save(s);
+  }
+  function current() { return v.playbackRate || 1; }
+  function step(dir) {
+    var i = SPEEDS.indexOf(current());
+    if (i < 0) i = SPEEDS.reduce(function (best, s, k) { return Math.abs(s - current()) < Math.abs(SPEEDS[best] - current()) ? k : best; }, 0);
+    var j = Math.min(SPEEDS.length - 1, Math.max(0, i + dir));
+    set(SPEEDS[j], true);
+  }
+
+  SPEEDS.forEach(function (s) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.dataset.s = s; b.textContent = fmt(s);
+    b.addEventListener('click', function () { set(s, true); });
+    box.appendChild(b); buttons.push(b);
+  });
+  document.getElementById('slower').addEventListener('click', function () { step(-1); });
+  document.getElementById('faster').addEventListener('click', function () { step(+1); });
+
+  // Native speed menus (e.g. Chrome's) also change the rate: keep the bar in sync with them.
+  v.addEventListener('ratechange', function () {
+    var s = current();
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(parseFloat(b.dataset.s) === s)); });
+    now.textContent = fmt(s);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var t = e.target && e.target.tagName;
+    if (t === 'INPUT' || t === 'TEXTAREA' || t === 'SELECT') return;
+    if (e.key === '[') { e.preventDefault(); step(-1); }
+    else if (e.key === ']') { e.preventDefault(); step(+1); }
+    else if (e.key === '0') { e.preventDefault(); set(1, true); }
+    else if (e.key === ' ' && t !== 'BUTTON' && t !== 'A') { e.preventDefault(); v.paused ? v.play() : v.pause(); }
+    else if (e.key === 'ArrowRight' && t !== 'VIDEO') { e.preventDefault(); v.currentTime = Math.min(v.duration || 1e9, v.currentTime + 5); }
+    else if (e.key === 'ArrowLeft' && t !== 'VIDEO') { e.preventDefault(); v.currentTime = Math.max(0, v.currentTime - 5); }
+  });
+
+  set(load(), false);
+})();
+</script>
+</body>
+</html>
